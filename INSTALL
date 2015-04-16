@@ -1,0 +1,6 @@
+To use this software, the following must be installed:
+
+ - python 2.7
+ - wxpython
+ - pdftk
+ - pdflatex

@@ -1,9 +1,9 @@
-# Proceed: A software to generate automatically conference proceedings
+% Proceed Documentation
+% Brigitte Bigi
+% June 2014
 
 
 # Introduction
-
-to be documented
 
 
 # Importing/Exporting data of a conference
@@ -116,3 +116,8 @@ This is an area to show the content of an entry. Nothing else!
 # Exporting proceedings
 
 to be documented.
+
+
+
+
+
