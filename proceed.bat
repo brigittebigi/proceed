@@ -1,3 +1,3 @@
 @echo off
-start "" .\bin\guimanager.py
+start "" .\proceed\bin\guimanager.py
 exit

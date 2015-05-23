@@ -35,7 +35,7 @@ LANG='C'
 # Manager is here:
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
-   python $curdir/bin/guimanager.py
+   python $curdir/proceed/bin/guimanager.py
 else
    arch -i386 python $curdir/bin/guimanager.py
 fi
