@@ -1,11 +1,3 @@
-% Proceed Documentation
-% Brigitte Bigi
-% June 2014
-
-
-# Introduction
-
-
 # Importing/Exporting data of a conference
 
 This step can only be performed by using the Command-Line User Interface (CLI).

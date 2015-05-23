@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.Manager.frames.generateframe</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.Manager-module.html">Package&nbsp;Manager</a> ::
+        <a href="src.Manager.frames-module.html">Package&nbsp;frames</a> ::
+        Module&nbsp;generateframe
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="src.Manager.frames.generateframe-module.html">Module src.Manager.frames.generateframe</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: UTF-8 -*-</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#         ___    __    ___    ___  ____  ____   __</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#         |  \  |  \  |   |  /     |     |     |  \   Automatic</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment">#         |__/  |__/  |   |  |     |__   |__   |   |    Conference</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment">#         |     |\_   |   |  |     |     |     |   |    Proceedings</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment">#         |     |  \  |___|  \___  |___  |___  |__/   Generator</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment">#        ==========================================================</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment">#           http://www.lpl-aix.fr/~bigi/</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># developed at:</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#       Laboratoire Parole et Langage</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#       Copyright (C) 2013-2014  Brigitte Bigi</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment">#       Use of this software is governed by the GPL, v3</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment">#       This banner notice must not be removed</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># Proceed is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># (at your option) any later version.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># Proceed is distributed in the hope that it will be useful,</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># but WITHOUT ANY WARRANTY; without even the implied warranty of</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-comment"># GNU General Public License for more details.</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-comment"># You should have received a copy of the GNU General Public License</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment"># along with Proceed. If not, see &lt;http://www.gnu.org/licenses/&gt;.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-docstring">"epytext"</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">wx</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Package src.Manager=src.Manager-module.html"><a title="src.Manager" class="py-name" href="#" onclick="return doclink('link-0', 'Manager', 'link-0');">Manager</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module src.Manager.consts=src.Manager.consts-module.html"><a title="src.Manager.consts" class="py-name" href="#" onclick="return doclink('link-1', 'consts', 'link-1');">consts</a></tt> <tt class="py-keyword">as</tt> <tt id="link-2" class="py-name"><a title="src.Manager.consts" class="py-name" href="#" onclick="return doclink('link-2', 'consts', 'link-1');">consts</a></tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name"><a title="src.Manager" class="py-name" href="#" onclick="return doclink('link-3', 'Manager', 'link-0');">Manager</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Package src.Manager.frames=src.Manager.frames-module.html"><a title="src.Manager.frames" class="py-name" href="#" onclick="return doclink('link-4', 'frames', 'link-4');">frames</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Module src.Manager.frames.export_settings=src.Manager.frames.export_settings-module.html"><a title="src.Manager.frames.export_settings" class="py-name" href="#" onclick="return doclink('link-5', 'export_settings', 'link-5');">export_settings</a></tt> <tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Class src.Manager.frames.export_settings.ExportSettings=src.Manager.frames.export_settings.ExportSettings-class.html"><a title="src.Manager.frames.export_settings.ExportSettings" class="py-name" href="#" onclick="return doclink('link-6', 'ExportSettings', 'link-6');">ExportSettings</a></tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name"><a title="src.Manager" class="py-name" href="#" onclick="return doclink('link-7', 'Manager', 'link-0');">Manager</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Package src.Manager.models=src.Manager.models-module.html"><a title="src.Manager.models" class="py-name" href="#" onclick="return doclink('link-8', 'models', 'link-8');">models</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Module src.Manager.models.prefs=src.Manager.models.prefs-module.html"><a title="src.Manager.models.prefs" class="py-name" href="#" onclick="return doclink('link-9', 'prefs', 'link-9');">prefs</a></tt>   <tt class="py-keyword">import</tt> <tt id="link-10" class="py-name" targets="Class src.Manager.models.prefs.Preferences_IO=src.Manager.models.prefs.Preferences_IO-class.html"><a title="src.Manager.models.prefs.Preferences_IO" class="py-name" href="#" onclick="return doclink('link-10', 'Preferences_IO', 'link-10');">Preferences_IO</a></tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-11" class="py-name"><a title="src.Manager" class="py-name" href="#" onclick="return doclink('link-11', 'Manager', 'link-0');">Manager</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="src.Manager.models" class="py-name" href="#" onclick="return doclink('link-12', 'models', 'link-8');">models</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Module src.Manager.models.writers=src.Manager.models.writers-module.html"><a title="src.Manager.models.writers" class="py-name" href="#" onclick="return doclink('link-13', 'writers', 'link-13');">writers</a></tt> <tt class="py-keyword">import</tt> <tt id="link-14" class="py-name" targets="Class src.Manager.models.writers.pdf_writer=src.Manager.models.writers.pdf_writer-class.html"><a title="src.Manager.models.writers.pdf_writer" class="py-name" href="#" onclick="return doclink('link-14', 'pdf_writer', 'link-14');">pdf_writer</a></tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-15" class="py-name"><a title="src.Manager" class="py-name" href="#" onclick="return doclink('link-15', 'Manager', 'link-0');">Manager</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="src.Manager.models" class="py-name" href="#" onclick="return doclink('link-16', 'models', 'link-8');">models</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="src.Manager.models.writers" class="py-name" href="#" onclick="return doclink('link-17', 'writers', 'link-13');">writers</a></tt> <tt class="py-keyword">import</tt> <tt id="link-18" class="py-name" targets="Function src.Manager.models.writers.EVT_RESULT()=src.Manager.models.writers-module.html#EVT_RESULT"><a title="src.Manager.models.writers.EVT_RESULT" class="py-name" href="#" onclick="return doclink('link-18', 'EVT_RESULT', 'link-18');">EVT_RESULT</a></tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-comment"># Class</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"> </tt>
+<a name="GenerateFrame"></a><div id="GenerateFrame-def"><a name="L60"></a><tt class="py-lineno"> 60</tt> <a class="py-toggle" href="#" id="GenerateFrame-toggle" onclick="return toggle('GenerateFrame');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.Manager.frames.generateframe.GenerateFrame-class.html">GenerateFrame</a><tt class="py-op">(</tt> <tt class="py-base-class">wx</tt><tt class="py-op">.</tt><tt class="py-base-class">Dialog</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GenerateFrame-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="GenerateFrame-expanded"><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">    @authors: Brigitte Bigi</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    @contact: brigitte.bigi@gmail.com</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">    @license: GPL</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Used to export data in a PDF document.</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"> </tt>
+<a name="GenerateFrame.__init__"></a><div id="GenerateFrame.__init__-def"><a name="L69"></a><tt class="py-lineno"> 69</tt> <a class="py-toggle" href="#" id="GenerateFrame.__init__-toggle" onclick="return toggle('GenerateFrame.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.Manager.frames.generateframe.GenerateFrame-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">parent</tt><tt class="py-op">,</tt> <tt class="py-param">id</tt><tt class="py-op">,</tt> <tt class="py-param">title</tt><tt class="py-op">,</tt> <tt class="py-param">documents</tt><tt class="py-op">,</tt> <tt class="py-param">authors</tt><tt class="py-op">,</tt> <tt class="py-param">sessions</tt><tt class="py-op">,</tt> <tt class="py-param">path</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GenerateFrame.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="GenerateFrame.__init__-expanded"><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor.</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">Dialog</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method src.DataIO.Documents.documents.author.__init__()=src.DataIO.Documents.documents.author-class.html#__init__,Method src.DataIO.Documents.documents.document.__init__()=src.DataIO.Documents.documents.document-class.html#__init__,Method src.DataIO.Documents.documents.laboratory.__init__()=src.DataIO.Documents.documents.laboratory-class.html#__init__,Method src.DataIO.Documents.style.Margins.__init__()=src.DataIO.Documents.style.Margins-class.html#__init__,Method src.DataIO.Documents.style.documentsLaTeXStyle.__init__()=src.DataIO.Documents.style.documentsLaTeXStyle-class.html#__init__,Method src.DataIO.Documents.style.documentsProp.__init__()=src.DataIO.Documents.style.documentsProp-class.html#__init__,Method src.DataIO.Read.readEasyChair.readEasyChair.__init__()=src.DataIO.Read.readEasyChair.readEasyChair-class.html#__init__,Method src.DataIO.Read.readXML.readXML.__init__()=src.DataIO.Read.readXML.readXML-class.html#__init__,Method src.DataIO.Read.reader.Reader.__init__()=src.DataIO.Read.reader.Reader-class.html#__init__,Method src.DataIO.Write.csvwriter.CSVWriter.__init__()=src.DataIO.Write.csvwriter.CSVWriter-class.html#__init__,Method src.DataIO.Write.htmlwriter.HTMLWriter.__init__()=src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__init__,Method src.DataIO.Write.indexwriter.IndexWriter.__init__()=src.DataIO.Write.indexwriter.IndexWriter-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXWriter.__init__()=src.DataIO.Write.latexwriter.LaTeXWriter-class.html#__init__,Method src.DataIO.Write.writer.Writer.__init__()=src.DataIO.Write.writer.Writer-class.html#__init__,Method src.Manager.frames.about.AboutFrame.__init__()=src.Manager.frames.about.AboutFrame-class.html#__init__,Method src.Manager.frames.checkframe.CheckFrame.__init__()=src.Manager.frames.checkframe.CheckFrame-class.html#__init__,Method src.Manager.frames.createframe.CreateAuthor.__init__()=src.Manager.frames.createframe.CreateAuthor-class.html#__init__,Method src.Manager.frames.createframe.CreateDocument.__init__()=src.Manager.frames.createframe.CreateDocument-class.html#__init__,Method src.Manager.frames.createframe.CreateSession.__init__()=src.Manager.frames.createframe.CreateSession-class.html#__init__,Method src.Manager.frames.createframe.SessionValidator.__init__()=src.Manager.frames.createframe.SessionValidator-class.html#__init__,Method src.Manager.frames.export_settings.ExportSettings.__init__()=src.Manager.frames.export_settings.ExportSettings-class.html#__init__,Method src.Manager.frames.export_settings.ThemeSettings.__init__()=src.Manager.frames.export_settings.ThemeSettings-class.html#__init__,Method src.Manager.frames.generateframe.GenerateFrame.__init__()=src.Manager.frames.generateframe.GenerateFrame-class.html#__init__,Method src.Manager.frames.modifframe.AddAuthor.__init__()=src.Manager.frames.modifframe.AddAuthor-class.html#__init__,Method src.Manager.frames.modifframe.ModifFrame.__init__()=src.Manager.frames.modifframe.ModifFrame-class.html#__init__,Method src.Manager.manager.MainFrame.__init__()=src.Manager.manager.MainFrame-class.html#__init__,Method src.Manager.models.dataauthor.Author.__init__()=src.Manager.models.dataauthor.Author-class.html#__init__,Method src.Manager.models.datadocument.Document.__init__()=src.Manager.models.datadocument.Document-class.html#__init__,Method src.Manager.models.datasession.Session.__init__()=src.Manager.models.datasession.Session-class.html#__init__,Method src.Manager.models.options.Option.__init__()=src.Manager.models.options.Option-class.html#__init__,Method src.Manager.models.prefs.Preferences.__init__()=src.Manager.models.prefs.Preferences-class.html#__init__,Method src.Manager.models.prefs.Preferences_IO.__init__()=src.Manager.models.prefs.Preferences_IO-class.html#__init__,Method src.Manager.models.readers.authors_csv_reader.__init__()=src.Manager.models.readers.authors_csv_reader-class.html#__init__,Method src.Manager.models.readers.documents_csv_reader.__init__()=src.Manager.models.readers.documents_csv_reader-class.html#__init__,Method src.Manager.models.readers.sessions_csv_reader.__init__()=src.Manager.models.readers.sessions_csv_reader-class.html#__init__,Method src.Manager.models.themes.Theme.__init__()=src.Manager.models.themes.Theme-class.html#__init__,Method src.Manager.models.themes.ThemeAbstractTALN.__init__()=src.Manager.models.themes.ThemeAbstractTALN-class.html#__init__,Method src.Manager.models.themes.ThemeAbstractsLARP.__init__()=src.Manager.models.themes.ThemeAbstractsLARP-class.html#__init__,Method src.Manager.models.themes.ThemeDefault.__init__()=src.Manager.models.themes.ThemeDefault-class.html#__init__,Method src.Manager.models.themes.ThemeProceedingsTALN.__init__()=src.Manager.models.themes.ThemeProceedingsTALN-class.html#__init__,Method src.Manager.models.validate.Validate.__init__()=src.Manager.models.validate.Validate-class.html#__init__,Method src.Manager.models.writers.ResultEvent.__init__()=src.Manager.models.writers.ResultEvent-class.html#__init__,Method src.Manager.models.writers.pdf_writer.__init__()=src.Manager.models.writers.pdf_writer-class.html#__init__,Method src.Manager.panels.checklistpanel.CheckListPanel.__init__()=src.Manager.panels.checklistpanel.CheckListPanel-class.html#__init__,Method src.Manager.panels.datalist.NotebookPanel.__init__()=src.Manager.panels.datalist.NotebookPanel-class.html#__init__,Method src.Manager.panels.infopanel.InformationPanel.__init__()=src.Manager.panels.infopanel.InformationPanel-class.html#__init__,Method src.Manager.ui.CustomCheckBox.CustomCheckBox.__init__()=src.Manager.ui.CustomCheckBox.CustomCheckBox-class.html#__init__,Method src.TagPDF.genLaTeX.GenLaTeXFile.__init__()=src.TagPDF.genLaTeX.GenLaTeXFile-class.html#__init__,Method src.TagPDF.genPDF.GenPdfFile.__init__()=src.TagPDF.genPDF.GenPdfFile-class.html#__init__,Method src.TagPDF.name.GenName.__init__()=src.TagPDF.name.GenName-class.html#__init__,Method src.TagPDF.tagPDF.tagPdfFile.__init__()=src.TagPDF.tagPDF.tagPdfFile-class.html#__init__,Method src.utils.name.genName.__init__()=src.utils.name.genName-class.html#__init__"><a title="src.DataIO.Documents.documents.author.__init__
+src.DataIO.Documents.documents.document.__init__
+src.DataIO.Documents.documents.laboratory.__init__
+src.DataIO.Documents.style.Margins.__init__
+src.DataIO.Documents.style.documentsLaTeXStyle.__init__
+src.DataIO.Documents.style.documentsProp.__init__
+src.DataIO.Read.readEasyChair.readEasyChair.__init__
+src.DataIO.Read.readXML.readXML.__init__
+src.DataIO.Read.reader.Reader.__init__
+src.DataIO.Write.csvwriter.CSVWriter.__init__
+src.DataIO.Write.htmlwriter.HTMLWriter.__init__
+src.DataIO.Write.indexwriter.IndexWriter.__init__
+src.DataIO.Write.latexwriter.LaTeXWriter.__init__
+src.DataIO.Write.writer.Writer.__init__
+src.Manager.frames.about.AboutFrame.__init__
+src.Manager.frames.checkframe.CheckFrame.__init__
+src.Manager.frames.createframe.CreateAuthor.__init__
+src.Manager.frames.createframe.CreateDocument.__init__
+src.Manager.frames.createframe.CreateSession.__init__
+src.Manager.frames.createframe.SessionValidator.__init__
+src.Manager.frames.export_settings.ExportSettings.__init__
+src.Manager.frames.export_settings.ThemeSettings.__init__
+src.Manager.frames.generateframe.GenerateFrame.__init__
+src.Manager.frames.modifframe.AddAuthor.__init__
+src.Manager.frames.modifframe.ModifFrame.__init__
+src.Manager.manager.MainFrame.__init__
+src.Manager.models.dataauthor.Author.__init__
+src.Manager.models.datadocument.Document.__init__
+src.Manager.models.datasession.Session.__init__
+src.Manager.models.options.Option.__init__
+src.Manager.models.prefs.Preferences.__init__
+src.Manager.models.prefs.Preferences_IO.__init__
+src.Manager.models.readers.authors_csv_reader.__init__
+src.Manager.models.readers.documents_csv_reader.__init__
+src.Manager.models.readers.sessions_csv_reader.__init__
+src.Manager.models.themes.Theme.__init__
+src.Manager.models.themes.ThemeAbstractTALN.__init__
+src.Manager.models.themes.ThemeAbstractsLARP.__init__
+src.Manager.models.themes.ThemeDefault.__init__
+src.Manager.models.themes.ThemeProceedingsTALN.__init__
+src.Manager.models.validate.Validate.__init__
+src.Manager.models.writers.ResultEvent.__init__
+src.Manager.models.writers.pdf_writer.__init__
+src.Manager.panels.checklistpanel.CheckListPanel.__init__
+src.Manager.panels.datalist.NotebookPanel.__init__
+src.Manager.panels.infopanel.InformationPanel.__init__
+src.Manager.ui.CustomCheckBox.CustomCheckBox.__init__
+src.TagPDF.genLaTeX.GenLaTeXFile.__init__
+src.TagPDF.genPDF.GenPdfFile.__init__
+src.TagPDF.name.GenName.__init__
+src.TagPDF.tagPDF.tagPdfFile.__init__
+src.utils.name.genName.__init__" class="py-name" href="#" onclick="return doclink('link-19', '__init__', 'link-19');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">parent</tt><tt class="py-op">,</tt> <tt class="py-name">id</tt><tt class="py-op">,</tt> <tt class="py-name">title</tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">=</tt><tt class="py-op">(</tt><tt class="py-number">380</tt><tt class="py-op">,</tt> <tt class="py-number">200</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt id="link-20" class="py-name" targets="Module src.DataIO.Documents.style=src.DataIO.Documents.style-module.html"><a title="src.DataIO.Documents.style" class="py-name" href="#" onclick="return doclink('link-20', 'style', 'link-20');">style</a></tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">DEFAULT_DIALOG_STYLE</tt> <tt class="py-op">|</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">RESIZE_BORDER</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">         </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-name">_icon</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EmptyIcon</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">_icon</tt><tt class="py-op">.</tt><tt class="py-name">CopyFromBitmap</tt><tt class="py-op">(</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">Bitmap</tt><tt class="py-op">(</tt><tt id="link-21" class="py-name"><a title="src.Manager.consts" class="py-name" href="#" onclick="return doclink('link-21', 'consts', 'link-1');">consts</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Variable src.Manager.consts.APP_EXPORT_PDF_ICON=src.Manager.consts-module.html#APP_EXPORT_PDF_ICON"><a title="src.Manager.consts.APP_EXPORT_PDF_ICON" class="py-name" href="#" onclick="return doclink('link-22', 'APP_EXPORT_PDF_ICON', 'link-22');">APP_EXPORT_PDF_ICON</a></tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">BITMAP_TYPE_ANY</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetIcon</tt><tt class="py-op">(</tt><tt class="py-name">_icon</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">         </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetMinSize</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">380</tt><tt class="py-op">,</tt> <tt class="py-number">200</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">         </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">sizer</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_create_content</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-comment"># Members</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Module src.DataIO.Documents.documents=src.DataIO.Documents.documents-module.html"><a title="src.DataIO.Documents.documents" class="py-name" href="#" onclick="return doclink('link-23', 'documents', 'link-23');">documents</a></tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="src.DataIO.Documents.documents" class="py-name" href="#" onclick="return doclink('link-24', 'documents', 'link-23');">documents</a></tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">authors</tt>   <tt class="py-op">=</tt> <tt class="py-name">authors</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">sessions</tt>  <tt class="py-op">=</tt> <tt class="py-name">sessions</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">path</tt>      <tt class="py-op">=</tt> <tt class="py-name">path</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefsIO</tt>  <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="src.Manager.models.prefs.Preferences_IO" class="py-name" href="#" onclick="return doclink('link-25', 'Preferences_IO', 'link-10');">Preferences_IO</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-comment"># Try to get prefs from a file, or fix default values.</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefsIO</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Package src.DataIO.Read=src.DataIO.Read-module.html,Method src.Manager.models.prefs.Preferences_IO.Read()=src.Manager.models.prefs.Preferences_IO-class.html#Read"><a title="src.DataIO.Read
+src.Manager.models.prefs.Preferences_IO.Read" class="py-name" href="#" onclick="return doclink('link-26', 'Read', 'link-26');">Read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_reset_prefs</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-comment"># And indicate we don't have a worker thread yet</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pdfwriter</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-comment"># Set up event handler for any worker thread results</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt id="link-27" class="py-name"><a title="src.Manager.models.writers.EVT_RESULT" class="py-name" href="#" onclick="return doclink('link-27', 'EVT_RESULT', 'link-18');">EVT_RESULT</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method src.Manager.frames.generateframe.GenerateFrame.OnResult()=src.Manager.frames.generateframe.GenerateFrame-class.html#OnResult"><a title="src.Manager.frames.generateframe.GenerateFrame.OnResult" class="py-name" href="#" onclick="return doclink('link-28', 'OnResult', 'link-28');">OnResult</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetSizer</tt><tt class="py-op">(</tt><tt class="py-name">sizer</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Centre</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-comment"># End __init__</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"> </tt>
+<a name="GenerateFrame._reset_prefs"></a><div id="GenerateFrame._reset_prefs-def"><a name="L107"></a><tt class="py-lineno">107</tt> <a class="py-toggle" href="#" id="GenerateFrame._reset_prefs-toggle" onclick="return toggle('GenerateFrame._reset_prefs');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.Manager.frames.generateframe.GenerateFrame-class.html#_reset_prefs">_reset_prefs</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GenerateFrame._reset_prefs-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="GenerateFrame._reset_prefs-expanded"><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-comment"># No specific settings for now (exept options in themes).</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-comment">#-------------------------------------------------------------------------</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
+<a name="GenerateFrame._create_content"></a><div id="GenerateFrame._create_content-def"><a name="L114"></a><tt class="py-lineno">114</tt> <a class="py-toggle" href="#" id="GenerateFrame._create_content-toggle" onclick="return toggle('GenerateFrame._create_content');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.Manager.frames.generateframe.GenerateFrame-class.html#_create_content">_create_content</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">panel</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GenerateFrame._create_content-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="GenerateFrame._create_content-expanded"><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">BoxSizer</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">VERTICAL</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-name">hbox1</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">BoxSizer</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">HORIZONTAL</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">hbox2</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">BoxSizer</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">HORIZONTAL</tt><tt class="py-op">)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-name">hbox3</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">BoxSizer</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">HORIZONTAL</tt><tt class="py-op">)</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">gauge</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">Gauge</tt><tt class="py-op">(</tt><tt class="py-name">panel</tt><tt class="py-op">,</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-number">6</tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">=</tt><tt class="py-op">(</tt><tt class="py-number">360</tt><tt class="py-op">,</tt> <tt class="py-number">30</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">StaticText</tt><tt class="py-op">(</tt><tt class="py-name">panel</tt><tt class="py-op">,</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'Fix settings then click on the start button.'</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn0</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">Button</tt><tt class="py-op">(</tt><tt class="py-name">panel</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ID_PREFERENCES</tt><tt class="py-op">,</tt> <tt class="py-string">'Settings'</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn1</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">Button</tt><tt class="py-op">(</tt><tt class="py-name">panel</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ID_APPLY</tt><tt class="py-op">,</tt> <tt class="py-string">'Start'</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn2</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">Button</tt><tt class="py-op">(</tt><tt class="py-name">panel</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ID_STOP</tt><tt class="py-op">,</tt> <tt class="py-string">'Stop'</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Bind</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EVT_BUTTON</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Method src.Manager.frames.generateframe.GenerateFrame.OnPrefs()=src.Manager.frames.generateframe.GenerateFrame-class.html#OnPrefs"><a title="src.Manager.frames.generateframe.GenerateFrame.OnPrefs" class="py-name" href="#" onclick="return doclink('link-29', 'OnPrefs', 'link-29');">OnPrefs</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn0</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Bind</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EVT_BUTTON</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method src.Manager.frames.generateframe.GenerateFrame.OnOk()=src.Manager.frames.generateframe.GenerateFrame-class.html#OnOk"><a title="src.Manager.frames.generateframe.GenerateFrame.OnOk" class="py-name" href="#" onclick="return doclink('link-30', 'OnOk', 'link-30');">OnOk</a></tt><tt class="py-op">,</tt>    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn1</tt><tt class="py-op">)</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Bind</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EVT_BUTTON</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method src.Manager.frames.generateframe.GenerateFrame.OnStop()=src.Manager.frames.generateframe.GenerateFrame-class.html#OnStop"><a title="src.Manager.frames.generateframe.GenerateFrame.OnStop" class="py-name" href="#" onclick="return doclink('link-31', 'OnStop', 'link-31');">OnStop</a></tt><tt class="py-op">,</tt>  <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn2</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-name">hbox1</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">gauge</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_CENTRE</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">hbox2</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn0</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">RIGHT</tt><tt class="py-op">,</tt>  <tt class="py-number">5</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-name">hbox2</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn1</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">LEFT</tt><tt class="py-op">,</tt> <tt class="py-number">5</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-name">hbox2</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn2</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">LEFT</tt><tt class="py-op">,</tt> <tt class="py-number">5</tt><tt class="py-op">)</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-name">hbox3</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">10</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">hbox2</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_CENTRE</tt><tt class="py-op">)</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">10</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">hbox3</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_CENTRE</tt><tt class="py-op">)</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">hbox1</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_CENTRE</tt><tt class="py-op">)</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-name">btnSizer</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">CreateButtonSizer</tt><tt class="py-op">(</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">OK</tt> <tt class="py-op">)</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">btnSizer</tt><tt class="py-op">,</tt> <tt class="py-name">flag</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EXPAND</tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALL</tt><tt class="py-op">,</tt> <tt class="py-name">border</tt><tt class="py-op">=</tt><tt class="py-number">20</tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">         </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">vbox</tt> </tt>
+</div><a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">    <tt class="py-comment"># End _gaugePanel</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">    <tt class="py-comment"># -----------------------------------------------------------------------</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">    <tt class="py-comment"># -----------------------------------------------------------------------</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">    <tt class="py-comment"># Callbacks</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">    <tt class="py-comment"># -----------------------------------------------------------------------</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="GenerateFrame.OnPrefs"></a><div id="GenerateFrame.OnPrefs-def"><a name="L157"></a><tt class="py-lineno">157</tt> <a class="py-toggle" href="#" id="GenerateFrame.OnPrefs-toggle" onclick="return toggle('GenerateFrame.OnPrefs');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.Manager.frames.generateframe.GenerateFrame-class.html#OnPrefs">OnPrefs</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GenerateFrame.OnPrefs-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="GenerateFrame.OnPrefs-expanded"><a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-docstring">""" Open the settings frame. """</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-name">dlg</tt> <tt class="py-op">=</tt> <tt id="link-32" class="py-name"><a title="src.Manager.frames.export_settings.ExportSettings" class="py-name" href="#" onclick="return doclink('link-32', 'ExportSettings', 'link-6');">ExportSettings</a></tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-string">"Fix settings..."</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefsIO</tt> <tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-name">dlg</tt><tt class="py-op">.</tt><tt class="py-name">ShowModal</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefsIO</tt> <tt class="py-op">=</tt> <tt class="py-name">dlg</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method src.Manager.frames.export_settings.ExportSettings.GetPreferences()=src.Manager.frames.export_settings.ExportSettings-class.html#GetPreferences"><a title="src.Manager.frames.export_settings.ExportSettings.GetPreferences" class="py-name" href="#" onclick="return doclink('link-33', 'GetPreferences', 'link-33');">GetPreferences</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">    <tt class="py-comment"># End OnPrefs</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">    <tt class="py-comment"># -----------------------------------------------------------------------</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"> </tt>
+<a name="GenerateFrame.OnOk"></a><div id="GenerateFrame.OnOk-def"><a name="L168"></a><tt class="py-lineno">168</tt> <a class="py-toggle" href="#" id="GenerateFrame.OnOk-toggle" onclick="return toggle('GenerateFrame.OnOk');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.Manager.frames.generateframe.GenerateFrame-class.html#OnOk">OnOk</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GenerateFrame.OnOk-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="GenerateFrame.OnOk-expanded"><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-docstring">""" Start Computation. """</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pdfwriter</tt><tt class="py-op">:</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method src.Manager.ui.CustomCheckBox.CustomCheckBox.SetLabel()=src.Manager.ui.CustomCheckBox.CustomCheckBox-class.html#SetLabel"><a title="src.Manager.ui.CustomCheckBox.CustomCheckBox.SetLabel" class="py-name" href="#" onclick="return doclink('link-34', 'SetLabel', 'link-34');">SetLabel</a></tt><tt class="py-op">(</tt><tt class="py-string">'Task in Progress.'</tt><tt class="py-op">)</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">gauge</tt><tt class="py-op">.</tt><tt class="py-name">SetRange</tt><tt class="py-op">(</tt> <tt class="py-number">6</tt> <tt class="py-op">)</tt> <tt class="py-comment"># number of files to generate!</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">gauge</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name" targets="Method src.Manager.models.prefs.Preferences.SetValue()=src.Manager.models.prefs.Preferences-class.html#SetValue,Method src.Manager.ui.CustomCheckBox.CustomCheckBox.SetValue()=src.Manager.ui.CustomCheckBox.CustomCheckBox-class.html#SetValue"><a title="src.Manager.models.prefs.Preferences.SetValue
+src.Manager.ui.CustomCheckBox.CustomCheckBox.SetValue" class="py-name" href="#" onclick="return doclink('link-35', 'SetValue', 'link-35');">SetValue</a></tt><tt class="py-op">(</tt> <tt class="py-number">0</tt> <tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">             </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pdfwriter</tt> <tt class="py-op">=</tt> <tt id="link-36" class="py-name"><a title="src.Manager.models.writers.pdf_writer" class="py-name" href="#" onclick="return doclink('link-36', 'pdf_writer', 'link-14');">pdf_writer</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefsIO</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="src.DataIO.Documents.documents" class="py-name" href="#" onclick="return doclink('link-37', 'documents', 'link-23');">documents</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">authors</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">sessions</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pdfwriter</tt><tt class="py-op">.</tt><tt class="py-name">start</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">    <tt class="py-comment"># End OnOk</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">    <tt class="py-comment"># -----------------------------------------------------------------------</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"> </tt>
+<a name="GenerateFrame.OnStop"></a><div id="GenerateFrame.OnStop-def"><a name="L183"></a><tt class="py-lineno">183</tt> <a class="py-toggle" href="#" id="GenerateFrame.OnStop-toggle" onclick="return toggle('GenerateFrame.OnStop');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.Manager.frames.generateframe.GenerateFrame-class.html#OnStop">OnStop</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GenerateFrame.OnStop-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="GenerateFrame.OnStop-expanded"><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-docstring">""" Stop Computation. """</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-comment"># Flag the worker thread to stop if running</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pdfwriter</tt><tt class="py-op">:</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="src.Manager.ui.CustomCheckBox.CustomCheckBox.SetLabel" class="py-name" href="#" onclick="return doclink('link-38', 'SetLabel', 'link-34');">SetLabel</a></tt><tt class="py-op">(</tt><tt class="py-string">'Trying to abort computation...'</tt><tt class="py-op">)</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pdfwriter</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name" targets="Method src.Manager.models.writers.pdf_writer.abort()=src.Manager.models.writers.pdf_writer-class.html#abort"><a title="src.Manager.models.writers.pdf_writer.abort" class="py-name" href="#" onclick="return doclink('link-39', 'abort', 'link-39');">abort</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">    <tt class="py-comment"># End OnStop</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">    <tt class="py-comment"># -----------------------------------------------------------------------</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">   </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">   </tt>
+<a name="GenerateFrame.OnResult"></a><div id="GenerateFrame.OnResult-def"><a name="L195"></a><tt class="py-lineno">195</tt> <a class="py-toggle" href="#" id="GenerateFrame.OnResult-toggle" onclick="return toggle('GenerateFrame.OnResult');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.Manager.frames.generateframe.GenerateFrame-class.html#OnResult">OnResult</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GenerateFrame.OnResult-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="GenerateFrame.OnResult-expanded"><a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-docstring">""" Show current status. """</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">event</tt><tt class="py-op">.</tt><tt class="py-name">tasktext</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">            <tt class="py-comment"># Thread aborted (using our convention of None return)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="src.Manager.ui.CustomCheckBox.CustomCheckBox.SetLabel" class="py-name" href="#" onclick="return doclink('link-40', 'SetLabel', 'link-34');">SetLabel</a></tt><tt class="py-op">(</tt><tt class="py-string">'Computation aborted.'</tt><tt class="py-op">)</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt class="py-name">event</tt><tt class="py-op">.</tt><tt class="py-name">tasknum</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">            <tt class="py-comment"># Process results here</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="src.Manager.ui.CustomCheckBox.CustomCheckBox.SetLabel" class="py-name" href="#" onclick="return doclink('link-41', 'SetLabel', 'link-34');">SetLabel</a></tt><tt class="py-op">(</tt> <tt class="py-name">event</tt><tt class="py-op">.</tt><tt class="py-name">tasktext</tt> <tt class="py-op">)</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn0</tt><tt class="py-op">.</tt><tt class="py-name">Disable</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn1</tt><tt class="py-op">.</tt><tt class="py-name">Disable</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn2</tt><tt class="py-op">.</tt><tt class="py-name">Disable</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pdfwriter</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">gauge</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="src.Manager.models.prefs.Preferences.SetValue
+src.Manager.ui.CustomCheckBox.CustomCheckBox.SetValue" class="py-name" href="#" onclick="return doclink('link-42', 'SetValue', 'link-35');">SetValue</a></tt><tt class="py-op">(</tt> <tt class="py-name">event</tt><tt class="py-op">.</tt><tt class="py-name">tasknum</tt> <tt class="py-op">)</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="src.Manager.ui.CustomCheckBox.CustomCheckBox.SetLabel" class="py-name" href="#" onclick="return doclink('link-43', 'SetLabel', 'link-34');">SetLabel</a></tt><tt class="py-op">(</tt> <tt class="py-name">event</tt><tt class="py-op">.</tt><tt class="py-name">tasktext</tt> <tt class="py-op">)</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Layout</tt><tt class="py-op">(</tt><tt class="py-op">)</tt>    </tt>
+</div></div><a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">    <tt class="py-comment"># End OnResult</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">    <tt class="py-comment"># -----------------------------------------------------------------------</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat May 23 08:26:57 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

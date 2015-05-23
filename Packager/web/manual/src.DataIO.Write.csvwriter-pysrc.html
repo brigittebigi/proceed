@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.DataIO.Write.csvwriter</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.DataIO-module.html">Package&nbsp;DataIO</a> ::
+        <a href="src.DataIO.Write-module.html">Package&nbsp;Write</a> ::
+        Module&nbsp;csvwriter
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="src.DataIO.Write.csvwriter-module.html">Module src.DataIO.Write.csvwriter</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#         ___    __    ___    ___  ____  ____   __</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#         |  \  |  \  |   |  /     |     |     |  \   Automatic</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#         |__/  |__/  |   |  |     |__   |__   |   |    Conference</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#         |     |\_   |   |  |     |     |     |   |    Proceedings</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment">#         |     |  \  |___|  \___  |___  |___  |__/   Generator</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment">#        ==========================================================</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment">#           http://www.lpl-aix.fr/~bigi/</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># developed at:</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#       Laboratoire Parole et Langage</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#       Copyright (C) 2013-2014  Brigitte Bigi</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#       Use of this software is governed by the GPL, v3</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment">#       This banner notice must not be removed</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># (at your option) any later version.</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is distributed in the hope that it will be useful,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># but WITHOUT ANY WARRANTY; without even the implied warranty of</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># GNU General Public License for more details.</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-comment"># You should have received a copy of the GNU General Public License</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-comment"># along with SPPAS. If not, see &lt;http://www.gnu.org/licenses/&gt;.</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">csv</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-comment"># Class</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="CSVWriter"></a><div id="CSVWriter-def"><a name="L49"></a><tt class="py-lineno"> 49</tt> <a class="py-toggle" href="#" id="CSVWriter-toggle" onclick="return toggle('CSVWriter');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.DataIO.Write.csvwriter.CSVWriter-class.html">CSVWriter</a><tt class="py-op">:</tt> </tt>
+</div><div id="CSVWriter-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="CSVWriter-expanded"><a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">    @authors: Brigitte Bigi</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">    @contact: brigitte.bigi@gmail.com</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">    @license: GPL</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Write documents into 3 CSV files: Authors, Documents, Sessions.</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="CSVWriter.__init__"></a><div id="CSVWriter.__init__-def"><a name="L58"></a><tt class="py-lineno"> 58</tt> <a class="py-toggle" href="#" id="CSVWriter.__init__-toggle" onclick="return toggle('CSVWriter.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.csvwriter.CSVWriter-class.html#__init__">__init__</a><tt class="py-op">(</tt> <tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">status</tt><tt class="py-op">=</tt><tt class="py-number">1</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CSVWriter.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="CSVWriter.__init__-expanded"><a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_status</tt> <tt class="py-op">=</tt> <tt class="py-name">status</tt> </tt>
+</div><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="CSVWriter.write"></a><div id="CSVWriter.write-def"><a name="L61"></a><tt class="py-lineno"> 61</tt> <a class="py-toggle" href="#" id="CSVWriter.write-toggle" onclick="return toggle('CSVWriter.write');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.csvwriter.CSVWriter-class.html#write">write</a><tt class="py-op">(</tt> <tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">docs</tt><tt class="py-op">,</tt> <tt class="py-param">pathname</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CSVWriter.write-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="CSVWriter.write-expanded"><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Function src.utils.fileutils.exists()=src.utils.fileutils-module.html#exists"><a title="src.utils.fileutils.exists" class="py-name" href="#" onclick="return doclink('link-0', 'exists', 'link-0');">exists</a></tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Documents.csv"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">is</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">remove</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Documents.csv"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="src.utils.fileutils.exists" class="py-name" href="#" onclick="return doclink('link-1', 'exists', 'link-0');">exists</a></tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Sessions.csv"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">is</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">remove</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Sessions.csv"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name"><a title="src.utils.fileutils.exists" class="py-name" href="#" onclick="return doclink('link-2', 'exists', 'link-0');">exists</a></tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Authors.csv"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">is</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">remove</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Authors.csv"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">            <tt class="py-name">out_documents</tt> <tt class="py-op">=</tt> <tt class="py-name">csv</tt><tt class="py-op">.</tt><tt class="py-name">DictWriter</tt><tt class="py-op">(</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Documents.csv"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">'wb'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Variable src.Manager.consts.fieldnames=src.Manager.consts-module.html#fieldnames"><a title="src.Manager.consts.fieldnames" class="py-name" href="#" onclick="return doclink('link-3', 'fieldnames', 'link-3');">fieldnames</a></tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">"DOCID"</tt><tt class="py-op">,</tt> <tt class="py-string">"TITLE"</tt><tt class="py-op">,</tt> <tt class="py-string">"LASTNAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"FIRSTNAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"SESSION_ID"</tt><tt class="py-op">,</tt> <tt class="py-string">"RANK"</tt><tt class="py-op">,</tt> <tt class="py-string">"PAGE_NUMBER"</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-name">out_documents</tt><tt class="py-op">.</tt><tt class="py-name">writerow</tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-string">"DOCID"</tt><tt class="py-op">:</tt><tt class="py-string">"DOCID"</tt><tt class="py-op">,</tt> <tt class="py-string">"TITLE"</tt><tt class="py-op">:</tt><tt class="py-string">"TITLE"</tt><tt class="py-op">,</tt> <tt class="py-string">"LASTNAME"</tt><tt class="py-op">:</tt><tt class="py-string">"LASTNAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"FIRSTNAME"</tt><tt class="py-op">:</tt><tt class="py-string">"FIRSTNAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"SESSION_ID"</tt><tt class="py-op">:</tt><tt class="py-string">"SESSION_ID"</tt><tt class="py-op">,</tt> <tt class="py-string">"RANK"</tt><tt class="py-op">:</tt><tt class="py-string">"RANK"</tt><tt class="py-op">,</tt> <tt class="py-string">"PAGE_NUMBER"</tt><tt class="py-op">:</tt><tt class="py-string">"PAGE_NUMBER"</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">            <tt class="py-name">out_sessions</tt> <tt class="py-op">=</tt> <tt class="py-name">csv</tt><tt class="py-op">.</tt><tt class="py-name">DictWriter</tt><tt class="py-op">(</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Sessions.csv"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">'wb'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name"><a title="src.Manager.consts.fieldnames" class="py-name" href="#" onclick="return doclink('link-4', 'fieldnames', 'link-3');">fieldnames</a></tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">"SESSION_ID"</tt><tt class="py-op">,</tt> <tt class="py-string">"SESSION_NAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"DATE_STR"</tt><tt class="py-op">,</tt> <tt class="py-string">"DATE"</tt><tt class="py-op">,</tt> <tt class="py-string">"H-DEB"</tt><tt class="py-op">,</tt> <tt class="py-string">"H-FIN"</tt><tt class="py-op">,</tt> <tt class="py-string">"CHAIRMAN"</tt><tt class="py-op">,</tt> <tt class="py-string">"LOCATION"</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-name">out_sessions</tt><tt class="py-op">.</tt><tt class="py-name">writerow</tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-string">"SESSION_ID"</tt><tt class="py-op">:</tt><tt class="py-string">"SESSION_ID"</tt><tt class="py-op">,</tt> <tt class="py-string">"SESSION_NAME"</tt><tt class="py-op">:</tt><tt class="py-string">"SESSION_NAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"DATE_STR"</tt><tt class="py-op">:</tt><tt class="py-string">"DATE_STR"</tt><tt class="py-op">,</tt> <tt class="py-string">"DATE"</tt><tt class="py-op">:</tt><tt class="py-string">"DATE"</tt><tt class="py-op">,</tt> <tt class="py-string">"H-DEB"</tt><tt class="py-op">:</tt><tt class="py-string">"H-DEB"</tt><tt class="py-op">,</tt> <tt class="py-string">"H-FIN"</tt><tt class="py-op">:</tt><tt class="py-string">"H-FIN"</tt><tt class="py-op">,</tt> <tt class="py-string">"CHAIRMAN"</tt><tt class="py-op">:</tt><tt class="py-string">"CHAIRMAN"</tt><tt class="py-op">,</tt> <tt class="py-string">"LOCATION"</tt><tt class="py-op">:</tt><tt class="py-string">"LOCATION"</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">            <tt class="py-name">out_authors</tt> <tt class="py-op">=</tt> <tt class="py-name">csv</tt><tt class="py-op">.</tt><tt class="py-name">DictWriter</tt><tt class="py-op">(</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt><tt class="py-string">"Authors.csv"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">'wb'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-5" class="py-name"><a title="src.Manager.consts.fieldnames" class="py-name" href="#" onclick="return doclink('link-5', 'fieldnames', 'link-3');">fieldnames</a></tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">"LASTNAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"FIRSTNAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"EMAIL"</tt><tt class="py-op">,</tt> <tt class="py-string">"AFFILIATION"</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">            <tt class="py-name">out_authors</tt><tt class="py-op">.</tt><tt class="py-name">writerow</tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-string">"LASTNAME"</tt><tt class="py-op">:</tt><tt class="py-string">"LASTNAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"FIRSTNAME"</tt><tt class="py-op">:</tt><tt class="py-string">"FIRSTNAME"</tt><tt class="py-op">,</tt> <tt class="py-string">"EMAIL"</tt><tt class="py-op">:</tt><tt class="py-string">"EMAIL"</tt><tt class="py-op">,</tt> <tt class="py-string">"AFFILIATION"</tt><tt class="py-op">:</tt><tt class="py-string">"AFFILIATION"</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">IOError</tt><tt class="py-op">,</tt><tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">e</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">doc</tt> <tt class="py-keyword">in</tt> <tt id="link-6" class="py-name" targets="Variable src.DataIO.Read.reader.Reader.docs=src.DataIO.Read.reader.Reader-class.html#docs"><a title="src.DataIO.Read.reader.Reader.docs" class="py-name" href="#" onclick="return doclink('link-6', 'docs', 'link-6');">docs</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-string">"docid="</tt><tt class="py-op">,</tt><tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_docid()=src.DataIO.Documents.documents.document-class.html#get_docid,Method src.Manager.models.datadocument.Document.get_docid()=src.Manager.models.datadocument.Document-class.html#get_docid"><a title="src.DataIO.Documents.documents.document.get_docid
+src.Manager.models.datadocument.Document.get_docid" class="py-name" href="#" onclick="return doclink('link-7', 'get_docid', 'link-7');">get_docid</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_status()=src.DataIO.Documents.documents.document-class.html#get_status"><a title="src.DataIO.Documents.documents.document.get_status" class="py-name" href="#" onclick="return doclink('link-8', 'get_status', 'link-8');">get_status</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">==</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_status</tt><tt class="py-op">:</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">" ... OK"</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">auth</tt> <tt class="py-keyword">in</tt> <tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_authors()=src.DataIO.Documents.documents.document-class.html#get_authors,Method src.Manager.models.datadocument.Document.get_authors()=src.Manager.models.datadocument.Document-class.html#get_authors"><a title="src.DataIO.Documents.documents.document.get_authors
+src.Manager.models.datadocument.Document.get_authors" class="py-name" href="#" onclick="return doclink('link-9', 'get_authors', 'link-9');">get_authors</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                    <tt class="py-name">Docid</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="src.DataIO.Documents.documents.document.get_docid
+src.Manager.models.datadocument.Document.get_docid" class="py-name" href="#" onclick="return doclink('link-10', 'get_docid', 'link-7');">get_docid</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">                    <tt class="py-name">Title</tt> <tt class="py-op">=</tt> <tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_title()=src.DataIO.Documents.documents.document-class.html#get_title,Method src.Manager.models.datadocument.Document.get_title()=src.Manager.models.datadocument.Document-class.html#get_title"><a title="src.DataIO.Documents.documents.document.get_title
+src.Manager.models.datadocument.Document.get_title" class="py-name" href="#" onclick="return doclink('link-11', 'get_title', 'link-11');">get_title</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                    <tt class="py-name">LastName</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__format</tt><tt class="py-op">(</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method src.DataIO.Documents.documents.author.get_lastname()=src.DataIO.Documents.documents.author-class.html#get_lastname,Method src.Manager.models.dataauthor.Author.get_lastname()=src.Manager.models.dataauthor.Author-class.html#get_lastname"><a title="src.DataIO.Documents.documents.author.get_lastname
+src.Manager.models.dataauthor.Author.get_lastname" class="py-name" href="#" onclick="return doclink('link-12', 'get_lastname', 'link-12');">get_lastname</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                    <tt class="py-name">FirstName</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__format</tt><tt class="py-op">(</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method src.DataIO.Documents.documents.author.get_firstname()=src.DataIO.Documents.documents.author-class.html#get_firstname,Method src.Manager.models.dataauthor.Author.get_firstname()=src.Manager.models.dataauthor.Author-class.html#get_firstname"><a title="src.DataIO.Documents.documents.author.get_firstname
+src.Manager.models.dataauthor.Author.get_firstname" class="py-name" href="#" onclick="return doclink('link-13', 'get_firstname', 'link-13');">get_firstname</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">                    <tt class="py-name">Email</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__format</tt><tt class="py-op">(</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method src.DataIO.Documents.documents.author.get_email()=src.DataIO.Documents.documents.author-class.html#get_email,Method src.Manager.models.dataauthor.Author.get_email()=src.Manager.models.dataauthor.Author-class.html#get_email,Method src.Manager.models.readers.authors_csv_reader.get_email()=src.Manager.models.readers.authors_csv_reader-class.html#get_email"><a title="src.DataIO.Documents.documents.author.get_email
+src.Manager.models.dataauthor.Author.get_email
+src.Manager.models.readers.authors_csv_reader.get_email" class="py-name" href="#" onclick="return doclink('link-14', 'get_email', 'link-14');">get_email</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                    <tt class="py-name">affiliationList</tt> <tt class="py-op">=</tt> <tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">                    <tt class="py-keyword">for</tt> <tt class="py-name">numlabo</tt> <tt class="py-keyword">in</tt> <tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method src.DataIO.Documents.documents.author.get_labos()=src.DataIO.Documents.documents.author-class.html#get_labos"><a title="src.DataIO.Documents.documents.author.get_labos" class="py-name" href="#" onclick="return doclink('link-15', 'get_labos', 'link-15');">get_labos</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">                        <tt class="py-name">labo</tt> <tt class="py-op">=</tt> <tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_laboratory()=src.DataIO.Documents.documents.document-class.html#get_laboratory"><a title="src.DataIO.Documents.documents.document.get_laboratory" class="py-name" href="#" onclick="return doclink('link-16', 'get_laboratory', 'link-16');">get_laboratory</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">numlabo</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">                        <tt class="py-name">affiliationList</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__format</tt><tt class="py-op">(</tt><tt class="py-string">', '</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">labo</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method src.DataIO.Documents.documents.laboratory.get_affiliations()=src.DataIO.Documents.documents.laboratory-class.html#get_affiliations"><a title="src.DataIO.Documents.documents.laboratory.get_affiliations" class="py-name" href="#" onclick="return doclink('link-17', 'get_affiliations', 'link-17');">get_affiliations</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">affiliationList</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                        <tt class="py-name">affiliations</tt> <tt class="py-op">=</tt> <tt class="py-string">' '</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">affiliationList</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">                    <tt class="py-name">out_documents</tt><tt class="py-op">.</tt><tt class="py-name">writerow</tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-string">"DOCID"</tt><tt class="py-op">:</tt><tt class="py-name">Docid</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"TITLE"</tt><tt class="py-op">:</tt><tt class="py-name">Title</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"LASTNAME"</tt><tt class="py-op">:</tt><tt class="py-name">LastName</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"FIRSTNAME"</tt><tt class="py-op">:</tt><tt class="py-name">FirstName</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"SESSION_ID"</tt><tt class="py-op">:</tt><tt class="py-string">""</tt><tt class="py-op">,</tt> <tt class="py-string">"RANK"</tt><tt class="py-op">:</tt><tt class="py-string">""</tt><tt class="py-op">,</tt> <tt class="py-string">"PAGE_NUMBER"</tt><tt class="py-op">:</tt><tt class="py-string">""</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">                    <tt class="py-name">out_authors</tt><tt class="py-op">.</tt><tt class="py-name">writerow</tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-string">"LASTNAME"</tt><tt class="py-op">:</tt><tt class="py-name">LastName</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"FIRSTNAME"</tt><tt class="py-op">:</tt><tt class="py-name">FirstName</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"EMAIL"</tt><tt class="py-op">:</tt><tt class="py-name">Email</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"AFFILIATION"</tt><tt class="py-op">:</tt><tt class="py-name">affiliations</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"> </tt>
+<a name="CSVWriter.__format"></a><div id="CSVWriter.__format-def"><a name="L105"></a><tt class="py-lineno">105</tt> <a class="py-toggle" href="#" id="CSVWriter.__format-toggle" onclick="return toggle('CSVWriter.__format');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.csvwriter.CSVWriter-class.html#__format">__format</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CSVWriter.__format-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="CSVWriter.__format-expanded"><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-comment"># = s.replace("_", "\_")</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-comment"># = a.replace("%", "\%")</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-comment"># = a.replace("&amp;", "\&amp;")</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-string">"\s"</tt><tt class="py-op">,</tt> <tt class="py-string">" "</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">a</tt> </tt>
+</div></div><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-comment">#-----------------------------------------------------------------------------</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat May 23 08:26:57 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.DataIO.Write.htmlwriter</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.DataIO-module.html">Package&nbsp;DataIO</a> ::
+        <a href="src.DataIO.Write-module.html">Package&nbsp;Write</a> ::
+        Module&nbsp;htmlwriter
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="src.DataIO.Write.htmlwriter-module.html">Module src.DataIO.Write.htmlwriter</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: UTF-8 -*-</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#         ___    __    ___    ___  ____  ____   __</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#         |  \  |  \  |   |  /     |     |     |  \   Automatic</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment">#         |__/  |__/  |   |  |     |__   |__   |   |    Conference</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment">#         |     |\_   |   |  |     |     |     |   |    Proceedings</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment">#         |     |  \  |___|  \___  |___  |___  |__/   Generator</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment">#        ==========================================================</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment">#           http://www.lpl-aix.fr/~bigi/</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># developed at:</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#       Laboratoire Parole et Langage</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#       Copyright (C) 2013-2014  Brigitte Bigi</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment">#       Use of this software is governed by the GPL, v3</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment">#       This banner notice must not be removed</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># (at your option) any later version.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is distributed in the hope that it will be useful,</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># but WITHOUT ANY WARRANTY; without even the implied warranty of</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-comment"># GNU General Public License for more details.</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-comment"># You should have received a copy of the GNU General Public License</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment"># along with SPPAS. If not, see &lt;http://www.gnu.org/licenses/&gt;.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">codecs</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">random</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter"></a><div id="HTMLWriter-def"><a name="L46"></a><tt class="py-lineno"> 46</tt> <a class="py-toggle" href="#" id="HTMLWriter-toggle" onclick="return toggle('HTMLWriter');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html">HTMLWriter</a><tt class="py-op">:</tt> </tt>
+</div><div id="HTMLWriter-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="HTMLWriter-expanded"><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">    @authors: Brigitte Bigi</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">    @contact: brigitte.bigi@gmail.com</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">    @license: GPL</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Write the list of documents in an HTML document.</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter.__init__"></a><div id="HTMLWriter.__init__-def"><a name="L55"></a><tt class="py-lineno"> 55</tt> <a class="py-toggle" href="#" id="HTMLWriter.__init__-toggle" onclick="return toggle('HTMLWriter.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__init__">__init__</a><tt class="py-op">(</tt> <tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">status</tt><tt class="py-op">=</tt><tt class="py-number">1</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HTMLWriter.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HTMLWriter.__init__-expanded"><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_status</tt> <tt class="py-op">=</tt> <tt class="py-name">status</tt> </tt>
+</div><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter.write_as_list"></a><div id="HTMLWriter.write_as_list-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="HTMLWriter.write_as_list-toggle" onclick="return toggle('HTMLWriter.write_as_list');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html#write_as_list">write_as_list</a><tt class="py-op">(</tt> <tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">docs</tt><tt class="py-op">,</tt> <tt class="py-param">filename</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HTMLWriter.write_as_list-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HTMLWriter.write_as_list-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">            <tt class="py-name">fp</tt> <tt class="py-op">=</tt> <tt class="py-name">codecs</tt><tt class="py-op">.</tt><tt class="py-name">open</tt> <tt class="py-op">(</tt> <tt class="py-name">filename</tt> <tt class="py-op">,</tt> <tt class="py-string">'w'</tt> <tt class="py-op">,</tt> <tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">IOError</tt><tt class="py-op">,</tt><tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">e</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__write_header</tt><tt class="py-op">(</tt><tt class="py-name">fp</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Method src.DataIO.Write.csvwriter.CSVWriter.write()=src.DataIO.Write.csvwriter.CSVWriter-class.html#write,Method src.DataIO.Write.indexwriter.IndexWriter.write()=src.DataIO.Write.indexwriter.IndexWriter-class.html#write"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-0', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'  &lt;UL&gt;\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">doc</tt> <tt class="py-keyword">in</tt> <tt id="link-1" class="py-name" targets="Variable src.DataIO.Read.reader.Reader.docs=src.DataIO.Read.reader.Reader-class.html#docs"><a title="src.DataIO.Read.reader.Reader.docs" class="py-name" href="#" onclick="return doclink('link-1', 'docs', 'link-1');">docs</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_status()=src.DataIO.Documents.documents.document-class.html#get_status"><a title="src.DataIO.Documents.documents.document.get_status" class="py-name" href="#" onclick="return doclink('link-2', 'get_status', 'link-2');">get_status</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">==</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_status</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">                <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-3', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;LI&gt;\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__write_authors</tt><tt class="py-op">(</tt><tt class="py-name">fp</tt><tt class="py-op">,</tt><tt class="py-name">doc</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__write_title</tt><tt class="py-op">(</tt><tt class="py-name">fp</tt><tt class="py-op">,</tt><tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_title()=src.DataIO.Documents.documents.document-class.html#get_title,Method src.Manager.models.datadocument.Document.get_title()=src.Manager.models.datadocument.Document-class.html#get_title"><a title="src.DataIO.Documents.documents.document.get_title
+src.Manager.models.datadocument.Document.get_title" class="py-name" href="#" onclick="return doclink('link-4', 'get_title', 'link-4');">get_title</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">                <tt class="py-name">abstract</tt> <tt class="py-op">=</tt> <tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_abstract()=src.DataIO.Documents.documents.document-class.html#get_abstract"><a title="src.DataIO.Documents.documents.document.get_abstract" class="py-name" href="#" onclick="return doclink('link-5', 'get_abstract', 'link-5');">get_abstract</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">abstract</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__write_abstract</tt><tt class="py-op">(</tt><tt class="py-name">fp</tt><tt class="py-op">,</tt><tt class="py-name">abstract</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">                <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-6', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;/LI&gt;\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-7', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'  &lt;/UL&gt;\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__write_footer</tt><tt class="py-op">(</tt><tt class="py-name">fp</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter.__write_header"></a><div id="HTMLWriter.__write_header-def"><a name="L81"></a><tt class="py-lineno"> 81</tt> <a class="py-toggle" href="#" id="HTMLWriter.__write_header-toggle" onclick="return toggle('HTMLWriter.__write_header');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__write_header">__write_header</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">fp</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HTMLWriter.__write_header-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HTMLWriter.__write_header-expanded"><a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-8', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;HTML&gt;\n\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-9', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;HEAD&gt;\n\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-10', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;meta http-equiv="content-type" content="text/html; charset=UTF-8"&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-11', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-12', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;meta content="all" name="robots"&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-13', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;script language="javascript" type="text/javascript"&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-14', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'      function showAndHide(theId) \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-15', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'      { \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-16', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        var el = document.getElementById(theId); \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-17', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        var link = document.getElementById("moreLink"); \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-18', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'       if (el.style.display=="none")  \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-19', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'       { \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-20', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'         el.style.display="block"; //show element \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-21', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'           link.innerHTML = "Hide Links..."; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-22', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'       } \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-23', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'       else \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-24', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'       { \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-25', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'         el.style.display="none"; //hide element \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-26', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'          link.innerHTML = "More..."; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-27', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'       } \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-28', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'       return false; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-29', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'     } \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-30', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;/script&gt; \n\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-31', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;style type="text/css"&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-32', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    .authors { \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-33', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        font-variant:small-caps; }\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-34', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    .title { \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-35', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        font-weight: bold; }\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-36', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    .abstractlink { \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-37', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        font-weight: bold; }\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-38', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    .abstract { \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-39', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        margin-left:   40px; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-40', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        margin-right:  20px; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-41', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        padding-left:   20px; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-42', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        padding-right:  10px; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-43', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        text-align:    justify; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-44', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        border-radius: 10px;\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-45', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        background-color: rgb(200,220,240); }\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-46', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;/style&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-47', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;/HEAD&gt;\n\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-48', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;BODY&gt;\n'</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter.__write_footer"></a><div id="HTMLWriter.__write_footer-def"><a name="L125"></a><tt class="py-lineno">125</tt> <a class="py-toggle" href="#" id="HTMLWriter.__write_footer-toggle" onclick="return toggle('HTMLWriter.__write_footer');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__write_footer">__write_footer</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">fp</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HTMLWriter.__write_footer-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HTMLWriter.__write_footer-expanded"><a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-49', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;/BODY&gt;\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-50', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;/HTML&gt;\n'</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter.__write_title"></a><div id="HTMLWriter.__write_title-def"><a name="L130"></a><tt class="py-lineno">130</tt> <a class="py-toggle" href="#" id="HTMLWriter.__write_title-toggle" onclick="return toggle('HTMLWriter.__write_title');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__write_title">__write_title</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">fp</tt><tt class="py-op">,</tt><tt class="py-param">title</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-comment"># title is a string</tt> </tt>
+</div><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-51', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;span class="title"&gt; '</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-52', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__format</tt><tt class="py-op">(</tt><tt class="py-name">title</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-53', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;/span&gt; '</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter.__write_authors"></a><div id="HTMLWriter.__write_authors-def"><a name="L136"></a><tt class="py-lineno">136</tt> <a class="py-toggle" href="#" id="HTMLWriter.__write_authors-toggle" onclick="return toggle('HTMLWriter.__write_authors');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__write_authors">__write_authors</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">fp</tt><tt class="py-op">,</tt><tt class="py-param">doc</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-comment"># authors is a list of authors instances</tt> </tt>
+</div><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-54" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-54', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;span class="authors"&gt; '</tt><tt class="py-op">)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">auth</tt> <tt class="py-keyword">in</tt> <tt class="py-name">doc</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name" targets="Method src.DataIO.Documents.documents.document.get_authors()=src.DataIO.Documents.documents.document-class.html#get_authors,Method src.Manager.models.datadocument.Document.get_authors()=src.Manager.models.datadocument.Document-class.html#get_authors"><a title="src.DataIO.Documents.documents.document.get_authors
+src.Manager.models.datadocument.Document.get_authors" class="py-name" href="#" onclick="return doclink('link-55', 'get_authors', 'link-55');">get_authors</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">            <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-56', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__format</tt><tt class="py-op">(</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name" targets="Method src.DataIO.Documents.documents.author.get_firstname()=src.DataIO.Documents.documents.author-class.html#get_firstname,Method src.Manager.models.dataauthor.Author.get_firstname()=src.Manager.models.dataauthor.Author-class.html#get_firstname"><a title="src.DataIO.Documents.documents.author.get_firstname
+src.Manager.models.dataauthor.Author.get_firstname" class="py-name" href="#" onclick="return doclink('link-57', 'get_firstname', 'link-57');">get_firstname</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">+</tt><tt class="py-string">' '</tt><tt class="py-op">+</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__format</tt><tt class="py-op">(</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name" targets="Method src.DataIO.Documents.documents.author.get_middlename()=src.DataIO.Documents.documents.author-class.html#get_middlename"><a title="src.DataIO.Documents.documents.author.get_middlename" class="py-name" href="#" onclick="return doclink('link-58', 'get_middlename', 'link-58');">get_middlename</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">+</tt><tt class="py-string">' '</tt><tt class="py-op">+</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__format</tt><tt class="py-op">(</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name" targets="Method src.DataIO.Documents.documents.author.get_lastname()=src.DataIO.Documents.documents.author-class.html#get_lastname,Method src.Manager.models.dataauthor.Author.get_lastname()=src.Manager.models.dataauthor.Author-class.html#get_lastname"><a title="src.DataIO.Documents.documents.author.get_lastname
+src.Manager.models.dataauthor.Author.get_lastname" class="py-name" href="#" onclick="return doclink('link-59', 'get_lastname', 'link-59');">get_lastname</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">+</tt><tt class="py-string">', '</tt><tt class="py-op">)</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-60', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;/span&gt; '</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter.__write_abstract"></a><div id="HTMLWriter.__write_abstract-def"><a name="L143"></a><tt class="py-lineno">143</tt> <a class="py-toggle" href="#" id="HTMLWriter.__write_abstract-toggle" onclick="return toggle('HTMLWriter.__write_abstract');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__write_abstract">__write_abstract</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">fp</tt><tt class="py-op">,</tt><tt class="py-param">abstract</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HTMLWriter.__write_abstract-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HTMLWriter.__write_abstract-expanded"><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-name">absname</tt><tt class="py-op">=</tt><tt class="py-string">''</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">random</tt><tt class="py-op">.</tt><tt class="py-name">choice</tt><tt class="py-op">(</tt><tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">ascii_uppercase</tt> <tt class="py-op">+</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">digits</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">_</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-number">6</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-61', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;a class="abstractlink" href="" onMouseOver="return showAndHide(\''</tt><tt class="py-op">+</tt><tt class="py-name">absname</tt><tt class="py-op">+</tt><tt class="py-string">'\')" onMouseOut="return showAndHide(\''</tt><tt class="py-op">+</tt><tt class="py-name">absname</tt><tt class="py-op">+</tt><tt class="py-string">'\')"&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-62', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">' &gt;&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-63', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;/a&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-64', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'&lt;div class="abstract" id="'</tt><tt class="py-op">+</tt><tt class="py-name">absname</tt><tt class="py-op">+</tt><tt class="py-string">'" style="display:none"&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-65" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-65', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'  &lt;span&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-66', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'    &lt;div id="abstract"&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-67" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-67', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt> <tt class="py-name">abstract</tt> <tt class="py-op">+</tt> <tt class="py-string">'\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-68" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-68', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        &lt;/div&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-69', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        &lt;/span&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">        <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-70" class="py-name"><a title="src.DataIO.Write.csvwriter.CSVWriter.write
+src.DataIO.Write.indexwriter.IndexWriter.write" class="py-name" href="#" onclick="return doclink('link-70', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'        &lt;/div&gt; \n'</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="HTMLWriter.__format"></a><div id="HTMLWriter.__format-def"><a name="L157"></a><tt class="py-lineno">157</tt> <a class="py-toggle" href="#" id="HTMLWriter.__format-toggle" onclick="return toggle('HTMLWriter.__format');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__format">__format</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HTMLWriter.__format-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HTMLWriter.__format-expanded"><a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-string">"_"</tt><tt class="py-op">,</tt> <tt class="py-string">"\_"</tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">a</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-string">"%"</tt><tt class="py-op">,</tt> <tt class="py-string">"\%"</tt><tt class="py-op">)</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">a</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-string">"&amp;"</tt><tt class="py-op">,</tt> <tt class="py-string">"\&amp;"</tt><tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">a</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-string">"\s"</tt><tt class="py-op">,</tt> <tt class="py-string">" "</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-comment">#a = a.replace("&#233;", "&amp;eacute;")</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-comment">#a = a.replace("&#232;", "&amp;egrave;")</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-comment">#a = a.replace("&#224;", "&amp;agrave;")</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-string">u'&#160;'</tt><tt class="py-op">,</tt> <tt class="py-string">u" "</tt><tt class="py-op">,</tt> <tt class="py-name">a</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> <tt class="py-comment"># espace insecable</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">        <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-string">u'&#12288;'</tt><tt class="py-op">,</tt> <tt class="py-string">u" "</tt><tt class="py-op">,</tt> <tt class="py-name">a</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> <tt class="py-comment"># espace insecable version 2!</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">        <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-string">u' &#173;&#173;'</tt><tt class="py-op">,</tt> <tt class="py-string">u" "</tt><tt class="py-op">,</tt> <tt class="py-name">a</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> <tt class="py-comment"># espace insecable version 3!</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">a</tt> </tt>
+</div></div><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-comment"># End HTMLWriter</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-comment">#-----------------------------------------------------------------------------</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat May 23 08:26:56 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

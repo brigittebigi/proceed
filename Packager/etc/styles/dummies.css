@@ -1,0 +1,186 @@
+/* Style to be used with markdown+pandoc with dzslides option */
+/* Brigitte Bigi */
+
+html { 
+    background-color:#1E1E1E;
+    }
+
+body {
+    color:#303030;
+    background-color:#f8f8f2;
+    border-radius: 14px;
+    }
+    
+
+/* A section is a slide. It's size is 800x600, and this will never change */
+section {
+    font-family: Arial, serif;
+    font-size: 18pt;
+    }
+
+address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, ol, pre, table, ul, dl { 
+    padding: 5px 10px 5px 10px; 
+    }
+
+p {
+    padding: 2px 10px 2px 10px; 
+}
+
+ul, ol {
+    margin: 10px 10px 10px 50px;
+  }
+
+h1, h2, h3 {
+    font-family: Comic Sans, Comic Sans MS, cursive;
+    text-align: center;
+    margin: 10pt 10pt 20pt 10pt;
+  }
+
+section.titleslide h1 { 
+    margin-top: 200px;
+    color:#b31414;
+    background-color: white;
+    border-bottom: 2px dotted black;
+    border-left: 2px dotted black;
+    border-right: 2px dotted black;
+    border-top: 2px dotted black;
+    border-color:#b31414;
+    border-radius: 12px;
+    }
+
+h1.title { 
+    margin-top: 150px;
+    color:#b31414;
+    border:none;
+}
+
+h2.author { 
+    color:#1414b3;
+    border:none;
+    }
+
+h3.date { 
+    margin-top: 100px;
+    color:black;
+    border:none;
+    }
+
+h1 { 
+    font-size: 160%;
+    color:#1414b3;
+    border-bottom: 2px dotted black;
+    border-left: 2px dotted black;
+    border-right: 2px dotted black;
+    border-top: 2px dotted black;
+    border-color:#1414b3;
+    border-radius: 12px;
+    }
+
+h2 { 
+    font-size: 140%; 
+    color:#1414b3;
+    border-bottom: 2px dotted black;
+    border-left: 2px dotted black;
+    border-right: 2px dotted black;
+    border-top: 2px dotted black;
+    border-color:#1414b3;
+    border-radius: 12px;
+    }
+
+h3 { 
+    font-size: 120%; 
+    color:#2c9145;
+    border-bottom: 2px dotted black;
+    border-left: 2px dotted black;
+    border-right: 2px dotted black;
+    border-top: 2px dotted black;
+    border-color:#2c9145;
+    border-radius: 12px;
+    }
+
+q { quotes: "“" "”" "‘" "’"; }
+
+
+blockquote {
+    font-size: 80%;
+	background-color: #FFFFFF;
+	margin-left:   1em;
+	margin-top:    1em;
+	margin-bottom: 1em;
+	margin-right:  1em;
+    
+    min-height:	24px;
+
+	clear: 		none;
+	text-align:	justify;
+	vertical-align: middle;
+
+	padding-top:    10px;
+	padding-right:  15px;
+	padding-bottom: 10px;
+	padding-left:   15px;
+
+	border-collapse: collapse;
+    border-left:   20px solid #D2D2F2;
+    border-top:    0px solid  #C8C9B9;
+    border-right:  1px solid  #D2D2F2;
+    border-bottom: 2px solid  #D2D2F2;
+
+}
+
+/* Figures are displayed full-page, with the caption on top of the image. */
+
+img {
+    image-rendering: optimize-quality;
+    background-color: transparent;
+    border-width: 0; 
+    border-style: none;
+  }
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 40px;
+    text-align: right;
+    background-color: #F3F4F8;
+    border-top: 1px solid #CCC;
+  }
+
+
+/* Transition effect */
+/* Feel free to change the transition effect for original
+ animations. See here:
+ https://developer.mozilla.org/en/CSS/CSS_transitions
+ How to use CSS3 Transitions: */
+section {
+  -moz-transition: left 400ms linear 0s;
+  -webkit-transition: left 400ms linear 0s;
+  -ms-transition: left 400ms linear 0s;
+  transition: left 400ms linear 0s;
+}
+
+/* Before */
+section { left: -150%; }
+
+/* Now */
+section[aria-selected] { left: 0; }
+
+/* After */
+section[aria-selected] ~ section { left: +150%; }
+
+code{white-space: pre;}
+
+
+/* Incremental elements */
+
+/* By default, visible */
+.incremental > * { opacity: 1; }
+
+/* The current item */
+.incremental > *[aria-selected] { color: red; opacity: 1; }
+
+/* The items to-be-selected */
+.incremental > *[aria-selected] ~ * { opacity: 0.2; }
+  

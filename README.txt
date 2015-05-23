@@ -1,0 +1,13 @@
+------------------------------------------------------------------------------
+
+author:     Brigitte Bigi
+contact:    brigite.bigi@gmail.com
+program:    Proceed - Automatic Proceedings Generator
+date:       2015-05-23
+version:    0.3
+copyright:  Copyright (C) 2011-2015  Brigitte Bigi
+url:        http://to-be-available-soon.fr
+license:    GNU Public License
+brief:      Proceed generates automatically book of abstracts or proceedings.
+
+------------------------------------------------------------------------------

@@ -1,0 +1,6 @@
+    <footer>
+        <p style="text-align:right">
+        Brigitte Bigi &copy; 2011-2015
+        </p>
+    </footer>
+
