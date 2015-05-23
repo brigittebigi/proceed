@@ -47,8 +47,8 @@ import wx
 import os.path
 import wx.lib.scrolledpanel as scrolled
 
-from Manager.models.prefs import Option
-from Manager.models.themes import THEMES
+from wxgui.models.prefs import Option
+from wxgui.models.themes import THEMES
 
 
 # ---------------------------------------------------------------------------
@@ -76,7 +76,7 @@ class ExportSettings( wx.Dialog ):
 
         # Members
         self._prefsIO = prefs
-        
+
         # Frame construction
         sizer = wx.BoxSizer( wx.VERTICAL )
         self._create_notebook( sizer )
@@ -160,7 +160,7 @@ class ExportSettings( wx.Dialog ):
 
 class ThemeSettings( scrolled.ScrolledPanel ):
     """
-    Merge PDF. 
+    Merge PDF.
     """
 
     def __init__(self, parent, prefsIO):

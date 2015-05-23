@@ -55,11 +55,11 @@ from TagPDF.genLaTeX     import GenLaTeXFile
 from TagPDF.name         import GenName
 import TagPDF.utils as utils
 
-from Manager.models.datadocument import Document
-from Manager.models.dataauthor   import Author
-from Manager.models.datasession  import Session
-from Manager.models.validate     import Validate
-import Manager.consts as consts
+from wxgui.models.datadocument import Document
+from wxgui.models.dataauthor   import Author
+from wxgui.models.datasession  import Session
+from wxgui.models.validate     import Validate
+import wxgui.consts as consts
 
 
 # ---------------------------------------------------------------------------
@@ -72,7 +72,7 @@ EVT_RESULT_ID = wx.NewId()
 def EVT_RESULT(win, func):
     """ Define Result Event. """
     win.Connect(-1, -1, EVT_RESULT_ID, func)
-  
+
 
 class ResultEvent(wx.PyEvent):
     """ Simple event to carry result data. """
@@ -122,8 +122,8 @@ class pdf_writer( Thread ):
 
     # End __init__
     # ------------------------------------------------------------------------
-    
-        
+
+
     def _initialize(self):
         # Members for task progress
         self.tasktext    = ''
@@ -134,7 +134,7 @@ class pdf_writer( Thread ):
         self.nbpages = 1           # First page number
         self.sortedsessions = list()
         self.sorteddocs     = list()
-        
+
     # End _initialize
     # ------------------------------------------------------------------------
 
@@ -147,7 +147,7 @@ class pdf_writer( Thread ):
     def abort(self):
         """ Abort worker thread. """
         # Method for use by main thread to signal an abort
-        
+
         self._want_abort = 1
 
     # End abort
@@ -159,7 +159,7 @@ class pdf_writer( Thread ):
         # Method for use by main thread to make the job.
 
         logging.info('Generate: Start.')
-        
+
         self._initialize()
         if self.check() is False:
             wx.PostEvent(self._notify_window, ResultEvent(text='Data are not completed. Please check them before exporting.', num=-1))
@@ -236,10 +236,10 @@ class pdf_writer( Thread ):
 
         self.tasktext = 'Add header/footer to PDF files.'
         self.tasknum  = 0
-        
-        count = 0  
+
+        count = 0
         while count < len(self.sorteddocs):
-            
+
             docid = self.sorteddocs[count]
             self.tasktext = 'Add header/footer to docid '+docid
             wx.PostEvent(self._notify_window, ResultEvent(text=self.tasktext, num=self.tasknum))
@@ -283,7 +283,7 @@ class pdf_writer( Thread ):
     def run_merge_pdf(self):
         """
         Merge submission files with: pdftk src1.pdf src2.pdf output res.pdf.
-        
+
         Try to get tagged PDF files. If no tag file is existing, use the
         original PDF file.
 
@@ -317,7 +317,7 @@ class pdf_writer( Thread ):
         except Exception,e:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Can not merge files. No merged output. %s' % e, num=-1))
-            return 
+            return
 
     # End run_merge_pdf
     # -----------------------------------------------------------------------
@@ -348,14 +348,14 @@ class pdf_writer( Thread ):
                 doc = self.documents[self.sorteddocs[i]]
                 if doc.get_session() == session:
                     thissessiondoc.append( doc )
-    
+
             # Add documents
             if len(thissessiondoc):
 
                 latex += "  &  \\\\ \n"
                 latex += "\\color{color3}{{\\bf " + session.get_session_name() + "}} &  \\\\ \n"
                 latex += "  &  \\\\ \n"
-                
+
                 for doc in thissessiondoc:
                     if doc.get_session() != session:
                         continue
@@ -379,13 +379,13 @@ class pdf_writer( Thread ):
         latex +=  "\\end{longtable}\n"
         latex = latex.replace('_', '\_')
         try:
-            # No header nor footer in the TOC 
+            # No header nor footer in the TOC
             self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "TableOfContent.pdf"), inc=False)
         except Exception,e:
             self._initialize()
             logging.info('... Error. Can not create the TOC: %s'%str(e))
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the table of contents.', num=-1))
-            return        
+            return
 
     # End run_toc
     # -----------------------------------------------------------------------
@@ -432,7 +432,7 @@ class pdf_writer( Thread ):
         except Exception,e:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the index of authors.', num=-1))
-            return        
+            return
 
     # End run_index_authors
     # -----------------------------------------------------------------------
@@ -442,7 +442,7 @@ class pdf_writer( Thread ):
         """
         Create the list of authors
         """
-        
+
         self.tasktext = 'Create the list of authors.'
         self.tasknum += 1
         wx.PostEvent(self._notify_window, ResultEvent(text=self.tasktext, num=self.tasknum))
@@ -470,7 +470,7 @@ class pdf_writer( Thread ):
         except Exception,e:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the list of authors.', num=-1))
-            return        
+            return
 
     # End run_list_authors
     # -----------------------------------------------------------------------
@@ -498,7 +498,7 @@ class pdf_writer( Thread ):
             latex += "\\begin{longtable}{p{35mm}p{125mm}}\n"
 
             for session in self.sortedsessions:
-    
+
                 if session.get_date() == datesession:
                     #latex += "\\hline \n"
                     latex += " & \\\\ \n"
@@ -507,7 +507,7 @@ class pdf_writer( Thread ):
                     # Add the Session Name
                     latex += "\\color{color3}{{\\bf " + session.get_session_name() +"}} \\\\ \n"
                     latex += " & \\\\ \n"
-    
+
                     # Add the list of documents
                     #if "PS" in session.get_session_name(): ######AMLAP: do not include posters in TOC
                     #    continue
@@ -539,7 +539,7 @@ class pdf_writer( Thread ):
             self._initialize()
             logging.info('... Error. Can not create the Program: %s'%str(e))
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the program.', num=-1))
-            return        
+            return
 
     # End run_program
     # -----------------------------------------------------------------------
@@ -560,14 +560,14 @@ class pdf_writer( Thread ):
         latex =  "\\thispagestyle{empty}\n"
         latex += "\\pagestyle{empty}\n"
         latex += '\\section*{'+title+'}\n'
-    
+
         for datesession in self.sorteddates:
-            
+
             if len(self.sorteddates)>1:
                 latex +=  "\\subsection*{ \\color{color2}{"+datesession.strftime('%A, %B %d %Y')+"} }\n"
             latex += "\\begin{longtable}{|p{4cm}p{10cm}p{2cm}|}\n"
             latex += "\\hline \n"
-    
+
             for session in self.sortedsessions:
 
                 if session.get_date() == datesession:
@@ -607,7 +607,7 @@ class pdf_writer( Thread ):
         except Exception, e:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the program overview.', num=-1))
-            return        
+            return
 
     # End run_short_program
     # -----------------------------------------------------------------------
@@ -621,7 +621,7 @@ class pdf_writer( Thread ):
     def sort_sessions_by_type(self):
         """
         Sort all sessions depending on the date.
-        
+
         If at least one date is missing, sort on alpha-numeric of keys.
 
         """
@@ -641,7 +641,7 @@ class pdf_writer( Thread ):
 
         # sort sessions inside each type
         for idtype in self.sortedidkeys:
-            
+
             # keep all sessions of this type
             sessionstype = list()
             for session  in self.sessions.values():
@@ -681,7 +681,7 @@ class pdf_writer( Thread ):
                     # Use a result of None to acknowledge the abort.
                         wx.PostEvent(self._notify_window, ResultEvent(text=None, num=-1))
                         return
-                            
+
                 for r in sorted(ranks.keys()):
                     self.sortedsessions.append( ranks[r] )
 
@@ -692,7 +692,7 @@ class pdf_writer( Thread ):
     def sort_sessions_by_date(self):
         """
         Sort all sessions depending on the date.
-        
+
         If at least one date is missing, sort on alpha-numeric of keys.
 
         """
@@ -709,13 +709,13 @@ class pdf_writer( Thread ):
             sessiondate = session.get_date()
             if sessiondate not in alldates:
                 alldates.append(sessiondate)
-                
+
         # sort dates
         self.sorteddates = sorted(alldates)
-        
+
         # sort sessions inside each date
         for date in self.sorteddates:
-            
+
             # keep all sessions of this date
             sessionsdate = list()
             for session  in self.sessions.values():
@@ -753,9 +753,9 @@ class pdf_writer( Thread ):
         1. the type of sessions (if any),
         2. the date of sessions,
         3. the rank.
-        
+
         If at least one document is not assigned to a session, sort by docid.
-        
+
         """
 
         self.sorteddocs = list()
@@ -772,7 +772,7 @@ class pdf_writer( Thread ):
             self.sort_sessions_by_type()
 
         for s in self.sortedsessions:
-            
+
             # List all docs of this sessions (the docid)
             docs = list()
             for d in self.documents.values():
@@ -815,14 +815,14 @@ class pdf_writer( Thread ):
         tagpdf.set_bottom_margin( self._prefsIO.GetValue('BOTTOM_MARGIN') )
         tagpdf.set_head_size( self._prefsIO.GetValue('HEADER_SIZE') )
         tagpdf.set_foot_size( self._prefsIO.GetValue('FOOTER_SIZE') )
-        
+
         tagpdf.set_left_header( self._prefsIO.GetValue('HEADER_LEFT') )
         tagpdf.set_center_header( self._prefsIO.GetValue('HEADER_CENTER') )
         tagpdf.set_right_header( self._prefsIO.GetValue('HEADER_RIGHT') )
         tagpdf.set_left_footer( self._prefsIO.GetValue('FOOTER_LEFT') )
         tagpdf.set_center_footer( self._prefsIO.GetValue('FOOTER_CENTER') )
         tagpdf.set_right_footer( self._prefsIO.GetValue('FOOTER_RIGHT') )
-        
+
         tagpdf.set_header_color( self._prefsIO.GetValue('HEADER_COLOR') )
         tagpdf.set_footer_color( self._prefsIO.GetValue('FOOTER_COLOR') )
         tagpdf.set_header_style( self._prefsIO.GetValue('HEADER_STYLE') )
@@ -846,14 +846,14 @@ class pdf_writer( Thread ):
         tagpdf.set_bottom_margin( self._prefsIO.GetValue('BOTTOM_MARGIN') )
         tagpdf.set_head_size( self._prefsIO.GetValue('HEADER_SIZE') )
         tagpdf.set_foot_size( self._prefsIO.GetValue('FOOTER_SIZE') )
-        
+
         tagpdf.set_left_header( "" )
         tagpdf.set_center_header( "" )
         tagpdf.set_right_header( "" )
         tagpdf.set_left_footer( "" )
         tagpdf.set_center_footer( "" )
         tagpdf.set_right_footer( "" )
-        
+
         tagpdf.set_header_color( self._prefsIO.GetValue('HEADER_COLOR') )
         tagpdf.set_footer_color( self._prefsIO.GetValue('FOOTER_COLOR') )
         tagpdf.set_header_style( self._prefsIO.GetValue('HEADER_STYLE') )
@@ -892,22 +892,22 @@ class pdf_writer( Thread ):
 
     def __set_session_in_tag(self, tagpdf, docid):
         # A LA SAUVAGE: on suppose que seuls les ID de sessions contiennent des []
-        
+
         if "session" in tagpdf.get_option("rightheader").lower():
             tagpdf.set_right_header( self.__get_sessionid_and_rank(docid) )
-            
+
         if "session" in tagpdf.get_option("leftheader").lower():
             tagpdf.set_left_header( self.__get_sessionid_and_rank(docid) )
-            
+
         if "session" in tagpdf.get_option("centerheader").lower():
             tagpdf.set_center_header( self.__get_sessionid_and_rank(docid) )
-            
+
         if "session" in tagpdf.get_option("rightfooter").lower():
             tagpdf.set_right_footer( self.__get_sessionid_and_rank(docid) )
-            
+
         if "session" in tagpdf.get_option("leftfooter").lower():
             tagpdf.set_left_footer( self.__get_sessionid_and_rank(docid) )
-            
+
         if "session" in tagpdf.get_option("centerfooter").lower():
             tagpdf.set_center_footer( self.__get_sessionid_and_rank(docid) )
 
@@ -919,19 +919,19 @@ class pdf_writer( Thread ):
         # A LA SAUVAGE: on suppose que seuls les ID de sessions contiennent des []
         if "session" in tagpdf.get_option("rightheader").lower():
             tagpdf.set_right_header( "" )
-            
+
         if "session" in tagpdf.get_option("leftheader").lower():
             tagpdf.set_left_header( "" )
-            
+
         if "session" in tagpdf.get_option("centerheader").lower():
             tagpdf.set_center_header( "" )
-            
+
         if "session" in tagpdf.get_option("rightfooter").lower():
             tagpdf.set_right_footer( "" )
-            
+
         if "session" in tagpdf.get_option("leftfooter").lower():
             tagpdf.set_left_footer( "" )
-            
+
         if "session" in tagpdf.get_option("centerfooter").lower():
             tagpdf.set_center_footer( "" )
 
@@ -992,12 +992,12 @@ class pdf_writer( Thread ):
         a = re.sub(u"ç", u"\\c{c}", a, re.UNICODE)   #
         a = re.sub(u"ô", u"\\^o", a, re.UNICODE)   #
         a = re.sub(u"ó", u"\\'o", a, re.UNICODE)
-       
+
         a = re.sub(u"–", u"-", a, re.UNICODE)
         a = re.sub(u"’", u"'", a, re.UNICODE)   # apostrophe
         a = re.sub(u"ˈ", "'", a, re.UNICODE)
         a = re.sub(u'´', "'", a, re.UNICODE)
-        
+
         a = re.sub(u"é", u"\\'e", a, re.UNICODE)
         a = re.sub(u"è", u"\\`e", a, re.UNICODE)
         a = re.sub(u"à", u"\\`a", a, re.UNICODE)
@@ -1008,7 +1008,7 @@ class pdf_writer( Thread ):
         a = a.replace(u'‐', '--')
         a = a.replace(u'ﬂ', 'fl')
         a = a.replace(u'í', "\\'i")
-        
+
         a = a.replace(u'η', "$\eta$") # grec
 
         a = a.replace(u'ɛ̃','\\textipa{\~E}')
@@ -1051,5 +1051,5 @@ class pdf_writer( Thread ):
 
 
 
-        
+
 # ---------------------------------------------------------------------------

@@ -45,37 +45,39 @@ __docformat__ = "epytext"
 import wx
 import sys
 import os.path
+from sp_glob import ICONS_PATH
+from sp_glob import BASE_PATH
+from sp_glob import SETTINGS_FILE
 
 # ----------------------------------------------------------------------------
 # GUI design
 # ----------------------------------------------------------------------------
 
 CONFIGPATH = os.path.join( os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),"etc")
-ICONPATH = os.path.join( CONFIGPATH, "icons")
 
-DOCFILENAME  = os.path.join( CONFIGPATH, "documentation.html")
-USERFILENAME = os.path.join( CONFIGPATH, "user.conf")
+DOCFILENAME  = os.path.join( BASE_PATH, "documentation", "documentation.html")
+USERFILENAME = SETTINGS_FILE
 
 # Frames
-APP_ICON            = os.path.join(ICONPATH, "app.ico")
-APP_CHECK_ICON      = os.path.join(ICONPATH, "appcheck.ico")
-APP_EXPORT_PDF_ICON = os.path.join(ICONPATH, "appexport-pdf.ico")
+APP_ICON            = os.path.join(ICONS_PATH, "app.ico")
+APP_CHECK_ICON      = os.path.join(ICONS_PATH, "appcheck.ico")
+APP_EXPORT_PDF_ICON = os.path.join(ICONS_PATH, "appexport-pdf.ico")
 
 # For the toolbar of the main frame
-EXIT_ICON           = os.path.join(ICONPATH, "exit.png")
-OPEN_ICON           = os.path.join(ICONPATH, "open.png")
-SAVE_ICON           = os.path.join(ICONPATH, "save.png")
-CHECK_ICON          = os.path.join(ICONPATH, "check.png")
-EXPORT_ICON         = os.path.join(ICONPATH, "export.png")
-ADD_ICON            = os.path.join(ICONPATH, "add.png")
-EDIT_ICON           = os.path.join(ICONPATH, "edit.png")
-DELETE_ICON         = os.path.join(ICONPATH, "delete.png")
-ABOUT_ICON          = os.path.join(ICONPATH, "about.png")
+EXIT_ICON           = os.path.join(ICONS_PATH, "exit.png")
+OPEN_ICON           = os.path.join(ICONS_PATH, "open.png")
+SAVE_ICON           = os.path.join(ICONS_PATH, "save.png")
+CHECK_ICON          = os.path.join(ICONS_PATH, "check.png")
+EXPORT_ICON         = os.path.join(ICONS_PATH, "export.png")
+ADD_ICON            = os.path.join(ICONS_PATH, "add.png")
+EDIT_ICON           = os.path.join(ICONS_PATH, "edit.png")
+DELETE_ICON         = os.path.join(ICONS_PATH, "delete.png")
+ABOUT_ICON          = os.path.join(ICONS_PATH, "about.png")
 
 # For the other frames
-AUTHOR_ICON         = os.path.join(ICONPATH, "author.png")
-DOCUMENT_ICON       = os.path.join(ICONPATH, "document.png")
-SESSION_ICON        = os.path.join(ICONPATH, "session.png")
+AUTHOR_ICON         = os.path.join(ICONS_PATH, "author.png")
+DOCUMENT_ICON       = os.path.join(ICONS_PATH, "document.png")
+SESSION_ICON        = os.path.join(ICONS_PATH, "session.png")
 
 
 

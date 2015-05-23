@@ -51,11 +51,11 @@ import os.path
 import logging
 import datetime
 
-from Manager.models.datadocument import Document
-from Manager.models.dataauthor   import Author
-from Manager.models.datasession  import Session
-import Manager.models.datasession
-import Manager.consts as consts
+from wxgui.models.datadocument import Document
+from wxgui.models.dataauthor   import Author
+from wxgui.models.datasession  import Session
+import wxgui.models.datasession
+import wxgui.consts as consts
 
 
 # ---------------------------------------------------------------------------

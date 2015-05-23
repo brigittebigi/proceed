@@ -45,11 +45,11 @@ __docformat__ = "epytext"
 import wx
 import logging
 
-from Manager.models.datasession  import Session
-from Manager.models.datadocument import Document
-from Manager.models.dataauthor   import Author
+from wxgui.models.datasession  import Session
+from wxgui.models.datadocument import Document
+from wxgui.models.dataauthor   import Author
 
-import Manager.consts as consts
+import wxgui.consts as consts
 
 # ---------------------------------------------------------------------------
 # Class

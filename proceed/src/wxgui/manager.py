@@ -51,9 +51,9 @@ import wx
 import logging
 import os.path
 
-from Manager.frames.about     import AboutFrame
-from Manager.panels.infopanel import InformationPanel
-from Manager.panels.datalist  import NotebookPanel
+from wxgui.frames.about     import AboutBox
+from wxgui.panels.infopanel import InformationPanel
+from wxgui.panels.datalist  import NotebookPanel
 
 import consts
 
@@ -167,7 +167,7 @@ class MainFrame(wx.Frame):
         """
 
         # Create the about box
-        self._about = AboutFrame(self.GetIcon())
+        self._about = AboutBox()
 
         # the menu
         menubar = self._create_menu()

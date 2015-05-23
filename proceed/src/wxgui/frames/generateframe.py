@@ -46,12 +46,12 @@ __docformat__ = "epytext"
 import os.path
 import wx
 
-import Manager.consts as consts
+import wxgui.consts as consts
 
-from Manager.frames.export_settings import ExportSettings
-from Manager.models.prefs   import Preferences_IO
-from Manager.models.writers import pdf_writer
-from Manager.models.writers import EVT_RESULT
+from wxgui.frames.export_settings import ExportSettings
+from wxgui.models.prefs   import Preferences_IO
+from wxgui.models.writers import pdf_writer
+from wxgui.models.writers import EVT_RESULT
 
 # ---------------------------------------------------------------------------
 # Class
@@ -71,13 +71,13 @@ class GenerateFrame( wx.Dialog ):
         Constructor.
         """
         wx.Dialog.__init__(self, parent, id, title, size=(380, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
-        
+
         _icon = wx.EmptyIcon()
         _icon.CopyFromBitmap( wx.Bitmap(consts.APP_EXPORT_PDF_ICON, wx.BITMAP_TYPE_ANY) )
         self.SetIcon(_icon)
-        
+
         self.SetMinSize((380, 200))
-        
+
         sizer = self._create_content(self)
 
         # Members
@@ -142,7 +142,7 @@ class GenerateFrame( wx.Dialog ):
 
         btnSizer = self.CreateButtonSizer( wx.OK )
         vbox.Add(btnSizer, flag=wx.EXPAND|wx.ALL, border=20)
-        
+
         return vbox
 
     # End _gaugePanel
@@ -172,7 +172,7 @@ class GenerateFrame( wx.Dialog ):
             self.text.SetLabel('Task in Progress.')
             self.gauge.SetRange( 6 ) # number of files to generate!
             self.gauge.SetValue( 0 )
-            
+
             self.pdfwriter = pdf_writer(self, self._prefsIO, self.documents, self.authors, self.sessions, self.path)
             self.pdfwriter.start()
 
@@ -190,8 +190,8 @@ class GenerateFrame( wx.Dialog ):
 
     # End OnStop
     # -----------------------------------------------------------------------
-  
-  
+
+
     def OnResult(self, event):
         """ Show current status. """
 
@@ -208,7 +208,7 @@ class GenerateFrame( wx.Dialog ):
         else:
             self.gauge.SetValue( event.tasknum )
             self.text.SetLabel( event.tasktext )
-            self.Layout()   
+            self.Layout()
 
     # End OnResult
     # -----------------------------------------------------------------------

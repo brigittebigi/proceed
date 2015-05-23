@@ -43,8 +43,8 @@ __docformat__ = "epytext"
 import wx
 import wx.lib.scrolledpanel as scrolled
 
-import Manager.ui.CustomCheckBox as CCB
-import Manager.consts as consts
+import wxgui.ui.CustomCheckBox as CCB
+import wxgui.consts as consts
 
 # ---------------------------------------------------------------------------
 
@@ -59,7 +59,7 @@ class CheckListPanel( scrolled.ScrolledPanel ):
 
         scrolled.ScrolledPanel.__init__(self, parent, -1, style=wx.TAB_TRAVERSAL|wx.NO_BORDER)
         self.SetBackgroundColour( consts.BACKGROUND_COLOR )
-        
+
         # members
         self._ccblist = list()
 

@@ -6,14 +6,7 @@
 
 import wx
 import os.path
-import Manager.consts as consts
-
-# CustomCheckBox
-
-CHECKED_ICON        = os.path.join(consts.ICONPATH, "check.ico")
-UNCHECKED_ICON      = os.path.join(consts.ICONPATH, "uncheck.ico")
-RADIOCHECKED_ICON   = os.path.join(consts.ICONPATH, "radiocheck.ico")
-RADIOUNCHECKED_ICON = os.path.join(consts.ICONPATH, "radiouncheck.ico")
+from wxgui.sp_icons import CHECKED_ICON, UNCHECKED_ICON, RADIOCHECKED_ICON, RADIOUNCHECKED_ICON
 
 #----------------------------------------------------------------------
 def GetCheckedBitmap(CCB_MULTIPLE = False):

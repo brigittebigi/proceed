@@ -47,8 +47,8 @@ import logging
 import codecs
 import pickle
 
-from Manager.models.themes import THEMES
-import Manager.consts as consts
+from wxgui.models.themes import THEMES
+import wxgui.consts as consts
 from options import Option
 
 

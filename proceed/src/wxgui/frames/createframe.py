@@ -46,10 +46,10 @@ __docformat__ = "epytext"
 
 import wx
 
-from Manager.models.datadocument import Document
-from Manager.models.dataauthor   import Author
-from Manager.models.datasession  import Session
-import Manager.consts as consts
+from wxgui.models.datadocument import Document
+from wxgui.models.dataauthor   import Author
+from wxgui.models.datasession  import Session
+import wxgui.consts as consts
 
 DEFAULT_LABEL = '[session-id]'
 
@@ -135,7 +135,7 @@ class CreateAuthor( wx.Dialog ):
 
         self.AddStaticText(self,vSizer,"First Name: ")
         self.FirstName = self.AddTextCtrl(self,vSizer,"")
-        
+
         self.AddStaticText(self,vSizer,"Last Name: ")
         self.LastName = self.AddTextCtrl(self,vSizer,"")
 
@@ -182,7 +182,7 @@ class CreateAuthor( wx.Dialog ):
 
 
 # ------------------------------------------------------------------------
-    
+
 
 class CreateSession( wx.Dialog ):
     """
@@ -203,7 +203,7 @@ class CreateSession( wx.Dialog ):
 
     The first letter of the session name is used while sorting by session
     types (in the writers).
-    
+
     """
 
     def __init__(self, parent, id, title):
@@ -222,7 +222,7 @@ class CreateSession( wx.Dialog ):
         self.choices = ['Keynote', 'Oral', 'Poster', 'Other' ]
         self.radiobox = wx.RadioBox(self, label="Session type:", choices=self.choices, majorDimension=2)
         self.radiobox.SetForegroundColour(wx.Colour(3,3,87))
-        
+
         btnSizer = self.CreateButtonSizer(wx.CANCEL|wx.OK)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
@@ -268,7 +268,7 @@ class CreateSession( wx.Dialog ):
                 return text
             else:
                 return '[K-' + text[1:]
-            
+
         elif self.choices[idx] == 'Oral':
             if text[1] == 'O':
                 return text

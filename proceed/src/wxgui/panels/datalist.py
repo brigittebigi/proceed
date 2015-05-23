@@ -49,17 +49,17 @@ import wx.grid
 import os
 import csv
 
-import Manager.consts as consts
+import wxgui.consts as consts
 
-import Manager.models.readers as readers
-from Manager.models.datasession  import Session
-from Manager.models.dataauthor   import Author
-from Manager.models.datadocument import Document
+import wxgui.models.readers as readers
+from wxgui.models.datasession  import Session
+from wxgui.models.dataauthor   import Author
+from wxgui.models.datadocument import Document
 
-from Manager.frames.checkframe    import CheckFrame
-from Manager.frames.generateframe import GenerateFrame
-from Manager.frames.modifframe    import ModifFrame
-from Manager.frames.createframe   import CreateDocument, CreateAuthor, CreateSession
+from wxgui.frames.checkframe    import CheckFrame
+from wxgui.frames.generateframe import GenerateFrame
+from wxgui.frames.modifframe    import ModifFrame
+from wxgui.frames.createframe   import CreateDocument, CreateAuthor, CreateSession
 
 from checklistpanel import CheckListPanel
 

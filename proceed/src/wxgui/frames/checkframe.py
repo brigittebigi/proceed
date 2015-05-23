@@ -49,11 +49,11 @@ import wx
 import wx.stc
 import os.path
 
-from Manager.models.datadocument import Document
-from Manager.models.dataauthor   import Author
-from Manager.models.datasession  import Session
-from Manager.models.validate     import Validate
-import Manager.consts as consts
+from wxgui.models.datadocument import Document
+from wxgui.models.dataauthor   import Author
+from wxgui.models.datasession  import Session
+from wxgui.models.validate     import Validate
+import wxgui.consts as consts
 
 # ---------------------------------------------------------------------------
 

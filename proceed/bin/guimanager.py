@@ -112,7 +112,7 @@ PROCEED = os.path.join(os.path.dirname( os.path.dirname( PROGRAM ) ), "src")
 sys.path.insert(0,PROCEED)
 
 try:
-    from Manager.manager import MainFrame
+    from wxgui.manager import MainFrame
     from utils.commons import setup_logging
 except ImportError,e:
     import tkMessageBox
