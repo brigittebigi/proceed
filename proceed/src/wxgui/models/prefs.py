@@ -48,9 +48,8 @@ import codecs
 import pickle
 
 from wxgui.models.themes import THEMES
-import wxgui.consts as consts
 from options import Option
-
+from sp_glob import SETTINGS_FILE
 
 
 # ----------------------------------------------------------------------------
@@ -162,7 +161,7 @@ class Preferences_IO( Preferences ):
         Preferences.__init__(self)
 
         if not filename:
-            self._filename = consts.USERFILENAME
+            self._filename = SETTINGS_FILE
         else:
             self._filename = filename
 

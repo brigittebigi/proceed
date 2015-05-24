@@ -56,6 +56,16 @@ ICONS_PATH     = os.path.join( BASE_PATH , "etc", "icons" )
 SAMPLES_PATH   = os.path.join( os.path.dirname(BASE_PATH), "samples" )
 SETTINGS_FILE  = os.path.join(BASE_PATH, "etc", "settings.dump")
 
+# ----------------------------------------------------------------------------
+# Data
+# ----------------------------------------------------------------------------
+
+PAGESLIST  = ['Documents','Authors','Sessions']
+fieldnames = {}
+fieldnames[PAGESLIST[0]] = ["DOCID", "TITLE", "LASTNAME", "FIRSTNAME", "SESSION_ID", "RANK", "PAGE_NUMBER"]
+fieldnames[PAGESLIST[1]] = ["LASTNAME", "FIRSTNAME", "EMAIL", "AFFILIATION"]
+fieldnames[PAGESLIST[2]] = ["SESSION_ID", "SESSION_NAME", "RANK", "DATE", "H-DEB", "H-FIN", "CHAIRMAN", "LOCATION"]
+
 # ---------------------------------------------------------------------------
 # Constants: Proceed Information
 # ---------------------------------------------------------------------------

@@ -55,8 +55,14 @@ from wxgui.models.datadocument import Document
 from wxgui.models.dataauthor   import Author
 from wxgui.models.datasession  import Session
 import wxgui.models.datasession
-import wxgui.consts as consts
 
+from wxgui.sp_consts import BACKGROUND_COLOR
+from wxgui.sp_consts import FONTFAMILY
+from wxgui.sp_consts import FONTSIZE
+from sp_glob import ICONS_PATH
+from wxgui.sp_icons  import DOCUMENT_ICON
+from wxgui.sp_icons  import AUTHOR_ICON
+from wxgui.sp_icons  import SESSION_ICON
 
 # ---------------------------------------------------------------------------
 
@@ -91,7 +97,7 @@ class ModifFrame( wx.Dialog ):
 
     def initialize(self):
 
-        self.SetBackgroundColour(consts.BACKGROUND_COLOR)
+        self.SetBackgroundColour(BACKGROUND_COLOR)
         self.MainSizer = wx.BoxSizer(wx.VERTICAL)
 
         for children in self.GetChildren():
@@ -122,9 +128,9 @@ class ModifFrame( wx.Dialog ):
 
     def AddStaticText(self, panel, sizer, label, bold=False):
         if bold is True:
-            myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_BOLD, encoding=wx.FONTENCODING_UTF8)
+            myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_BOLD, encoding=wx.FONTENCODING_UTF8)
         else:
-            myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+            myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         txt = wx.StaticText(panel, -1, label)
         txt.SetFont(myfont)
         sizer.Add(txt)
@@ -132,7 +138,7 @@ class ModifFrame( wx.Dialog ):
 
 
     def AddLongTextCtrl(self, panel, sizer, label):
-        myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+        myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         txt = wx.TextCtrl(panel, -1, "", size=wx.Size(600,60), style=wx.TE_LEFT|wx.TE_MULTILINE)
         txt.SetFont(myfont)
         txt.WriteText( label )
@@ -141,7 +147,7 @@ class ModifFrame( wx.Dialog ):
 
 
     def AddTextCtrl(self, panel, sizer, label):
-        myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+        myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         txt = wx.TextCtrl(panel, -1, "", size=wx.Size(600,30), style=wx.TE_LEFT)
         txt.SetFont(myfont)
         txt.WriteText( label )
@@ -155,9 +161,9 @@ class ModifFrame( wx.Dialog ):
     def AddTitle(self, icon, title):
         titlesizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        iconbmp = wx.StaticBitmap(self, bitmap=wx.Bitmap(os.path.join(consts.ICONPATH,icon)))
+        iconbmp = wx.StaticBitmap(self, bitmap=wx.Bitmap(os.path.join(ICONS_PATH,icon)))
         text1 = wx.StaticText(self, label=title)
-        text1.SetFont(wx.Font(consts.FONTSIZE+4, wx.SWISS, wx.NORMAL, wx.BOLD))
+        text1.SetFont(wx.Font(FONTSIZE+4, wx.SWISS, wx.NORMAL, wx.BOLD))
         line1 = wx.StaticLine(self)
 
         titlesizer.Add(iconbmp, flag=wx.TOP|wx.RIGHT|wx.ALIGN_RIGHT, border=5)
@@ -188,10 +194,12 @@ class ModifFrame( wx.Dialog ):
 
     def createContentFor_Doc(self):
 
+        if self.eltid is None: return
+
         self.DocObj = self.parent._dataPages['Documents'][self.eltid]
 
         ############### DOCID ###############
-        self.AddTitle(consts.DOCUMENT_ICON, self.DocObj.get_docid())
+        self.AddTitle(DOCUMENT_ICON, self.DocObj.get_docid())
 
         ############### TITLE ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -215,8 +223,8 @@ class ModifFrame( wx.Dialog ):
         self.authorsGrid.DisableDragColSize()
         self.authorsGrid.DisableDragGridSize()
         self.authorsGrid.SetDefaultCellAlignment(wx.ALIGN_CENTER, wx.ALIGN_CENTER)
-        self.authorsGrid.SetDefaultCellBackgroundColour(consts.BACKGROUND_COLOR)
-        self.authorsGrid.SetLabelBackgroundColour(consts.BACKGROUND_COLOR)
+        self.authorsGrid.SetDefaultCellBackgroundColour(BACKGROUND_COLOR)
+        self.authorsGrid.SetLabelBackgroundColour(BACKGROUND_COLOR)
 
         self.authorsGrid.SetColLabelValue(0,"Last Name")
         self.authorsGrid.SetColLabelValue(1,"First Name")
@@ -278,10 +286,12 @@ class ModifFrame( wx.Dialog ):
 
     def createContentFor_Auth(self):
 
+        if self.eltid is None: return
+
         self.AuthObj = self.parent._dataPages['Authors'][self.eltid]
 
         ############### AUTHOR ID ###############
-        self.AddTitle(consts.AUTHOR_ICON, self.AuthObj.get_authorid())
+        self.AddTitle(AUTHOR_ICON, self.AuthObj.get_authorid())
 
         ############### LASTNAME ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -316,11 +326,12 @@ class ModifFrame( wx.Dialog ):
 
 
     def createContentFor_Session(self):
+        if self.eltid is None: return
 
         self.SessionObj = self.parent._dataPages['Sessions'][self.eltid]
 
         ############### SESSION ID ###############
-        self.AddTitle(consts.SESSION_ICON, self.SessionObj.get_sessionid())
+        self.AddTitle(SESSION_ICON, self.SessionObj.get_sessionid())
 
         ############### NAME ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -545,7 +556,7 @@ class AddAuthor(wx.Dialog):
 
     def initialize(self):
 
-        self.SetBackgroundColour(consts.BACKGROUND_COLOR)
+        self.SetBackgroundColour(BACKGROUND_COLOR)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 

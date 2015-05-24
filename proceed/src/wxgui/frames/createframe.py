@@ -49,7 +49,10 @@ import wx
 from wxgui.models.datadocument import Document
 from wxgui.models.dataauthor   import Author
 from wxgui.models.datasession  import Session
-import wxgui.consts as consts
+
+from wxgui.sp_consts import BACKGROUND_COLOR
+from wxgui.sp_consts import FONTSIZE
+from wxgui.sp_consts import FONTFAMILY
 
 DEFAULT_LABEL = '[session-id]'
 
@@ -69,7 +72,7 @@ class CreateDocument( wx.Dialog ):
 
         wx.Dialog.__init__(self, parent, id, title, size=(320, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         self.parent   = parent
-        self.SetBackgroundColour(consts.BACKGROUND_COLOR)
+        self.SetBackgroundColour(BACKGROUND_COLOR)
 
         hSizer = wx.BoxSizer(wx.VERTICAL)
         self.AddStaticText(self,hSizer,"Enter the document ID: ")
@@ -93,9 +96,9 @@ class CreateDocument( wx.Dialog ):
 
     def AddStaticText(self, panel, sizer, label, bold=False):
         if bold is True:
-            myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_BOLD, encoding=wx.FONTENCODING_UTF8)
+            myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_BOLD, encoding=wx.FONTENCODING_UTF8)
         else:
-            myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+            myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         txt = wx.StaticText(panel, -1, label)
         txt.SetFont(myfont)
         sizer.Add(txt, proportion=1, flag=wx.EXPAND|wx.ALL, border=10)
@@ -103,7 +106,7 @@ class CreateDocument( wx.Dialog ):
 
 
     def AddTextCtrl(self, panel, sizer, label):
-        myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+        myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         txt = wx.TextCtrl(panel, -1, label)
         txt.SetFont(myfont)
         txt.SetEditable(True)
@@ -129,7 +132,7 @@ class CreateAuthor( wx.Dialog ):
 
         wx.Dialog.__init__(self, parent, id, title, size=(320, 260),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         self.parent   = parent
-        self.SetBackgroundColour(consts.BACKGROUND_COLOR)
+        self.SetBackgroundColour(BACKGROUND_COLOR)
 
         vSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -161,9 +164,9 @@ class CreateAuthor( wx.Dialog ):
 
     def AddStaticText(self, panel, sizer, label, bold=False):
         if bold==True:
-            myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_BOLD, encoding=wx.FONTENCODING_UTF8)
+            myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_BOLD, encoding=wx.FONTENCODING_UTF8)
         else:
-            myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+            myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         txt = wx.StaticText(panel, -1, label)
         txt.SetFont(myfont)
         sizer.Add(txt, proportion=1, flag=wx.EXPAND|wx.ALL, border=5)
@@ -171,7 +174,7 @@ class CreateAuthor( wx.Dialog ):
 
 
     def AddTextCtrl(self, panel, sizer, label):
-        myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+        myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         txt = wx.TextCtrl(panel, -1, label)
         txt.SetFont(myfont)
         txt.SetEditable(True)
@@ -209,11 +212,11 @@ class CreateSession( wx.Dialog ):
     def __init__(self, parent, id, title):
 
         wx.Dialog.__init__(self, parent, id, title, size=(320, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
-        self.SetBackgroundColour(consts.BACKGROUND_COLOR)
+        self.SetBackgroundColour(BACKGROUND_COLOR)
 
         label = wx.StaticText(self, label="Session ID:", pos=wx.DefaultPosition, size=wx.DefaultSize)
         label.SetBackgroundStyle(wx.BG_STYLE_CUSTOM)
-        label.SetBackgroundColour( consts.BACKGROUND_COLOR )
+        label.SetBackgroundColour( BACKGROUND_COLOR )
 
         self.text = wx.TextCtrl(self, size=(150, -1), validator=SessionValidator())
         self.text.SetForegroundColour(wx.Colour(128,128,128))

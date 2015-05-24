@@ -55,7 +55,20 @@ from wxgui.frames.about     import AboutBox
 from wxgui.panels.infopanel import InformationPanel
 from wxgui.panels.datalist  import NotebookPanel
 
-import consts
+from wxgui.sp_consts import BACKGROUND_COLOR
+from wxgui.sp_consts import DOC_FILE
+from wxgui.sp_consts import ASK_BEFORE_EXIT
+
+from wxgui.sp_icons import APP_ICON
+from wxgui.sp_icons import EXIT_ICON
+from wxgui.sp_icons import OPEN_ICON
+from wxgui.sp_icons import SAVE_ICON
+from wxgui.sp_icons import CHECK_ICON
+from wxgui.sp_icons import EXPORT_ICON
+from wxgui.sp_icons import ADD_ICON
+from wxgui.sp_icons import EDIT_ICON
+from wxgui.sp_icons import DELETE_ICON
+from wxgui.sp_icons import ABOUT_ICON
 
 
 # -----------------------------------------------------------------------
@@ -142,7 +155,7 @@ class MainFrame(wx.Frame):
 
         # colors
         self.SetBackgroundStyle( wx.BG_STYLE_CUSTOM )
-        self.SetBackgroundColour( consts.BACKGROUND_COLOR )
+        self.SetBackgroundColour( BACKGROUND_COLOR )
 
         # title
         title = " Proceed "
@@ -151,7 +164,7 @@ class MainFrame(wx.Frame):
 
         # icon
         _icon = wx.EmptyIcon()
-        _icon.CopyFromBitmap( wx.Bitmap(consts.APP_ICON, wx.BITMAP_TYPE_ANY) )
+        _icon.CopyFromBitmap( wx.Bitmap(APP_ICON, wx.BITMAP_TYPE_ANY) )
         self.SetIcon(_icon)
 
     # End _init_infos
@@ -287,21 +300,21 @@ class MainFrame(wx.Frame):
         """
         toolbar = self.CreateToolBar(style=wx.TB_TEXT|wx.TB_FLAT|wx.TB_DOCKABLE|wx.TB_NODIVIDER)
 
-        toolbar.AddLabelTool(id=wx.ID_EXIT, label="Exit", bitmap=wx.Bitmap(consts.EXIT_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Quit the application")
+        toolbar.AddLabelTool(id=wx.ID_EXIT, label="Exit", bitmap=wx.Bitmap(EXIT_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Quit the application")
         toolbar.AddSeparator()
 
-        toolbar.AddLabelTool(id=wx.ID_OPEN,  label="Open",   bitmap=wx.Bitmap(consts.OPEN_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Open a new directory")
-        toolbar.AddLabelTool(id=wx.ID_SAVE,  label="Save",   bitmap=wx.Bitmap(consts.SAVE_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Save into CSV files")
-        toolbar.AddLabelTool(id=wx.ID_APPLY, label="Check",  bitmap=wx.Bitmap(consts.CHECK_ICON), bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Check the data")
-        toolbar.AddLabelTool(id=ID_GENERATE, label="Export", bitmap=wx.Bitmap(consts.EXPORT_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Export as PDF files")
+        toolbar.AddLabelTool(id=wx.ID_OPEN,  label="Open",   bitmap=wx.Bitmap(OPEN_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Open a new directory")
+        toolbar.AddLabelTool(id=wx.ID_SAVE,  label="Save",   bitmap=wx.Bitmap(SAVE_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Save into CSV files")
+        toolbar.AddLabelTool(id=wx.ID_APPLY, label="Check",  bitmap=wx.Bitmap(CHECK_ICON), bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Check the data")
+        toolbar.AddLabelTool(id=ID_GENERATE, label="Export", bitmap=wx.Bitmap(EXPORT_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Export as PDF files")
         toolbar.AddSeparator()
 
-        toolbar.AddLabelTool(id=wx.ID_NEW,   label="Add", bitmap=wx.Bitmap(consts.ADD_ICON),      bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Create a new entry")
-        toolbar.AddLabelTool(id=wx.ID_EDIT,  label="Edit", bitmap=wx.Bitmap(consts.EDIT_ICON),    bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Modify the selected entry")
-        toolbar.AddLabelTool(id=wx.ID_DELETE,label="Delete", bitmap=wx.Bitmap(consts.DELETE_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Delete the selected entry")
+        toolbar.AddLabelTool(id=wx.ID_NEW,   label="Add", bitmap=wx.Bitmap(ADD_ICON),      bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Create a new entry")
+        toolbar.AddLabelTool(id=wx.ID_EDIT,  label="Edit", bitmap=wx.Bitmap(EDIT_ICON),    bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Modify the selected entry")
+        toolbar.AddLabelTool(id=wx.ID_DELETE,label="Delete", bitmap=wx.Bitmap(DELETE_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Delete the selected entry")
         toolbar.AddSeparator()
 
-        toolbar.AddLabelTool(id=wx.ID_ABOUT, label="About", bitmap=wx.Bitmap(consts.ABOUT_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="About this application")
+        toolbar.AddLabelTool(id=wx.ID_ABOUT, label="About", bitmap=wx.Bitmap(ABOUT_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="About this application")
 
         # events
         eventslist = [ wx.ID_EXIT, wx.ID_ABOUT, wx.ID_HELP, wx.ID_OPEN, wx.ID_SAVE, wx.ID_NEW, ID_GENERATE, wx.ID_APPLY, wx.ID_EDIT, wx.ID_DELETE ]
@@ -537,7 +550,7 @@ class MainFrame(wx.Frame):
         Open the HTML documentation in the system web browser.
 
         """
-        url="file:///"+consts.DOCFILENAME
+        url="file:///"+DOC_FILE
         url=url.replace('\\', '/')
         logging.debug(url)
 
@@ -565,7 +578,7 @@ class MainFrame(wx.Frame):
         """
         reallyquit = wx.ID_YES
 
-        if consts.ASK_BEFORE_EXIT is True:
+        if ASK_BEFORE_EXIT is True:
             dlg = wx.MessageDialog(self, "Do you really want to quit?", "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
             reallyquit = dlg.ShowModal()
         elif self.nbp.IsSaved() is False:

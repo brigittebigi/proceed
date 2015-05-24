@@ -53,7 +53,11 @@ from wxgui.models.datadocument import Document
 from wxgui.models.dataauthor   import Author
 from wxgui.models.datasession  import Session
 from wxgui.models.validate     import Validate
-import wxgui.consts as consts
+
+from wxgui.sp_consts import BACKGROUND_COLOR
+from wxgui.sp_consts import FONTSIZE
+from wxgui.sp_consts import FONTFAMILY
+from wxgui.sp_icons  import APP_CHECK_ICON
 
 # ---------------------------------------------------------------------------
 
@@ -73,16 +77,16 @@ class CheckFrame( wx.Dialog ):
         """
         wx.Dialog.__init__(self, parent, id, title, size=(600, 500),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetIcon(wx.Icon(consts.APP_CHECK_ICON, wx.BITMAP_TYPE_ANY))
+        self.SetIcon(wx.Icon(APP_CHECK_ICON, wx.BITMAP_TYPE_ANY))
 
         self.parent = parent
         self.SetMinSize((520, 380))
 
-        self.SetBackgroundColour(consts.BACKGROUND_COLOR)
+        self.SetBackgroundColour(BACKGROUND_COLOR)
         self.MainSizer = wx.BoxSizer(wx.VERTICAL)
 
         self.txtCtrl = wx.stc.StyledTextCtrl(self, -1)
-        myfont = wx.Font(pointSize=consts.FONTSIZE, family=consts.FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+        myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         self.txtCtrl.SetFont(myfont)
 
         self.check( Validate( documents, authors, sessions ), path )

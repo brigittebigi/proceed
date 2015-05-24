@@ -48,6 +48,7 @@ __copyright__ = """Copyright (C) 2011-2015  Brigitte Bigi"""
 
 import wx
 from wx.lib.buttons import GenBitmapButton, GenBitmapTextButton
+
 from wxgui.cutils.imageutils import spBitmap
 
 # ----------------------------------------------------------------------------

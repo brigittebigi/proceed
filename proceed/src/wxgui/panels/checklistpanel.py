@@ -44,7 +44,8 @@ import wx
 import wx.lib.scrolledpanel as scrolled
 
 import wxgui.ui.CustomCheckBox as CCB
-import wxgui.consts as consts
+from wxgui.sp_consts import BACKGROUND_COLOR
+
 
 # ---------------------------------------------------------------------------
 
@@ -58,7 +59,7 @@ class CheckListPanel( scrolled.ScrolledPanel ):
     def __init__(self, parent, ID=0, pos=wx.DefaultPosition, size=wx.DefaultSize):
 
         scrolled.ScrolledPanel.__init__(self, parent, -1, style=wx.TAB_TRAVERSAL|wx.NO_BORDER)
-        self.SetBackgroundColour( consts.BACKGROUND_COLOR )
+        self.SetBackgroundColour( BACKGROUND_COLOR )
 
         # members
         self._ccblist = list()
@@ -68,7 +69,7 @@ class CheckListPanel( scrolled.ScrolledPanel ):
 
         # create the sizer items
         self._text = wx.StaticText(self, -1, "List of identifiers:")
-        self._text.SetBackgroundColour( consts.BACKGROUND_COLOR )
+        self._text.SetBackgroundColour( BACKGROUND_COLOR )
         sizer.Add(self._text, proportion=0, flag=wx.ALL, border=5 )
 
         self._ccbsizer = wx.BoxSizer( wx.VERTICAL )
@@ -142,7 +143,7 @@ class CheckListPanel( scrolled.ScrolledPanel ):
 
         # create a CustomCheckBox.
         ccb = CCB.CustomCheckBox(self, -1, f, CCB_MULTIPLE=False)
-        ccb.SetBackgroundColour( consts.BACKGROUND_COLOR )
+        ccb.SetBackgroundColour( BACKGROUND_COLOR )
         ccb.SetSpacing( 5 )
 
         # put the ccb in a sizer (required to enable ccbsizer.Remove())

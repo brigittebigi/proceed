@@ -46,8 +46,7 @@ __docformat__ = "epytext"
 import os.path
 import wx
 
-import wxgui.consts as consts
-
+from wxgui.sp_icons import APP_EXPORT_PDF_ICON
 from wxgui.frames.export_settings import ExportSettings
 from wxgui.models.prefs   import Preferences_IO
 from wxgui.models.writers import pdf_writer
@@ -73,7 +72,7 @@ class GenerateFrame( wx.Dialog ):
         wx.Dialog.__init__(self, parent, id, title, size=(380, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
         _icon = wx.EmptyIcon()
-        _icon.CopyFromBitmap( wx.Bitmap(consts.APP_EXPORT_PDF_ICON, wx.BITMAP_TYPE_ANY) )
+        _icon.CopyFromBitmap( wx.Bitmap(APP_EXPORT_PDF_ICON, wx.BITMAP_TYPE_ANY) )
         self.SetIcon(_icon)
 
         self.SetMinSize((380, 200))

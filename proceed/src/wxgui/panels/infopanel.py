@@ -49,7 +49,9 @@ from wxgui.models.datasession  import Session
 from wxgui.models.datadocument import Document
 from wxgui.models.dataauthor   import Author
 
-import wxgui.consts as consts
+from wxgui.sp_consts import BACKGROUND_COLOR
+from wxgui.sp_consts import FONTFAMILY
+from wxgui.sp_consts import FONTSIZE
 
 # ---------------------------------------------------------------------------
 # Class
@@ -69,7 +71,7 @@ class InformationPanel( wx.Panel ):
         Constructor.
         """
         wx.Panel.__init__(self, parent, -1, style=wx.NO_BORDER)
-        self.SetBackgroundColour(consts.BACKGROUND_COLOR)
+        self.SetBackgroundColour(BACKGROUND_COLOR)
 
         sizer = wx.BoxSizer( wx.VERTICAL )
         self.SetSizer( sizer )
@@ -233,13 +235,13 @@ class InformationPanel( wx.Panel ):
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
 
         txt = wx.StaticText(self, -1, label)
-        font = wx.Font(consts.FONTSIZE, consts.FONTFAMILY, wx.NORMAL, wx.BOLD)
+        font = wx.Font(FONTSIZE, FONTFAMILY, wx.NORMAL, wx.BOLD)
         txt.SetFont(font)
         hSizer.Add(txt)
 
         if info is not None:
             txt = wx.StaticText(self, -1, info)
-            font = wx.Font(consts.FONTSIZE, consts.FONTFAMILY, wx.NORMAL, wx.NORMAL)
+            font = wx.Font(FONTSIZE, FONTFAMILY, wx.NORMAL, wx.NORMAL)
             txt.SetFont(font)
             hSizer.Add(txt)
 

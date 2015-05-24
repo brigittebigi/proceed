@@ -49,8 +49,7 @@ import wx.grid
 import os
 import csv
 
-import wxgui.consts as consts
-
+from wxgui.sp_consts import BACKGROUND_COLOR
 import wxgui.models.readers as readers
 from wxgui.models.datasession  import Session
 from wxgui.models.dataauthor   import Author
@@ -62,6 +61,8 @@ from wxgui.frames.modifframe    import ModifFrame
 from wxgui.frames.createframe   import CreateDocument, CreateAuthor, CreateSession
 
 from checklistpanel import CheckListPanel
+
+from sp_glob import PAGESLIST, fieldnames
 
 # ---------------------------------------------------------------------------
 
@@ -78,15 +79,15 @@ class NotebookPanel( wx.Panel ):
     def __init__(self, parent):
 
         wx.Panel.__init__(self, parent, -1, style=wx.NO_BORDER)
-        self.SetBackgroundColour(consts.BACKGROUND_COLOR)
+        self.SetBackgroundColour(BACKGROUND_COLOR)
 
         self._set_members()
 
         self._noteBook = wx.Notebook(self, style=wx.NO_BORDER)
-        self._noteBook.SetBackgroundColour( consts.BACKGROUND_COLOR )
+        self._noteBook.SetBackgroundColour( BACKGROUND_COLOR )
 
         self._pages = {}
-        for p in consts.PAGESLIST:
+        for p in PAGESLIST:
             self._pages[p] = CheckListPanel(self._noteBook, p)
             self._noteBook.AddPage( self._pages[p], p )
 
@@ -107,12 +108,12 @@ class NotebookPanel( wx.Panel ):
         # notebook page contents
         self._path = None
         self._dataPages = {}
-        for p in consts.PAGESLIST:
+        for p in PAGESLIST:
             self._dataPages[p] = dict()
 
         # information
         self._isSaved = True
-        self._selectedPage = consts.PAGESLIST[0]
+        self._selectedPage = PAGESLIST[0]
 
     # -----------------------------------------------------------------------
 
@@ -131,7 +132,7 @@ class NotebookPanel( wx.Panel ):
 
 
     def GetObject(self, objid):
-        for p in consts.PAGESLIST:
+        for p in PAGESLIST:
             if self._dataPages[p].has_key(objid):
                 return self._dataPages[p][objid]
         return None
@@ -145,7 +146,7 @@ class NotebookPanel( wx.Panel ):
 
     def OnChangePage(self, e):
         e.Skip()
-        self._selectedPage = consts.PAGESLIST[ e.GetSelection() ]
+        self._selectedPage = PAGESLIST[ e.GetSelection() ]
         self.GetTopLevelParent().UnsetSelected()
 
     # -----------------------------------------------------------------------
@@ -177,10 +178,10 @@ class NotebookPanel( wx.Panel ):
             # Check the directory in order to see if all required files are inside.
             missingPdf = True
             files = {}
-            for p in consts.PAGESLIST:
+            for p in PAGESLIST:
                 files[p] = False
             for file_name in os.listdir(path):
-                for p in consts.PAGESLIST:
+                for p in PAGESLIST:
                     if file_name.lower() == p.lower()+".csv":
                         files[p] = True
                     elif file_name.lower().endswith(".pdf"):
@@ -201,11 +202,11 @@ class NotebookPanel( wx.Panel ):
                 dlg = wx.MessageDialog(self, "At least one csv file is missing in %s, do you want to create it?" % (path), "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
                 retCode = dlg.ShowModal()
                 if retCode == wx.ID_YES:
-                    for i in range(len(consts.PAGESLIST)):
-                        if files[consts.PAGESLIST[i]] == False:
-                            out = csv.DictWriter(open(os.path.join(path,consts.PAGESLIST[i]+".csv"), "wb"), consts.fieldnames[consts.PAGESLIST[i]])
+                    for i in range(len(PAGESLIST)):
+                        if files[PAGESLIST[i]] == False:
+                            out = csv.DictWriter(open(os.path.join(path,PAGESLIST[i]+".csv"), "wb"), fieldnames[PAGESLIST[i]])
                             d = {}
-                            for colname in consts.fieldnames[consts.PAGESLIST[i]]:
+                            for colname in fieldnames[PAGESLIST[i]]:
                                 d[colname] = colname
                             out.writerow(d)
                             #self.FileInDefaultDoc(out, path)
@@ -244,7 +245,7 @@ class NotebookPanel( wx.Panel ):
             dlg = wx.MessageDialog(self, "Confirm you want to save changes?", "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
             retCode = dlg.ShowModal()
             if retCode == wx.ID_YES:
-                for p in consts.PAGESLIST:
+                for p in PAGESLIST:
                     self.saveCSV( p )
                 self._isSaved = True
                 self.GetTopLevelParent().GetStatusBar().SetStatusText('Data saved successfully.')
@@ -371,13 +372,13 @@ class NotebookPanel( wx.Panel ):
         if selection is None:
             dlg = wx.MessageDialog(self, "Nothing selected.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
             dlg.ShowModal()
-            return
-
-        dlg = ModifFrame(self, -1, "Modification...", self._selectedPage, selection)
-        dlg.ShowModal()
-        self.GetTopLevelParent().SetSelected(selection)
-        self._isSaved = False
-        self.GetTopLevelParent().GetStatusBar().SetStatusText('An entry was modified.')
+        else:
+            dlg = ModifFrame(self, -1, "Modification...", self._selectedPage, selection)
+            dlg.ShowModal()
+            self.GetTopLevelParent().SetSelected(selection)
+            self._isSaved = False
+            self.GetTopLevelParent().GetStatusBar().SetStatusText('An entry was modified.')
+        dlg.Destroy()
 
     # End OnEditSelected
     # ------------------------------------------------------------------------
@@ -392,6 +393,7 @@ class NotebookPanel( wx.Panel ):
         if eltid == None:
             dlg = wx.MessageDialog(self, "Nothing selected.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
             dlg.ShowModal()
+            dlg.Destroy()
             return
 
         dlg = wx.MessageDialog(self, "Do you really want to remove "+eltid+"?", "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
@@ -431,9 +433,9 @@ class NotebookPanel( wx.Panel ):
     # ------------------------------------------------------------------------
 
     def saveCSV(self, pagename):
-        out = csv.DictWriter(open(os.path.join(self._path,pagename+".csv"), "wb"), consts.fieldnames[pagename])
+        out = csv.DictWriter(open(os.path.join(self._path,pagename+".csv"), "wb"), fieldnames[pagename])
         d = {}
-        for colname in consts.fieldnames[pagename]:
+        for colname in fieldnames[pagename]:
             d[colname] = colname
         out.writerow(d)
         for entry in self._dataPages[pagename].values():
@@ -534,7 +536,7 @@ class NotebookPanel( wx.Panel ):
     # ------------------------------------------------------------------------
 
     def ShowData(self):
-        for p in consts.PAGESLIST:
+        for p in PAGESLIST:
             self._pages[p].AddData( sorted(self._dataPages[p]) )
 
     def ForbiddenDialog(self, e):

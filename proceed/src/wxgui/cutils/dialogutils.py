@@ -82,30 +82,3 @@ def extend_path(path, valid_extensions, default_extension):
     return (path + "." + default_extension, default_extension)
 
 # ----------------------------------------------------------------------------
-
-
-class spMessageDialog( wx.Dialog ):
-
-    def __init__(self, parent, message, title, type):
-        wx.Dialog.__init__(self, parent, -1, title)
-        if type == "WARNING":
-            dlg = wx.MessageDialog(parent, message,
-                                   title,
-                                   wx.OK | wx.ICON_EXCLAMATION
-                                   )
-        elif type == "ERROR":
-            dlg = wx.MessageDialog(parent, message,
-                                   title,
-                                   wx.OK | wx.ICON_ERROR
-                                   )
-        else:
-            dlg = wx.MessageDialog(parent, message,
-                                   title,
-                                   wx.OK | wx.ICON_INFORMATION
-                                   )
-        dlg.ShowModal()
-        dlg.Destroy()
-        self.Close(True)
-
-# ----------------------------------------------------------------------------
-

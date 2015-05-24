@@ -59,7 +59,6 @@ from wxgui.models.datadocument import Document
 from wxgui.models.dataauthor   import Author
 from wxgui.models.datasession  import Session
 from wxgui.models.validate     import Validate
-import wxgui.consts as consts
 
 
 # ---------------------------------------------------------------------------
