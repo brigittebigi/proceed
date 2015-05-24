@@ -60,7 +60,7 @@ from wxgui.models.datadocument    import Document
 from wxgui.frames.checkframe    import CheckFrame
 from wxgui.frames.generateframe import GenerateFrame
 from wxgui.frames.modifframe    import ModifFrame
-from wxgui.frames.createframe   import CreateDocument, CreateAuthor, CreateSession
+from wxgui.frames.createframe   import CreateDocument, CreateAuthor, CreateSession, CreateConference
 
 from checklistpanel import CheckListPanel
 
@@ -117,7 +117,6 @@ class NotebookPanel( wx.Panel ):
         self._selectedPage = PAGESLIST[0]
 
     # -----------------------------------------------------------------------
-
 
     # -----------------------------------------------------------------------
     # Functions
@@ -348,7 +347,23 @@ class NotebookPanel( wx.Panel ):
                     self.GetTopLevelParent().GetStatusBar().SetStatusText('New session added.')
 
         elif self._selectedPage == "Conference":
-            wx.MessageBox( "Not implemented yet!", "Warning", wx.OK | wx.ICON_INFORMATION)
+            if len(self._dataPages['Conference']) == 0:
+                createdlg = CreateConference(self, -1, "Add information about the conference")
+                retCode   = createdlg.ShowModal()
+                if retCode == wx.ID_OK:
+                    acronym = createdlg.GetAcronym()
+                    logging.debug('   --> new conference='+acronym)
+                    if len(acronym)>0:
+                        # update data
+                        self._dataPages[self._selectedPage][acronym] = Conference("", acronym=acronym)
+                        # update wx.grid
+                        self._pages[self._selectedPage].AddData([acronym])
+                        self._isSaved = False
+                        self.GetTopLevelParent().GetStatusBar().SetStatusText('Conference added.')
+
+            else:
+                wx.MessageBox( "A conference is already defined.\nCan't add a new one!", "Error", wx.OK | wx.ICON_ERROR)
+
 
     # ------------------------------------------------------------------------
 
@@ -358,9 +373,8 @@ class NotebookPanel( wx.Panel ):
         """
         logging.debug('Edit')
         selection = self._pages[self._selectedPage].GetSelection()
-        if selection is None:
-            dlg = wx.MessageDialog(self, "Nothing selected.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
-            dlg.ShowModal()
+        if selection is None or len(selection)==0:
+            wx.MessageBox( "Nothing selected.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
         else:
             dlg = ModifFrame(self, -1, "Modification...", self._selectedPage, selection)
             dlg.ShowModal()
@@ -377,9 +391,11 @@ class NotebookPanel( wx.Panel ):
         Callback to remove the selected entry.
         """
         eltid = self._pages[self._selectedPage].GetSelection()
-        if eltid == None:
+        if eltid is None or len(eltid)==0:
             wx.MessageBox( "Nothing selected.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
             return
+        else:
+            logging.debug('eltid of selection is: %s'%str(eltid))
 
         dlg = wx.MessageDialog(self, "Do you really want to remove "+eltid+"?", "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
         retCode = dlg.ShowModal()
@@ -426,7 +442,7 @@ class NotebookPanel( wx.Panel ):
         for entry in self._dataPages[pagename].values():
             rows = entry.prepare_save()
             for row in rows:
-                out.writerow( row )
+                out.writerow( row.encode('utf8') )
 
     # ------------------------------------------------------------------------
 
@@ -448,6 +464,21 @@ class NotebookPanel( wx.Panel ):
 
         ################## Lecture du fichier AUTHORS.csv ####################
         logging.debug("Read the file: Conference.csv")
+        confreader = readers.conference_csv_reader( os.path.join(path,self.findCSV(path,"Conference")) )
+        rows = confreader.get_Rows()
+        logging.debug( "GOT FOLLOWING ROWS: %s"%rows)
+#        if len(rows) != 1:
+#            wx.MessageBox('hum... Conference CSV file is corrupted',"Error", wx.OK | wx.ICON_EXCLAMATION)
+#        else:
+        for r in rows:
+            logging.debug( "GOT FOLLOWING ROW: %s"%r)
+
+            confname = confreader.get_ConfName(r)
+            acronym  = confreader.get_Acronym(r)
+            place    = confreader.get_Place(r)
+            dfrom    = confreader.get_DateFrom(r)
+            dto      = confreader.get_DateTo(r)
+            ConfDict[acronym] = Conference(confname, acronym, place, dfrom, dto)
         self._dataPages['Conference'] = ConfDict
 
         ################# Lecture du fichier DOCUMENTS.csv ###################

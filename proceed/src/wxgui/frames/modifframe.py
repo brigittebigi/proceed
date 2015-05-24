@@ -51,9 +51,10 @@ import os.path
 import logging
 import datetime
 
-from wxgui.models.datadocument import Document
-from wxgui.models.dataauthor   import Author
-from wxgui.models.datasession  import Session
+from wxgui.models.dataconference import Conference
+from wxgui.models.datadocument   import Document
+from wxgui.models.dataauthor     import Author
+from wxgui.models.datasession    import Session
 import wxgui.models.datasession
 
 from wxgui.sp_consts import BACKGROUND_COLOR
@@ -63,6 +64,7 @@ from sp_glob import ICONS_PATH
 from wxgui.sp_icons  import DOCUMENT_ICON
 from wxgui.sp_icons  import AUTHOR_ICON
 from wxgui.sp_icons  import SESSION_ICON
+from wxgui.sp_icons  import CONFERENCE_ICON
 
 # ---------------------------------------------------------------------------
 
@@ -185,11 +187,52 @@ class ModifFrame( wx.Dialog ):
         elif self.pagename == "Sessions":
             self.createContentFor_Session()
 
+        elif self.pagename == "Conference":
+            self.createContentFor_Conf()
+
         else:
             raise Exception('Un-appropriate selection to modify\n')
 
     # End createContent
     # ------------------------------------------------------------------------
+
+
+    def createContentFor_Conf(self):
+
+        if self.eltid is None: return
+
+        self.ConfObj = self.parent._dataPages['Conference'][self.eltid]
+
+        ############### Conf acronym  ###############
+        self.AddTitle(CONFERENCE_ICON, self.ConfObj.get_acronym())
+
+        ############### NAME ###############
+        hSizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.AddStaticText(self,hSizer,"Name:")
+        NameTxtCtrl = self.AddLongTextCtrl(self,hSizer,self.ConfObj.get_conf_name())
+        self.Bind(wx.EVT_TEXT, lambda event: self.OnChangeConf(event, NameTxtCtrl, "name"), NameTxtCtrl)
+        self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
+
+        ############### PLACE ###############
+        hSizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.AddStaticText(self,hSizer,"Place:")
+        PlaceTxtCtrl = self.AddLongTextCtrl(self,hSizer,self.ConfObj.get_place())
+        self.Bind(wx.EVT_TEXT, lambda event: self.OnChangeConf(event, PlaceTxtCtrl, "place"), PlaceTxtCtrl)
+        self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
+
+        ############### FROM ###############
+        hSizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.AddStaticText(self,hSizer,"From:")
+        FromTxtCtrl = self.AddLongTextCtrl(self,hSizer,self.ConfObj.get_date_from())
+        self.Bind(wx.EVT_TEXT, lambda event: self.OnChangeConf(event, FromTxtCtrl, "from"), FromTxtCtrl)
+        self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
+
+        ############### FROM ###############
+        hSizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.AddStaticText(self,hSizer,"To:")
+        ToTxtCtrl = self.AddLongTextCtrl(self,hSizer,self.ConfObj.get_date_to())
+        self.Bind(wx.EVT_TEXT, lambda event: self.OnChangeConf(event, ToTxtCtrl, "to"), ToTxtCtrl)
+        self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
 
 
     def createContentFor_Doc(self):
@@ -203,7 +246,7 @@ class ModifFrame( wx.Dialog ):
 
         ############### TITLE ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Title: \t\t")
+        self.AddStaticText(self,hSizer,"Title:")
         TitleTxtCtrl = self.AddLongTextCtrl(self,hSizer,self.DocObj.get_title())
         self.Bind(wx.EVT_TEXT, lambda event: self.OnChangeDoc(event, TitleTxtCtrl, "title"), TitleTxtCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
@@ -211,7 +254,7 @@ class ModifFrame( wx.Dialog ):
         ############### AUTHORS  ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.AddStaticText(self,hSizer,"Authors: \t\t")
+        self.AddStaticText(self,hSizer,"Authors:")
 
         self.authorsGrid = wx.grid.Grid(self)
 
@@ -249,7 +292,7 @@ class ModifFrame( wx.Dialog ):
 
         ############### SESSION  ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Session: \t\t")
+        self.AddStaticText(self,hSizer,"Session:")
 
         SessionsList = self.parent._dataPages['Sessions'].values()
         choices = list()
@@ -270,7 +313,7 @@ class ModifFrame( wx.Dialog ):
 
         ############### RANK  ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Rank: \t\t")
+        self.AddStaticText(self,hSizer,"Rank:")
 
         SpinCtrlRank = wx.SpinCtrl(self, -1)
         SpinCtrlRank.SetRange(0, 100)
@@ -295,28 +338,28 @@ class ModifFrame( wx.Dialog ):
 
         ############### LASTNAME ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Last name: \t")
+        self.AddStaticText(self,hSizer,"Last name:")
         LastnameCtrl = self.AddTextCtrl(self,hSizer,self.AuthObj.get_lastname())
         LastnameCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeAuth(event, LastnameCtrl, "lastname"), LastnameCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
 
         ############### FIRSTNAME ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"First name: \t")
+        self.AddStaticText(self,hSizer,"First name:")
         FirstnameCtrl = self.AddTextCtrl(self,hSizer,self.AuthObj.get_firstname())
         FirstnameCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeAuth(event, FirstnameCtrl, "firstname"), FirstnameCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
 
         ############### EMAIL ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Email: \t\t")
+        self.AddStaticText(self,hSizer,"Email:")
         EmailCtrl = self.AddTextCtrl(self,hSizer,self.AuthObj.get_email())
         EmailCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeAuth(event, EmailCtrl, "email"), EmailCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
 
         ############### AFFILIATION ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Affiliation: \t")
+        self.AddStaticText(self,hSizer,"Affiliation:")
         AffiliationCtrl = self.AddTextCtrl(self,hSizer,self.AuthObj.get_affiliation())
         AffiliationCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeAuth(event, AffiliationCtrl, "affiliation"), AffiliationCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
@@ -335,14 +378,14 @@ class ModifFrame( wx.Dialog ):
 
         ############### NAME ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Name: \t\t")
+        self.AddStaticText(self,hSizer,"Name:")
         nameCtrl = self.AddTextCtrl(self,hSizer,self.SessionObj.get_session_name())
         nameCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeSession(event, nameCtrl, "session_name"), nameCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
 
         ############### RANK  ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Rank: \t\t")
+        self.AddStaticText(self,hSizer,"Rank:")
 
         SpinCtrlRank = wx.SpinCtrl(self, -1)
         SpinCtrlRank.SetRange(0, 100)
@@ -355,7 +398,7 @@ class ModifFrame( wx.Dialog ):
 
         ############### DATE ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Date: \t")
+        self.AddStaticText(self,hSizer,"Date:")
         self.caldate = wx.calendar.CalendarCtrl(self, -1, wx.DateTime_Now(),
                                         style=wx.calendar.CAL_SHOW_HOLIDAYS | wx.calendar.CAL_SUNDAY_FIRST |
                                         wx.calendar.CAL_SEQUENTIAL_MONTH_SELECTION)
@@ -371,28 +414,28 @@ class ModifFrame( wx.Dialog ):
 
         ############### H-DEB  ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Start time: \t")
+        self.AddStaticText(self,hSizer,"Start time:")
         hdebCtrl = self.AddTextCtrl(self,hSizer,self.SessionObj.get_h_deb())
         hdebCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeSession(event, hdebCtrl, "h-deb"), hdebCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
 
         ############### H-FIN  ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"End time: \t")
+        self.AddStaticText(self,hSizer,"End time:")
         hfinCtrl = self.AddTextCtrl(self,hSizer,self.SessionObj.get_h_fin())
         hfinCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeSession(event, hfinCtrl, "h-fin"), hfinCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
 
         ############### CHAIRMAN ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Chairman: \t")
+        self.AddStaticText(self,hSizer,"Chairman:")
         chairCtrl = self.AddTextCtrl(self,hSizer,self.SessionObj.get_chairman())
         chairCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeSession(event, chairCtrl, "chairman"), chairCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
 
         ############### LOCATION ###############
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.AddStaticText(self,hSizer,"Location: \t")
+        self.AddStaticText(self,hSizer,"Location:")
         locCtrl = self.AddTextCtrl(self,hSizer,self.SessionObj.get_location())
         locCtrl.Bind(wx.EVT_TEXT, lambda event: self.OnChangeSession(event, locCtrl, "location"), locCtrl)
         self.MainSizer.Add(hSizer, flag=wx.EXPAND|wx.ALL, proportion=1, border=10)
@@ -435,6 +478,18 @@ class ModifFrame( wx.Dialog ):
         elif e.getCol() == 1:
             firstname = self.authorsGrid.GetCellValue(row, 1)
             self.authorBeforeChange.set_lastname(firstname)
+
+
+    def OnChangeConf(self, e, CtrlObj, ValueToChange):
+
+        if ValueToChange == "name":
+            self.ConfObj.set_conf_name(CtrlObj.GetValue())
+        elif ValueToChange == "place":
+            self.ConfObj.set_place(CtrlObj.GetValue())
+        elif ValueToChange == "from":
+            self.ConfObj.set_date_from(CtrlObj.GetValue())
+        elif ValueToChange == "to":
+            self.ConfObj.set_date_to(CtrlObj.GetValue())
 
 
     def OnChangeDoc(self, e, CtrlObj, ValueToChange):
@@ -491,19 +546,14 @@ class ModifFrame( wx.Dialog ):
         if ValueToChange == 'session_name':
             self.SessionObj.set_session_name(CtrlObj.GetValue())
             # TODO: propagate to documents!
-
         elif ValueToChange == 'h-deb':
             self.SessionObj.set_h_deb(CtrlObj.GetValue())
-
         elif ValueToChange == 'h-fin':
             self.SessionObj.set_h_fin(CtrlObj.GetValue())
-
         elif ValueToChange == 'chairman':
             self.SessionObj.set_chairman(CtrlObj.GetValue())
-
         elif ValueToChange == 'location':
             self.SessionObj.set_location(CtrlObj.GetValue())
-
         elif ValueToChange == "rank":
             self.SessionObj.set_rank( CtrlObj.GetValue() )
 

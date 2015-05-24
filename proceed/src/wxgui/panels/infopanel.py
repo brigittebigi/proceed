@@ -45,6 +45,7 @@ __docformat__ = "epytext"
 import wx
 import logging
 
+from wxgui.models.dataconference import Conference
 from wxgui.models.datasession  import Session
 from wxgui.models.datadocument import Document
 from wxgui.models.dataauthor   import Author
@@ -79,7 +80,6 @@ class InformationPanel( wx.Panel ):
 
     # ------------------------------------------------------------------------
 
-
     def CleanContent(self):
         logging.debug(' Remove current information. ')
         while self.number_of_infos > 0:
@@ -91,7 +91,6 @@ class InformationPanel( wx.Panel ):
 
     # ------------------------------------------------------------------------
 
-
     def AddContent(self, anyObject):
         if isinstance(anyObject, Document):
             self.AddContentForDocument(anyObject)
@@ -99,11 +98,32 @@ class InformationPanel( wx.Panel ):
             self.AddContentForAuthor(anyObject)
         elif isinstance(anyObject, Session):
             self.AddContentForSession(anyObject)
+        elif isinstance(anyObject, Conference):
+            self.AddContentForConference(anyObject)
         else:
-            raise TypeError('Invalid object type: none of Author, Document or Session.')
+            raise TypeError('Invalid object type %s: none of Conference, Author, Document or Session.'%type(anyObject))
 
     # ------------------------------------------------------------------------
 
+    def AddContentForConference(self, ConfObject):
+
+        self.CleanContent()
+        logging.debug(' Show conference information. ')
+
+        ############ TITLE ############
+        self.__addTextInfo("Conference name:", ConfObject.get_conf_name())
+
+        ############ PLACE ############
+        self.__addTextInfo("Place:", ConfObject.get_place())
+
+        ############ DATE FROM ############
+        self.__addTextInfo("From:", ConfObject.get_date_from())
+
+        ############ DATE TO ############
+        self.__addTextInfo("To:", ConfObject.get_date_to())
+
+        self.Layout()
+        self.Fit()
 
     def AddContentForDocument(self, DocObject):
 
@@ -136,7 +156,6 @@ class InformationPanel( wx.Panel ):
         self.Fit()
 
     # ------------------------------------------------------------------------
-
 
     def AddContentForSession(self, SessionObject):
 
@@ -190,7 +209,6 @@ class InformationPanel( wx.Panel ):
 
     # ------------------------------------------------------------------------
 
-
     def AddContentForAuthor(self, AuthorObject):
 
         self.CleanContent()
@@ -229,12 +247,11 @@ class InformationPanel( wx.Panel ):
 
     # ------------------------------------------------------------------------
 
-
     def __addTextInfo(self, label, info):
 
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        txt = wx.StaticText(self, -1, label)
+        txt = wx.StaticText(self, -1, label, size=(200,-1))
         font = wx.Font(FONTSIZE, FONTFAMILY, wx.NORMAL, wx.BOLD)
         txt.SetFont(font)
         hSizer.Add(txt)

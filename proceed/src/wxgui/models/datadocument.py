@@ -73,8 +73,8 @@ class Document:
         self._title   = clean(title)
         self._authors = authors
         self._session = clean(session)
-        self._rank    = int(rank)
-        self._page    = int(page)
+        self._rank    = rank
+        self._page    = page
 
     # End __init__
     # -----------------------------------------------------------------------
@@ -146,10 +146,10 @@ class Document:
         self._session = clean(new_session)
 
     def set_rank(self, new_rank):
-        self._rank = int(new_rank)
+        self._rank = new_rank
 
     def set_page(self, new_page):
-        self._page = int(new_page)
+        self._page = new_page
 
     def set(self, other):
         if not isinstance(other,"Document"):

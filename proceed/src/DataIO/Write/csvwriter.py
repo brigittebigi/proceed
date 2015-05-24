@@ -40,7 +40,7 @@
 
 import os.path
 import csv
-
+from sp_glob import fieldnames
 
 # ---------------------------------------------------------------------------
 # Class
@@ -58,6 +58,12 @@ class CSVWriter:
     def __init__( self, status=1 ):
         self._status = status
 
+    def __fields_to_dict(self, fields):
+        d = {}
+        for f in fields:
+            d[f] = f
+        return d
+
     def write( self, docs, pathname ):
         try:
             if os.path.exists(os.path.join(pathname,"Documents.csv")) is True:
@@ -66,18 +72,23 @@ class CSVWriter:
                 os.remove(os.path.join(pathname,"Sessions.csv"))
             if os.path.exists(os.path.join(pathname,"Authors.csv")) is True:
                 os.remove(os.path.join(pathname,"Authors.csv"))
+            if os.path.exists(os.path.join(pathname,"Conference.csv")) is True:
+                os.remove(os.path.join(pathname,"Conference.csv"))
 
-            out_documents = csv.DictWriter(open(os.path.join(pathname,"Documents.csv"), 'wb'), fieldnames=["DOCID", "TITLE", "LASTNAME", "FIRSTNAME", "SESSION_ID", "RANK", "PAGE_NUMBER"])
-            out_documents.writerow({"DOCID":"DOCID", "TITLE":"TITLE", "LASTNAME":"LASTNAME", "FIRSTNAME":"FIRSTNAME", "SESSION_ID":"SESSION_ID", "RANK":"RANK", "PAGE_NUMBER":"PAGE_NUMBER"})
+            out_documents = csv.DictWriter(open(os.path.join(pathname,"Documents.csv"), 'wb'), fieldnames=fieldnames['Documents'])
+            out_documents.writerow( self.__fields_to_dict(fieldnames['Documents']) )
 
-            out_sessions = csv.DictWriter(open(os.path.join(pathname,"Sessions.csv"), 'wb'), fieldnames=["SESSION_ID", "SESSION_NAME", "DATE_STR", "DATE", "H-DEB", "H-FIN", "CHAIRMAN", "LOCATION"])
-            out_sessions.writerow({"SESSION_ID":"SESSION_ID", "SESSION_NAME":"SESSION_NAME", "DATE_STR":"DATE_STR", "DATE":"DATE", "H-DEB":"H-DEB", "H-FIN":"H-FIN", "CHAIRMAN":"CHAIRMAN", "LOCATION":"LOCATION"})
+            out_sessions = csv.DictWriter(open(os.path.join(pathname,"Sessions.csv"), 'wb'), fieldnames=fieldnames['Sessions'])
+            out_sessions.writerow( self.__fields_to_dict(fieldnames['Sessions']) )
 
-            out_authors = csv.DictWriter(open(os.path.join(pathname,"Authors.csv"), 'wb'), fieldnames=["LASTNAME", "FIRSTNAME", "EMAIL", "AFFILIATION"])
-            out_authors.writerow({"LASTNAME":"LASTNAME", "FIRSTNAME":"FIRSTNAME", "EMAIL":"EMAIL", "AFFILIATION":"AFFILIATION"})
+            out_authors = csv.DictWriter(open(os.path.join(pathname,"Authors.csv"), 'wb'), fieldnames=fieldnames['Authors'])
+            out_authors.writerow( self.__fields_to_dict(fieldnames['Authors']) )
 
-        except IOError,e:
-            raise e
+            out_conf = csv.DictWriter(open(os.path.join(pathname,"Conference.csv"), 'wb'), fieldnames=fieldnames['Conference'])
+            out_conf.writerow( self.__fields_to_dict(fieldnames['Conference']) )
+
+        except IOError:
+            raise
 
         for doc in docs:
             print "docid=",doc.get_docid()
@@ -105,9 +116,6 @@ class CSVWriter:
                     out_authors.writerow({"LASTNAME":LastName.encode('utf-8'), "FIRSTNAME":FirstName.encode('utf-8'), "EMAIL":Email.encode('utf-8'), "AFFILIATION":affiliations.encode('utf-8')})
 
     def __format(self,s):
-        # = s.replace("_", "\_")
-        # = a.replace("%", "\%")
-        # = a.replace("&", "\&")
         a = s.replace("\s", " ")
         return a
 

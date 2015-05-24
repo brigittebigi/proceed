@@ -46,9 +46,10 @@ __docformat__ = "epytext"
 
 import wx
 
-from wxgui.models.datadocument import Document
-from wxgui.models.dataauthor   import Author
-from wxgui.models.datasession  import Session
+from wxgui.models.dataconference import Conference
+from wxgui.models.datadocument   import Document
+from wxgui.models.dataauthor     import Author
+from wxgui.models.datasession    import Session
 
 from wxgui.sp_consts import BACKGROUND_COLOR
 from wxgui.sp_consts import FONTSIZE
@@ -87,12 +88,10 @@ class CreateDocument( wx.Dialog ):
     # End __init__
     # ------------------------------------------------------------------------
 
-
     def GetId(self):
         return self.TxtCtrl.GetValue().strip()
 
     # ------------------------------------------------------------------------
-
 
     def AddStaticText(self, panel, sizer, label, bold=False):
         if bold is True:
@@ -104,7 +103,6 @@ class CreateDocument( wx.Dialog ):
         sizer.Add(txt, proportion=1, flag=wx.EXPAND|wx.ALL, border=10)
         return txt
 
-
     def AddTextCtrl(self, panel, sizer, label):
         myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
         txt = wx.TextCtrl(panel, -1, label)
@@ -115,6 +113,59 @@ class CreateDocument( wx.Dialog ):
 
 
 # ---------------------------------------------------------------------------
+
+
+class CreateConference( wx.Dialog ):
+    """
+    @authors: Brigitte Bigi
+    @contact: brigitte.bigi@gmail.com
+    @license: GPL
+    @summary: Used to create Conference instances.
+
+    """
+    def __init__(self, parent, id, title):
+
+        wx.Dialog.__init__(self, parent, id, title, size=(320, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
+        self.parent   = parent
+        self.SetBackgroundColour(BACKGROUND_COLOR)
+
+        hSizer = wx.BoxSizer(wx.VERTICAL)
+        self.AddStaticText(self,hSizer,"Enter the conference acronym: ")
+        self.TxtCtrl = self.AddTextCtrl(self,hSizer,"")
+
+        btnSizer = self.CreateButtonSizer(wx.CANCEL|wx.OK)
+        hSizer.Add(btnSizer, flag=wx.EXPAND|wx.ALL, border=10)
+
+        self.SetSizer(hSizer)
+        self.SetMinSize((320, 240))
+
+    # End __init__
+    # ------------------------------------------------------------------------
+
+    def GetAcronym(self):
+        return self.TxtCtrl.GetValue().strip()
+
+    # ------------------------------------------------------------------------
+
+    def AddStaticText(self, panel, sizer, label, bold=False):
+        if bold is True:
+            myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_BOLD, encoding=wx.FONTENCODING_UTF8)
+        else:
+            myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+        txt = wx.StaticText(panel, -1, label)
+        txt.SetFont(myfont)
+        sizer.Add(txt, proportion=1, flag=wx.EXPAND|wx.ALL, border=10)
+        return txt
+
+    def AddTextCtrl(self, panel, sizer, label):
+        myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
+        txt = wx.TextCtrl(panel, -1, label)
+        txt.SetFont(myfont)
+        txt.SetEditable(True)
+        sizer.Add(txt, proportion=1, flag=wx.EXPAND|wx.ALL, border=10)
+        return txt
+
+# ----------------------------------------------------------------------------
 
 
 class CreateAuthor( wx.Dialog ):
@@ -151,16 +202,13 @@ class CreateAuthor( wx.Dialog ):
     # End __init__
     # ------------------------------------------------------------------------
 
-
     def GetFirstName(self):
         return self.FirstName.GetValue().strip()
-
 
     def GetLastName(self):
         return self.LastName.GetValue().strip()
 
     # ------------------------------------------------------------------------
-
 
     def AddStaticText(self, panel, sizer, label, bold=False):
         if bold==True:
@@ -171,7 +219,6 @@ class CreateAuthor( wx.Dialog ):
         txt.SetFont(myfont)
         sizer.Add(txt, proportion=1, flag=wx.EXPAND|wx.ALL, border=5)
         return txt
-
 
     def AddTextCtrl(self, panel, sizer, label):
         myfont = wx.Font(pointSize=FONTSIZE, family=FONTFAMILY, style=wx.FONTSTYLE_NORMAL, weight=wx.FONTWEIGHT_NORMAL, encoding=wx.FONTENCODING_UTF8)
@@ -202,6 +249,8 @@ class CreateSession( wx.Dialog ):
             - K for keynotes
             - O for oral session
             - P for poster session
+            - S for demo
+            - T for tutorial
             - anything else for other types of sessions
 
     The first letter of the session name is used while sorting by session
@@ -222,7 +271,7 @@ class CreateSession( wx.Dialog ):
         self.text.SetForegroundColour(wx.Colour(128,128,128))
         self.text.SetValue(DEFAULT_LABEL)
 
-        self.choices = ['Keynote', 'Oral', 'Poster', 'Other' ]
+        self.choices = ['Keynote', 'Oral', 'Poster', 'Demo', 'Tutorial', 'Other' ]
         self.radiobox = wx.RadioBox(self, label="Session type:", choices=self.choices, majorDimension=2)
         self.radiobox.SetForegroundColour(wx.Colour(3,3,87))
 
@@ -283,6 +332,18 @@ class CreateSession( wx.Dialog ):
                 return text
             else:
                 return '[P-' + text[1:]
+
+        elif self.choices[idx] == 'Demo':
+            if text[1] == 'S':
+                return text
+            else:
+                return '[S-' + text[1:]
+
+        elif self.choices[idx] == 'Tutorial':
+            if text[1] == 'T':
+                return text
+            else:
+                return '[T-' + text[1:]
 
     # ------------------------------------------------------------------------
 

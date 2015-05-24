@@ -22,6 +22,7 @@ ABOUT_ICON          = os.path.join(ICONS_PATH, "about.png")
 AUTHOR_ICON         = os.path.join(ICONS_PATH, "author.png")
 DOCUMENT_ICON       = os.path.join(ICONS_PATH, "document.png")
 SESSION_ICON        = os.path.join(ICONS_PATH, "session.png")
+CONFERENCE_ICON     = os.path.join(ICONS_PATH, "conference.png")
 
 CHECKED_ICON        = os.path.join(ICONS_PATH, "check.ico")
 UNCHECKED_ICON      = os.path.join(ICONS_PATH, "uncheck.ico")

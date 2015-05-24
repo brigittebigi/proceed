@@ -51,6 +51,39 @@ from datasession import Session
 
 # ---------------------------------------------------------------------------
 
+class conference_csv_reader:
+    """
+    @authors: Brigitte Bigi
+    @contact: brigitte.bigi@gmail.com
+    @license: GPL
+    @summary: CSV reader for conference information.
+
+    """
+    def __init__(self, fileName):
+        self.fileName = fileName
+
+    # -----------------------------------------------------------------------
+
+    def get_Rows(self):
+        csvReader = csv.DictReader(open(self.fileName, "rb"))
+        return csvReader
+
+    def get_ConfName(self, row):
+        return row['CONFERENCE_NAME']
+
+    def get_Acronym(self, row):
+        return row['ACRONYM']
+
+    def get_Place(self, row):
+        return row['PLACE']
+
+    def get_DateFrom(self, row):
+        return row['DATE_FROM']
+
+    def get_DateTo(self, row):
+        return row['DATE_TO']
+
+# ---------------------------------------------------------------------------
 
 class documents_csv_reader:
     """
@@ -64,31 +97,24 @@ class documents_csv_reader:
         self.fileName = fileName
 
     # -----------------------------------------------------------------------
-    # Individual Data Getters
-    # -----------------------------------------------------------------------
 
     def get_Rows(self):
         csvReader = csv.DictReader(open(self.fileName, "rb"))
         return csvReader
 
-
     def get_DocId(self, row):
         return row['DOCID']
-
 
     def get_DocTitle(self, row):
         return row["TITLE"]
 
-
     def get_Author(self, row):
         return Author(row["LASTNAME"],row["FIRSTNAME"])
-
 
     def get_Session(self, row):
         if row["SESSION_ID"] != "":
             return Session(row["SESSION_ID"])
         return ""
-
 
     def get_Rank(self, row):
         rank = row["RANK"]
@@ -100,12 +126,10 @@ class documents_csv_reader:
             raise TypeError('Can not convert rank='+rank+' into line='+row['DOCID'])
         return r
 
-
     def get_NumPage(self, row):
         return row["PAGE_NUMBER"]
 
     # -----------------------------------------------------------------------
-
 
     def get_all_ids(self):
 
@@ -119,9 +143,7 @@ class documents_csv_reader:
 
         return docidList
 
-    # End
     # -----------------------------------------------------------------------
-
 
     def get_ById(self, docid):
 
@@ -135,9 +157,7 @@ class documents_csv_reader:
 
         return good_rows
 
-    # End
     # -----------------------------------------------------------------------
-
 
     def get_ByAuthor(self, AuthorLastName, AuthorFirstName):
 
@@ -152,12 +172,9 @@ class documents_csv_reader:
 
         return good_rows
 
-    # End
     # -----------------------------------------------------------------------
 
-
 # ---------------------------------------------------------------------------
-
 
 class authors_csv_reader:
     """
@@ -171,35 +188,24 @@ class authors_csv_reader:
     def __init__(self, fileName):
         self.fileName = fileName
 
-    # End filename
-    # -----------------------------------------------------------------------
-
-    # -----------------------------------------------------------------------
-    # Individual Data Getters
     # -----------------------------------------------------------------------
 
     def get_Rows(self):
         csvReader = csv.DictReader(open(self.fileName, "rb"))
         return csvReader
 
-
     def get_FirstName(self, row):
         return row["FIRSTNAME"]
-
 
     def get_LastName(self, row):
         return row["LASTNAME"]
 
-
     def get_email(self, row):
         return row["EMAIL"]
-
 
     def get_Affiliation(self, row):
         return row["AFFILIATION"]
 
-    # -----------------------------------------------------------------------
-    # Global Data Getters
     # -----------------------------------------------------------------------
 
     def get_all_names(self):
@@ -214,7 +220,6 @@ class authors_csv_reader:
 
         return authList
 
-
     def get_ByNames(self, lastname, firstname):
 
         csvReader = csv.DictReader(open(self.fileName, "rb"))
@@ -226,7 +231,6 @@ class authors_csv_reader:
         return good_rows
 
     # -----------------------------------------------------------------------
-
 
 # ---------------------------------------------------------------------------
 
@@ -244,23 +248,17 @@ class sessions_csv_reader:
     def __init__(self, fileName):
         self.fileName = fileName
 
-
-    # -----------------------------------------------------------------------
-    # Individual Data Getters
     # -----------------------------------------------------------------------
 
     def get_Rows(self):
         csvReader = csv.DictReader(open(self.fileName, "rb"))
         return csvReader
 
-
     def get_SessionId(self, row):
         return row["SESSION_ID"]
 
-
     def get_SessionName(self, row):
         return row["SESSION_NAME"]
-
 
     def get_Rank(self, row):
         rank = row["RANK"]
@@ -272,25 +270,20 @@ class sessions_csv_reader:
             raise TypeError('Can not convert rank='+rank)
         return r
 
-
     def get_Date(self, row):
         date_tab = row["DATE"].split("-") #YYYY-MM-DD
         if row["DATE"] != '':
             return datetime.date(int(date_tab[0]),int(date_tab[1]),int(date_tab[2]))
         return ''
 
-
     def get_Heure_Deb(self, row):
         return row["H-DEB"]
-
 
     def get_Heure_Fin(self, row):
         return row["H-FIN"]
 
-
     def get_Chairman(self, row):
         return row["CHAIRMAN"]
-
 
     def get_Location(self, row):
         return row["LOCATION"]
@@ -308,7 +301,6 @@ class sessions_csv_reader:
 
         return codes
 
-
     def get_ById(self, sessionId):
 
         csvReader = csv.DictReader(open(self.fileName, "rb"))
@@ -319,7 +311,6 @@ class sessions_csv_reader:
             good_rows.append(row)
 
         return good_rows
-
 
     def get_ByDate(self, Date):
 

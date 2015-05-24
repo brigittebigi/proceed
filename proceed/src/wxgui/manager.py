@@ -594,11 +594,9 @@ class MainFrame(wx.Frame):
             logging.info("Good bye...")
             self.Destroy()
 
-
     # -----------------------------------------------------------------------
     # Callbacks to manage the data
     # -----------------------------------------------------------------------
-
 
     def OnOpen(self, event):
         self.nbp.OnOpen(event)
