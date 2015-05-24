@@ -42,7 +42,6 @@
 
 import os
 
-from DataIO.Documents.style import documentsProp, Margins
 from indexwriter import IndexWriter
 from csvwriter   import CSVWriter
 from htmlwriter  import HTMLWriter
@@ -63,7 +62,6 @@ class Writer:
 
     def __init__(self, docs):
         self._docs = docs
-        self._docprops = documentsProp()
         self._status = 1
 
     # End __init__
@@ -71,25 +69,24 @@ class Writer:
 
 
     def set_status(self, s):
-        try:
-            ints = int(s)
-        except Exception,e:
-            raise TypeError('The status value must be an integer value (0-4).')
-        if ints < 0 or ints > 4:
+#         try:
+#             ints = int(s)
+#         except Exception,e:
+#             raise TypeError('The status value must be an integer value (0-4).')
+        if s < 0 or s > 4:
             raise ValueError('The status value is not in an appropriate range (0-4).')
-        self._status = ints
+        self._status = s
 
     # End set_status
     #-------------------------------------------------------------------------
 
 
-    def writeLaTeX_as_Dir(self, outputname, stylename):
+    def writeLaTeX_as_Dir(self, outputname, prefs):
         """
         Write the authors/title/abstract of each document in separated LaTeX files.
         """
 
-        latex = LaTeXWriter( self._docprops )
-        latex.change_style( stylename )
+        latex = LaTeXWriter( prefs=prefs )
         os.mkdir(outputname)
 
         for doc in self._docs:
@@ -139,7 +136,7 @@ class Writer:
     #-------------------------------------------------------------------------
 
 
-    def writeLaTeX(self, outputname):
+    def writeLaTeX(self, outputname, prefs):
         """
         Write the list of authors/title/... of each document in a LaTeX file.
         """
@@ -148,7 +145,7 @@ class Writer:
             os.remove(outputname)
 
         # Write the list of authors/title/... of each document
-        latex = LaTeXWriter( self._docprops, self._status )
+        latex = LaTeXWriter( self._status, prefs )
         latex.write_as_list( self._docs, outputname )
 
     # End writeLaTeX

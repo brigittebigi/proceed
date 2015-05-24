@@ -98,6 +98,8 @@ class CSVWriter:
 
                     if ( len(affiliationList) != 0):
                         affiliations = ' '.join(affiliationList)
+                    else:
+                        affiliations = ' '
 
                     out_documents.writerow({"DOCID":Docid.encode('utf-8'), "TITLE":Title.encode('utf-8'), "LASTNAME":LastName.encode('utf-8'), "FIRSTNAME":FirstName.encode('utf-8'), "SESSION_ID":"", "RANK":"", "PAGE_NUMBER":""})
                     out_authors.writerow({"LASTNAME":LastName.encode('utf-8'), "FIRSTNAME":FirstName.encode('utf-8'), "EMAIL":Email.encode('utf-8'), "AFFILIATION":affiliations.encode('utf-8')})

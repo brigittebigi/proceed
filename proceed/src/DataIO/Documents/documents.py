@@ -154,14 +154,14 @@ class document:
     def append_laboratory(self, laboratory):
         self._laboratory.append( laboratory )
 
-    def set_status(self , status):
-        try:
-            ints = int(status)
-        except Exception,e:
-            raise TypeError('The status value must be an integer value (0-4).')
-        if ints < 0 or ints > 4:
-            raise ValueError('The status value is not in an appropriate range (0-4).')
-        self._status = ints
+    def set_status(self , s):
+#         try:
+#             ints = int(status)
+#         except Exception,e:
+#             raise TypeError('The status value must be an integer value (0-4).')
+        if s < 0 or s > 4:
+            raise ValueError('The status value is not in an appropriate range (0-4): %s - %s'%(s,type(s)))
+        self._status = s
 
 
 

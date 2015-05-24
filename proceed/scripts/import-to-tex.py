@@ -58,7 +58,8 @@ sys.path.append( os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(_
 
 from DataIO.Read.reader import Reader
 from DataIO.Write.writer import Writer
-
+from structs.prefs import Preferences
+from structs.abstracts_themes import all_themes
 
 # ----------------------------------------------------------------------
 # USEFUL FUNCTIONS
@@ -71,13 +72,14 @@ def usage(output):
     @param output is a string representing the output (for example: sys.stdout)
 
     """
-    output.write('export-abstracts-tex.py [options] where options are:\n')
+    output.write('import-to-tex.py [options] where options are:\n')
     output.write('      -i file             Input file name                 [required] \n')
     output.write('      -a file             Authors Input file name         [required if easychair] \n')
     output.write('      -o output           Output directory                [required] \n')
     output.write('      -s status           Status number (0-4)             [default=1=accepted]\n')
-    output.write('      -r reader name      One of: sciencesconf or easychair  [default=sciencesconf]\n')
-    output.write('      -S style name       One of: amlap, taln, simple     [default=simple]\n')
+    output.write('      -r reader name      One of: sciencesconf or easychair [default=sciencesconf]\n')
+    output.write('      -S style name       One of: basic, palme, nalte     [default=basic]\n')
+    output.write('      -c compiler         One of: pdflatex, xetex         [default=pdflatex]\n')
     output.write('      --help              Print this help\n\n')
 
 # End usage
@@ -129,7 +131,8 @@ if __name__:
     extension    = "tex"
     status       = 1 # only accepted papers
     readername   = "sciencesconf"
-    stylename    = "simple"
+    themename    = "basic"
+    compiler     = "pdflatex"
 
     # Extract options
     for o, a in opts:
@@ -144,7 +147,9 @@ if __name__:
         elif o == "-r":
             readername = a
         elif o == "-S":
-            stylename = a
+            themename = a
+        elif o == "-c":
+            compiler = a
         elif o == "--help": # need help
             Quit(message='Help', status=0, usageoutput=sys.stdout)
 
@@ -170,6 +175,8 @@ if __name__:
     arguments['readername'] = readername
     arguments['filename']   = fileinput
     arguments['authorsfilename'] = authorsinput
+    arguments['status'] = status
+
     reader = Reader( arguments )
 
 
@@ -177,9 +184,21 @@ if __name__:
     # Write output data (with default parameters)
     # ----------------------------------------------------------------------
 
+    # Create preferences
+    prefs = Preferences()
+    theme = all_themes.get_theme(themename)
+    prefs.SetTheme( theme )
+    prefs.SetValue('COMPILER', 'str', compiler.strip())
+
+    print "compiler = ", prefs.GetValue('COMPILER')
+    print "status   = ", status
+
+    # Create the Writer
     writer = Writer( reader.docs )
     writer.set_status( status )
-    writer.writeLaTeX_as_Dir( output, stylename )
+
+    # Write as LaTeX and proceed native CSV files
+    writer.writeLaTeX_as_Dir( output, prefs )
     writer.writeCSV( output )
 
     # ----------------------------------------------------------------------

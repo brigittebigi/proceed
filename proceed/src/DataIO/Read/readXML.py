@@ -96,7 +96,10 @@ class readXML( readGeneric ):
         for doc in docTab:
 
             newDoc = document( doc.getAttribute("docid") )
-            newDoc.set_status( doc.getAttribute("status") )
+            if doc.getAttribute("status"):
+                newDoc.set_status( doc.getAttribute("status") )
+            else:
+                newDoc.set_status( 1 )
 
             metaDataTab = self.get_ByTagName('metadata')
 

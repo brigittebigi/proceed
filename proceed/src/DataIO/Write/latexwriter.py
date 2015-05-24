@@ -39,7 +39,13 @@
 import codecs
 import re
 import datetime
-from DataIO.Documents.style import documentsLaTeXStyle, documentsProp
+
+from structs.prefs import Preferences
+from structs.abstracts_themes import all_themes
+
+# ---------------------------------------------------------------------------
+
+COMPILERS = ['pdflatex', 'xetex']
 
 # ---------------------------------------------------------------------------
 
@@ -55,21 +61,12 @@ class LaTeXWriter:
 
     """
 
-    def __init__( self, docprops, status=1 ):
-        self.docProp  = docprops
+    def __init__( self, status=1, prefs=None ):
         self._status  = status
-        self._compiler = "LATEX"
-        self._style    = documentsLaTeXStyle()
-
-
-    def change_style(self, stylename):
-        if stylename.lower().strip() == "taln":
-            self._style.set_taln()
-        elif stylename.lower().strip() == "amlap":
-            self._style.set_amlap()
-        else:
-            self._style.set_simple()
-
+        self.prefs = prefs
+        if prefs is None:
+            self.prefs.SetValue('COMPILER', 'str', 'pdflatex')
+            self._prefs.SetTheme( all_themes[0][1] )
 
     def write_as_list( self, docs, filename ):
         with codecs.open ( filename , 'w' , 'utf-8') as fp:
@@ -125,12 +122,12 @@ class LaTeXWriter:
         fp.write('% % '+str(now.year)+'-'+str(now.month)+'-'+str(now.day)+'                                                             % %\n')
         self.__write_separator(fp)
         fp.write('\n')
-        fp.write('\documentclass['+self.docProp.GetFontSize()+']{article}\n')
+        fp.write('\documentclass['+self.prefs.GetValue('FONT_SIZE')+']{article}\n')
         fp.write('\n')
 
         ## Fix included package depending the compiler (and the encoding...)
-        if self._compiler == "LATEX":
-            fp.write('\usepackage['+self.docProp.GetEncoding()+'x]{inputenc}\n')
+        if self.prefs.GetValue('COMPILER') == "pdflatex":
+            fp.write('\usepackage['+self.prefs.GetValue('ENCODING')+'x]{inputenc}\n')
             fp.write('\usepackage[T1]{fontenc} %% get hyphenation and accented letters right\n')
             fp.write('\n')
             fp.write('\usepackage[pdftex]{graphicx}\n')
@@ -138,7 +135,7 @@ class LaTeXWriter:
             fp.write('\usepackage{amssymb}\n')
             fp.write('\usepackage{amsmath}\n')
             fp.write('\usepackage{mathptmx}        %% use fitting times fonts also in formulas\n')
-        elif self._compiler == "XELATEX":
+        elif self.prefs.GetValue('COMPILER') == "xetex":
             fp.write('\usepackage{fontspec}       %% we will use a specific font\n')
             fp.write('\usepackage{xunicode}       %% this file is UTF8 \n')
             fp.write('\usepackage{lmodern}        %%  \n')
@@ -147,7 +144,9 @@ class LaTeXWriter:
             #fp.write('\setmainfont{WenQuanYi Zen Hei Sharp}  %% The choosed font \n')
             fp.write('\n')
         else:
-            raise Exception('Unknown compiler')
+            message  = "Unrecognized compiler name: %s."%self.prefs.GetValue('COMPILER')
+            message += "Must be one of %s"%' '.join(COMPILERS)
+            raise TypeError( message )
         fp.write('\usepackage{authblk}\n')
         fp.write('\usepackage{tipa}\n')
         fp.write('\n')
@@ -158,16 +157,16 @@ class LaTeXWriter:
 
     def __write_properties(self,fp):
         fp.write('% % set margins\n')
-        fp.write('\usepackage['+self.docProp.GetPaperSize()+',')
-        fp.write('left='+str(self.docProp.GetMargins().GetLeft())+'mm,')
-        fp.write('right='+str(self.docProp.GetMargins().GetRight())+'mm,')
-        fp.write('top='+str(self.docProp.GetMargins().GetTop())+'mm,')
-        fp.write('bottom='+str(self.docProp.GetMargins().GetBottom())+'mm,')
+        fp.write('\usepackage['+self.prefs.GetValue('PAPER_SIZE')+',')
+        fp.write('left='+str(self.prefs.GetValue('MARGIN_LEFT'))+'mm,')
+        fp.write('right='+str(self.prefs.GetValue('MARGIN_RIGHT'))+'mm,')
+        fp.write('top='+str(self.prefs.GetValue('MARGIN_TOP'))+'mm,')
+        fp.write('bottom='+str(self.prefs.GetValue('MARGIN_BOTTOM'))+'mm,')
         fp.write('noheadfoot]{geometry}\n')
         fp.write('\n')
         fp.write('% % paragraph indentation\n')
-        fp.write('\setlength{\parindent}{'+str(self.docProp.GetParindent())+'cm}\n')
-        fp.write('\setlength{\parskip}{'+str(self.docProp.GetParskip())+'pt}\n')
+        fp.write('\setlength{\parindent}{'+str(self.prefs.GetValue('PARINDENT'))+'cm}\n')
+        fp.write('\setlength{\parskip}{'+str(self.prefs.GetValue('PARSKIP'))+'pt}\n')
         fp.write('\n')
         fp.write('% % no page numbers\n')
         fp.write('\\renewcommand\\thepage{}\n')
@@ -177,32 +176,27 @@ class LaTeXWriter:
     def __write_style(self,fp):
         fp.write('% % fix title style\n')
         fp.write('\let\LaTeXtitle\\title\n')
-        fp.write(self._style._title + '\n')
-        #fp.write('\\renewcommand{\\title}[1]{\LaTeXtitle{\Large\\textsf{\\textbf{#1}}}}\n')
+        fp.write(self.prefs.GetValue('TITLE') + '\n')
         fp.write('\n')
         fp.write('% % Fix authors style\n')
-        fp.write(self._style._authors + '\n')
-        #fp.write('\\renewcommand\Authfont{\scshape\small}\n')
+        fp.write(self.prefs.GetValue('AUTHORS') + '\n')
         # Remove the "AND" between authors, replace by a comma
         fp.write('\\renewcommand\Authsep{, }\n')
         fp.write('\\renewcommand\Authand{, }\n')
         fp.write('\\renewcommand\Authands{, }\n')
         fp.write('\n')
         fp.write('% % Fix affiliation style\n')
-        fp.write(self._style._labos + '\n')
-        #fp.write('\\renewcommand\Affilfont{\itshape\small}\n')
+        fp.write(self.prefs.GetValue('LABOS') + '\n')
         fp.write('\setlength{\\affilsep}{1em}\n')
         fp.write('\n')
         fp.write('% % fix e-mail style\n')
-        #fp.write('\\newcommand{\emailaddress}[1]{\\newline{\sf#1}}\n')
-        fp.write(self._style._email + '\n')
+        fp.write(self.prefs.GetValue('EMAIL') + '\n')
         fp.write('\n')
         fp.write('% % fix keywords style\n')
         fp.write('\\newcommand{\smalllineskip}{\\baselineskip=15pt}\n')
-        fp.write(self._style._keywords + '\n')
-        #fp.write('\\newcommand{\keywords}[1]{\\noindent{\small{\\textit{Keywords}: }#1\par \\vskip.7\\baselineskip}}\n')
+        fp.write(self.prefs.GetValue('KEYWORDS') + '\n')
         fp.write('\n')
-        fp.write(self._style._abstract + '\n')
+        fp.write(self.prefs.GetValue('ABSTRACT') + '\n')
         fp.write('\\renewcommand\paragraph[1]{\\vspace{1em}{\\bfseries #1}}\n\n')
 
 
@@ -356,12 +350,12 @@ class LaTeXWriter:
         a = re.sub(u"ç", u"\\c{c}", a, re.UNICODE)   #
         a = re.sub(u"ô", u"\\^o", a, re.UNICODE)   #
         a = re.sub(u"ó", u"\\'o", a, re.UNICODE)
-       
+
         a = re.sub(u"–", u"-", a, re.UNICODE)
         a = re.sub(u"’", u"'", a, re.UNICODE)   # apostrophe
         a = re.sub(u"ˈ", "'", a, re.UNICODE)
         a = re.sub(u'´', "'", a, re.UNICODE)
-        
+
         a = re.sub(u"é", u"\\'e", a, re.UNICODE)
         a = re.sub(u"è", u"\\`e", a, re.UNICODE)
         a = re.sub(u"à", u"\\`a", a, re.UNICODE)
@@ -375,9 +369,9 @@ class LaTeXWriter:
         a = a.replace(u'‐', '--')
         a = a.replace(u'ﬂ', 'fl')
         a = a.replace(u'í', "\\'i")
-        
+
         a = a.replace(u'η', "$\eta$") # grec
-        
+
         a = a.replace(u'ɛ̃','\\textipa{\~E}')
         a = a.replace(u'ɑ̃','\\textipa{\~A}')
         a = a.replace(u'ɐ̃','\\textipa{\~5}')
