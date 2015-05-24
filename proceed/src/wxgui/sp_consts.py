@@ -107,8 +107,6 @@ FONTFAMILY = wx.FONTFAMILY_DECORATIVE
 
 BACKGROUND_COLOR = "#E3E3E3"
 
-ASK_BEFORE_EXIT  = False
-    # Choose one of: True/False
-
+ASK_BEFORE_EXIT = False
 
 # ----------------------------------------------------------------------------

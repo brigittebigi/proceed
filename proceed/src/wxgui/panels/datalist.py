@@ -381,7 +381,7 @@ class NotebookPanel( wx.Panel ):
             self.GetTopLevelParent().SetSelected(selection)
             self._isSaved = False
             self.GetTopLevelParent().GetStatusBar().SetStatusText('An entry was modified.')
-        dlg.Destroy()
+            dlg.Destroy()
 
     # End OnEditSelected
     # ------------------------------------------------------------------------

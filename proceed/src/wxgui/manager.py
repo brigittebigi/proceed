@@ -51,11 +51,15 @@ import wx
 import logging
 import os.path
 
+from sp_glob import program
 from wxgui.frames.about       import AboutBox
 from wxgui.frames.helpbrowser import HelpBrowser
+from wxgui.frames.feedback    import ShowFeedbackDialog
 
 from wxgui.panels.infopanel import InformationPanel
 from wxgui.panels.datalist  import NotebookPanel
+
+from wxgui.cutils.imageutils import spBitmap
 
 from wxgui.sp_consts import BACKGROUND_COLOR
 from wxgui.sp_consts import ASK_BEFORE_EXIT
@@ -63,10 +67,15 @@ from wxgui.sp_consts import MIN_FRAME_W
 from wxgui.sp_consts import MIN_FRAME_H
 from wxgui.sp_consts import FRAME_H
 from wxgui.sp_consts import PANEL_W
-from wxgui.sp_consts import PREFS_FILE
+from wxgui.sp_consts import FRAME_TITLE
+from wxgui.sp_consts import FRAME_STYLE
+from wxgui.sp_consts import MENU_ICONSIZE
+from wxgui.sp_consts import TB_ICONSIZE
 
 from wxgui.sp_icons import APP_ICON
 from wxgui.sp_icons import EXIT_ICON
+from wxgui.sp_icons import HELP_ICON
+from wxgui.sp_icons import FEEDBACK_ICON
 from wxgui.sp_icons import OPEN_ICON
 from wxgui.sp_icons import SAVE_ICON
 from wxgui.sp_icons import CHECK_ICON
@@ -85,6 +94,8 @@ VIEW_TOOLBAR_ID   = wx.NewId()
 VIEW_STATUSBAR_ID = wx.NewId()
 
 ID_GENERATE = wx.NewId()
+ID_HOME     = wx.NewId()
+ID_FEEDBACK = wx.NewId()
 
 # ---------------------------------------------------------------------------
 
@@ -107,13 +118,10 @@ class MainFrame( wx.Frame ):
         """
 
         try:
-            wx.Frame.__init__(self, None, -1, style=wx.DEFAULT_FRAME_STYLE|wx.CLOSE_BOX)
-        except Exception,e:
+            wx.Frame.__init__(self, None, -1, style=FRAME_STYLE)
+        except Exception as e:
             logging.debug('Frame init Error: %s'%str(e))
-            raise Exception('Frame error during init')
-
-        # To enable translations of wx stock items.
-        self.locale = wx.Locale(wx.LANGUAGE_DEFAULT)
+            raise
 
         # Set title and icon of the frame
         self._init_infos()
@@ -144,16 +152,12 @@ class MainFrame( wx.Frame ):
         If args contains title, get it... or use the default.
 
         """
-
         # colors
         self.SetBackgroundStyle( wx.BG_STYLE_CUSTOM )
         self.SetBackgroundColour( BACKGROUND_COLOR )
-
         # title
-        title = " Proceed "
-        self.SetTitle( title )
-        wx.GetApp().SetAppName( title )
-
+        self.SetTitle( FRAME_TITLE )
+        wx.GetApp().SetAppName( program )
         # icon
         _icon = wx.EmptyIcon()
         _icon.CopyFromBitmap( wx.Bitmap(APP_ICON, wx.BITMAP_TYPE_ANY) )
@@ -223,35 +227,69 @@ class MainFrame( wx.Frame ):
 
         menubar = wx.MenuBar()
 
-        # Add the 1st menu: File
         menuFile = wx.Menu()
-        menuFile.Append(wx.ID_OPEN, '&Open', 'Load data')
-        menuFile.Append(wx.ID_SAVE, '&Save', 'Save data')
-        menuFile.AppendSeparator()
-        menuFile.Append(wx.ID_APPLY, '&Check', 'Check data')
-        menuFile.Append(ID_GENERATE, '&Export', 'Export data')
-        menuFile.AppendSeparator()
+        menuEdit = wx.Menu()
+        helpMenu = wx.Menu()
+
+        openItem   = wx.MenuItem(menuFile, wx.ID_OPEN,  'Open\tCtrl+O', 'Load data from a directory')
+        saveItem   = wx.MenuItem(menuFile, wx.ID_SAVE,  'Save\tCtrl+S', 'Save data as CSV files')
+        checkItem  = wx.MenuItem(menuFile, wx.ID_APPLY, 'Check', 'Check data')
+        exportItem = wx.MenuItem(menuFile, ID_GENERATE, 'Export PDF', 'Export PDF files')
         if wx.Platform == '__WXMAC__':
-            menuFile.Append(wx.ID_EXIT, '&Quit', 'Closes this program')
+            exitItem = wx.MenuItem(menuFile, wx.ID_EXIT, '&Quit\tCtrl+Q', 'Exits this program')
         else:
-            menuFile.Append(wx.ID_EXIT, 'E&xit', 'Closes this program')
-        menubar.Append(menuFile, "&File")
+            exitItem = wx.MenuItem(menuFile, wx.ID_EXIT, 'E&xit\tCtrl+Q', 'Exits this program')
+
+        openItem.SetBitmap(   spBitmap(OPEN_ICON,  MENU_ICONSIZE) )
+        saveItem.SetBitmap(   spBitmap(SAVE_ICON,  MENU_ICONSIZE) )
+        checkItem.SetBitmap(  spBitmap(CHECK_ICON, MENU_ICONSIZE) )
+        exportItem.SetBitmap( spBitmap(EXPORT_ICON, MENU_ICONSIZE) )
+        exitItem.SetBitmap(   spBitmap(EXIT_ICON, MENU_ICONSIZE) )
+
+        menuFile.AppendItem(openItem)
+        menuFile.AppendItem(saveItem)
+        menuFile.AppendSeparator()
+        menuFile.AppendItem(checkItem)
+        menuFile.AppendItem(exportItem)
+        menuFile.AppendSeparator()
+        menuFile.AppendItem(exitItem)
 
         # Edit
-        menuEdit = wx.Menu()
-        menuEdit.Append(wx.ID_NEW, '&Add', 'Add a new entry in data')
-        menuEdit.Append(wx.ID_EDIT, '&Edit', 'Edit selected data')
-        menuEdit.Append(wx.ID_DELETE, '&Delete', 'Delete selected data')
-        menubar.Append(menuEdit, "&Edit")
+        addItem  = wx.MenuItem(menuFile, wx.ID_NEW,   '&Add',    'Add a new entry in data')
+        editItem = wx.MenuItem(menuFile, wx.ID_EDIT,  '&Edit',   'Edit selected data')
+        delItem  = wx.MenuItem(menuFile, wx.ID_DELETE,'&Delete', 'Delete selected data')
+
+        addItem.SetBitmap(  spBitmap(ADD_ICON,    MENU_ICONSIZE) )
+        editItem.SetBitmap( spBitmap(EDIT_ICON,   MENU_ICONSIZE) )
+        delItem.SetBitmap(  spBitmap(DELETE_ICON, MENU_ICONSIZE) )
+
+        menuEdit.AppendItem( addItem )
+        menuEdit.AppendItem( editItem )
+        menuEdit.AppendItem( delItem )
 
         # Menu Help
-        helpMenu = wx.Menu()
-        helpMenu.Append(wx.ID_ABOUT, '&About' + ' ' + wx.GetApp().GetAppName(), 'Displays program information, version number, and copyright')
-        helpMenu.Append(wx.ID_HELP, '&Help' , 'Open the documentation in a web browser.')
+        # Menu Help
+        helpItem  = wx.MenuItem(helpMenu, wx.ID_HELP,  '&Help browser...\tF1')
+        aboutItem = wx.MenuItem(helpMenu, wx.ID_ABOUT, '&About' + ' ' + wx.GetApp().GetAppName()+"...\tF2")
+        homeItem  = wx.MenuItem(helpMenu, ID_HOME,     'Project Homepage...' , 'Visit the project homepage.')
+        feedbackItem = wx.MenuItem(helpMenu, ID_FEEDBACK, 'Give Feedback...' , 'Send information, or any suggestions by email.')
+
+        aboutItem.SetBitmap( spBitmap(ABOUT_ICON, MENU_ICONSIZE) )
+        helpItem.SetBitmap(  spBitmap(HELP_ICON,  MENU_ICONSIZE) )
+        homeItem.SetBitmap(  spBitmap(APP_ICON,   MENU_ICONSIZE) )
+        feedbackItem.SetBitmap( spBitmap(FEEDBACK_ICON, MENU_ICONSIZE))
+
+        helpMenu.AppendItem( helpItem )
+        helpMenu.AppendItem( aboutItem )
+        helpMenu.AppendItem( homeItem )
+        helpMenu.AppendItem( feedbackItem )
+
+        menubar.Append(menuFile, "&File")
+        menubar.Append(menuEdit, "&Edit")
         menubar.Append(helpMenu, "&Help")
 
         # Events
-        eventslist = [ wx.ID_EXIT, wx.ID_ABOUT, wx.ID_HELP, wx.ID_OPEN, wx.ID_SAVE, wx.ID_NEW, ID_GENERATE, wx.ID_APPLY, wx.ID_EDIT, wx.ID_DELETE ]
+        eventslist = [ wx.ID_EXIT, wx.ID_ABOUT, wx.ID_HELP, wx.ID_OPEN, wx.ID_SAVE, wx.ID_NEW, ID_GENERATE, ID_HOME, ID_FEEDBACK, wx.ID_APPLY, wx.ID_EDIT, wx.ID_DELETE ]
         for event in eventslist:
             wx.EVT_MENU(self, event, self.ProcessEvent)
 
@@ -283,21 +321,21 @@ class MainFrame( wx.Frame ):
         """
         toolbar = self.CreateToolBar(style=wx.TB_TEXT|wx.TB_FLAT|wx.TB_DOCKABLE|wx.TB_NODIVIDER)
 
-        toolbar.AddLabelTool(id=wx.ID_EXIT, label="Exit", bitmap=wx.Bitmap(EXIT_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Quit the application")
+        toolbar.AddLabelTool(id=wx.ID_EXIT, label="Exit", bitmap=spBitmap(EXIT_ICON,TB_ICONSIZE),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Quit the application")
         toolbar.AddSeparator()
 
-        toolbar.AddLabelTool(id=wx.ID_OPEN,  label="Open",   bitmap=wx.Bitmap(OPEN_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Open a new directory")
-        toolbar.AddLabelTool(id=wx.ID_SAVE,  label="Save",   bitmap=wx.Bitmap(SAVE_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Save into CSV files")
-        toolbar.AddLabelTool(id=wx.ID_APPLY, label="Check",  bitmap=wx.Bitmap(CHECK_ICON), bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Check the data")
-        toolbar.AddLabelTool(id=ID_GENERATE, label="Export", bitmap=wx.Bitmap(EXPORT_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Export as PDF files")
+        toolbar.AddLabelTool(id=wx.ID_OPEN,  label="Open",   bitmap=spBitmap(OPEN_ICON, TB_ICONSIZE),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Open a new directory")
+        toolbar.AddLabelTool(id=wx.ID_SAVE,  label="Save",   bitmap=spBitmap(SAVE_ICON, TB_ICONSIZE),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Save into CSV files")
+        toolbar.AddLabelTool(id=wx.ID_APPLY, label="Check",  bitmap=spBitmap(CHECK_ICON, TB_ICONSIZE), bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Check the data")
+        toolbar.AddLabelTool(id=ID_GENERATE, label="Export", bitmap=spBitmap(EXPORT_ICON, TB_ICONSIZE),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Export as PDF files")
         toolbar.AddSeparator()
 
-        toolbar.AddLabelTool(id=wx.ID_NEW,   label="Add", bitmap=wx.Bitmap(ADD_ICON),      bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Create a new entry")
-        toolbar.AddLabelTool(id=wx.ID_EDIT,  label="Edit", bitmap=wx.Bitmap(EDIT_ICON),    bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Modify the selected entry")
-        toolbar.AddLabelTool(id=wx.ID_DELETE,label="Delete", bitmap=wx.Bitmap(DELETE_ICON),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Delete the selected entry")
+        toolbar.AddLabelTool(id=wx.ID_NEW,   label="Add",    bitmap=spBitmap(ADD_ICON, TB_ICONSIZE),   bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Create a new entry")
+        toolbar.AddLabelTool(id=wx.ID_EDIT,  label="Edit",   bitmap=spBitmap(EDIT_ICON, TB_ICONSIZE),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Modify the selected entry")
+        toolbar.AddLabelTool(id=wx.ID_DELETE,label="Delete", bitmap=spBitmap(DELETE_ICON, TB_ICONSIZE),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Delete the selected entry")
         toolbar.AddSeparator()
 
-        toolbar.AddLabelTool(id=wx.ID_ABOUT, label="About", bitmap=wx.Bitmap(ABOUT_ICON),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="About this application")
+        toolbar.AddLabelTool(id=wx.ID_ABOUT, label="About", bitmap=spBitmap(ABOUT_ICON, TB_ICONSIZE),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="About this application")
 
         # events
         eventslist = [ wx.ID_EXIT, wx.ID_ABOUT, wx.ID_HELP, wx.ID_OPEN, wx.ID_SAVE, wx.ID_NEW, ID_GENERATE, wx.ID_APPLY, wx.ID_EDIT, wx.ID_DELETE ]
@@ -388,6 +426,12 @@ class MainFrame( wx.Frame ):
             return True
         elif id == wx.ID_DELETE:
             self.OnDeleteData(event)
+            return True
+        elif id == ID_HOME:
+            self.OnExternalLink(event)
+            return True
+        elif id == ID_FEEDBACK:
+            ShowFeedbackDialog(self)
             return True
 
         return wx.GetApp().ProcessEvent(event)
@@ -531,6 +575,38 @@ class MainFrame( wx.Frame ):
 
             logging.info("Good bye...")
             self.Destroy()
+
+    # -----------------------------------------------------------------------
+
+    def OnExternalLink(self, evt):
+        """
+        Open the web browser.
+
+        """
+        eid = evt.GetId()
+        if eid == ID_HOME:
+            url="https://github.com/brigittebigi/proceed"
+#         elif eid == ID_DOC:
+#             url="http://sldr.org/sldr000800/preview/documentation.html"
+#         elif eid == ID_TRACK:
+#             url="http://code.google.com/p/sppas/issues/"
+#             wx.MessageBox('Your web browser will be opened.\n'
+#                           'First, check if the issue is not already declared in the list.\n'
+#                           'Then, declare an issue by clicking on the button "New Issue"',
+#                              'Info', wx.OK | wx.ICON_INFORMATION)
+        else:
+            evt.Skip()
+            return
+
+        # It seems under some cases when running under windows the call to
+        # subprocess in webbrowser will fail and raise an exception here. So
+        # simply trap and ignore it.
+        try:
+            import webbrowser
+            webbrowser.open(url,1)
+        except:
+            pass
+    # -----------------------------------------------------------------------
 
     # -----------------------------------------------------------------------
     # Callbacks to manage the data

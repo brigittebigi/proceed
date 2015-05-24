@@ -17,6 +17,8 @@ ADD_ICON            = os.path.join(ICONS_PATH, "add.png")
 EDIT_ICON           = os.path.join(ICONS_PATH, "edit.png")
 DELETE_ICON         = os.path.join(ICONS_PATH, "delete.png")
 ABOUT_ICON          = os.path.join(ICONS_PATH, "about.png")
+FEEDBACK_ICON       = os.path.join(ICONS_PATH, "feedback.png")
+CANCEL_ICON         = os.path.join(ICONS_PATH, "cancel.png")
 
 HELP_ICON           = os.path.join(ICONS_PATH, "help.png" )
 FORWARD_ICON        = os.path.join(ICONS_PATH, "forward.png" )
@@ -31,6 +33,11 @@ AUTHOR_ICON         = os.path.join(ICONS_PATH, "author.png")
 DOCUMENT_ICON       = os.path.join(ICONS_PATH, "document.png")
 SESSION_ICON        = os.path.join(ICONS_PATH, "session.png")
 CONFERENCE_ICON     = os.path.join(ICONS_PATH, "conference.png")
+
+# For the Feedback form
+MAIL_DEFAULT_ICON     = os.path.join(ICONS_PATH, "maildefault.png")
+MAIL_GMAIL_ICON       = os.path.join(ICONS_PATH, "mailgoogle.png")
+MAIL_OTHER_ICON       = os.path.join(ICONS_PATH, "mailother.png")
 
 CHECKED_ICON        = os.path.join(ICONS_PATH, "check.ico")
 UNCHECKED_ICON      = os.path.join(ICONS_PATH, "uncheck.ico")
