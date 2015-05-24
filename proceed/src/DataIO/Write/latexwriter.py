@@ -43,6 +43,8 @@ import datetime
 from structs.prefs import Preferences
 from structs.abstracts_themes import all_themes
 
+import utils.abstracts as abstracts
+
 # ---------------------------------------------------------------------------
 
 COMPILERS = ['pdflatex', 'xetex']
@@ -250,52 +252,12 @@ class LaTeXWriter:
     def __write_abstract(self,fp,abstract): # abstract is a string
         fp.write('% % ABSTRACT CONTENT\n')
         fp.write('\n')
-        # Clean the string
-        a = abstract
-        # remove HTML comments
-        a = re.sub(u'\\<!--[\[\]{}<>"\\/%*#\/!:;,.="\-\'\s\w\xaa-\xff]+-->', ur' ', a, re.UNICODE)
-        # remove simple tags
-        a = a.replace("<p>", "\n")
-        a = a.replace("</p>", "\n\n")
-        a = a.replace("<span>", " ")
-        a = a.replace("</span>", " ")
-        a = a.replace("<div>", " ")
-        a = a.replace("</div>", " ")
-        a = a.replace("<ul>", "\n\\begin{itemize}\n")
-        a = a.replace("</ul>", "\n\\end{itemize}\n")
-        a = a.replace("<ol>", "\n\\begin{enumerate}\n")
-        a = a.replace("</ol>", "\n\\end{enumerate}\n")
-        a = a.replace("<li>", "\n\item")
-        a = a.replace("</li>", "\n")
-        a = a.replace("<i>", "{\it ")
-        a = a.replace("</i>", "}")
-        a = a.replace("<b>", "{\\bf ")
-        a = a.replace("</b>", "}")
-        a = a.replace("<strong>", "{\\em ")
-        a = a.replace("</strong>", "}")
-        a = a.replace("<br />", "\n")
-        a = a.replace('<a target="_blank">', "")
-        a = a.replace("</a>", "")
-        # remove complex html tags:
-        a = a.replace("'Times New Roman',", "")
-        a = a.replace("'Times New Roman';", "")
-        a = a.replace("Times New Roman,", "")
-        a = a.replace("Arial,", "")
-        a = a.replace("serif;", "")
-        a = a.replace("sans-;", "")
-        a = a.replace("mso-spacerun: yes;", "")
-        a = a.replace("mso-fareast-font-family:", "")
-        a = a.replace("mso-ansi-language: EN-US;", "")
-        a = a.replace("mso-ansi-language: EN-GB;", "")
-        a = a.replace('<span style="font-size: small;">', '')
-        a = a.replace('<span style="">', '')
-        a = a.replace('<span style="font-family: ">', '')
-        a = a.replace('<span style="text-decoration: underline;">', '')
-        a = re.sub(u'<span style="font-family:[\s ]*">', ur' ', a, re.UNICODE)
-        a = re.sub(u'<span style="font-size: [\-\s\w\xaa-\xff]+;">', ur' ', a, re.UNICODE)
-        a = re.sub(u'<span style="text-decoration: [;\-\s\w\xaa-\xff]+">', ur' ', a, re.UNICODE)
-        a = re.sub(u'<span style="color: ["#;\-\s\w\xaa-\xff]+>', ur' ', a, re.UNICODE)
-        a = re.sub(u'<p align=["\s\w\xaa-\xff]+>', ur' ', a, re.UNICODE)
+        # Convert important HMTL Tag into LateX
+        tmpa = abstracts.html_to_tex(abstract)
+        # Remove the other HTML tags
+        parser = abstracts.HTMLCleaner()
+        parser.feed(tmpa)
+        a = parser.get_data()
         # Then, normalize the string
         a = self.__format(a)
         # finally: write!
