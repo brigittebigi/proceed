@@ -48,8 +48,7 @@ from sp_glob import program, version
 # Define all paths (relatively to SPPAS base path)
 # ---------------------------------------------------------------------------
 
-PREFS_FILE = os.path.join( BASE_PATH , "etc", "sppas.prefs")
-DOC_FILE   = os.path.join( os.path.dirname(BASE_PATH), "documentation", "documentation.html")
+PREFS_FILE = os.path.join( BASE_PATH , "etc", "proceed.prefs")
 HELP_PATH  = os.path.join( os.path.dirname(BASE_PATH), "documentation", "etc")
 DOC_IDX    = os.path.join( HELP_PATH, "doc", "markdown.idx")
 

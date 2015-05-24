@@ -73,7 +73,7 @@ fieldnames[PAGESLIST[3]] = ["SESSION_ID", "SESSION_NAME", "RANK", "DATE", "H-DEB
 
 author     = "Brigitte Bigi"
 contact    = "brigite.bigi@gmail.com"
-program    = "SPPAS"
+program    = "Proceed"
 version    = "0.3"
 copyright  = "Copyright (C) 2011-2015 Brigitte Bigi"
 url        = "http://"

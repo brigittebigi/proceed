@@ -51,13 +51,19 @@ import wx
 import logging
 import os.path
 
-from wxgui.frames.about     import AboutBox
+from wxgui.frames.about       import AboutBox
+from wxgui.frames.helpbrowser import HelpBrowser
+
 from wxgui.panels.infopanel import InformationPanel
 from wxgui.panels.datalist  import NotebookPanel
 
 from wxgui.sp_consts import BACKGROUND_COLOR
-from wxgui.sp_consts import DOC_FILE
 from wxgui.sp_consts import ASK_BEFORE_EXIT
+from wxgui.sp_consts import MIN_FRAME_W
+from wxgui.sp_consts import MIN_FRAME_H
+from wxgui.sp_consts import FRAME_H
+from wxgui.sp_consts import PANEL_W
+from wxgui.sp_consts import PREFS_FILE
 
 from wxgui.sp_icons import APP_ICON
 from wxgui.sp_icons import EXIT_ICON
@@ -75,26 +81,15 @@ from wxgui.sp_icons import ABOUT_ICON
 # Constants
 # -----------------------------------------------------------------------
 
-MIN_FRAME_W=520
-MIN_FRAME_H=380
+VIEW_TOOLBAR_ID   = wx.NewId()
+VIEW_STATUSBAR_ID = wx.NewId()
 
-if wx.Platform == "__WXMSW__":
-    FRAME_H  = 620   # expected "good" height
-    PANEL_W  = 320   # Left/Right panel (FLP)
-else:
-    FRAME_H  = 580   # expected "good" height
-    PANEL_W  = 380
-
-VIEW_TOOLBAR_ID=wx.NewId()
-VIEW_STATUSBAR_ID=wx.NewId()
-
-ICONSIZE=32
 ID_GENERATE = wx.NewId()
 
 # ---------------------------------------------------------------------------
 
 
-class MainFrame(wx.Frame):
+class MainFrame( wx.Frame ):
     """
     @authors: Bastien Herbaut, Brigitte Bigi
     @contact: brigitte.bigi@gmail.com
@@ -136,14 +131,11 @@ class MainFrame(wx.Frame):
         self._LayoutFrame()
         self.Show(True)
 
-    # End __init__
     # ------------------------------------------------------------------------
-
 
     # ------------------------------------------------------------------------
     # Private methods to create the GUI and initialize members
     # ------------------------------------------------------------------------
-
 
     def _init_infos( self ):
         """
@@ -167,9 +159,7 @@ class MainFrame(wx.Frame):
         _icon.CopyFromBitmap( wx.Bitmap(APP_ICON, wx.BITMAP_TYPE_ANY) )
         self.SetIcon(_icon)
 
-    # End _init_infos
     # ------------------------------------------------------------------------
-
 
     def _init_frame(self):
         """
@@ -205,9 +195,7 @@ class MainFrame(wx.Frame):
             # MDI "window" menu doesn't get put in the right place when the
             # services add new menus to the menubar
 
-    # End _init_frame
     # ------------------------------------------------------------------------
-
 
     def _frame_properties(self):
         """
@@ -225,9 +213,7 @@ class MainFrame(wx.Frame):
         self.Enable()
         self.SetFocus()
 
-    # End _frame_properties
     # ------------------------------------------------------------------------
-
 
     def _create_menu(self):
         """
@@ -276,7 +262,6 @@ class MainFrame(wx.Frame):
 
     # -----------------------------------------------------------------------
 
-
     def _create_statusbar(self):
         """
         Creates a standard StatusBar.
@@ -289,9 +274,7 @@ class MainFrame(wx.Frame):
         self.SetStatusBar(sb)
         self.GetStatusBar().Show(wx.ConfigBase_Get().ReadInt("ViewStatusBar", True))
 
-    # End _create_statusbar
     # ------------------------------------------------------------------------
-
 
     def _create_toolbar(self):
         """
@@ -324,16 +307,13 @@ class MainFrame(wx.Frame):
         toolbar.Realize()
         self.SetToolBar(toolbar)
 
-    # End _create_toolbar
     # ------------------------------------------------------------------------
-
 
     def _create_content(self, parent):
         """
         Create the frame content.
 
         """
-
         panel = wx.SplitterWindow(parent, -1, style=wx.SP_3DSASH)
         #panel.SetMinimumPaneSize( 200 )
         panel.SetSashGravity(0.3)
@@ -346,28 +326,22 @@ class MainFrame(wx.Frame):
 
         return panel
 
-    # End _create_content
     # ------------------------------------------------------------------------
-
 
     def _LayoutFrame(self):
         """
         Lays out the frame.
 
         """
-
         wx.LayoutAlgorithm().LayoutFrame(self, self._mainpanel)
         self.idp.SendSizeEvent()
         self.Refresh()
 
-    # End _LayoutFrame
     # ------------------------------------------------------------------------
-
 
     # ------------------------------------------------------------------------
     # Callbacks to any kind of event
     # ------------------------------------------------------------------------
-
 
     def ProcessEvent(self, event):
         """
@@ -392,7 +366,7 @@ class MainFrame(wx.Frame):
             self.OnViewStatusBar(event)
             return True
         elif id == wx.ID_HELP:
-            self.OnDocumentation(event)
+            HelpBrowser( self )
             return True
         elif id == wx.ID_OPEN:
             self.OnOpen(event)
@@ -418,14 +392,11 @@ class MainFrame(wx.Frame):
 
         return wx.GetApp().ProcessEvent(event)
 
-    # End ProcessEvent
     # ------------------------------------------------------------------------
-
 
     # ------------------------------------------------------------------------
     # CALLBACKS
     # ------------------------------------------------------------------------
-
 
     def ProcessUpdateUIEvent(self, event):
         """
@@ -444,14 +415,9 @@ class MainFrame(wx.Frame):
 
         return wx.GetApp().ProcessUpdateUIEvent(event)
 
-    # End ProcessUpdateUIEvent
-    # ------------------------------------------------------------------------
-
-
     # -----------------------------------------------------------------------
     # Callbacks
     # -----------------------------------------------------------------------
-
 
     def OnViewToolBar(self, event):
         """
@@ -469,9 +435,7 @@ class MainFrame(wx.Frame):
         # send size event to force the whole frame layout
         self.SendSizeEvent()
 
-    # End OnViewToolBar
     # ------------------------------------------------------------------------
-
 
     def OnUpdateViewToolBar(self, event):
         """
@@ -491,9 +455,7 @@ class MainFrame(wx.Frame):
         # send size event to force the whole frame layout
         self.SendSizeEvent()
 
-    # End OnUpdateViewToolBar
     # ------------------------------------------------------------------------
-
 
     def OnViewStatusBar(self, event):
         """
@@ -510,9 +472,7 @@ class MainFrame(wx.Frame):
         s.Show(not self.GetStatusBar().IsShown())
         self._LayoutFrame()
 
-    # End OnViewStatusBar
     # ------------------------------------------------------------------------
-
 
     def OnUpdateViewStatusBar(self, event):
         """
@@ -529,9 +489,7 @@ class MainFrame(wx.Frame):
         event.Check(s.IsShown())
         self._LayoutFrame()
 
-    # End OnUpdateViewStatusBar
     # ------------------------------------------------------------------------
-
 
     def OnSize(self, event):
         """
@@ -541,26 +499,7 @@ class MainFrame(wx.Frame):
 
         self._LayoutFrame()
 
-    # End OnSize
     # ------------------------------------------------------------------------
-
-
-    def OnDocumentation(self, evt):
-        """
-        Open the HTML documentation in the system web browser.
-
-        """
-        url="file:///"+DOC_FILE
-        url=url.replace('\\', '/')
-        logging.debug(url)
-
-        wx.BeginBusyCursor()
-        import webbrowser
-        webbrowser.open(url)
-        wx.EndBusyCursor()
-
-    # -----------------------------------------------------------------------
-
 
     def OnAbout(self, evt):
         """
@@ -570,7 +509,6 @@ class MainFrame(wx.Frame):
         wx.AboutBox( self._about )
 
     # -----------------------------------------------------------------------
-
 
     def OnExit(self, evt):
         """
@@ -620,11 +558,9 @@ class MainFrame(wx.Frame):
     def OnDeleteData(self, event):
         self.nbp.OnDeleteSelected(event)
 
-
     # -----------------------------------------------------------------------
     # Functions called by the panels
     # -----------------------------------------------------------------------
-
 
     def SetSelected(self, selid):
         """
@@ -633,7 +569,6 @@ class MainFrame(wx.Frame):
         o = self.nbp.GetObject(selid)
         if o: self.idp.AddContent(o)
         self.GetStatusBar().SetStatusText('An entry is selected.')
-
 
     def UnsetSelected(self):
         """
