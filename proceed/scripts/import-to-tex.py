@@ -120,7 +120,7 @@ if __name__:
 
     # Get options (if any...)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "i:a:o:s:r:S:", ["help"])
+        opts, args = getopt.getopt(sys.argv[1:], "i:a:o:s:r:S:c:", ["help"])
     except getopt.GetoptError, err:
         # Print help information and exit:
         Quit(message="Error: "+str(err)+".\nUse option --help for any help.\n", status=1)
@@ -189,9 +189,6 @@ if __name__:
     theme = all_themes.get_theme(themename)
     prefs.SetTheme( theme )
     prefs.SetValue('COMPILER', 'str', compiler.strip())
-
-    print "compiler = ", prefs.GetValue('COMPILER')
-    print "status   = ", status
 
     # Create the Writer
     writer = Writer( reader.docs )

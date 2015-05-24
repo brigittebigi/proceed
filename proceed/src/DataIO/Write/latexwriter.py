@@ -38,18 +38,63 @@
 
 import codecs
 import re
+import os
 import datetime
+import subprocess
+import shutil
 
 from structs.prefs import Preferences
 from structs.abstracts_themes import all_themes
 
-import utils.abstracts as abstracts
+import utils.abstracts   as abstracts
 import utils.unicode_tex as unicode_tex
+import utils.fileutils   as fileutils
 
 # ---------------------------------------------------------------------------
 
 COMPILERS = ['pdflatex', 'xetex']
 
+# ---------------------------------------------------------------------------
+
+class LaTeXDiagnosis() :
+    """
+    Execute pdflatex on a document and return a disgnosis:
+        -  1 means ok (no compilation error)
+        - -1 means that an error occurred.
+    """
+
+    def __init__(self, texfilename):
+        self._error = ""
+        self.texfilename = texfilename
+
+    def get_error(self):
+        return self._error
+
+    def run(self):
+        tmpname = fileutils.set_tmpfilename() + ".tex"
+        shutil.copy(self.texfilename, tmpname)
+        try :
+            subprocess.check_output(["pdflatex","-interaction=nonstopmode",tmpname])
+            self._error = "OK"
+        except subprocess.CalledProcessError as err :
+            self._error = err.output
+            ret = -1
+        else:
+            ret = 1
+        self.clean( tmpname )
+        return ret
+
+    def clean(self, f):
+        try:
+            os.remove( f )
+            os.remove( f.replace('.tex', '.log') )
+            os.remove( f.replace('.tex', '.aux') )
+            os.remove( f.replace('.tex', '.pdf') )
+        except Exception:
+            pass
+
+# ---------------------------------------------------------------------------
+# LaTeXWriter
 # ---------------------------------------------------------------------------
 
 class LaTeXWriter:
@@ -113,6 +158,20 @@ class LaTeXWriter:
             self.__write_abstract(fp,doc.get_abstract())
             self.__write_end(fp)
 
+        if self.prefs.GetValue('COMPILER') == 'pdflatex':
+            diag = LaTeXDiagnosis( filename ).run()
+        else:
+            comp = self.prefs.GetValue('COMPILER')
+            self.prefs.SetValue('COMPILER', 'str', 'pdflatex')
+            tmpname = fileutils.set_tmpfilename()
+            self.write_doc( doc, tmpname )
+            diag = LaTeXDiagnosis( tmpname ).run()
+            try:
+                os.remove( tmpname )
+            except Exception:
+                pass
+            self.prefs.SetValue('COMPILER', 'str', comp)
+        doc.set_pdfdiagnosis(diag)
 
     def __write_separator(self,fp):
         fp.write('% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %\n')
@@ -208,7 +267,7 @@ class LaTeXWriter:
     def __write_title(self,fp,title): # title is a string
         fp.write('\n')
         fp.write('% % Fix title\n')
-        fp.write('\\title{'+unicode_tex.unicode_to_tex(title)+'}\n')
+        fp.write('\\title{'+unicode(title)+'}\n')
         fp.write('\date{}\n')
         fp.write('\n')
 
@@ -218,9 +277,9 @@ class LaTeXWriter:
         i = 0
         for auth in doc.get_authors():
             i = i+1
-            ln = unicode_tex.unicode_to_tex(auth.get_lastname())
-            mn = unicode_tex.unicode_to_tex(auth.get_middlename())
-            fn = unicode_tex.unicode_to_tex(auth.get_firstname())
+            ln = unicode(auth.get_lastname())
+            mn = unicode(auth.get_middlename())
+            fn = unicode(auth.get_firstname())
             fp.write('\\author['+str(i)+']{'+fn+' '+mn+' '+ln+'}\n')
         i = 0
         for auth in doc.get_authors():
@@ -228,9 +287,9 @@ class LaTeXWriter:
             for lab in auth.get_labos():
                 labo = doc.get_laboratory()[int(lab)]
                 fp.write('\\affil['+str(i)+']{')
-                fp.write(unicode_tex.unicode_to_tex(labo.get_nom())+', ')
-                fp.write(unicode_tex.unicode_to_tex(labo.get_address())+' ')
-                fp.write(unicode_tex.unicode_to_tex(labo.get_country())+' ')
+                fp.write(unicode(labo.get_nom())+', ')
+                fp.write(unicode(labo.get_address())+' ')
+                fp.write(unicode(labo.get_country())+' ')
                 fp.write('\emailaddress{'+unicode_tex.unicode_to_tex(auth.get_email()))
                 fp.write('}}\n')
 

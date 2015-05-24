@@ -82,7 +82,7 @@ class CSVWriter:
         for doc in docs:
             print "docid=",doc.get_docid()
             if doc.get_status()==self._status:
-                print " ... OK"
+                print " ... ",doc.get_pdfdiagnosis()
                 for auth in doc.get_authors():
                     Docid = str(doc.get_docid())
                     Title = doc.get_title()

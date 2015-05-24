@@ -64,6 +64,7 @@ class document:
         self._authors  = list()
         self._laboratory = list()
         self._status = 1
+        self._pdfdiagnosis = -2 # 0=missing; 1=valid; -1=invalid; -2:unknown
 
 
     def __repr__(self):
@@ -123,6 +124,9 @@ class document:
     def get_status(self):
         return self._status
 
+    def get_pdfdiagnosis(self):
+        return self._pdfdiagnosis
+
 
     def set_docid(self , docid):
         self._docid = docid
@@ -160,9 +164,13 @@ class document:
 #         except Exception,e:
 #             raise TypeError('The status value must be an integer value (0-4).')
         if s < 0 or s > 4:
-            raise ValueError('The status value is not in an appropriate range (0-4): %s - %s'%(s,type(s)))
+            raise ValueError('The status value is not in an appropriate range (0 to 4): %s - %s'%(s,type(s)))
         self._status = s
 
+    def set_pdfdiagnosis(self, v):
+        if v<-2 or v>1:
+            raise ValueError('The diagnosis value is not in an appropriate range (-2 to 1): %s - %s'%(v,type(v)))
+        self._pdfdiagnosis = v
 
 
 class author:
