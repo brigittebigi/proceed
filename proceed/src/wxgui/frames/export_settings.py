@@ -50,11 +50,30 @@ import wx.lib.scrolledpanel as scrolled
 from wxgui.models.prefs import Option
 from wxgui.models.themes import THEMES
 
+from wxgui.sp_icons import SETTINGS_ICON
+from wxgui.sp_icons import SAVE_ICON
+from wxgui.sp_icons import APPLY_ICON
+from wxgui.sp_icons import CANCEL_ICON
+from wxgui.sp_icons import APP_ICON
+
+from wxgui.cutils.imageutils import spBitmap
+from wxgui.cutils.ctrlutils import CreateGenButton
+
+from wxgui.sp_consts import FRAME_STYLE
+from wxgui.sp_consts import FRAME_TITLE
+from wxgui.sp_consts import HEADER_FONTSIZE
+
+from sp_glob import ICONS_PATH
+
+# ----------------------------------------------------------------------------
+# Constants
+# ----------------------------------------------------------------------------
+
+ID_SAVE   = wx.NewId()
 
 # ---------------------------------------------------------------------------
 # Main Settings Frame class
 # ---------------------------------------------------------------------------
-
 
 class ExportSettings( wx.Dialog ):
     """
@@ -72,64 +91,100 @@ class ExportSettings( wx.Dialog ):
         Create a new dialog fo fix preferences, sorted in a notebook.
 
         """
-        wx.Dialog.__init__(self, parent, title=title, style=wx.DEFAULT_DIALOG_STYLE|wx.STAY_ON_TOP)
+        wx.Dialog.__init__(self, parent, title=FRAME_TITLE+" - Settings", style=FRAME_STYLE)
 
         # Members
         self._prefsIO = prefs
 
-        # Frame construction
-        sizer = wx.BoxSizer( wx.VERTICAL )
-        self._create_notebook( sizer )
-        self._create_buttons( sizer )
-        self._set_properties( sizer )
+        self._create_gui()
+
+        # Events of this frame
+        wx.EVT_CLOSE(self, self.onClose)
+
+    # End __init__
+    # ------------------------------------------------------------------------
+
+    # ------------------------------------------------------------------------
+    # Create the GUI
+    # ------------------------------------------------------------------------
+
+    def _create_gui(self):
+        self._init_infos()
+        self._create_title_label()
+        self._create_notebook()
+        self._create_save_button()
+        self._create_cancel_button()
+        self._create_close_button()
+        self._layout_components()
+        self._set_focus_component()
 
     # End __init__
     #-------------------------------------------------------------------------
 
+    def _init_infos( self ):
+        wx.GetApp().SetAppName( "settings" )
+        # icon
+        _icon = wx.EmptyIcon()
+        _icon.CopyFromBitmap( spBitmap(APP_ICON) )
+        self.SetIcon(_icon)
 
-    def _create_notebook(self, sizer):
-        """ Put a notebook in the sizer. """
+    def _create_title_label(self):
+        self.title_layout = wx.BoxSizer(wx.HORIZONTAL)
+        bmp = wx.BitmapButton(self, bitmap=spBitmap(SETTINGS_ICON, 32), style=wx.NO_BORDER)
+        font = wx.Font(HEADER_FONTSIZE, wx.MODERN, wx.NORMAL, wx.BOLD, False, u'Consolas')
+        self.title_label = wx.StaticText(self, label="User settings", style=wx.ALIGN_CENTER)
+        self.title_label.SetFont( font )
+        self.title_layout.Add(bmp,  flag=wx.TOP|wx.RIGHT|wx.ALIGN_RIGHT, border=5)
+        self.title_layout.Add(self.title_label, flag=wx.EXPAND|wx.ALL|wx.wx.ALIGN_CENTER_VERTICAL, border=5)
 
-        # Create a notebook to sort preferences, and its pages
-        nb = wx.Notebook(self)
-        page1 = ThemeSettings(nb, self._prefsIO)
-
+    def _create_notebook(self):
+        self.notebook = wx.Notebook(self)
+        page1 = ThemeSettings(self.notebook, self._prefsIO)
+        #page2 = PrefsThemePanel(self.notebook, self.preferences)
+        #page3 = PrefsAnnotationPanel(self.notebook, self.preferences)
         # add the pages to the notebook with the label to show on the tab
-        nb.AddPage(page1, "Merge PDF")
-
-        sizer.Add(nb, 1, wx.EXPAND)
-
-    #-------------------------------------------------------------------------
-
-
-    def _create_buttons(self, sizer):
-        """ The buttons to close, save, cancel, etc. """
-
-        hbox = wx.BoxSizer(wx.HORIZONTAL)
-        ButtonClose  = wx.Button(self, wx.ID_OK)
-        ButtonCancel = wx.Button(self, wx.ID_CANCEL)
-        #ButtonSave   = wx.Button(self, wx.ID_SAVE)
-        #hbox.Add(ButtonSave,   0, flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, border=5)
-        hbox.Add(ButtonClose,  0, flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, border=5)
-        hbox.Add(ButtonCancel, 0, flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, border=5)
-
-        self.Bind(wx.EVT_BUTTON, self.onSave,  id=wx.ID_SAVE)
-
-        sizer.Add(hbox, 0, flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, border=0)
+        self.notebook.AddPage(page1, "General")
+        #self.notebook.AddPage(page2, "Icons Theme")
+        #self.notebook.AddPage(page3, "Annotation")
 
     #-------------------------------------------------------------------------
 
+    def _create_save_button(self):
+        bmp = spBitmap(SAVE_ICON)
+        self.btn_save = CreateGenButton(self, wx.ID_SAVE, bmp, text="Save", tooltip="Save the settings")
+        self.Bind(wx.EVT_BUTTON, self.onSave, self.btn_save, wx.ID_SAVE)
 
-    def _set_properties(self, sizer):
-        """ Fix the dialog properties. """
+    def _create_cancel_button(self):
+        bmp = spBitmap(CANCEL_ICON)
+        self.btn_cancel = CreateGenButton(self, wx.ID_CANCEL, bmp, text=" Cancel", tooltip="Close this frame")
+        self.SetEscapeId(wx.ID_CANCEL)
 
-        self.SetSizer(sizer)
-        self.SetMinSize(wx.Size(500,320))
-        self.Centre()
-        self.SetFocus()
-        self.SetAutoLayout( True )
-        self.Layout()
+    def _create_close_button(self):
+        bmp = spBitmap(APPLY_ICON)
+        self.btn_close = CreateGenButton(self, wx.ID_OK, bmp, text=" Close", tooltip="Close this frame")
+        self.btn_close.SetDefault()
+        self.btn_close.SetFocus()
+        self.SetAffirmativeId(wx.ID_OK)
 
+    def _create_button_box(self):
+        button_box = wx.BoxSizer(wx.HORIZONTAL)
+        button_box.Add(self.btn_save, flag=wx.RIGHT, border=5)
+        button_box.AddStretchSpacer()
+        button_box.Add(self.btn_cancel, flag=wx.RIGHT, border=5)
+        button_box.Add(self.btn_close, flag=wx.RIGHT, border=5)
+        return button_box
+
+    def _layout_components(self):
+        vbox = wx.BoxSizer(wx.VERTICAL)
+        vbox.Add(self.title_layout, 0, flag=wx.ALL|wx.EXPAND, border=5)
+        vbox.Add(self.notebook, 1, flag=wx.ALL|wx.EXPAND, border=0)
+        vbox.Add(self._create_button_box(), 0, flag=wx.ALL|wx.EXPAND, border=5)
+        self.SetSizerAndFit(vbox)
+
+    def _set_focus_component(self):
+        self.notebook.SetFocus()
+
+    #-------------------------------------------------------------------------
 
     #-------------------------------------------------------------------------
     # Callbacks
@@ -141,6 +196,9 @@ class ExportSettings( wx.Dialog ):
         self._prefsIO.Write()
 
     #-------------------------------------------------------------------------
+
+    def onClose(self, event):
+        self.SetEscapeId(wx.ID_CANCEL)
 
 
     #-------------------------------------------------------------------------

@@ -19,6 +19,7 @@ DELETE_ICON         = os.path.join(ICONS_PATH, "delete.png")
 ABOUT_ICON          = os.path.join(ICONS_PATH, "about.png")
 FEEDBACK_ICON       = os.path.join(ICONS_PATH, "feedback.png")
 CANCEL_ICON         = os.path.join(ICONS_PATH, "cancel.png")
+APPLY_ICON          = os.path.join(ICONS_PATH, "apply.png")
 
 HELP_ICON           = os.path.join(ICONS_PATH, "help.png" )
 FORWARD_ICON        = os.path.join(ICONS_PATH, "forward.png" )
@@ -27,6 +28,8 @@ NEXT_ICON           = os.path.join(ICONS_PATH, "next.png")
 PREVIOUS_ICON       = os.path.join(ICONS_PATH, "previous.png")
 HOME_ICON           = os.path.join(ICONS_PATH, "home.png" )
 LOGOUT_ICON         = os.path.join(ICONS_PATH, "logout.png" )
+
+SETTINGS_ICON       = os.path.join(ICONS_PATH, "settings.png" )
 
 # For the other frames
 AUTHOR_ICON         = os.path.join(ICONS_PATH, "author.png")
