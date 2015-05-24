@@ -44,6 +44,7 @@ from structs.prefs import Preferences
 from structs.abstracts_themes import all_themes
 
 import utils.abstracts as abstracts
+import utils.unicode_tex as unicode_tex
 
 # ---------------------------------------------------------------------------
 
@@ -81,7 +82,9 @@ class LaTeXWriter:
             for doc in docs:
                 if doc.get_status()==self._status:
                     for auth in doc.get_authors():
-                        fp.write(self.__format(auth.get_lastname())+' '+self.__format(auth.get_firstname())+', ')
+                        ln = unicode_tex.unicode_to_tex(auth.get_lastname())
+                        fn = unicode_tex.unicode_to_tex(auth.get_firstname())
+                        fp.write(ln+' '+fn+', ')
                     fp.write(' & ')
                     fp.write(doc.get_title())
                     fp.write(' \\\\ \n')
@@ -205,7 +208,7 @@ class LaTeXWriter:
     def __write_title(self,fp,title): # title is a string
         fp.write('\n')
         fp.write('% % Fix title\n')
-        fp.write('\\title{'+unicode(self.__format(title))+'}\n')
+        fp.write('\\title{'+unicode_tex.unicode_to_tex(title)+'}\n')
         fp.write('\date{}\n')
         fp.write('\n')
 
@@ -215,17 +218,20 @@ class LaTeXWriter:
         i = 0
         for auth in doc.get_authors():
             i = i+1
-            fp.write('\\author['+str(i)+']{'+self.__format(auth.get_firstname())+' '+self.__format(auth.get_middlename())+' '+self.__format(auth.get_lastname())+'}\n')
+            ln = unicode_tex.unicode_to_tex(auth.get_lastname())
+            mn = unicode_tex.unicode_to_tex(auth.get_middlename())
+            fn = unicode_tex.unicode_to_tex(auth.get_firstname())
+            fp.write('\\author['+str(i)+']{'+fn+' '+mn+' '+ln+'}\n')
         i = 0
         for auth in doc.get_authors():
             i = i+1
             for lab in auth.get_labos():
                 labo = doc.get_laboratory()[int(lab)]
                 fp.write('\\affil['+str(i)+']{')
-                fp.write(unicode(self.__format(labo.get_nom()))+', ')
-                fp.write(unicode(self.__format(labo.get_address()))+' ')
-                fp.write(unicode(self.__format(labo.get_country()))+' ')
-                fp.write('\emailaddress{'+unicode(self.__format(auth.get_email())))
+                fp.write(unicode_tex.unicode_to_tex(labo.get_nom())+', ')
+                fp.write(unicode_tex.unicode_to_tex(labo.get_address())+' ')
+                fp.write(unicode_tex.unicode_to_tex(labo.get_country())+' ')
+                fp.write('\emailaddress{'+unicode_tex.unicode_to_tex(auth.get_email()))
                 fp.write('}}\n')
 
 
@@ -244,9 +250,9 @@ class LaTeXWriter:
 
     def __write_keywords(self,fp,kwds): # kwds is a list of strings
         for kwidx in range(len(kwds)-1):
-            fp.write(unicode(self.__format(kwds[kwidx])))
+            fp.write(unicode_tex.unicode_to_tex(kwds[kwidx]))
             fp.write(', ')
-        fp.write(unicode(self.__format(kwds[len(kwds)-1])))
+        fp.write(unicode_tex.unicode_to_tex(kwds[len(kwds)-1]))
 
 
     def __write_abstract(self,fp,abstract): # abstract is a string
@@ -259,7 +265,7 @@ class LaTeXWriter:
         parser.feed(tmpa)
         a = parser.get_data()
         # Then, normalize the string
-        a = self.__format(a)
+        a = unicode_tex.unicode_to_texipa(a)
         # finally: write!
         fp.write(unicode(a))
         fp.write('\n')
@@ -281,94 +287,4 @@ class LaTeXWriter:
         fp.write('   \centerline{\includegraphics[width=0.8\\textwidth]{'+filename+'}}\n')
         fp.write('\end{figure}\n')
         fp.write('\n')
-
-
-    def __format(self,s):
-        a = s.replace("_", "\_")
-        a = a.replace("%", "\%")
-        a = a.replace("&", "\&")
-        a = a.replace("#", "\#")
-        a = a.replace("^", "\^{}")
-        a = a.replace("\s", " ")
-        a = re.sub(u' ', u" ", a, re.UNICODE)   # espace insecable
-        a = re.sub(u'　', u" ", a, re.UNICODE)  # espace insecable version 2!
-        a = re.sub(u' ­­', u" ", a, re.UNICODE) # espace insecable version 3!
-        a = re.sub(u"ʼ", u"'", a, re.UNICODE)   # apostrophe
-        a = re.sub(u"‘", u"'", a, re.UNICODE)   # apostrophe
-        a = re.sub(u"É", u"\\'e", a, re.UNICODE)   #
-        a = re.sub(u"é", u"\\'e", a, re.UNICODE)   #
-        a = re.sub(u"è", u"\\`e", a, re.UNICODE)   #
-        a = re.sub(u"ë", u'\\"e', a, re.UNICODE)   #
-        a = re.sub(u"ê", u"\\^e", a, re.UNICODE)   #
-        a = re.sub(u"à", u"\\`a", a, re.UNICODE)   #
-        a = re.sub(u"â", u"\\^a", a, re.UNICODE)   #
-        a = re.sub(u"ã", u"\\~a", a, re.UNICODE)   #
-        a = re.sub(u"î", u"\\^i", a, re.UNICODE)   #
-        a = re.sub(u"ï", u'\\"i', a, re.UNICODE)   #
-        a = re.sub(u"í", u"\\'i", a, re.UNICODE)
-        a = re.sub(u"ù", u"\\`u", a, re.UNICODE)   #
-        a = re.sub(u"ü", u'\\"u', a, re.UNICODE)
-        a = re.sub(u"ú", u"\\'u", a, re.UNICODE)
-        a = re.sub(u"ç", u"\\c{c}", a, re.UNICODE)   #
-        a = re.sub(u"ô", u"\\^o", a, re.UNICODE)   #
-        a = re.sub(u"ó", u"\\'o", a, re.UNICODE)
-
-        a = re.sub(u"–", u"-", a, re.UNICODE)
-        a = re.sub(u"’", u"'", a, re.UNICODE)   # apostrophe
-        a = re.sub(u"ˈ", "'", a, re.UNICODE)
-        a = re.sub(u'´', "'", a, re.UNICODE)
-
-        a = re.sub(u"é", u"\\'e", a, re.UNICODE)
-        a = re.sub(u"è", u"\\`e", a, re.UNICODE)
-        a = re.sub(u"à", u"\\`a", a, re.UNICODE)
-        a = re.sub(u"ã", u"\\~a", a, re.UNICODE)
-        a = re.sub(u"û", u"\\^u", a, re.UNICODE)
-        a = re.sub(u"ú", u"\\'u", a, re.UNICODE)
-        a = re.sub(u"â", u"\\^a", a, re.UNICODE)
-        a = re.sub(u"á", u"\\'a", a, re.UNICODE)
-        a = re.sub(u"ç", u"\\c{c}", a, re.UNICODE)   #
-        a = a.replace(u'≤', '$\leq$')
-        a = a.replace(u'‐', '--')
-        a = a.replace(u'ﬂ', 'fl')
-        a = a.replace(u'í', "\\'i")
-
-        a = a.replace(u'η', "$\eta$") # grec
-
-        a = a.replace(u'ɛ̃','\\textipa{\~E}')
-        a = a.replace(u'ɑ̃','\\textipa{\~A}')
-        a = a.replace(u'ɐ̃','\\textipa{\~5}')
-        a = a.replace(u'Ā', '\\textipa{\=A}')
-        a = a.replace(u'Ē', '\\textipa{\=E}')
-        a = a.replace(u'Ī', '\\textipa{\=I}')
-        a = a.replace(u'Ō', '\\textipa{\=O}')
-        a = a.replace(u'Ū', '\\textipa{\=U}')
-        a = a.replace(u'Ă', '\\textipa{\\v{A}}')
-        a = a.replace(u'Ĕ', '\\textipa{\\v{E}}')
-        a = a.replace(u'Ĭ', '\\textipa{\\v{I}}')
-        a = a.replace(u'Ŏ', '\\textipa{\\v{O}}')
-        a = a.replace(u'Ŭ', '\\textipa{\\v{U}}')
-        a = a.replace(u'Ṽ','\\~V')
-        a = a.replace(u'i͂','\\~i')
-        a = a.replace(u'w̃','\\~w')
-        a = a.replace(u'j̃','\\~j')
-
-        a = a.replace(u'ɨ', "\\textipa{1}") # IPA
-        a = a.replace(u'ʃ','\\textipa{S}')
-        a = a.replace(u'ʝ','\\textipa{J}')
-        a = a.replace(u'ɛ','\\textipa{E}')
-        a = a.replace(u'æ','\\textipa{\\ae}')
-        a = a.replace(u'ɾ','\\textipa{R}')
-        a = a.replace(u'ɹ','\\textipa{\*r}')
-        a = a.replace(u'ɻ','\\textipa{\:r}')
-        a = a.replace(u'ʎ','\\textipa{L}')
-        a = a.replace(u'ə','\\textipa{@}')
-        a = a.replace(u'ɑ','\\textipa{A}')
-        a = a.replace(u'ɔ','\\textipa{O}')
-        a = a.replace(u'ʒ','\\textipa{Z}')
-        a = a.replace(u'ʀ','\\textipa{\;R}')
-        a = a.replace(u'ʁ','\\textipa{K}')
-        a = a.replace(u'ʔ','\\textipa{P}')
-        a = a.replace(u'ø','\\textipa{\o}')
-
-        return a
 

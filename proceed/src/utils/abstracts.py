@@ -37,7 +37,10 @@
 # ---------------------------------------------------------------------------
 
 import re
+import string
 from HTMLParser import HTMLParser
+
+import unicode_tex
 
 # ---------------------------------------------------------------------------
 
@@ -82,6 +85,98 @@ def html_to_tex(abstract):
     a = re.sub(u"<[\s]*/[\s]*strong>", "}", a, re.UNICODE)
     a = re.sub(u"<br[\s]*/>", "\n", a, re.UNICODE)
     a = re.sub(u"<ul>", '', a, re.UNICODE)
+    return a
+
+# ---------------------------------------------------------------------------
+
+def unicode_to_tex(a):
+    for k,v in unicode_to_tex_map.iteritems():
+        string=string.replace(k,v)
+    return string
+
+
+def unicode_to_tex_old(abstract):
+    a = abstract
+    a = re.sub(u' ', u" ", a, re.UNICODE)   # espace insecable
+    a = re.sub(u'　', u" ", a, re.UNICODE)   # espace insecable version 2!
+    a = re.sub(u' ­­', u" ", a, re.UNICODE)   # espace insecable version 3!
+    a = re.sub(u"ʼ", u"'", a, re.UNICODE)   # apostrophe
+    a = re.sub(u"‘", u"'", a, re.UNICODE)   # apostrophe
+    a = re.sub(u"É", u"\\'e", a, re.UNICODE)   #
+    a = re.sub(u"é", u"\\'e", a, re.UNICODE)   #
+    a = re.sub(u"è", u"\\`e", a, re.UNICODE)   #
+    a = re.sub(u"ë", u'\\"e', a, re.UNICODE)   #
+    a = re.sub(u"ê", u"\\^e", a, re.UNICODE)   #
+    a = re.sub(u"à", u"\\`a", a, re.UNICODE)   #
+    a = re.sub(u"â", u"\\^a", a, re.UNICODE)   #
+    a = re.sub(u"ã", u"\\~a", a, re.UNICODE)   #
+    a = re.sub(u"î", u"\\^i", a, re.UNICODE)   #
+    a = re.sub(u"ï", u'\\"i', a, re.UNICODE)   #
+    a = re.sub(u"í", u"\\'i", a, re.UNICODE)
+    a = re.sub(u"ù", u"\\`u", a, re.UNICODE)   #
+    a = re.sub(u"ü", u'\\"u', a, re.UNICODE)
+    a = re.sub(u"ú", u"\\'u", a, re.UNICODE)
+    a = re.sub(u"ç", u"\\c{c}", a, re.UNICODE)   #
+    a = re.sub(u"ô", u"\\^o", a, re.UNICODE)   #
+    a = re.sub(u"ó", u"\\'o", a, re.UNICODE)
+
+    a = re.sub(u"–", u"-", a, re.UNICODE)
+    a = re.sub(u"’", u"'", a, re.UNICODE)   # apostrophe
+    a = re.sub(u"ˈ", "'", a, re.UNICODE)
+    a = re.sub(u'´', "'", a, re.UNICODE)
+
+    a = re.sub(u"é", u"\\'e", a, re.UNICODE)
+    a = re.sub(u"è", u"\\`e", a, re.UNICODE)
+    a = re.sub(u"à", u"\\`a", a, re.UNICODE)
+    a = re.sub(u"ã", u"\\~a", a, re.UNICODE)
+    a = re.sub(u"û", u"\\^u", a, re.UNICODE)
+    a = re.sub(u"ú", u"\\'u", a, re.UNICODE)
+    a = re.sub(u"â", u"\\^a", a, re.UNICODE)
+    a = re.sub(u"á", u"\\'a", a, re.UNICODE)
+    a = re.sub(u"ç", u"\\c{c}", a, re.UNICODE)   #
+    a = a.replace(u'≤', '$\leq$')
+    a = a.replace(u'‐', '--')
+    a = a.replace(u'ﬂ', 'fl')
+    a = a.replace(u'í', "\\'i")
+
+    a = a.replace(u'η', "$\eta$") # grec
+
+    a = a.replace(u'ɛ̃','\\textipa{\~E}')
+    a = a.replace(u'ɑ̃','\\textipa{\~A}')
+    a = a.replace(u'ɐ̃','\\textipa{\~5}')
+    a = a.replace(u'Ā', '\\textipa{\=A}')
+    a = a.replace(u'Ē', '\\textipa{\=E}')
+    a = a.replace(u'Ī', '\\textipa{\=I}')
+    a = a.replace(u'Ō', '\\textipa{\=O}')
+    a = a.replace(u'Ū', '\\textipa{\=U}')
+    a = a.replace(u'Ă', '\\textipa{\\v{A}}')
+    a = a.replace(u'Ĕ', '\\textipa{\\v{E}}')
+    a = a.replace(u'Ĭ', '\\textipa{\\v{I}}')
+    a = a.replace(u'Ŏ', '\\textipa{\\v{O}}')
+    a = a.replace(u'Ŭ', '\\textipa{\\v{U}}')
+    a = a.replace(u'Ṽ','\\~V')
+    a = a.replace(u'i͂','\\~i')
+    a = a.replace(u'w̃','\\~w')
+    a = a.replace(u'j̃','\\~j')
+
+    a = a.replace(u'ɨ', "\\textipa{1}") # IPA
+    a = a.replace(u'ʃ','\\textipa{S}')
+    a = a.replace(u'ʝ','\\textipa{J}')
+    a = a.replace(u'ɛ','\\textipa{E}')
+    a = a.replace(u'æ','\\textipa{\\ae}')
+    a = a.replace(u'ɾ','\\textipa{R}')
+    a = a.replace(u'ɹ','\\textipa{\*r}')
+    a = a.replace(u'ɻ','\\textipa{\:r}')
+    a = a.replace(u'ʎ','\\textipa{L}')
+    a = a.replace(u'ə','\\textipa{@}')
+    a = a.replace(u'ɑ','\\textipa{A}')
+    a = a.replace(u'ɔ','\\textipa{O}')
+    a = a.replace(u'ʒ','\\textipa{Z}')
+    a = a.replace(u'ʀ','\\textipa{\;R}')
+    a = a.replace(u'ʁ','\\textipa{K}')
+    a = a.replace(u'ʔ','\\textipa{P}')
+    a = a.replace(u'ø','\\textipa{\o}')
+
     return a
 
 # ---------------------------------------------------------------------------
