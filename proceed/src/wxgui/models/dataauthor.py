@@ -38,6 +38,8 @@
 
 __docformat__ = "epytext"
 
+from utils.commons import clean
+
 # ---------------------------------------------------------------------------
 
 
@@ -63,49 +65,19 @@ class Author:
         a "join" sequence (some characters).
 
         """
-        self.joinseq     = "--"
+        self._joinseq     = "--"
 
-        self.lastname    = self.clean(lastname)
-        self.firstname   = self.clean(firstname)
-        self.authorid    = self.lastname + self.joinseq + self.firstname
-        self.email       = self.clean(email)
-        self.affiliation = self.clean(affiliation)
+        self._lastname    = clean(lastname)
+        self._firstname   = clean(firstname)
+        self._authorid    = self._lastname + self._joinseq + self._firstname
+        self._email       = clean(email)
+        self._affiliation = clean(affiliation)
 
     # End __init__
     # -----------------------------------------------------------------------
 
-
-    def clean(self, entry):
-        """
-        Clean a string and encode to UTF-8.
-
-        @param entry is the string to clean
-        @return: a string without special chars
-
-        """
-        s = ""
-        if isinstance(entry, unicode):
-            s = self.__clean(entry)
-        elif entry is None:
-            s = ""
-        else:
-            try:
-                _unicode = entry.decode("utf-8")
-            except UnicodeDecodeError as e:
-                raise e
-            s = self.__clean(_unicode)
-        return s
-
-    def __clean(self, entry):
-        """ Clean a unicode string by removing tabs, CR/LF. """
-        return " ".join(entry.split())
-
-    # End clean
-    # -----------------------------------------------------------------------
-
-
     def IsEmpty(self):
-        if self.authorid == self.joinseq:
+        if self._authorid == self._joinseq:
             return True
         return False
 
@@ -114,89 +86,80 @@ class Author:
 
 
     def compare_and_update(self,other):
-
-        # compare
-        if self.authorid != other.get_authorid():
+        if self._authorid != other.get_authorid():
             return False
-
-        # update
-        if(len(self.email) < len(other.get_email())):
-            self.email = other.get_email()
-
-        if(len(self.affiliation) < len(other.get_affiliation())):
-            self.affiliation = other.get_affiliation()
+        if(len(self._email) < len(other.get_email())):
+            self._email = other.get_email()
+        if(len(self._affiliation) < len(other.get_affiliation())):
+            self._affiliation = other.get_affiliation()
 
         return True
 
-    # End compare_and_update
     # -----------------------------------------------------------------------
 
-
     def prepare_save(self):
-        return [{"LASTNAME": self.lastname.encode('utf8'), "FIRSTNAME":self.firstname.encode('utf8'), "EMAIL":self.email.encode('utf8'), "AFFILIATION":self.affiliation.encode('utf8')}]
-
+        ln = self._lastname
+        fn = self._firstname
+        m  = self._email
+        a  = self._affiliation
+        return [{"LASTNAME":ln , "FIRSTNAME":fn, "EMAIL":m, "AFFILIATION":a}]
 
     # -----------------------------------------------------------------------
     ########## GETTERS ##########
     # -----------------------------------------------------------------------
 
-
     def get_authorid(self):
-        return self.authorid
+        return self._authorid
 
     def get_lastname(self):
-        return self.lastname
+        return self._lastname
 
     def get_firstname(self):
-        return self.firstname
+        return self._firstname
 
     def get_email(self):
-        return self.email
+        return self._email
 
     def get_affiliation(self):
-        return self.affiliation
+        return self._affiliation
 
     def get_joinseq(self):
-        return self.joinseq
+        return self._joinseq
 
     # -----------------------------------------------------------------------
     ########## SETTERS ##########
     # -----------------------------------------------------------------------
 
     def set_lastname(self, new_lastname):
-        self.lastname = new_lastname
+        self._lastname = clean(new_lastname)
 
     def set_firstname(self, new_firstname):
-        self.firstname = new_firstname
+        self._firstname = clean(new_firstname)
 
     def set_email(self, new_email):
-        self.email = new_email
+        self._email = clean(new_email)
 
     def set_affiliation(self, new_affiliation):
-        self.affiliation = new_affiliation
+        self._affiliation = clean(new_affiliation)
 
     def set(self, other):
-        self.authorid    = other.get_authorid()
-        self.lastname    = other.get_lastname()
-        self.firstname   = other.get_firstname()
-        self.email       = other.get_email()
-        self.affiliation = other.get_affiliation()
-        self.joinseq     = other.get_joinseq()
+        self._authorid    = other.get_authorid()
+        self._lastname    = other.get_lastname()
+        self._firstname   = other.get_firstname()
+        self._email       = other.get_email()
+        self._affiliation = other.get_affiliation()
+        self._joinseq     = other.get_joinseq()
 
-    # -----------------------------------------------------------------------
     # -----------------------------------------------------------------------
 
     def __eq__(self, other) :
-        """ Surcharge de == """
         if not isinstance(other,Author):
             return False
-        if (self.authorid == other.get_authorid()):
+        if (self._authorid == other.get_authorid()):
             return True
         return False
 
-
     def __ne__(self, other) :
-        """ Surcharge de != """
         return not self == other
 
     # -----------------------------------------------------------------------

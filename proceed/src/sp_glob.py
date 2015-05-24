@@ -60,11 +60,12 @@ SETTINGS_FILE  = os.path.join(BASE_PATH, "etc", "settings.dump")
 # Data
 # ----------------------------------------------------------------------------
 
-PAGESLIST  = ['Documents','Authors','Sessions']
+PAGESLIST  = ['Conference','Documents','Authors','Sessions']
 fieldnames = {}
-fieldnames[PAGESLIST[0]] = ["DOCID", "TITLE", "LASTNAME", "FIRSTNAME", "SESSION_ID", "RANK", "PAGE_NUMBER"]
-fieldnames[PAGESLIST[1]] = ["LASTNAME", "FIRSTNAME", "EMAIL", "AFFILIATION"]
-fieldnames[PAGESLIST[2]] = ["SESSION_ID", "SESSION_NAME", "RANK", "DATE", "H-DEB", "H-FIN", "CHAIRMAN", "LOCATION"]
+fieldnames[PAGESLIST[0]] = ["CONFERENCE_NAME", "PLACE", "DATE_FROM", "DATE_TO"]
+fieldnames[PAGESLIST[1]] = ["DOCID", "TITLE", "LASTNAME", "FIRSTNAME", "SESSION_ID", "RANK", "PAGE_NUMBER"]
+fieldnames[PAGESLIST[2]] = ["LASTNAME", "FIRSTNAME", "EMAIL", "AFFILIATION"]
+fieldnames[PAGESLIST[3]] = ["SESSION_ID", "SESSION_NAME", "RANK", "DATE", "H-DEB", "H-FIN", "CHAIRMAN", "LOCATION"]
 
 # ---------------------------------------------------------------------------
 # Constants: Proceed Information

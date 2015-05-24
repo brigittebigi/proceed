@@ -100,3 +100,31 @@ def setup_logging(log_level, filename):
             filename)
 
 # ----------------------------------------------------------------------------
+
+def clean(entry):
+    """
+    Clean a string and encode to UTF-8.
+
+    @param entry is the string to clean
+    @return: a string without special chars
+
+    """
+    s = ""
+    if isinstance(entry, unicode):
+        s = __clean(entry)
+    elif entry is None:
+        s = ""
+    else:
+        try:
+            _unicode = entry.decode("utf-8")
+        except UnicodeDecodeError as e:
+            raise e
+        s = __clean(_unicode)
+    return s
+
+def __clean(entry):
+    """ Clean a unicode string by removing tabs, CR/LF. """
+    return " ".join(entry.split())
+
+# End clean
+# -----------------------------------------------------------------------

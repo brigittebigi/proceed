@@ -51,9 +51,11 @@ import csv
 
 from wxgui.sp_consts import BACKGROUND_COLOR
 import wxgui.models.readers as readers
-from wxgui.models.datasession  import Session
-from wxgui.models.dataauthor   import Author
-from wxgui.models.datadocument import Document
+
+from wxgui.models.dataconference  import Conference
+from wxgui.models.datasession     import Session
+from wxgui.models.dataauthor      import Author
+from wxgui.models.datadocument    import Document
 
 from wxgui.frames.checkframe    import CheckFrame
 from wxgui.frames.generateframe import GenerateFrame
@@ -99,7 +101,6 @@ class NotebookPanel( wx.Panel ):
 
     # -----------------------------------------------------------------------
 
-
     def _set_members(self):
         """
         Fix members to default values.
@@ -130,7 +131,6 @@ class NotebookPanel( wx.Panel ):
 
     # -----------------------------------------------------------------------
 
-
     def GetObject(self, objid):
         for p in PAGESLIST:
             if self._dataPages[p].has_key(objid):
@@ -138,7 +138,6 @@ class NotebookPanel( wx.Panel ):
         return None
 
     # -----------------------------------------------------------------------
-
 
     # -----------------------------------------------------------------------
     # Callbacks of the notebook
@@ -151,12 +150,9 @@ class NotebookPanel( wx.Panel ):
 
     # -----------------------------------------------------------------------
 
-
-
     # -----------------------------------------------------------------------
     # Callbacks to manage the data
     # -----------------------------------------------------------------------
-
 
     def OnOpen(self, event):
         """
@@ -230,7 +226,6 @@ class NotebookPanel( wx.Panel ):
     # End OnOpen
     # ------------------------------------------------------------------------
 
-
     def OnSave(self, event):
         """
         Callback to save loaded data.
@@ -253,7 +248,6 @@ class NotebookPanel( wx.Panel ):
     # End OnSave
     # ------------------------------------------------------------------------
 
-
     def OnCheck(self, event):
         """
         Callback to check if loaded data can be exported.
@@ -270,7 +264,6 @@ class NotebookPanel( wx.Panel ):
     # End OnCheck
     # ------------------------------------------------------------------------
 
-
     def OnGenerate(self, event):
         """
         Callback to export loaded data as a PDF document.
@@ -282,8 +275,7 @@ class NotebookPanel( wx.Panel ):
 
         logging.debug('Generate')
         if self._path is None:
-            dlg = wx.MessageDialog(self, "Unknown data path.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
-            retCode = dlg.ShowModal()
+            wx.MessageBox( "Unknown data path.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
             return
 
         dlg = GenerateFrame(self, -1, "PDF generator...", self._dataPages['Documents'], self._dataPages['Authors'], self._dataPages['Sessions'], self._path)
@@ -291,7 +283,6 @@ class NotebookPanel( wx.Panel ):
 
     # End OnGenerate
     # ------------------------------------------------------------------------
-
 
     def OnNewEntry(self, event):
         """
@@ -307,8 +298,7 @@ class NotebookPanel( wx.Panel ):
                 eltid     = newauthor.get_authorid()
                 # verify (to not create an already existing author)
                 if eltid in self._dataPages[self._selectedPage].keys():
-                    dlg = wx.MessageDialog(self, "This author is already existing", "Error", wx.OK | wx.ICON_ERROR)
-                    retCode = dlg.ShowModal()
+                    wx.MessageBox(self, "This author is already existing", "Error", wx.OK | wx.ICON_ERROR)
                     return
                 # update data
                 self._dataPages[self._selectedPage][newauthor.get_authorid()] = newauthor
@@ -327,8 +317,7 @@ class NotebookPanel( wx.Panel ):
                 logging.debug('   --> new id='+eltid)
                 if self._selectedPage == "Documents" and len(eltid)>0:
                     if eltid in self._dataPages[self._selectedPage].keys():
-                        dlg = wx.MessageDialog(self, "This Document-ID is already existing", "Error", wx.OK | wx.ICON_ERROR)
-                        retCode = dlg.ShowModal()
+                        wx.MessageBox( "This Document-ID is already existing", "Error", wx.OK | wx.ICON_ERROR)
                         return
                     doc = Document( eltid, authors=list() )
                     # update data
@@ -349,8 +338,7 @@ class NotebookPanel( wx.Panel ):
                 if len(eltid)>0:
                     doc = Session(eltid)
                     if eltid in self._dataPages[self._selectedPage].keys():
-                        dlg = wx.MessageDialog(self, "This Session-ID is already existing", "Error", wx.OK | wx.ICON_ERROR)
-                        retCode = dlg.ShowModal()
+                        wx.MessageBox( "This Session-ID is already existing", "Error", wx.OK | wx.ICON_ERROR)
                         return
                     # update data
                     self._dataPages[self._selectedPage][doc.get_sessionid()] = doc
@@ -359,9 +347,10 @@ class NotebookPanel( wx.Panel ):
                     self._isSaved = False
                     self.GetTopLevelParent().GetStatusBar().SetStatusText('New session added.')
 
+        elif self._selectedPage == "Conference":
+            wx.MessageBox( "Not implemented yet!", "Warning", wx.OK | wx.ICON_INFORMATION)
 
     # ------------------------------------------------------------------------
-
 
     def OnEditSelected(self, event):
         """
@@ -383,17 +372,13 @@ class NotebookPanel( wx.Panel ):
     # End OnEditSelected
     # ------------------------------------------------------------------------
 
-
-
     def OnDeleteSelected(self, event):
         """
         Callback to remove the selected entry.
         """
         eltid = self._pages[self._selectedPage].GetSelection()
         if eltid == None:
-            dlg = wx.MessageDialog(self, "Nothing selected.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
-            dlg.ShowModal()
-            dlg.Destroy()
+            wx.MessageBox( "Nothing selected.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
             return
 
         dlg = wx.MessageDialog(self, "Do you really want to remove "+eltid+"?", "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
@@ -445,7 +430,6 @@ class NotebookPanel( wx.Panel ):
 
     # ------------------------------------------------------------------------
 
-
     def findCSV(self,path,filename):
         """ Get the real filename (with upper/lower). """
         filename = filename.lower()
@@ -455,12 +439,16 @@ class NotebookPanel( wx.Panel ):
 
     # ------------------------------------------------------------------------
 
-
     def useCSVFile(self, path):
 
+        ConfDict    = dict()
         DocDict     = dict()
         SessionDict = dict()
         AuthorDict  = dict()
+
+        ################## Lecture du fichier AUTHORS.csv ####################
+        logging.debug("Read the file: Conference.csv")
+        self._dataPages['Conference'] = ConfDict
 
         ################# Lecture du fichier DOCUMENTS.csv ###################
         logging.debug("Read the file: Documents.csv")
@@ -528,8 +516,8 @@ class NotebookPanel( wx.Panel ):
             AuthorDict[auth.get_authorid()] = auth
 
         self._dataPages['Authors'] = AuthorDict
-        logging.debug(" [ OK ] ")
 
+        logging.debug(" [ OK ] ")
 
     # ------------------------------------------------------------------------
     # Various...
@@ -546,4 +534,3 @@ class NotebookPanel( wx.Panel ):
     # -----------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
-

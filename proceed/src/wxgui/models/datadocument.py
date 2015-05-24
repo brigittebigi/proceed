@@ -38,12 +38,12 @@
 
 __docformat__ = "epytext"
 
-
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
 from datasession import Session
+from utils.commons import clean
 
 # ---------------------------------------------------------------------------
 
@@ -69,71 +69,39 @@ class Document:
         @param page (int) is the starting page of the document
 
         """
-        self.docid       = self.clean(docid)
-        self.title       = self.clean(title)
-        self.authors     = authors
-        self.session     = session
-        self.rank        = rank
-        self.page        = page
+        self._docid   = clean(docid)
+        self._title   = clean(title)
+        self._authors = authors
+        self._session = clean(session)
+        self._rank    = int(rank)
+        self._page    = int(page)
 
     # End __init__
     # -----------------------------------------------------------------------
 
-
-    def clean(self, entry):
-        """
-        Clean a string and encode to UTF-8.
-
-        @param entry is the string to clean
-        @return a string without special chars
-
-        """
-        s = ""
-        if isinstance(entry, unicode):
-            s = self.__clean(entry)
-        elif entry is None:
-            s = ""
-        else:
-            try:
-                _unicode = entry.decode("utf-8")
-            except UnicodeDecodeError as e:
-                raise e
-            s = self.__clean(_unicode)
-        return s
-
-    def __clean(self, entry):
-        """ Clean a unicode string by removing tabs, CR/LF. """
-        return " ".join(entry.split())
-
-    # End clean
-    # -----------------------------------------------------------------------
-
-
     def IsEmpty(self):
 
-        if( self.docid == "" ):
+        if( self._docid == "" ):
             return True
         return False
 
-    # End IsEmpty
     # -----------------------------------------------------------------------
-
 
     def prepare_save(self):
 
         rows = list()
-        if len(self.authors) > 0:
-            if isinstance(self.session, Session):
-                for author in self.authors:
-                    rows.append({"DOCID":self.docid, "TITLE":self.title.encode('utf8'), "LASTNAME":author.get_lastname().encode('utf8'), "FIRSTNAME":author.get_firstname().encode('utf8'), "SESSION_ID":self.session.get_sessionid().encode('utf8'), "RANK":str(self.rank), "PAGE_NUMBER":str(self.page)})
+        if len(self._authors) > 0:
+            if isinstance(self._session, Session):
+                for author in self._authors:
+                    rows.append({"DOCID":self._docid, "TITLE":self._title, "LASTNAME":author.get_lastname(), "FIRSTNAME":author.get_firstname(), "SESSION_ID":self._session.get_sessionid(), "RANK":str(self._rank), "PAGE_NUMBER":str(self._page)})
             else:
-                for author in self.authors:
-                    rows.append({"DOCID":self.docid, "TITLE":self.title.encode('utf8'), "LASTNAME":author.get_lastname().encode('utf8'), "FIRSTNAME":author.get_firstname().encode('utf8'), "SESSION_ID":"", "RANK":str(self.rank), "PAGE_NUMBER":str(self.page)})
+                for author in self._authors:
+                    rows.append({"DOCID":self._docid, "TITLE":self._title, "LASTNAME":author.get_lastname(), "FIRSTNAME":author.get_firstname(), "SESSION_ID":"", "RANK":str(self._rank), "PAGE_NUMBER":str(self._page)})
         else:
-            if isinstance(self.session, Session):
-                rows.append({"DOCID":self.docid, "TITLE":self.title.encode('utf8'), "LASTNAME":"", "FIRSTNAME":"", "SESSION_ID":self.session.get_sessionid().encode('utf8'), "RANK":str(self.rank), "PAGE_NUMBER":str(self.page)})
+            if isinstance(self._session, Session):
+                rows.append({"DOCID":self._docid, "TITLE":self._title, "LASTNAME":"", "FIRSTNAME":"", "SESSION_ID":self._session.get_sessionid(), "RANK":str(self._rank), "PAGE_NUMBER":str(self._page)})
             else:
-                rows.append({"DOCID":self.docid, "TITLE":self.title.encode('utf8'), "LASTNAME":"", "FIRSTNAME":"", "SESSION_ID":"", "RANK":str(self.rank), "PAGE_NUMBER":str(self.page)})
+                rows.append({"DOCID":self._docid, "TITLE":self._title, "LASTNAME":"", "FIRSTNAME":"", "SESSION_ID":"", "RANK":str(self._rank), "PAGE_NUMBER":str(self._page)})
 
         return rows
 
@@ -143,22 +111,22 @@ class Document:
     # -----------------------------------------------------------------------
 
     def get_docid(self):
-        return self.docid
+        return self._docid
 
     def get_title(self):
-        return self.title
+        return self._title
 
     def get_authors(self):
-        return self.authors
+        return self._authors
 
     def get_session(self):
-        return self.session
+        return self._session
 
     def get_rank(self):
-        return self.rank
+        return self._rank
 
     def get_page(self):
-        return self.page
+        return self._page
 
 
     # -----------------------------------------------------------------------
@@ -166,51 +134,43 @@ class Document:
     # -----------------------------------------------------------------------
 
     def set_docid(self, new_docid):
-        self.docid = new_docid
+        self._docid = clean(new_docid)
 
     def set_title(self, new_title):
-        self.title = new_title
+        self._title = clean(new_title)
 
     def set_authors(self, new_authors):
-        self.authors = new_authors
+        self._authors = new_authors
 
     def set_session(self, new_session):
-        self.session = new_session
+        self._session = clean(new_session)
 
     def set_rank(self, new_rank):
-        self.rank = new_rank
+        self._rank = int(new_rank)
 
     def set_page(self, new_page):
-        self.page = int(new_page)
+        self._page = int(new_page)
 
     def set(self, other):
         if not isinstance(other,"Document"):
             return
-        self.docid       = other.get_docid()
-        self.title       = other.get_title()
-        self.authors     = other.get_authors()
-        self.session     = other.get_session()
-        self.rank        = other.get_rank()
-        self.page        = other.get_page()
+        self._docid       = other.get_docid()
+        self._title       = other.get_title()
+        self._authors     = other.get_authors()
+        self._session     = other.get_session()
+        self._rank        = other.get_rank()
+        self._page        = other.get_page()
 
-    # -----------------------------------------------------------------------
     # -----------------------------------------------------------------------
 
     def __eq__(self, other) :
-        """Surcharge de =="""
-
         if not isinstance(other, "Document"):
             return False
-
-        if(self.docid != other.get_docid()):
+        if(self._docid != other.get_docid()):
             return False
-
         return True
 
-
     def __ne__(self, other) :
-        """Surcharge de !="""
         return not self == other
 
     # -----------------------------------------------------------------------
-

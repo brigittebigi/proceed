@@ -46,6 +46,7 @@ __docformat__ = "epytext"
 # ---------------------------------------------------------------------------
 
 from datetime import date
+from utils.commons import clean
 
 # ---------------------------------------------------------------------------
 
@@ -74,67 +75,36 @@ class Session:
 
         """
 
-        self.sessionid    = self.clean(sessionid)
-        self.session_name = self.clean(session_name)
-        self.rank         = rank
-        self.date         = date
-        self.h_deb        = h_deb
-        self.h_fin        = h_fin
-        self.chairman     = self.clean(chairman)
-        self.location     = self.clean(location)
+        self._sessionid    = clean(sessionid)
+        self._session_name = clean(session_name)
+        self._rank         = int(rank)
+        self._date         = date
+        self._h_deb        = clean(h_deb)
+        self._h_fin        = clean(h_fin)
+        self._chairman     = clean(chairman)
+        self._location     = clean(location)
 
     # End __init__
     # -----------------------------------------------------------------------
-
-
-    def clean(self, entry):
-        """
-        Clean a string and encode to UTF-8.
-
-        @param entry is the string to clean
-        @return a string without special chars
-
-        """
-        s = ""
-        if isinstance(entry, unicode):
-            s = self.__clean(entry)
-        elif entry is None:
-            s = ""
-        else:
-            try:
-                _unicode = entry.decode("utf-8")
-            except UnicodeDecodeError as e:
-                raise e
-            s = self.__clean(_unicode)
-        return s
-
-    def __clean(self, entry):
-        """ Clean a unicode string by removing tabs, CR/LF. """
-        return " ".join(entry.split())
-
-    # End clean
-    # -----------------------------------------------------------------------
-
 
     def IsEmpty(self):
         """
         Check if the session id is valid.
         """
-        if len(self.sessionid) == 0:
+        if len(self._sessionid) == 0:
             return True
         return False
 
     # End IsEmpty
     # -----------------------------------------------------------------------
 
-
     def prepare_save(self):
 
-        if isinstance(self.date,date):
-            return [{"SESSION_ID":self.sessionid.encode('utf8'), "SESSION_NAME":self.session_name.encode('utf8'), "RANK":str(self.rank), "DATE":self.date.isoformat(), "H-DEB":self.h_deb.encode('utf8'), "H-FIN":self.h_fin.encode('utf8'), "CHAIRMAN":self.chairman.encode('utf8'), "LOCATION":self.location.encode('utf8')}]
+        if isinstance(self._date,date):
+            return [{"SESSION_ID":self._sessionid, "SESSION_NAME":self._session_name, "RANK":str(self._rank), "DATE":self._date.isoformat(), "H-DEB":self._h_deb, "H-FIN":self._h_fin, "CHAIRMAN":self._chairman, "LOCATION":self._location}]
 
         else:
-            return [{"SESSION_ID":self.sessionid.encode('utf8'), "SESSION_NAME":self.session_name.encode('utf8'), "RANK":str(self.rank), "DATE":"", "H-DEB":self.h_deb.encode('utf8'), "H-FIN":self.h_fin.encode('utf8'), "CHAIRMAN":self.chairman.encode('utf8'), "LOCATION":self.location.encode('utf8')}]
+            return [{"SESSION_ID":self._sessionid, "SESSION_NAME":self._session_name, "RANK":str(self._rank), "DATE":"", "H-DEB":self._h_deb, "H-FIN":self._h_fin, "CHAIRMAN":self._chairman, "LOCATION":self._location}]
 
 
     # ------------------------------------------------------------------------
@@ -142,28 +112,28 @@ class Session:
     # ------------------------------------------------------------------------
 
     def get_sessionid(self):
-        return self.sessionid
+        return self._sessionid
 
     def get_session_name(self):
-        return self.session_name
+        return self._session_name
 
     def get_rank(self):
-        return self.rank
+        return self._rank
 
     def get_date(self):
-        return self.date
+        return self._date
 
     def get_h_deb(self):
-        return self.h_deb
+        return self._h_deb
 
     def get_h_fin (self):
-        return self.h_fin
+        return self._h_fin
 
     def get_chairman(self):
-        return self.chairman
+        return self._chairman
 
     def get_location(self):
-        return self.location
+        return self._location
 
 
     # ------------------------------------------------------------------------
@@ -171,40 +141,40 @@ class Session:
     # ------------------------------------------------------------------------
 
     def set_sessionid(self, new_sessionid):
-        self.sessionid = new_sessionid
+        self._sessionid = new_sessionid
 
     def set_session_name(self, new_session_name):
-        self.session_name = new_session_name
+        self._session_name = new_session_name
 
     def set_rank(self, new_rank):
-        self.rank = new_rank
+        self._rank = new_rank
 
     def set_date(self, new_date):
-        self.date = new_date
+        self._date = new_date
 
     def set_h_deb(self, new_h_deb):
-        self.h_deb = new_h_deb
+        self._h_deb = new_h_deb
 
     def set_h_fin (self, new_h_fin):
-        self.h_fin = new_h_fin
+        self._h_fin = new_h_fin
 
     def set_chairman(self, new_chairman):
-        self.chairman = new_chairman
+        self._chairman = new_chairman
 
     def set_location(self, new_location):
-        self.location = new_location
+        self._location = new_location
 
     def set(self, other):
         if not isinstance(other,"Session"):
             return
-        self.sessionid    = other.get_sessionid()
-        self.session_name = other.get_session_name()
-        self.rank         = other.get_rank()
-        self.date         = other.get_date()
-        self.h_deb        = other.get_h_deb()
-        self.h_fin        = other.get_h_fin()
-        self.chairman     = other.get_chairman()
-        self.location     = other.get_location()
+        self._sessionid    = other.get_sessionid()
+        self._session_name = other.get_session_name()
+        self._rank         = other.get_rank()
+        self._date         = other.get_date()
+        self._h_deb        = other.get_h_deb()
+        self._h_fin        = other.get_h_fin()
+        self._chairman     = other.get_chairman()
+        self._location     = other.get_location()
 
     # ------------------------------------------------------------------------
     # ------------------------------------------------------------------------
@@ -213,7 +183,7 @@ class Session:
     def __eq__(self, other) :
         if not isinstance(other,Session):
             return False
-        if(self.sessionid != other.get_sessionid()):
+        if(self._sessionid != other.get_sessionid()):
             return False
         return True
 
