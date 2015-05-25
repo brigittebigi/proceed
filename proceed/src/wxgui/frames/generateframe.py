@@ -48,7 +48,8 @@ import wx
 
 from wxgui.sp_icons import APP_EXPORT_PDF_ICON
 from wxgui.frames.export_settings import ExportSettings
-from wxgui.models.prefs   import Preferences_IO
+
+from structs.prefs import Preferences_IO
 from wxgui.models.writers import pdf_writer
 from wxgui.models.writers import EVT_RESULT
 
@@ -104,8 +105,47 @@ class GenerateFrame( wx.Dialog ):
 
 
     def _reset_prefs(self):
-        # No specific settings for now (exept options in themes).
-        pass
+        # Page
+        self._prefsIO.SetValue('PAGE_FORMAT','str', 'a4paper')
+        self._prefsIO.SetValue('PAGE_NUMBER','int', 1)
+        self._prefsIO.SetValue("TOP_MARGIN",'int', 30)    # millimeters
+        self._prefsIO.SetValue("BOTTOM_MARGIN",'int', 20) # millimeters
+        self._prefsIO.SetValue("HEADER_SIZE",'int', 20)   # pt
+        self._prefsIO.SetValue("FOOTER_SIZE",'int', 10)   # pt
+
+        # Header
+        self._prefsIO.SetValue('HEADER_LEFT','str', '')
+        self._prefsIO.SetValue('HEADER_CENTER','str', '')
+        self._prefsIO.SetValue('HEADER_RIGHT','str', '\\session')
+        self._prefsIO.SetValue('HEADER_STYLE','str', '\\it') # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
+        self._prefsIO.SetValue('HEADER_COLOR','str', '20,20,20')
+        self._prefsIO.SetValue('HEADER_RULER','bool', True)
+
+        # Footer
+        self._prefsIO.SetValue('FOOTER_LEFT','str', '')
+        self._prefsIO.SetValue('FOOTER_CENTER','str', '\\thepage')
+        self._prefsIO.SetValue('FOOTER_RIGHT','str', '')
+        self._prefsIO.SetValue('FOOTER_STYLE','str', '\\bf') # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
+        self._prefsIO.SetValue('FOOTER_COLOR','str', '20,20,20')
+        self._prefsIO.SetValue('FOOTER_RULER','bool', False)
+
+        # Generate
+        self._prefsIO.SetValue('GENERATE_PROGRAM','bool', True)
+        self._prefsIO.SetValue('GENERATE_PROGRAM_OVERVIEW','bool', True)
+        self._prefsIO.SetValue('GENERATE_TABLEOFCONTENTS','bool', True)
+        self._prefsIO.SetValue('GENERATE_MERGED_SUBMISSIONS','bool', True)
+        self._prefsIO.SetValue('GENERATE_AUTHORS_INDEX','bool', True)
+        self._prefsIO.SetValue('GENERATE_AUTHORS_LIST','bool', True)
+
+        # Titles
+        self._prefsIO.SetValue('TITLE_PROGRAM','str', 'Program')
+        self._prefsIO.SetValue('TITLE_PROGRAM_OVERVIEW','str', 'Program overview')
+        self._prefsIO.SetValue('TITLE_TABLEOFCONTENTS','str', 'Table of contents')
+        self._prefsIO.SetValue('TITLE_AUTHORS_INDEX','str', 'Author Index')
+        self._prefsIO.SetValue('TITLE_AUTHORS_LIST','str', 'List of authors')
+
+        # Sort by session types first (1. keynotes, then 2. orals then 3. posters)
+        self._prefsIO.SetValue('SORT_BY_SESSION_TYPE_FIRST','bool', False)
 
     #-------------------------------------------------------------------------
 

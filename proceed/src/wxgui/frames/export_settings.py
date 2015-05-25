@@ -44,11 +44,9 @@ __docformat__ = "epytext"
 # ---------------------------------------------------------------------------
 
 import wx
+import logging
 import os.path
 import wx.lib.scrolledpanel as scrolled
-
-from wxgui.models.prefs import Option
-from wxgui.models.themes import THEMES
 
 from wxgui.sp_icons import SETTINGS_ICON
 from wxgui.sp_icons import SAVE_ICON
@@ -70,6 +68,9 @@ from sp_glob import ICONS_PATH
 # ----------------------------------------------------------------------------
 
 ID_SAVE   = wx.NewId()
+
+FONT_SIZES  = [10,11,12]
+PAPER_SIZES = ['a4paper', 'letterpaper', 'legalpaper', 'a5paper', 'executivepaper', 'b5paper']
 
 # ---------------------------------------------------------------------------
 # Main Settings Frame class
@@ -139,13 +140,12 @@ class ExportSettings( wx.Dialog ):
 
     def _create_notebook(self):
         self.notebook = wx.Notebook(self)
-        page1 = ThemeSettings(self.notebook, self._prefsIO)
-        #page2 = PrefsThemePanel(self.notebook, self.preferences)
-        #page3 = PrefsAnnotationPanel(self.notebook, self.preferences)
-        # add the pages to the notebook with the label to show on the tab
-        self.notebook.AddPage(page1, "General")
-        #self.notebook.AddPage(page2, "Icons Theme")
-        #self.notebook.AddPage(page3, "Annotation")
+        self.notebook.AddPage(PageSettings(self.notebook, self._prefsIO),     "  Page  ")
+        self.notebook.AddPage(HeaderSettings(self.notebook, self._prefsIO),   " Header ")
+        self.notebook.AddPage(FooterSettings(self.notebook, self._prefsIO),   " Footer ")
+        self.notebook.AddPage(GenerateSettings(self.notebook, self._prefsIO), "Generate")
+        self.notebook.AddPage(TitlesSettings(self.notebook, self._prefsIO),   " Titles ")
+        self.notebook.AddPage(SortSettings(self.notebook, self._prefsIO),     " Sorter ")
 
     #-------------------------------------------------------------------------
 
@@ -215,42 +215,145 @@ class ExportSettings( wx.Dialog ):
 
 # ----------------------------------------------------------------------------
 
-
-class ThemeSettings( scrolled.ScrolledPanel ):
-    """
-    Merge PDF.
-    """
+class PageSettings( wx.Panel ):
 
     def __init__(self, parent, prefsIO):
 
-        scrolled.ScrolledPanel.__init__(self, parent, style=wx.NO_BORDER)
+        wx.Panel.__init__(self, parent)
+        self.preferences = prefsIO
 
-        self._prefsIO = prefsIO
+        # ---------- Paper format
+        pf = wx.RadioBox(self, label="Paper format: ", choices=PAPER_SIZES, majorDimension=3)
+        pf.SetSelection( PAPER_SIZES.index( self.preferences.GetValue('PAGE_FORMAT') ) )
 
-        choices = []
-        for choice in THEMES:
-            choices.append(choice[0])
-        # TODO:
-        # Append a "User defined" theme in the choices, allowing the user
-        # to make it's own setting for each option, and save them.
+        # ---------- First page: page number
+        pn = wx.SpinCtrl(self, value=str(self.preferences.GetValue('PAGE_NUMBER')))
+        pn.SetRange(1, 20)
+        spn = wx.BoxSizer( wx.HORIZONTAL )
+        spn.Add(wx.StaticText(self, label='Page number:', size=(150,-1)), 0, flag=wx.ALL, border=0)
+        spn.Add(pn, 0, flag=wx.ALL, border=0)
 
-        self.radiobox = wx.RadioBox(self, label="Conference: ",
-                                    choices=choices, majorDimension=1)
+        # ---------- Top margin
+        tm = wx.SpinCtrl(self, value=str(self.preferences.GetValue('TOP_MARGIN')))
+        tm.SetRange(5, 40)
+        stm = wx.BoxSizer( wx.HORIZONTAL )
+        stm.Add(wx.StaticText(self, label='Top margin (mm):', size=(150,-1)), 0, flag=wx.ALL, border=0)
+        stm.Add(tm, 0, flag=wx.ALL, border=0)
 
-        # check the current theme
-        self.radiobox.SetSelection( self._prefsIO.GetTheme() )
-        # bind any theme change
-        self.Bind(wx.EVT_RADIOBOX, self.radioClick, self.radiobox)
+        # ---------- Bottom margin
+        bm = wx.SpinCtrl(self, value=str(self.preferences.GetValue('BOTTOM_MARGIN')))
+        bm.SetRange(5, 40)
+        sbm = wx.BoxSizer( wx.HORIZONTAL )
+        sbm.Add(wx.StaticText(self, label='Bottom margin (mm):', size=(150,-1)), 0, flag=wx.ALL, border=0)
+        sbm.Add(bm, 0, flag=wx.ALL, border=0)
 
-        vbox = wx.BoxSizer(wx.VERTICAL)
-        vbox.Add(self.radiobox, 1, wx.EXPAND|wx.ALL, border=2)
-        self.SetSizer(vbox)
+        # ---------- Header size
+        hs = wx.SpinCtrl(self, value=str(self.preferences.GetValue('HEADER_SIZE')))
+        hs.SetRange(10, 30)
+        shs = wx.BoxSizer( wx.HORIZONTAL )
+        shs.Add(wx.StaticText(self, label='Header size (pt):', size=(150,-1)), 0, flag=wx.ALL, border=0)
+        shs.Add(hs, 0, flag=wx.ALL, border=0)
 
-    #-------------------------------------------------------------------------
+        # ---------- Footer size
+        fs = wx.SpinCtrl(self, value=str(self.preferences.GetValue('FOOTER_SIZE')))
+        fs.SetRange(2, 30)
+        sfs = wx.BoxSizer( wx.HORIZONTAL )
+        sfs.Add(wx.StaticText(self, label='Footer size (pt):', size=(150,-1)), 0, flag=wx.ALL, border=0)
+        sfs.Add(fs, 0, flag=wx.ALL, border=0)
 
-    def radioClick(self, event):
-        """ Set the new theme. """
-        self._prefsIO.SetTheme(self.radiobox.GetSelection())
+        # Bind
+        pf.Bind(wx.EVT_RADIOBOX, self.onPaperFormat)
+        pn.Bind(wx.EVT_SPINCTRL, lambda evt, skey='PAGE_NUMBER', stype='int':   self.onPrefsChange(evt, skey, stype) )
+        tm.Bind(wx.EVT_SPINCTRL, lambda evt, skey='TOP_MARGIN', stype='int':    self.onPrefsChange(evt, skey, stype) )
+        bm.Bind(wx.EVT_SPINCTRL, lambda evt, skey='BOTTOM_MARGIN', stype='int': self.onPrefsChange(evt, skey, stype) )
+        hs.Bind(wx.EVT_SPINCTRL, lambda evt, skey='HEADER_SIZE', stype='int':   self.onPrefsChange(evt, skey, stype) )
+        fs.Bind(wx.EVT_SPINCTRL, lambda evt, skey='FOOTER_SIZE', stype='int':   self.onPrefsChange(evt, skey, stype) )
+
+        # Sizer
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(pf,  0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
+        sizer.Add(spn, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
+        sizer.Add(stm, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
+        sizer.Add(sbm, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
+        sizer.Add(shs, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
+        sizer.Add(sfs, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
+
+        self.SetSizer(sizer)
 
 
-# ----------------------------------------------------------------------------
+    def onPrefsChange(self, event, skey, stype):
+        o = event.GetEventObject()
+        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,str(o.GetValue())))
+        self.preferences.SetValue( skey, stype, o.GetValue() )
+
+    def onPaperFormat(self, event):
+        o = event.GetEventObject()
+        idx = o.GetSelection()
+        self.preferences.SetValue( 'PAGE_FORMAT', 'str', PAPER_SIZES[idx] )
+
+#-----------------------------------------------------------------------------
+
+class HeaderSettings( wx.Panel ):
+
+    def __init__(self, parent, prefsIO):
+
+        wx.Panel.__init__(self, parent)
+        self.preferences = prefsIO
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        self.SetSizer(sizer)
+
+#-----------------------------------------------------------------------------
+
+class FooterSettings( wx.Panel ):
+
+    def __init__(self, parent, prefsIO):
+
+        wx.Panel.__init__(self, parent)
+        self.preferences = prefsIO
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        self.SetSizer(sizer)
+
+#-----------------------------------------------------------------------------
+
+class GenerateSettings( wx.Panel ):
+
+    def __init__(self, parent, prefsIO):
+
+        wx.Panel.__init__(self, parent)
+        self.preferences = prefsIO
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        self.SetSizer(sizer)
+
+#-----------------------------------------------------------------------------
+
+class TitlesSettings( wx.Panel ):
+
+    def __init__(self, parent, prefsIO):
+
+        wx.Panel.__init__(self, parent)
+        self.preferences = prefsIO
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        self.SetSizer(sizer)
+
+#-----------------------------------------------------------------------------
+
+class SortSettings( wx.Panel ):
+
+    def __init__(self, parent, prefsIO):
+
+        wx.Panel.__init__(self, parent)
+        self.preferences = prefsIO
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        self.SetSizer(sizer)
+
+#-----------------------------------------------------------------------------
