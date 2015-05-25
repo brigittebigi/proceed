@@ -180,6 +180,7 @@ class ExportSettings( wx.Dialog ):
         vbox.Add(self.notebook, 1, flag=wx.ALL|wx.EXPAND, border=0)
         vbox.Add(self._create_button_box(), 0, flag=wx.ALL|wx.EXPAND, border=5)
         self.SetSizerAndFit(vbox)
+        self.SetMinSize((420,340))
 
     def _set_focus_component(self):
         self.notebook.SetFocus()
@@ -221,65 +222,23 @@ class PageSettings( wx.Panel ):
 
         wx.Panel.__init__(self, parent)
         self.preferences = prefsIO
+        sizer = wx.BoxSizer(wx.VERTICAL)
 
-        # ---------- Paper format
         pf = wx.RadioBox(self, label="Paper format: ", choices=PAPER_SIZES, majorDimension=3)
         pf.SetSelection( PAPER_SIZES.index( self.preferences.GetValue('PAGE_FORMAT') ) )
-
-        # ---------- First page: page number
-        pn = wx.SpinCtrl(self, value=str(self.preferences.GetValue('PAGE_NUMBER')))
-        pn.SetRange(1, 20)
-        spn = wx.BoxSizer( wx.HORIZONTAL )
-        spn.Add(wx.StaticText(self, label='Page number:', size=(150,-1)), 0, flag=wx.ALL, border=0)
-        spn.Add(pn, 0, flag=wx.ALL, border=0)
-
-        # ---------- Top margin
-        tm = wx.SpinCtrl(self, value=str(self.preferences.GetValue('TOP_MARGIN')))
-        tm.SetRange(5, 40)
-        stm = wx.BoxSizer( wx.HORIZONTAL )
-        stm.Add(wx.StaticText(self, label='Top margin (mm):', size=(150,-1)), 0, flag=wx.ALL, border=0)
-        stm.Add(tm, 0, flag=wx.ALL, border=0)
-
-        # ---------- Bottom margin
-        bm = wx.SpinCtrl(self, value=str(self.preferences.GetValue('BOTTOM_MARGIN')))
-        bm.SetRange(5, 40)
-        sbm = wx.BoxSizer( wx.HORIZONTAL )
-        sbm.Add(wx.StaticText(self, label='Bottom margin (mm):', size=(150,-1)), 0, flag=wx.ALL, border=0)
-        sbm.Add(bm, 0, flag=wx.ALL, border=0)
-
-        # ---------- Header size
-        hs = wx.SpinCtrl(self, value=str(self.preferences.GetValue('HEADER_SIZE')))
-        hs.SetRange(10, 30)
-        shs = wx.BoxSizer( wx.HORIZONTAL )
-        shs.Add(wx.StaticText(self, label='Header size (pt):', size=(150,-1)), 0, flag=wx.ALL, border=0)
-        shs.Add(hs, 0, flag=wx.ALL, border=0)
-
-        # ---------- Footer size
-        fs = wx.SpinCtrl(self, value=str(self.preferences.GetValue('FOOTER_SIZE')))
-        fs.SetRange(2, 30)
-        sfs = wx.BoxSizer( wx.HORIZONTAL )
-        sfs.Add(wx.StaticText(self, label='Footer size (pt):', size=(150,-1)), 0, flag=wx.ALL, border=0)
-        sfs.Add(fs, 0, flag=wx.ALL, border=0)
-
-        # Bind
         pf.Bind(wx.EVT_RADIOBOX, self.onPaperFormat)
-        pn.Bind(wx.EVT_SPINCTRL, lambda evt, skey='PAGE_NUMBER', stype='int':   self.onPrefsChange(evt, skey, stype) )
-        tm.Bind(wx.EVT_SPINCTRL, lambda evt, skey='TOP_MARGIN', stype='int':    self.onPrefsChange(evt, skey, stype) )
-        bm.Bind(wx.EVT_SPINCTRL, lambda evt, skey='BOTTOM_MARGIN', stype='int': self.onPrefsChange(evt, skey, stype) )
-        hs.Bind(wx.EVT_SPINCTRL, lambda evt, skey='HEADER_SIZE', stype='int':   self.onPrefsChange(evt, skey, stype) )
-        fs.Bind(wx.EVT_SPINCTRL, lambda evt, skey='FOOTER_SIZE', stype='int':   self.onPrefsChange(evt, skey, stype) )
+        sizer.Add(pf, 0, flag=wx.ALL, border=0)
 
-        # Sizer
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(pf,  0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
-        sizer.Add(spn, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
-        sizer.Add(stm, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
-        sizer.Add(sbm, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
-        sizer.Add(shs, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
-        sizer.Add(sfs, 0, flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALL, border=5)
-
+        keys = ['PAGE_NUMBER', 'TOP_MARGIN', 'BOTTOM_MARGIN', 'HEADER_SIZE', 'FOOTER_SIZE']
+        for k in keys:
+            pn = wx.SpinCtrl(self, value=str(self.preferences.GetValue(k)))
+            pn.SetRange(1, 40)
+            pn.Bind(wx.EVT_SPINCTRL, lambda evt, skey=self.preferences.GetValue(k), stype='int': self.onPrefsChange(evt, skey, stype) )
+            spn = wx.BoxSizer( wx.HORIZONTAL )
+            spn.Add(wx.StaticText(self, label=self.preferences.GetText(k)+':', size=(150,-1)), 0, flag=wx.ALL, border=0)
+            spn.Add(pn, 0, flag=wx.ALL, border=0)
+            sizer.Add(spn, 0, flag=wx.ALL, border=0)
         self.SetSizer(sizer)
-
 
     def onPrefsChange(self, event, skey, stype):
         o = event.GetEventObject()
@@ -325,10 +284,19 @@ class GenerateSettings( wx.Panel ):
 
         wx.Panel.__init__(self, parent)
         self.preferences = prefsIO
-
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        genall = ["GENERATE_PROGRAM", "GENERATE_PROGRAM_OVERVIEW", "GENERATE_TABLEOFCONTENTS", "GENERATE_MERGED_SUBMISSIONS", "GENERATE_AUTHORS_INDEX", "GENERATE_AUTHORS_LIST"]
+        for gen in genall:
+            cbp = wx.CheckBox(self, label=self.preferences.GetText(gen), size=(300,-1))
+            cbp.SetValue(self.preferences.GetValue(gen))
+            cbp.Bind(wx.EVT_SPINCTRL, lambda evt, skey=gen, stype='bool': self.onPrefsChange(evt, skey, stype) )
+            sizer.Add(cbp, 0, flag=wx.ALL, border=0)
         self.SetSizer(sizer)
+
+    def onPrefsChange(self, event, skey, stype):
+        o = event.GetEventObject()
+        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,str(o.GetValue())))
+        self.preferences.SetValue( skey, stype, o.GetValue() )
 
 #-----------------------------------------------------------------------------
 

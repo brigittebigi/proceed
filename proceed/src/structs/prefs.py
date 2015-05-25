@@ -98,6 +98,13 @@ class Preferences:
     # End GetValue
     # ------------------------------------------------------------------------
 
+    def GetText(self, key):
+        """ Return the text describing the given key. """
+
+        return self._prefs[key].get_text()
+
+    # End GetValue
+    # ------------------------------------------------------------------------
 
     def SetValue(self, key, t=None, v=None, text=''):
         """ Set a new couple key/(type,typed-value,text). """

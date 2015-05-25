@@ -106,43 +106,43 @@ class GenerateFrame( wx.Dialog ):
 
     def _reset_prefs(self):
         # Page
-        self._prefsIO.SetValue('PAGE_FORMAT','str', 'a4paper')
-        self._prefsIO.SetValue('PAGE_NUMBER','int', 1)
-        self._prefsIO.SetValue("TOP_MARGIN",'int', 30)    # millimeters
-        self._prefsIO.SetValue("BOTTOM_MARGIN",'int', 20) # millimeters
-        self._prefsIO.SetValue("HEADER_SIZE",'int', 20)   # pt
-        self._prefsIO.SetValue("FOOTER_SIZE",'int', 10)   # pt
+        self._prefsIO.SetValue('PAGE_FORMAT','str', 'a4paper', "Paper format")
+        self._prefsIO.SetValue('PAGE_NUMBER','int', 1, "Page number")
+        self._prefsIO.SetValue("TOP_MARGIN",'int', 30, "Top margin (mm)")       # millimeters
+        self._prefsIO.SetValue("BOTTOM_MARGIN",'int', 20, 'Bottom margin (mm)') # millimeters
+        self._prefsIO.SetValue("HEADER_SIZE",'int', 20, 'Header size (pt)')     # pt
+        self._prefsIO.SetValue("FOOTER_SIZE",'int', 10,'Footer size (pt)')      # pt
 
         # Header
-        self._prefsIO.SetValue('HEADER_LEFT','str', '')
-        self._prefsIO.SetValue('HEADER_CENTER','str', '')
-        self._prefsIO.SetValue('HEADER_RIGHT','str', '\\session')
-        self._prefsIO.SetValue('HEADER_STYLE','str', '\\it') # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
-        self._prefsIO.SetValue('HEADER_COLOR','str', '20,20,20')
-        self._prefsIO.SetValue('HEADER_RULER','bool', True)
+        self._prefsIO.SetValue('HEADER_LEFT','str', '', 'Content of the header, at left')
+        self._prefsIO.SetValue('HEADER_CENTER','str', '', 'Content of the header, at center')
+        self._prefsIO.SetValue('HEADER_RIGHT','str', '\\session', 'Content of the header, at right')
+        self._prefsIO.SetValue('HEADER_STYLE','str', '\\it', "Header font style") # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
+        self._prefsIO.SetValue('HEADER_COLOR','str', '20,20,20', "Header color")
+        self._prefsIO.SetValue('HEADER_RULER','bool', True, "Separate the header with a ruler")
 
         # Footer
-        self._prefsIO.SetValue('FOOTER_LEFT','str', '')
-        self._prefsIO.SetValue('FOOTER_CENTER','str', '\\thepage')
-        self._prefsIO.SetValue('FOOTER_RIGHT','str', '')
-        self._prefsIO.SetValue('FOOTER_STYLE','str', '\\bf') # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
-        self._prefsIO.SetValue('FOOTER_COLOR','str', '20,20,20')
-        self._prefsIO.SetValue('FOOTER_RULER','bool', False)
+        self._prefsIO.SetValue('FOOTER_LEFT','str', '', 'Content of the footer, at left')
+        self._prefsIO.SetValue('FOOTER_CENTER','str', '\\thepage', 'Content of the footer, at center')
+        self._prefsIO.SetValue('FOOTER_RIGHT','str', '', 'Content of the footer, at right')
+        self._prefsIO.SetValue('FOOTER_STYLE','str', '\\bf', "Footer font style") # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
+        self._prefsIO.SetValue('FOOTER_COLOR','str', '20,20,20', "Footer color")
+        self._prefsIO.SetValue('FOOTER_RULER','bool', False, "Separate the footer with a ruler")
 
         # Generate
-        self._prefsIO.SetValue('GENERATE_PROGRAM','bool', True)
-        self._prefsIO.SetValue('GENERATE_PROGRAM_OVERVIEW','bool', True)
-        self._prefsIO.SetValue('GENERATE_TABLEOFCONTENTS','bool', True)
-        self._prefsIO.SetValue('GENERATE_MERGED_SUBMISSIONS','bool', True)
-        self._prefsIO.SetValue('GENERATE_AUTHORS_INDEX','bool', True)
-        self._prefsIO.SetValue('GENERATE_AUTHORS_LIST','bool', True)
+        self._prefsIO.SetValue('GENERATE_PROGRAM','bool', True, "Generate the Program")
+        self._prefsIO.SetValue('GENERATE_PROGRAM_OVERVIEW','bool', True, "Generate the Program overview")
+        self._prefsIO.SetValue('GENERATE_TABLEOFCONTENTS','bool', True, "Generate the Table of content")
+        self._prefsIO.SetValue('GENERATE_MERGED_SUBMISSIONS','bool', True, "Generate the Merged submissions")
+        self._prefsIO.SetValue('GENERATE_AUTHORS_INDEX','bool', True, "Generate the Index of Authors")
+        self._prefsIO.SetValue('GENERATE_AUTHORS_LIST','bool', True, "Generate the List of authors")
 
         # Titles
-        self._prefsIO.SetValue('TITLE_PROGRAM','str', 'Program')
-        self._prefsIO.SetValue('TITLE_PROGRAM_OVERVIEW','str', 'Program overview')
-        self._prefsIO.SetValue('TITLE_TABLEOFCONTENTS','str', 'Table of contents')
-        self._prefsIO.SetValue('TITLE_AUTHORS_INDEX','str', 'Author Index')
-        self._prefsIO.SetValue('TITLE_AUTHORS_LIST','str', 'List of authors')
+        self._prefsIO.SetValue('TITLE_PROGRAM','str', 'Program', 'Program')
+        self._prefsIO.SetValue('TITLE_PROGRAM_OVERVIEW','str', 'Program overview', 'Program overview')
+        self._prefsIO.SetValue('TITLE_TABLEOFCONTENTS','str', 'Table of contents', 'Table of contents')
+        self._prefsIO.SetValue('TITLE_AUTHORS_INDEX','str', 'Author Index', 'Author Index')
+        self._prefsIO.SetValue('TITLE_AUTHORS_LIST','str', 'List of authors', 'List of authors')
 
         # Sort by session types first (1. keynotes, then 2. orals then 3. posters)
         self._prefsIO.SetValue('SORT_BY_SESSION_TYPE_FIRST','bool', False)
