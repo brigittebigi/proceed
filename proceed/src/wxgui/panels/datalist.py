@@ -492,6 +492,7 @@ class NotebookPanel( wx.Panel ):
             title       = ""
             rank        = ""
             page_number = ""
+            pdf_diagnosis = ""
 
             for row in docreader.get_ById(docid):
 
@@ -513,7 +514,10 @@ class NotebookPanel( wx.Panel ):
                 if page_number == "" and docreader.get_NumPage(row) != "":
                     page_number = docreader.get_NumPage(row)
 
-            doc = Document(docid, title, authorslist, session, rank, page_number)
+                if pdf_diagnosis == "" and docreader.get_Diagnosis(row) != "":
+                    pdf_diagnosis = docreader.get_Diagnosis(row)
+
+            doc = Document(docid, title, authorslist, session, rank, page_number, pdf_diagnosis)
             DocDict[doc.get_docid()] = doc
 
         self._dataPages['Documents'] = DocDict

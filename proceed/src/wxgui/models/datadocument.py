@@ -57,7 +57,7 @@ class Document:
 
     """
 
-    def __init__(self, docid, title="", authors=list(), session="", rank=0, page=0):
+    def __init__(self, docid, title="", authors=list(), session="", rank=0, page=0, pdf_diagnosis=-2):
         """
         Create a new Document instance.
 
@@ -75,6 +75,7 @@ class Document:
         self._session = clean(session)
         self._rank    = rank
         self._page    = page
+        self._pdf     = pdf_diagnosis
 
     # End __init__
     # -----------------------------------------------------------------------
@@ -128,6 +129,8 @@ class Document:
     def get_page(self):
         return self._page
 
+    def get_pdf_diagnosis(self):
+        return self._pdf
 
     # -----------------------------------------------------------------------
     ########## SETTEURS ##########
@@ -151,6 +154,9 @@ class Document:
     def set_page(self, new_page):
         self._page = new_page
 
+    def set_pdf_diagnosis(self, diag):
+        self._pdf = diag
+
     def set(self, other):
         if not isinstance(other,"Document"):
             return
@@ -160,6 +166,7 @@ class Document:
         self._session     = other.get_session()
         self._rank        = other.get_rank()
         self._page        = other.get_page()
+        self._pdf         = other.get_pdf_diagnosis()
 
     # -----------------------------------------------------------------------
 

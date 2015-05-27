@@ -94,10 +94,11 @@ class CSVWriter:
             if doc.get_status()==self._status:
                 for auth in doc.get_authors():
                     Docid = str(doc.get_docid())
-                    Title = doc.get_title()
-                    LastName = self.__format(auth.get_lastname())
-                    FirstName = self.__format(auth.get_firstname())
-                    Email = self.__format(auth.get_email())
+                    Title = doc.get_title().encode('utf-8')
+                    LastName = self.__format(auth.get_lastname()).encode('utf-8')
+                    FirstName = self.__format(auth.get_firstname()).encode('utf-8')
+                    Email = self.__format(auth.get_email()).encode('utf-8')
+                    PDFDiag = str(doc.get_pdfdiagnosis())
 
                     affiliationList = list()
 
@@ -106,12 +107,12 @@ class CSVWriter:
                         affiliationList.append(self.__format(', '.join(labo.get_affiliations())))
 
                     if ( len(affiliationList) != 0):
-                        affiliations = ' '.join(affiliationList)
+                        affiliations = ' '.join(affiliationList).encode('utf-8')
                     else:
                         affiliations = ' '
 
-                    out_documents.writerow({"DOCID":Docid.encode('utf-8'), "TITLE":Title.encode('utf-8'), "LASTNAME":LastName.encode('utf-8'), "FIRSTNAME":FirstName.encode('utf-8'), "SESSION_ID":"", "RANK":"", "PAGE_NUMBER":""})
-                    out_authors.writerow({"LASTNAME":LastName.encode('utf-8'), "FIRSTNAME":FirstName.encode('utf-8'), "EMAIL":Email.encode('utf-8'), "AFFILIATION":affiliations.encode('utf-8')})
+                    out_documents.writerow({"DOCID":Docid, "TITLE":Title, "LASTNAME":LastName, "FIRSTNAME":FirstName, "SESSION_ID":"", "RANK":"", "PAGE_NUMBER":"", "PDF_DIAGNOSIS":PDFDiag})
+                    out_authors.writerow({"LASTNAME":LastName, "FIRSTNAME":FirstName, "EMAIL":Email, "AFFILIATION":affiliations})
 
     def __format(self,s):
         a = s.replace("\s", " ")
