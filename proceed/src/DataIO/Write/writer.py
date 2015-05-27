@@ -103,7 +103,8 @@ class Writer( Thread ):
 
         latex = LaTeXWriter( prefs=prefs )
         total = len(self._docs)
-        fileutils.createdir(outputname)
+        if not os.path.exists(outputname):
+            os.mkdir( outputname )
 
         for i,doc in enumerate(self._docs):
             if self._progress:
@@ -121,7 +122,6 @@ class Writer( Thread ):
         if self._progress:
             self._progress.update(1,"Completed.")
             self._progress.set_header("")
-
 
     # End writeLaTeX_as_Dir
     #-------------------------------------------------------------------------
@@ -147,7 +147,6 @@ class Writer( Thread ):
     # End write_as_file
     #-------------------------------------------------------------------------
 
-
     def writeHTML(self, outputname):
         """
         Write the list of authors/title/... of each document in an HTML file.
@@ -162,7 +161,6 @@ class Writer( Thread ):
 
     # End writeHTML
     #-------------------------------------------------------------------------
-
 
     def writeLaTeX(self, outputname, prefs):
         """

@@ -54,9 +54,9 @@ import os.path
 import getopt
 sys.path.append( os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "src") )
 
-from DataIO.Read.reader import Reader
+from DataIO.Read.reader  import Reader
 from DataIO.Write.writer import Writer
-from structs.prefs import Preferences
+from structs.prefs       import Preferences
 from structs.abstracts_themes import all_themes
 
 from term.textprogress import TextProgress
@@ -81,7 +81,7 @@ def usage(output):
     @param output is a string representing the output (for example: sys.stdout)
 
     """
-    output.write('import-to-tex.py [options] where options are:\n')
+    output.write('import.py [options] where options are:\n')
     output.write('      -i file             Input file name                 [required] \n')
     output.write('      -a file             Authors Input file name         [required if easychair] \n')
     output.write('      -o output           Output directory                [required] \n')
@@ -217,6 +217,7 @@ if __name__=="__main__":
     # ----------------------------------------------------------------------
     # Load input data
     # ----------------------------------------------------------------------
+
     arguments = {}
     arguments['readername'] = readername
     arguments['filename']   = fileinput
@@ -224,7 +225,6 @@ if __name__=="__main__":
     arguments['progress'] = p
 
     reader = Reader( arguments )
-
 
     # ----------------------------------------------------------------------
     # Write output data (with default parameters)

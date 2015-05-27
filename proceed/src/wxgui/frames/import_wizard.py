@@ -41,6 +41,7 @@ __docformat__ = "epytext"
 # ---------------------------------------------------------------------------
 
 import wx
+import wx.lib.newevent
 import wx.wizard
 import logging
 import os.path
@@ -64,12 +65,15 @@ from structs.abstracts_themes import all_themes
 from wxgui.frames.processprogress import ProcessProgressDialog
 
 # ---------------------------------------------------------------------------
+ImportFinishedEvent, EVT_IMPORT_WIZARD_FINISHED = wx.lib.newevent.NewEvent()
+ImportFinishedCommandEvent, EVT_IMPORT_WIZARD_FINISHED_COMMAND = wx.lib.newevent.NewCommandEvent()
+# ---------------------------------------------------------------------------
 
 class ImportWizard( wx.wizard.Wizard ):
 
     def __init__(self, parent):
         wx.wizard.Wizard.__init__(self, parent, -1)#, title=FRAME_TITLE+" - Import", style=FRAME_STYLE)
-        self.reader = None
+        self.output = ""
 
         self.page0 = InputPage(self)
         self.page0.SetName("input")
@@ -117,9 +121,11 @@ class ImportWizard( wx.wizard.Wizard ):
 #                 wx.MessageBox("A directory is required.", 'Info', wx.OK | wx.ICON_INFORMATION)
 #                 self.RunWizard(self.page1)
 #                 return
-            if not os.path.exists(self.page1.urlFld.GetValue()):
+            self.output = self.page1.urlFld.GetValue().strip()
+
+            if not os.path.exists( self.output ):
                 try:
-                    os.mkdir( self.page1.urlFld.GetValue().strip() )
+                    os.mkdir( self.output )
                 except Exception as e:
                     wx.MessageBox("Error while creating output directory:\n%s"%str(e), 'Info', wx.OK | wx.ICON_INFORMATION)
                     self.RunWizard(self.page1)
@@ -128,9 +134,9 @@ class ImportWizard( wx.wizard.Wizard ):
                 self.writer = Writer( self.reader.docs )
                 self.writer.set_status( self.page1.status )
                 if self.page1.exportcsv:
-                    self.writer.writeCSV( self.page1.urlFld.GetValue() )
+                    self.writer.writeCSV( self.output )
                 if self.page1.exporthtml:
-                    self.writer.writeHTML( self.page1.urlFld.GetValue() )
+                    self.writer.writeHTML( self.output )
             except Exception as e:
                 wx.MessageBox("Error while creating output files:\n%s"%str(e), 'Info', wx.OK | wx.ICON_INFORMATION)
                 self.RunWizard(self.page1)
@@ -140,6 +146,7 @@ class ImportWizard( wx.wizard.Wizard ):
     def onFinished(self, event):
         """"""
         if self.page2.export is True:
+
             # Create preferences
             prefs = Preferences()
             theme = all_themes.get_theme( self.page2.theme )
@@ -148,9 +155,13 @@ class ImportWizard( wx.wizard.Wizard ):
             # Write as LaTeX in the same dir as proceed CSV files
             p = ProcessProgressDialog(self)
             self.writer.set_progress(p)
-            self.writer.writeLaTeX_as_Dir( self.page1.urlFld.GetValue(), prefs )
+            self.writer.writeLaTeX_as_Dir( self.output, prefs )
             self.writer.set_progress(None)
             p.close()
+
+        evt = ImportFinishedEvent(path=self.output)
+        evt.SetEventObject(self)
+        wx.PostEvent(self.GetParent(), evt)
 
     #----------------------------------------------------------------------
 
