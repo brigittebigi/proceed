@@ -138,8 +138,8 @@ class ThemeNalte( ThemeBasic ):
         self._choice['TITLE'] 		= Option('str', '\\renewcommand{\\title}[1]{\LaTeXtitle{\Large{\\textbf{#1}}}}')
         self._choice['LABOS']		= Option('str', '\\renewcommand\\Affilfont{\\normalfont}')
         self._choice['EMAIL']    	= Option('str', '\\newcommand{\\emailaddress}[1]{\\newline{\sf#1}}')
-        self._choice['KEYWORDS']	= Option('str', u'\\newcommand{\\keywords}[1]{\\noindent{\small{\\textbf{Mots clés}: }#1\par \\vskip.7\\baselineskip}}')
-        self._choice['ABSTRACT'] 	= Option('str', u'\\renewcommand\\abstract[1]{\\noindent{\small{\\textbf{Résumé}. }#1}}')
+        self._choice['KEYWORDS']	= Option('str', '\\newcommand{\\keywords}[1]{\\noindent{\small{\\textbf{Mots cl\'es}: }#1\par \\vskip.7\\baselineskip}}')
+        self._choice['ABSTRACT'] 	= Option('str', '\\renewcommand\\abstract[1]{\\noindent{\small{\\textbf{R\'esum\'e}. }#1}}')
         self._choice['AUTHORS']		= Option('str', '\\renewcommand\\Authfont{\scshape}')
 
 # ----------------------------------------------------------------------------

@@ -107,7 +107,7 @@ class GenerateFrame( wx.Dialog ):
     def _reset_prefs(self):
         # Page
         self._prefsIO.SetValue('PAGE_FORMAT','str', 'a4paper', "Paper format")
-        self._prefsIO.SetValue('PAGE_NUMBER','int', 1, "Page number")
+        self._prefsIO.SetValue('PAGE_NUMBER','int', 1, "First page number")
         self._prefsIO.SetValue("TOP_MARGIN",'int', 30, "Top margin (mm)")       # millimeters
         self._prefsIO.SetValue("BOTTOM_MARGIN",'int', 20, 'Bottom margin (mm)') # millimeters
         self._prefsIO.SetValue("HEADER_SIZE",'int', 20, 'Header size (pt)')     # pt
@@ -118,7 +118,7 @@ class GenerateFrame( wx.Dialog ):
         self._prefsIO.SetValue('HEADER_CENTER','str', '', 'Content of the header, at center')
         self._prefsIO.SetValue('HEADER_RIGHT','str', '\\session', 'Content of the header, at right')
         self._prefsIO.SetValue('HEADER_STYLE','str', '\\it', "Header font style") # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
-        self._prefsIO.SetValue('HEADER_COLOR','str', '20,20,20', "Header color")
+        self._prefsIO.SetValue('HEADER_COLOR','str', '20,20,20', "Header RGB color")
         self._prefsIO.SetValue('HEADER_RULER','bool', True, "Separate the header with a ruler")
 
         # Footer
