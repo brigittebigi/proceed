@@ -117,6 +117,25 @@ def set_tmpfilename():
 
 # ----------------------------------------------------------------------------
 
+def createdir( thename ):
+    try:
+        os.mkdir(thename)
+        name = thename
+        error = 0
+    except Exception:
+        error = 1
+        i = 2
+        while error:
+            name = u"%s-%d" % (thename, i)
+            i += 1
+            try:
+                os.mkdir(name)
+                error = 0
+            except Exception:
+                error = 1
+    return name
+
+# ----------------------------------------------------------------------------
 
 def writecsv(filename, rows, separator="\t", encoding="utf-8-sig"):
     """

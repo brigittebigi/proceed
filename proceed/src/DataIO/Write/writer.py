@@ -41,17 +41,20 @@
 # ---------------------------------------------------------------------------
 
 import os
+from threading import Thread
 
 from indexwriter import IndexWriter
 from csvwriter   import CSVWriter
 from htmlwriter  import HTMLWriter
 from latexwriter import LaTeXWriter
 
+import utils.fileutils as fileutils
+
 # ---------------------------------------------------------------------------
 # Class
 # ---------------------------------------------------------------------------
 
-class Writer:
+class Writer( Thread ):
     """
     @authors: Brigitte Bigi
     @contact: brigitte.bigi@gmail.com
@@ -61,11 +64,19 @@ class Writer:
     """
 
     def __init__(self, docs):
+        Thread.__init__(self)
+
+        self._progress = None
         self._docs = docs
         self._status = 1
 
+        self.start()
+
     # End __init__
     #-------------------------------------------------------------------------
+
+    def set_progress(self, p):
+        self._progress = p
 
 
     def set_status(self, s):
@@ -81,22 +92,39 @@ class Writer:
     #-------------------------------------------------------------------------
 
 
-    def writeLaTeX_as_Dir(self, outputname, prefs):
+    def writeLaTeX_as_Dir(self, outputname, prefs, tocompile=True):
         """
         Write the authors/title/abstract of each document in separated LaTeX files.
         """
+        if self._progress:
+            self._progress.set_new()
+            self._progress.set_header("Write each abstract in LaTeX")
+            self._progress.update(0,"")
 
         latex = LaTeXWriter( prefs=prefs )
-        os.mkdir(outputname)
+        total = len(self._docs)
+        fileutils.createdir(outputname)
 
-        for doc in self._docs:
-            if doc.get_status()==self._status:
+        for i,doc in enumerate(self._docs):
+            if self._progress:
+                # Indicate the file to be processed
+                self._progress.set_text( "Paper id: "+doc.get_docid() )
+
+            if doc.get_status() == self._status:
                 docfilename = os.path.join(outputname, doc.get_docid()+".tex")
-                latex.write_doc( doc, docfilename)
+                latex.write_doc( doc, docfilename, tocompile )
+
+            if self._progress:
+                self._progress.set_fraction(float((i+1))/float(total))
+
+        # Indicate completed!
+        if self._progress:
+            self._progress.update(1,"Completed.")
+            self._progress.set_header("")
+
 
     # End writeLaTeX_as_Dir
     #-------------------------------------------------------------------------
-
 
     def write_as_file( self, outputname ):
         """

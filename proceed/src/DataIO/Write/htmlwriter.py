@@ -155,13 +155,12 @@ class HTMLWriter:
 
 
     def __format(self,s):
-        a = s.replace("_", "\_")
-        a = a.replace("%", "\%")
-        a = a.replace("&", "\&")
-        a = a.replace("\s", " ")
-        #a = a.replace("é", "&eacute;")
-        #a = a.replace("è", "&egrave;")
-        #a = a.replace("à", "&agrave;")
+        a = s
+        a = a.replace("&", "&amp;")
+        a = a.replace("\s", "&nbsp;")
+        a = a.replace(u"é", "&eacute;")
+        a = a.replace(u"è", "&egrave;")
+        a = a.replace(u"à", "&agrave;")
         a = re.sub(u' ', u" ", a, re.UNICODE) # espace insecable
         a = re.sub(u'　', u" ", a, re.UNICODE) # espace insecable version 2!
         a = re.sub(u' ­­', u" ", a, re.UNICODE) # espace insecable version 3!

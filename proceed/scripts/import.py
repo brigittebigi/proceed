@@ -39,7 +39,8 @@
 __docformat__ = "epytext"
 
 """
-Import the list of documents then save in the form of one file.
+Import abstracts from a conference and save them in a directory,
+in the form of one latex file per abstract.
 
 Input can be one of sciencesconf XML file or easychair CSV file.
 
@@ -48,17 +49,26 @@ No options for the output style: use default.
 """
 
 # ---------------------------------------------------------------------------
-
-import os
-import re
-import getopt
-
 import sys
 import os.path
+import getopt
 sys.path.append( os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "src") )
 
 from DataIO.Read.reader import Reader
 from DataIO.Write.writer import Writer
+from structs.prefs import Preferences
+from structs.abstracts_themes import all_themes
+
+from term.textprogress import TextProgress
+from term.terminalcontroller import TerminalController
+from sp_glob import program, author, version, copyright, url
+
+wxop = True
+try:
+    import wx
+    from wxgui.frames.import_wizard import ImportWizard
+except Exception:
+    wxop = False
 
 # ----------------------------------------------------------------------
 # USEFUL FUNCTIONS
@@ -66,17 +76,23 @@ from DataIO.Write.writer import Writer
 
 def usage(output):
     """
-    Print the usage on an output.
+    Print the usage of this script on an output.
 
     @param output is a string representing the output (for example: sys.stdout)
 
     """
-    output.write('export.py [options] where options are:\n')
-    output.write('      -i file          Input file name                 [required] \n')
-    output.write('      -o output        Output file name                [required] \n')
-    output.write('      -s status        Status number (0-4)             [default=1=accepted]\n')
-    output.write('      -r reader name   One of: sciencesconf or easychair  [default=sciencesconf]\n')
-    output.write('      --help           Print this help\n\n')
+    output.write('import-to-tex.py [options] where options are:\n')
+    output.write('      -i file             Input file name                 [required] \n')
+    output.write('      -a file             Authors Input file name         [required if easychair] \n')
+    output.write('      -o output           Output directory                [required] \n')
+    output.write('      -s status           Status number (0-4)             [default=1=accepted]\n')
+    output.write('      -r reader name      One of: sciencesconf or easychair [default=sciencesconf]\n')
+    output.write('      -S style name       One of: basic, palme, nalte     [default=basic]\n')
+    output.write('      -c compiler         One of: pdflatex, xetex         [default=pdflatex]\n')
+    output.write('      --nocsv             Do not generate '+program+' CSV files\n')
+    output.write('      --notex             Do not generate LaTeX files\n')
+    output.write('      --nohtml            Do not generate HTML file\n')
+    output.write('      --help              Print this help\n\n')
 
 # End usage
 # ----------------------------------------------------------------------
@@ -103,8 +119,7 @@ def Quit(message=None, status=0, usageoutput=None):
 # MAIN PROGRAM
 # --------------------------------------------------------------------------
 
-
-if __name__:
+if __name__=="__main__":
 
     # ----------------------------------------------------------------------
     # Get all arguments, verify inputs.
@@ -112,33 +127,59 @@ if __name__:
 
     # Verify the program name and possibly some arguments
     if len(sys.argv) == 1:
-        # stop the program and print an error message
-        Quit(status=1, usageoutput=sys.stderr)
+        if not wxop:
+            # stop the program and print an error message
+            Quit(status=1, usageoutput=sys.stderr)
+        else:
+            app = wx.App(False)
+            ImportWizard(None)
+            app.MainLoop()
+            sys.exit(0)
 
     # Get options (if any...)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "i:o:s:r:", ["help"])
+        opts, args = getopt.getopt(sys.argv[1:], "i:a:o:s:r:S:c:", ["help", "nocsv", "notex", "nohtml"])
     except getopt.GetoptError, err:
         # Print help information and exit:
         Quit(message="Error: "+str(err)+".\nUse option --help for any help.\n", status=1)
 
-    fileinput = None
-    output    = None
-    status    = 1
-    readername = "sciencesconf"
+    fileinput    = None
+    authorsinput = None
+    output       = None
+    extension    = "tex"
+    status       = 1 # only accepted papers
+    readername   = "sciencesconf"
+    themename    = "basic"
+    compiler     = "pdflatex"
+
+    exportcsv = True
+    exporttex= True
+    exporthtml = True
 
     # Extract options
     for o, a in opts:
         if o == "-i":
             fileinput = a
+        elif o == "-a":
+            authorsinput = a
         elif o == "-o":
             output = a
         elif o == "-s":
             status = int(a)
         elif o == "-r":
             readername = a
+        elif o == "-S":
+            themename = a
+        elif o == "-c":
+            compiler = a
         elif o == "--help": # need help
-            Quit(message="Help.", usageoutput=sys.stdout)
+            Quit(message='Help', status=0, usageoutput=sys.stdout)
+        elif o == "--nocsv":
+            exportcsv = False
+        elif o == "--notex":
+            exporttex = False
+        elif o == "--nohtml":
+            exporthtml = False
 
     # Verify args
 
@@ -146,11 +187,32 @@ if __name__:
         if not os.path.exists(fileinput):
             Quit(message="Error: BAD input file name: "+fileinput+"\n", status=1)
     else:
-        Quit(message='Error: an input file is required.\n', status=1, usageoutput=sys.stderr)
+        Quit(message="Error: an input is required.\n.", status=1, usageoutput=sys.stderr)
 
     if output is None:
-        Quit(message='Error: an output file is required.\n', status=1, usageoutput=sys.stderr)
+        Quit(message="Error: an output is required.\n.", status=1, usageoutput=sys.stderr)
 
+    if readername == "easychair" and not authorsinput:
+        Quit(message="With easychair, an input file with authors is required.", status=1, usageoutput=sys.stderr)
+
+
+    try:
+        term = TerminalController()
+        print term.render('${GREEN}-----------------------------------------------------------------------${NORMAL}')
+        print term.render('${RED}'+program+' - Version '+version+'${NORMAL}')
+        print term.render('${BLUE}'+copyright+'${NORMAL}')
+        print term.render('${BLUE}'+url+'${NORMAL}')
+        print term.render('${GREEN}-----------------------------------------------------------------------${NORMAL}\n')
+    except:
+        print '-----------------------------------------------------------------------\n'
+        print program+'   -  Version '+version
+        print copyright
+        print url+'\n'
+        print '-----------------------------------------------------------------------\n'
+
+    # ----------------------------------------------------------------------
+
+    p = TextProgress()
 
     # ----------------------------------------------------------------------
     # Load input data
@@ -158,6 +220,9 @@ if __name__:
     arguments = {}
     arguments['readername'] = readername
     arguments['filename']   = fileinput
+    arguments['authorsfilename'] = authorsinput
+    arguments['progress'] = p
+
     reader = Reader( arguments )
 
 
@@ -165,8 +230,39 @@ if __name__:
     # Write output data (with default parameters)
     # ----------------------------------------------------------------------
 
+    # Create preferences
+    prefs = Preferences()
+    theme = all_themes.get_theme(themename.lower())
+    prefs.SetTheme( theme )
+    prefs.SetValue('COMPILER', 'str', compiler.strip())
+
+    # Create the Writer
     writer = Writer( reader.docs )
     writer.set_status( status )
-    writer.write_as_file( output )
+    writer.set_progress( p )
+
+    # Write abstracts as LaTeX
+    if exporttex:
+        writer.writeLaTeX_as_Dir( output, prefs, tocompile=True )
+
+    # Write proceed native CSV files
+    if exportcsv:
+        writer.writeCSV( output )
+
+    # Write html file
+    if exporthtml:
+        writer.writeHTML( output+".html" )
+
+    # Done
+    try:
+        term = TerminalController()
+        print term.render('${GREEN}-----------------------------------------------------------------------${NORMAL}')
+        print term.render('${RED}Result is in '+output)
+        print term.render('${GREEN}Thank you for using '+program+".")
+        print term.render('${GREEN}-----------------------------------------------------------------------${NORMAL}\n')
+    except:
+        print ('-----------------------------------------------------------------------\n')
+        print "Result is in "+output+".\nThank you for using "+program+"."
+        print ('-----------------------------------------------------------------------\n')
 
     # ----------------------------------------------------------------------

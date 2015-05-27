@@ -234,6 +234,7 @@ class PageSettings( wx.Panel ):
             spn.Add(wx.StaticText(self, label=self.preferences.GetText(k)+':', size=(150,-1)), 0, flag=wx.ALL, border=0)
             spn.Add(pn, 0, flag=wx.ALL, border=0)
             sizer.Add(spn, 0, flag=wx.ALL, border=0)
+            sizer.Add((-1, 10))
         self.SetSizer(sizer)
 
     def onPrefsChange(self, event, skey, stype):
@@ -264,15 +265,17 @@ class HeaderSettings( wx.Panel ):
             s.Add(wx.StaticText(self, label=self.preferences.GetText(gen), size=(150,-1)), 1, flag=wx.ALL, border=0)
             s.Add(txt, 1, flag=wx.ALL, border=0)
             sizer.Add(s, 0, flag=wx.ALL, border=0)
+            sizer.Add((-1, 10))
 
         pf = wx.RadioBox(self, label=self.preferences.GetText("HEADER_STYLE"), choices=FONT_STYLES, majorDimension=8)
         pf.SetSelection( FONT_STYLES.index( self.preferences.GetValue("HEADER_STYLE") ) )
         pf.Bind(wx.EVT_RADIOBOX, self.onHeaderStyle)
         sizer.Add(pf, 0, flag=wx.ALL, border=0)
+        sizer.Add((-1, 10))
 
         cbp = wx.CheckBox(self, label=self.preferences.GetText('HEADER_RULER'), size=(300,-1))
         cbp.SetValue(self.preferences.GetValue('HEADER_RULER'))
-        cbp.Bind(wx.EVT_SPINCTRL, self.onRulerChange)
+        cbp.Bind(wx.EVT_CHECKBOX, self.onRulerChange)
         sizer.Add(cbp, 0, flag=wx.ALL, border=0)
 
         self.SetSizer(sizer)
@@ -321,7 +324,7 @@ class FooterSettings( wx.Panel ):
 
         cbp = wx.CheckBox(self, label=self.preferences.GetText('FOOTER_RULER'), size=(300,-1))
         cbp.SetValue(self.preferences.GetValue('FOOTER_RULER'))
-        cbp.Bind(wx.EVT_SPINCTRL, self.onRulerChange )
+        cbp.Bind(wx.EVT_CHECKBOX, self.onRulerChange )
         sizer.Add(cbp, 0, flag=wx.ALL, border=0)
 
         self.SetSizer(sizer)
@@ -357,7 +360,7 @@ class GenerateSettings( wx.Panel ):
         for gen in genall:
             cbp = wx.CheckBox(self, label=self.preferences.GetText(gen), size=(300,-1))
             cbp.SetValue(self.preferences.GetValue(gen))
-            cbp.Bind(wx.EVT_SPINCTRL, lambda evt, skey=gen, stype='bool': self.onPrefsChange(evt, skey, stype) )
+            cbp.Bind(wx.EVT_CHECKBOX, lambda evt, skey=gen, stype='bool': self.onPrefsChange(evt, skey, stype) )
             sizer.Add(cbp, 0, flag=wx.ALL, border=0)
         self.SetSizer(sizer)
 
@@ -384,6 +387,7 @@ class TitlesSettings( wx.Panel ):
             s.Add(wx.StaticText(self, label=self.preferences.GetText(gen), size=(120,-1)), 1, flag=wx.ALL, border=0)
             s.Add(txt, 1, flag=wx.ALL, border=0)
             sizer.Add(s, 0, flag=wx.ALL, border=0)
+            sizer.Add((-1, 10))
         self.SetSizer(sizer)
 
     def onPrefsChange(self, event, skey, stype):
