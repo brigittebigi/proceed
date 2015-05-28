@@ -76,6 +76,7 @@ from wxgui.sp_icons import APP_ICON
 from wxgui.sp_icons import EXIT_ICON
 from wxgui.sp_icons import HELP_ICON
 from wxgui.sp_icons import FEEDBACK_ICON
+from wxgui.sp_icons import IMPORT_EXPORT_ICON
 from wxgui.sp_icons import OPEN_ICON
 from wxgui.sp_icons import SAVE_ICON
 from wxgui.sp_icons import CHECK_ICON
@@ -231,6 +232,7 @@ class MainFrame( wx.Frame ):
         menuEdit = wx.Menu()
         helpMenu = wx.Menu()
 
+        importItem = wx.MenuItem(menuFile, wx.ID_ADD,   'Import\tCtrl+I', 'Import data from a file')
         openItem   = wx.MenuItem(menuFile, wx.ID_OPEN,  'Open\tCtrl+O', 'Load data from a directory')
         saveItem   = wx.MenuItem(menuFile, wx.ID_SAVE,  'Save\tCtrl+S', 'Save data as CSV files')
         checkItem  = wx.MenuItem(menuFile, wx.ID_APPLY, 'Check', 'Check data')
@@ -240,12 +242,14 @@ class MainFrame( wx.Frame ):
         else:
             exitItem = wx.MenuItem(menuFile, wx.ID_EXIT, 'E&xit\tCtrl+Q', 'Exits this program')
 
+        importItem.SetBitmap( spBitmap(IMPORT_EXPORT_ICON, MENU_ICONSIZE) )
         openItem.SetBitmap(   spBitmap(OPEN_ICON,  MENU_ICONSIZE) )
         saveItem.SetBitmap(   spBitmap(SAVE_ICON,  MENU_ICONSIZE) )
         checkItem.SetBitmap(  spBitmap(CHECK_ICON, MENU_ICONSIZE) )
         exportItem.SetBitmap( spBitmap(EXPORT_ICON, MENU_ICONSIZE) )
         exitItem.SetBitmap(   spBitmap(EXIT_ICON, MENU_ICONSIZE) )
 
+        menuFile.AppendItem(importItem)
         menuFile.AppendItem(openItem)
         menuFile.AppendItem(saveItem)
         menuFile.AppendSeparator()
@@ -289,7 +293,7 @@ class MainFrame( wx.Frame ):
         menubar.Append(helpMenu, "&Help")
 
         # Events
-        eventslist = [ wx.ID_EXIT, wx.ID_ABOUT, wx.ID_HELP, wx.ID_OPEN, wx.ID_SAVE, wx.ID_NEW, ID_GENERATE, ID_HOME, ID_FEEDBACK, wx.ID_APPLY, wx.ID_EDIT, wx.ID_DELETE ]
+        eventslist = [ wx.ID_EXIT, wx.ID_ABOUT, wx.ID_HELP, wx.ID_ADD, wx.ID_OPEN, wx.ID_SAVE, wx.ID_NEW, ID_GENERATE, ID_HOME, ID_FEEDBACK, wx.ID_APPLY, wx.ID_EDIT, wx.ID_DELETE ]
         for event in eventslist:
             wx.EVT_MENU(self, event, self.ProcessEvent)
 
@@ -324,6 +328,7 @@ class MainFrame( wx.Frame ):
         toolbar.AddLabelTool(id=wx.ID_EXIT, label="Exit", bitmap=spBitmap(EXIT_ICON,TB_ICONSIZE),bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Quit the application")
         toolbar.AddSeparator()
 
+        toolbar.AddLabelTool(id=wx.ID_ADD,   label="Import", bitmap=spBitmap(IMPORT_EXPORT_ICON, TB_ICONSIZE), bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Import data from a file")
         toolbar.AddLabelTool(id=wx.ID_OPEN,  label="Open",   bitmap=spBitmap(OPEN_ICON, TB_ICONSIZE),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Open a new directory")
         toolbar.AddLabelTool(id=wx.ID_SAVE,  label="Save",   bitmap=spBitmap(SAVE_ICON, TB_ICONSIZE),  bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Save into CSV files")
         toolbar.AddLabelTool(id=wx.ID_APPLY, label="Check",  bitmap=spBitmap(CHECK_ICON, TB_ICONSIZE), bmpDisabled=wx.NullBitmap, kind=wx.ITEM_NORMAL, shortHelp="Check the data")
@@ -390,7 +395,7 @@ class MainFrame( wx.Frame ):
 
         """
         id = event.GetId()
-        logging.debug('Event recieved %d' % id)
+        logging.debug('Event received %d' % id)
         if id == wx.ID_EXIT:
             self.OnExit(event)
             return True
@@ -405,6 +410,9 @@ class MainFrame( wx.Frame ):
             return True
         elif id == wx.ID_HELP:
             HelpBrowser( self )
+            return True
+        elif id == wx.ID_ADD:
+            self.OnImport(event)
             return True
         elif id == wx.ID_OPEN:
             self.OnOpen(event)
@@ -471,7 +479,7 @@ class MainFrame( wx.Frame ):
 
         try:
             t = self.GetToolBar()
-        except Exception,e:
+        except Exception:
             # the toolbar was not created with the frame
             return False
 
@@ -490,7 +498,7 @@ class MainFrame( wx.Frame ):
         try:
             t = self.GetToolBar()
             if t is None: return False
-        except Exception,e:
+        except Exception:
             # the toolbar was not created with the frame
             return False
 
@@ -509,7 +517,7 @@ class MainFrame( wx.Frame ):
         try:
             s = self.GetStatusBar()
             if s is None: return False
-        except Exception,e:
+        except Exception:
             # the statusbar was not created with the frame
             return False
 
@@ -526,7 +534,7 @@ class MainFrame( wx.Frame ):
         try:
             s = self.GetStatusBar()
             if s is None: return False
-        except Exception,e:
+        except Exception:
             # the statusbar was not created with the frame
             return False
 
@@ -611,6 +619,9 @@ class MainFrame( wx.Frame ):
     # -----------------------------------------------------------------------
     # Callbacks to manage the data
     # -----------------------------------------------------------------------
+
+    def OnImport(self, event):
+        self.nbp.OnImport(event)
 
     def OnOpen(self, event):
         self.nbp.OnOpen(event)

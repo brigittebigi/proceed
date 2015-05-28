@@ -122,12 +122,22 @@ class documents_csv_reader:
             return 0
         try:
             r = int(rank)
-        except Exception,e:
+        except Exception:
             raise TypeError('Can not convert rank='+rank+' into line='+row['DOCID'])
         return r
 
     def get_NumPage(self, row):
         return row["PAGE_NUMBER"]
+
+    def get_Diagnosis(self, row):
+        d = row["PDF_DIAGNOSIS"]
+        if len(d)==0:
+            return -2
+        try:
+            r = int(d)
+        except Exception:
+            raise TypeError('Can not convert pdf diagnosis='+d+' into line='+row['DOCID'])
+        return r
 
     # -----------------------------------------------------------------------
 

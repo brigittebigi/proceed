@@ -63,7 +63,7 @@ SETTINGS_FILE  = os.path.join(BASE_PATH, "etc", "settings.dump")
 PAGESLIST  = ['Conference','Documents','Authors','Sessions']
 fieldnames = {}
 fieldnames[PAGESLIST[0]] = ["CONFERENCE_NAME", "ACRONYM", "PLACE", "DATE_FROM", "DATE_TO"]
-fieldnames[PAGESLIST[1]] = ["DOCID", "TITLE", "LASTNAME", "FIRSTNAME", "SESSION_ID", "RANK", "PAGE_NUMBER"]
+fieldnames[PAGESLIST[1]] = ["DOCID", "TITLE", "LASTNAME", "FIRSTNAME", "SESSION_ID", "RANK", "PAGE_NUMBER", "PDF_DIAGNOSIS"]
 fieldnames[PAGESLIST[2]] = ["LASTNAME", "FIRSTNAME", "EMAIL", "AFFILIATION"]
 fieldnames[PAGESLIST[3]] = ["SESSION_ID", "SESSION_NAME", "RANK", "DATE", "H-DEB", "H-FIN", "CHAIRMAN", "LOCATION"]
 
@@ -75,7 +75,7 @@ author     = "Brigitte Bigi"
 contact    = "brigite.bigi@gmail.com"
 program    = "Proceed"
 version    = "0.3"
-copyright  = "Copyright (C) 2011-2015 Brigitte Bigi"
+copyright  = "Copyright (C) 2013-2015 Brigitte Bigi"
 url        = "http://"
 brief      = "Proceed generates automatically book of abstracts or proceedings.."
 docformat  = "epytext"

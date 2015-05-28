@@ -61,6 +61,7 @@ from wxgui.frames.checkframe    import CheckFrame
 from wxgui.frames.generateframe import GenerateFrame
 from wxgui.frames.modifframe    import ModifFrame
 from wxgui.frames.createframe   import CreateDocument, CreateAuthor, CreateSession, CreateConference
+from wxgui.frames.import_wizard import ImportWizard, EVT_IMPORT_WIZARD_FINISHED
 
 from checklistpanel import CheckListPanel
 
@@ -97,7 +98,8 @@ class NotebookPanel( wx.Panel ):
         noteBookSizer.Add(self._noteBook, flag=wx.EXPAND, proportion=1)
         self.SetSizer(noteBookSizer)
 
-        self.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.OnChangePage, self._noteBook)
+        self._noteBook.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.OnChangePage)
+        self.Bind(EVT_IMPORT_WIZARD_FINISHED, self.OnImportFinished)
 
     # -----------------------------------------------------------------------
 
@@ -153,6 +155,15 @@ class NotebookPanel( wx.Panel ):
     # Callbacks to manage the data
     # -----------------------------------------------------------------------
 
+    def OnImport(self, event):
+        """"""
+        ImportWizard(self)
+
+    def OnImportFinished(self, event):
+        """"""
+        logging.debug('Import finished. Load data from: %s'%event.path)
+        self.Load(event.path)
+
     def OnOpen(self, event):
         """
         Callback to open load new data.
@@ -169,60 +180,64 @@ class NotebookPanel( wx.Panel ):
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
             logging.debug('Open a new directory:'+path)
+            self.Load(path)
+        dlg.Destroy()
 
-            # Check the directory in order to see if all required files are inside.
-            missingPdf = True
-            files = {}
+    # ------------------------------------------------------------------------
+
+    def Load(self, path):
+        """"""
+        # Check the directory in order to see if all required files are inside.
+        missingPdf = True
+        files = {}
+        for p in PAGESLIST:
+            files[p] = False
+        for file_name in os.listdir(path):
             for p in PAGESLIST:
-                files[p] = False
-            for file_name in os.listdir(path):
-                for p in PAGESLIST:
-                    if file_name.lower() == p.lower()+".csv":
-                        files[p] = True
-                    elif file_name.lower().endswith(".pdf"):
-                        missingPdf = False
+                if file_name.lower() == p.lower()+".csv":
+                    files[p] = True
+                elif file_name.lower().endswith(".pdf"):
+                    missingPdf = False
 
-            if missingPdf is True:
-                dlg = wx.MessageDialog(self, "The directory %s does not contain any pdf file. Continue anyway?" % (path), "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
-                retCode = dlg.ShowModal()
-                if retCode == wx.ID_NO:
-                    return
+        if missingPdf is True:
+            dlg = wx.MessageDialog(self, "The directory %s does not contain any pdf file. Continue anyway?" % (path), "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+            retCode = dlg.ShowModal()
+            if retCode == wx.ID_NO:
+                return
 
-            checkCSV = True
-            for a in files.values():
-                if a is False:
-                    checkCSV = False
+        checkCSV = True
+        for a in files.values():
+            if a is False:
+                checkCSV = False
 
-            if checkCSV is False:
-                dlg = wx.MessageDialog(self, "At least one csv file is missing in %s, do you want to create it?" % (path), "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
-                retCode = dlg.ShowModal()
-                if retCode == wx.ID_YES:
-                    for i in range(len(PAGESLIST)):
-                        if files[PAGESLIST[i]] == False:
-                            out = csv.DictWriter(open(os.path.join(path,PAGESLIST[i]+".csv"), "wb"), fieldnames[PAGESLIST[i]])
-                            d = {}
-                            for colname in fieldnames[PAGESLIST[i]]:
-                                d[colname] = colname
-                            out.writerow(d)
-                            #self.FileInDefaultDoc(out, path)
-                else:
-                    return
+        if checkCSV is False:
+            dlg = wx.MessageDialog(self, "At least one CSV file is missing in %s, do you want to create it?" % (path), "Warning", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+            retCode = dlg.ShowModal()
+            if retCode == wx.ID_YES:
+                for i in range(len(PAGESLIST)):
+                    if files[PAGESLIST[i]] == False:
+                        out = csv.DictWriter(open(os.path.join(path,PAGESLIST[i]+".csv"), "wb"), fieldnames[PAGESLIST[i]])
+                        d = {}
+                        for colname in fieldnames[PAGESLIST[i]]:
+                            d[colname] = colname
+                        out.writerow(d)
+                        #self.FileInDefaultDoc(out, path)
+            else:
+                return
 
-            try:
-                self.GetTopLevelParent().GetStatusBar().SetStatusText('Please wait while loading data...')
-                wx.BeginBusyCursor()
-                self.useCSVFile( path )
-                self.GetTopLevelParent().GetStatusBar().SetStatusText('Data loaded successfully.')
-                self.ShowData()
-                wx.EndBusyCursor()
-                self._isSaved = True
-                self._path = path
-            except Exception, error:
-                self._set_members()
-                dlg = wx.MessageDialog(None, 'Error opening files:\n' + str(error), 'Error...', wx.OK | wx.ICON_ERROR)
-                dlg.ShowModal()
+        try:
+            self.GetTopLevelParent().GetStatusBar().SetStatusText('Please wait while loading data...')
+            self.useCSVFile( path )
+            self.GetTopLevelParent().GetStatusBar().SetStatusText('Data loaded successfully.')
+            self.ShowData()
+            self._isSaved = True
+            self._path = path
+        except Exception, error:
+            self._set_members()
+            dlg = wx.MessageDialog(None, 'Error opening files:\n' + str(error), 'Error...', wx.OK | wx.ICON_ERROR)
+            dlg.ShowModal()
 
-    # End OnOpen
+    # End Load
     # ------------------------------------------------------------------------
 
     def OnSave(self, event):
@@ -492,6 +507,7 @@ class NotebookPanel( wx.Panel ):
             title       = ""
             rank        = ""
             page_number = ""
+            pdf_diagnosis = ""
 
             for row in docreader.get_ById(docid):
 
@@ -513,7 +529,10 @@ class NotebookPanel( wx.Panel ):
                 if page_number == "" and docreader.get_NumPage(row) != "":
                     page_number = docreader.get_NumPage(row)
 
-            doc = Document(docid, title, authorslist, session, rank, page_number)
+                if pdf_diagnosis == "" and docreader.get_Diagnosis(row) != "":
+                    pdf_diagnosis = docreader.get_Diagnosis(row)
+
+            doc = Document(docid, title, authorslist, session, rank, page_number, pdf_diagnosis)
             DocDict[doc.get_docid()] = doc
 
         self._dataPages['Documents'] = DocDict

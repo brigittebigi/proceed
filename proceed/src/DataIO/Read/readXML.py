@@ -46,17 +46,18 @@ import xml.dom.minidom
 import codecs
 import sys
 import os.path
-sys.path.append( os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "Documents") )
+import logging
 
-from documents import document, author, laboratory
+from DataIO.Documents.documents import document, author, laboratory
 from readgeneric import readGeneric
 
+from threading import Thread
 
 # ---------------------------------------------------------------------------
 # Class
 # ---------------------------------------------------------------------------
 
-class readXML( readGeneric ):
+class readXML( readGeneric, Thread ):
     """
     @authors: Bastien Herbaut, Brigitte Bigi
     @contact: brigitte.bigi@gmail.com
@@ -65,9 +66,10 @@ class readXML( readGeneric ):
 
     """
 
-    def __init__( self ):
-        pass
-
+    def __init__( self, progressbar=None ):
+        Thread.__init__(self)
+        self._progress = progressbar
+        self.start()
 
     # overwrite
     def GetDocs ( self, filename, authorsfilename=None ):
@@ -78,8 +80,14 @@ class readXML( readGeneric ):
         information required to import data.
 
         """
+        if self._progress:
+            self._progress.set_new()
+            self._progress.set_header("Read XML file")
+            self._progress.update(0,"")
+
         self.dom = xml.dom.minidom.parse(filename)
         self.DocTab = self.createDocuments ()
+
         return self.DocTab
 
 
@@ -92,12 +100,16 @@ class readXML( readGeneric ):
 
         documentsTab = list()
         docTab = self.get_ByTagName ("document")
+        total = len(docTab)
 
-        for doc in docTab:
+        for i,doc in enumerate(docTab):
+            if self._progress:
+                # Indicate the file to be processed
+                self._progress.set_text( "Paper id: "+doc.getAttribute("docid") )
 
             newDoc = document( doc.getAttribute("docid") )
             if doc.getAttribute("status"):
-                newDoc.set_status( doc.getAttribute("status") )
+                newDoc.set_status( int(doc.getAttribute("status")) )
             else:
                 newDoc.set_status( 1 )
 
@@ -131,6 +143,13 @@ class readXML( readGeneric ):
             newDoc.set_laboratory(self.get_Labo(doc))
 
             documentsTab.append(newDoc)
+            if self._progress:
+                self._progress.set_fraction(float((i+1))/float(total))
+
+        # Indicate completed!
+        if self._progress:
+            self._progress.update(1,"Completed.")
+            self._progress.set_header("")
 
         return documentsTab
 

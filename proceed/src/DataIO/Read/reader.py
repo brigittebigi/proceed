@@ -77,6 +77,8 @@ class Reader():
         """
         if arguments['readername'] == "sciencesconf":
             from readXML import readXML
+            if 'progress' in arguments.keys():
+                return readXML( arguments['progress'] )
             return readXML()
 
         if arguments['readername'] == "easychair":

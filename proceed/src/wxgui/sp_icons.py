@@ -37,6 +37,12 @@ DOCUMENT_ICON       = os.path.join(ICONS_PATH, "document.png")
 SESSION_ICON        = os.path.join(ICONS_PATH, "session.png")
 CONFERENCE_ICON     = os.path.join(ICONS_PATH, "conference.png")
 
+IMPORT_EXPORT_ICON  = os.path.join(ICONS_PATH, "import-export.png")
+GRID_ICON           = os.path.join(ICONS_PATH, "grid.png")
+TEX_ICON            = os.path.join(ICONS_PATH, "tex.png")
+WWW_ICON            = os.path.join(ICONS_PATH, "www.png")
+PROCESS_ICON        = os.path.join(ICONS_PATH, "process.png")
+
 # For the Feedback form
 MAIL_DEFAULT_ICON     = os.path.join(ICONS_PATH, "maildefault.png")
 MAIL_GMAIL_ICON       = os.path.join(ICONS_PATH, "mailgoogle.png")

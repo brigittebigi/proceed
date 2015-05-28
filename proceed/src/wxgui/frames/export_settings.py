@@ -56,6 +56,7 @@ from wxgui.sp_icons import APP_ICON
 
 from wxgui.cutils.imageutils import spBitmap
 from wxgui.cutils.ctrlutils import CreateGenButton
+import utils.unicode_tex as unicode_tex
 
 from wxgui.sp_consts import FRAME_STYLE
 from wxgui.sp_consts import FRAME_TITLE
@@ -70,6 +71,7 @@ from sp_glob import ICONS_PATH
 ID_SAVE   = wx.NewId()
 
 FONT_SIZES  = [10,11,12]
+FONT_STYLES = ["\\rm","\\it","\\bf","\\sl","\\sf","\\sc","\\tt"]
 PAPER_SIZES = ['a4paper', 'letterpaper', 'legalpaper', 'a5paper', 'executivepaper', 'b5paper']
 
 # ---------------------------------------------------------------------------
@@ -80,7 +82,7 @@ class ExportSettings( wx.Dialog ):
     """
     Dialog for the user to fix all settings.
 
-    @author: Brigitte Bigi
+    @author:  Brigitte Bigi
     @contact: brigitte.bigi@gmail.com
     @license: GPL
     @summary: This class is used to fix all user's settings, with a Dialog.
@@ -186,8 +188,6 @@ class ExportSettings( wx.Dialog ):
         self.notebook.SetFocus()
 
     #-------------------------------------------------------------------------
-
-    #-------------------------------------------------------------------------
     # Callbacks
     #-------------------------------------------------------------------------
 
@@ -196,11 +196,8 @@ class ExportSettings( wx.Dialog ):
 
         self._prefsIO.Write()
 
-    #-------------------------------------------------------------------------
-
     def onClose(self, event):
         self.SetEscapeId(wx.ID_CANCEL)
-
 
     #-------------------------------------------------------------------------
     # Getters...
@@ -212,7 +209,6 @@ class ExportSettings( wx.Dialog ):
         return self._prefsIO
 
     #-------------------------------------------------------------------------
-
 
 # ----------------------------------------------------------------------------
 
@@ -238,6 +234,7 @@ class PageSettings( wx.Panel ):
             spn.Add(wx.StaticText(self, label=self.preferences.GetText(k)+':', size=(150,-1)), 0, flag=wx.ALL, border=0)
             spn.Add(pn, 0, flag=wx.ALL, border=0)
             sizer.Add(spn, 0, flag=wx.ALL, border=0)
+            sizer.Add((-1, 10))
         self.SetSizer(sizer)
 
     def onPrefsChange(self, event, skey, stype):
@@ -258,10 +255,48 @@ class HeaderSettings( wx.Panel ):
 
         wx.Panel.__init__(self, parent)
         self.preferences = prefsIO
-
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        titleall = ["HEADER_LEFT", "HEADER_CENTER", "HEADER_RIGHT", "HEADER_COLOR"]
+        for gen in titleall:
+            s = wx.BoxSizer( wx.HORIZONTAL )
+            txt = wx.TextCtrl(self, -1, "", size=wx.Size(280,-1), style=wx.TE_LEFT)
+            txt.WriteText( self.preferences.GetValue(gen) )
+            txt.Bind(wx.EVT_TEXT, lambda evt, skey=gen, stype='str': self.onPrefsChange(evt, skey, stype) )
+            s.Add(wx.StaticText(self, label=self.preferences.GetText(gen), size=(150,-1)), 1, flag=wx.ALL, border=0)
+            s.Add(txt, 1, flag=wx.ALL, border=0)
+            sizer.Add(s, 0, flag=wx.ALL, border=0)
+            sizer.Add((-1, 10))
+
+        pf = wx.RadioBox(self, label=self.preferences.GetText("HEADER_STYLE"), choices=FONT_STYLES, majorDimension=8)
+        pf.SetSelection( FONT_STYLES.index( self.preferences.GetValue("HEADER_STYLE") ) )
+        pf.Bind(wx.EVT_RADIOBOX, self.onHeaderStyle)
+        sizer.Add(pf, 0, flag=wx.ALL, border=0)
+        sizer.Add((-1, 10))
+
+        cbp = wx.CheckBox(self, label=self.preferences.GetText('HEADER_RULER'), size=(300,-1))
+        cbp.SetValue(self.preferences.GetValue('HEADER_RULER'))
+        cbp.Bind(wx.EVT_CHECKBOX, self.onRulerChange)
+        sizer.Add(cbp, 0, flag=wx.ALL, border=0)
+
         self.SetSizer(sizer)
+
+    def onHeaderStyle(self, event):
+        o = event.GetEventObject()
+        idx = o.GetSelection()
+        logging.debug(' Set pref: key=HEADER_STYLE, newvalue=%s'%FONT_STYLES[idx])
+        self.preferences.SetValue( "HEADER_STYLE", "str", FONT_STYLES[idx] )
+
+    def onRulerChange(self, event):
+        o = event.GetEventObject()
+        v = o.GetValue()
+        logging.debug(' Set pref: key=HEADER_RULER, newvalue=%s'%v)
+        self.preferences.SetValue( 'HEADER_RULER', 'bool', bool(v) )
+
+    def onPrefsChange(self, event, skey, stype):
+        o = event.GetEventObject()
+        v = unicode_tex.unicode_to_tex(o.GetValue()) # accents must be in standard LaTeX
+        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
+        self.preferences.SetValue( skey, stype, v )
 
 #-----------------------------------------------------------------------------
 
@@ -271,10 +306,46 @@ class FooterSettings( wx.Panel ):
 
         wx.Panel.__init__(self, parent)
         self.preferences = prefsIO
-
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        titleall = ["FOOTER_LEFT", "FOOTER_CENTER", "FOOTER_RIGHT", "FOOTER_COLOR"]
+        for gen in titleall:
+            s = wx.BoxSizer( wx.HORIZONTAL )
+            txt = wx.TextCtrl(self, -1, "", size=wx.Size(280,-1), style=wx.TE_LEFT)
+            txt.WriteText( self.preferences.GetValue(gen) )
+            txt.Bind(wx.EVT_TEXT, lambda evt, skey=gen, stype='str': self.onPrefsChange(evt, skey, stype) )
+            s.Add(wx.StaticText(self, label=self.preferences.GetText(gen), size=(150,-1)), 1, flag=wx.ALL, border=0)
+            s.Add(txt, 1, flag=wx.ALL, border=0)
+            sizer.Add(s, 0, flag=wx.ALL, border=0)
+
+        pf = wx.RadioBox(self, label=self.preferences.GetText("FOOTER_STYLE"), choices=FONT_STYLES, majorDimension=8)
+        pf.SetSelection( FONT_STYLES.index( self.preferences.GetValue("FOOTER_STYLE") ) )
+        pf.Bind(wx.EVT_RADIOBOX, self.onFooterStyle)
+        sizer.Add(pf, 0, flag=wx.ALL, border=0)
+
+        cbp = wx.CheckBox(self, label=self.preferences.GetText('FOOTER_RULER'), size=(300,-1))
+        cbp.SetValue(self.preferences.GetValue('FOOTER_RULER'))
+        cbp.Bind(wx.EVT_CHECKBOX, self.onRulerChange )
+        sizer.Add(cbp, 0, flag=wx.ALL, border=0)
+
         self.SetSizer(sizer)
+
+    def onFooterStyle(self, event):
+        o = event.GetEventObject()
+        idx = o.GetSelection()
+        logging.debug(' Set pref: key=FOOTER_STYLE, newvalue=%s'%FONT_STYLES[idx])
+        self.preferences.SetValue( "FOOTER_STYLE", "str", FONT_STYLES[idx] )
+
+    def onRulerChange(self, event):
+        o = event.GetEventObject()
+        v = o.GetValue()
+        logging.debug(' Set pref: key=FOOTER_RULER, newvalue=%s'%v)
+        self.preferences.SetValue( 'FOOTER_RULER', 'bool', bool(v) )
+
+    def onPrefsChange(self, event, skey, stype):
+        o = event.GetEventObject()
+        v = unicode_tex.unicode_to_tex(o.GetValue()) # accents must be in standard LaTeX
+        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
+        self.preferences.SetValue( skey, stype, v )
 
 #-----------------------------------------------------------------------------
 
@@ -289,7 +360,7 @@ class GenerateSettings( wx.Panel ):
         for gen in genall:
             cbp = wx.CheckBox(self, label=self.preferences.GetText(gen), size=(300,-1))
             cbp.SetValue(self.preferences.GetValue(gen))
-            cbp.Bind(wx.EVT_SPINCTRL, lambda evt, skey=gen, stype='bool': self.onPrefsChange(evt, skey, stype) )
+            cbp.Bind(wx.EVT_CHECKBOX, lambda evt, skey=gen, stype='bool': self.onPrefsChange(evt, skey, stype) )
             sizer.Add(cbp, 0, flag=wx.ALL, border=0)
         self.SetSizer(sizer)
 
@@ -306,10 +377,24 @@ class TitlesSettings( wx.Panel ):
 
         wx.Panel.__init__(self, parent)
         self.preferences = prefsIO
-
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
+        titleall = ["TITLE_PROGRAM", "TITLE_PROGRAM_OVERVIEW", "TITLE_TABLEOFCONTENTS", "TITLE_AUTHORS_INDEX", "TITLE_AUTHORS_LIST"]
+        for gen in titleall:
+            s = wx.BoxSizer( wx.HORIZONTAL )
+            txt = wx.TextCtrl(self, -1, "", size=wx.Size(300,-1), style=wx.TE_LEFT)
+            txt.WriteText( self.preferences.GetValue(gen) )
+            txt.Bind(wx.EVT_TEXT, lambda evt, skey=gen, stype='str': self.onPrefsChange(evt, skey, stype) )
+            s.Add(wx.StaticText(self, label=self.preferences.GetText(gen), size=(120,-1)), 1, flag=wx.ALL, border=0)
+            s.Add(txt, 1, flag=wx.ALL, border=0)
+            sizer.Add(s, 0, flag=wx.ALL, border=0)
+            sizer.Add((-1, 10))
         self.SetSizer(sizer)
+
+    def onPrefsChange(self, event, skey, stype):
+        o = event.GetEventObject()
+        v = unicode_tex.unicode_to_tex(o.GetValue()) # accents must be in standard LaTeX
+        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
+        self.preferences.SetValue( skey, stype, v )
 
 #-----------------------------------------------------------------------------
 
@@ -319,9 +404,17 @@ class SortSettings( wx.Panel ):
 
         wx.Panel.__init__(self, parent)
         self.preferences = prefsIO
-
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(wx.StaticText(self, label='Not implemented yet!'), 0, flag=wx.ALL, border=0)
-        self.SetSizer(sizer)
+        sm = ['Follow the planning', 'By session types first then follow the planning']
+        pf = wx.RadioBox(self, label="Sort method for submissions: ", choices=sm, majorDimension=1)
+        pf.SetSelection( int( self.preferences.GetValue("SORT_BY_SESSION_TYPE_FIRST") ) )
+        pf.Bind(wx.EVT_RADIOBOX, self.onSessionSort)
+        sizer.Add(pf, 0, flag=wx.ALL, border=0)
+
+    def onSessionSort(self, event):
+        o = event.GetEventObject()
+        idx = o.GetSelection()
+        logging.debug(' Set pref: key=SORT_BY_SESSION_TYPE_FIRST, newvalue=%s'%(bool(idx)))
+        self.preferences.SetValue( 'SORT_BY_SESSION_TYPE_FIRST', 'bool', bool(idx) )
 
 #-----------------------------------------------------------------------------

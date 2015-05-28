@@ -136,9 +136,7 @@ class LaTeXWriter:
             fp.write('\\end{tabular}\n')
             self.__write_end(fp)
 
-
-    def write_doc( self, doc , filename ):
-        # Write the LaTeX file
+    def write_doc( self, doc , filename, tocompile=True ):
         with codecs.open ( filename , 'w' , 'utf-8') as fp:
             self.__write_header(fp,doc.get_docid())
             self.__write_properties(fp)
@@ -172,6 +170,21 @@ class LaTeXWriter:
                 pass
             self.prefs.SetValue('COMPILER', 'str', comp)
         doc.set_pdfdiagnosis(diag)
+
+        if tocompile is True:
+            try :
+                tmpname = fileutils.set_tmpfilename() + ".tex"
+                shutil.copy(filename, tmpname)
+                subprocess.check_output([self.prefs.GetValue('COMPILER'),"-interaction=nonstopmode",tmpname])
+            except Exception:
+                doc.set_pdfdiagnosis( 0 )
+            try:
+                os.remove( tmpname )
+                os.remove( tmpname.replace('.tex', '.log') )
+                os.remove( tmpname.replace('.tex', '.aux') )
+                shutil.move(tmpname.replace('.tex', '.pdf'), filename.replace('.tex', '.pdf'))
+            except Exception:
+                pass
 
     def __write_separator(self,fp):
         fp.write('% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %\n')
