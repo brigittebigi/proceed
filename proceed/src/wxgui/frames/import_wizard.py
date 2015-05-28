@@ -365,9 +365,9 @@ class LatexPage(wx.wizard.WizardPageSimple):
         sizer.Add((-1, 10))
 
         # ------------- Theme
-        self.theme = all_themes.get_theme('basic')
-        self.themeradio = wx.RadioBox(self, label="    Choose a style:     ", size=(410,-1), choices=all_themes.get_themes().keys(), majorDimension=1)
-        self.themeradio.SetSelection( 0 )
+        self.theme = 'basic'
+        self.themeradio = wx.RadioBox(self, label="    Choose a style:     ", size=(410,-1), choices=sorted(all_themes.get_themes().keys()), majorDimension=1)
+        self.themeradio.SetSelection( all_themes.get_themes().keys().index( 'basic' ) )
         self.themeradio.Bind(wx.EVT_RADIOBOX, self.onTheme)
         sizer.Add(self.themeradio, 0, flag=wx.LEFT, border=40)
         sizer.Add((-1, 10))

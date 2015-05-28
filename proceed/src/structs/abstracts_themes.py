@@ -116,7 +116,7 @@ class ThemePalme( ThemeBasic ):
         ThemeBasic.__init__(self)
         self._choice['FONT_SIZE']     = Option('str', '11pt', "Font size")
 
-        self._choice['TITLE'] 		= Option('str', '\\renewcommand{\\title}[1]{\LaTeXtitle{\Large\\textsf{\\textbf{#1}}}}')
+        self._choice['TITLE'] 		= Option('str', '\\renewcommand{\\title}[1]{\LaTeXtitle{\large\\textsf{\\textbf{#1}}}}')
         self._choice['LABOS']		= Option('str', '\\renewcommand\\Affilfont{\itshape\small}')
         self._choice['EMAIL']    	= Option('str', '\\newcommand{\\emailaddress}[1]{\\newline{\sf#1}}')
         self._choice['KEYWORDS']	= Option('str', '\\newcommand{\\keywords}[1]{\\noindent{\small{\\textbf{Keywords}: }#1\par \\vskip.7\\baselineskip}}')

@@ -204,7 +204,8 @@ class LaTeXWriter:
         ## Fix included package depending the compiler (and the encoding...)
         if self.prefs.GetValue('COMPILER') == "pdflatex":
             fp.write('\usepackage['+self.prefs.GetValue('ENCODING')+']{inputenc}\n')
-            fp.write('\usepackage[T1,T2A,T2B,T2C,X2,LFE,LAE]{fontenc} %% this gets hyphenation and accented letters right for most of the European languages\n')
+            fp.write('\usepackage[T1]{fontenc} %% this gets hyphenation and accented letters right for most of the European languages\n')
+            fp.write('\usepackage{CJKutf8} %% for Chinese characters\n')
             fp.write('\usepackage[english]{babel}\n')
             fp.write('\n')
             fp.write('\usepackage[pdftex]{graphicx}\n')
@@ -305,7 +306,7 @@ class LaTeXWriter:
                 labo = doc.get_laboratory()[int(lab)]
                 fp.write('\\affil['+str(i)+']{')
                 fp.write(unicode(labo.get_nom())+', ')
-                fp.write(unicode(labo.get_address())+' ')
+                #fp.write(unicode(labo.get_address())+' ')
                 fp.write(unicode(labo.get_country())+' ')
                 fp.write('\emailaddress{'+unicode_tex.unicode_to_tex(auth.get_email()))
                 fp.write('}}\n')
