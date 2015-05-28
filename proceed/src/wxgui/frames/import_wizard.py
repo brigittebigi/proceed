@@ -72,7 +72,7 @@ ImportFinishedCommandEvent, EVT_IMPORT_WIZARD_FINISHED_COMMAND = wx.lib.newevent
 class ImportWizard( wx.wizard.Wizard ):
 
     def __init__(self, parent):
-        wx.wizard.Wizard.__init__(self, parent, -1)#, title=FRAME_TITLE+" - Import", style=FRAME_STYLE)
+        wx.wizard.Wizard.__init__(self, parent, -1, title=FRAME_TITLE+" - Import", style=FRAME_STYLE)
         self.output = ""
 
         self.page0 = InputPage(self)
@@ -104,6 +104,7 @@ class ImportWizard( wx.wizard.Wizard ):
                 return
             else:
                 p = ProcessProgressDialog(self)
+                p.Show()
                 arguments = {}
                 arguments['readername']      = self.page0.confname
                 arguments['filename']        = self.page0.urlFld.GetValue()
@@ -154,6 +155,7 @@ class ImportWizard( wx.wizard.Wizard ):
             prefs.SetValue('COMPILER', 'str', self.page2.compiler.strip())
             # Write as LaTeX in the same dir as proceed CSV files
             p = ProcessProgressDialog(self)
+            p.Show()
             self.writer.set_progress(p)
             self.writer.writeLaTeX_as_Dir( self.output, prefs )
             self.writer.set_progress(None)
@@ -220,8 +222,8 @@ class InputPage(wx.wizard.WizardPageSimple):
         sizer.Add(hBox, flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP)
 
         self.enable()
-
-        self.SetSizer(sizer)
+        self.Layout()
+        self.SetSizerAndFit(sizer)
 
     def onOpen(self, event, temp):
         filename = self.file_open()
@@ -291,7 +293,7 @@ class OutputPage(wx.wizard.WizardPageSimple):
         self.SetSizer(sizer)
 
         # ---------- Status
-        allstatus = ['all papers', 'only accepted papers']
+        allstatus = ['init papers (status=0)', 'only accepted papers (status=1)']
         self.status = 1
         statusradio = wx.RadioBox(self, label="    Choose papers to save:     ", size=(410,-1), choices=allstatus, majorDimension=1)
         statusradio.SetSelection( 1 )
@@ -313,6 +315,8 @@ class OutputPage(wx.wizard.WizardPageSimple):
         cbp.SetValue(False)
         cbp.Bind(wx.EVT_CHECKBOX, self.onExportAsHTML)
         sizer.Add(cbp, 0, flag=wx.LEFT, border=0)
+
+        self.SetSizerAndFit(sizer)
 
     def onDirectory(self, event):
         with wx.DirDialog(self, "Choose a directory to save in", self.dirname, style=wx.DD_CHANGE_DIR) as dlg:
@@ -366,8 +370,9 @@ class LatexPage(wx.wizard.WizardPageSimple):
 
         # ------------- Theme
         self.theme = 'basic'
-        self.themeradio = wx.RadioBox(self, label="    Choose a style:     ", size=(410,-1), choices=sorted(all_themes.get_themes().keys()), majorDimension=1)
-        self.themeradio.SetSelection( all_themes.get_themes().keys().index( 'basic' ) )
+        thlist = sorted(all_themes.get_themes().keys())
+        self.themeradio = wx.RadioBox(self, label="    Choose a style:     ", size=(410,-1), choices=thlist, majorDimension=1)
+        self.themeradio.SetSelection( thlist.index( 'basic' ) )
         self.themeradio.Bind(wx.EVT_RADIOBOX, self.onTheme)
         sizer.Add(self.themeradio, 0, flag=wx.LEFT, border=40)
         sizer.Add((-1, 10))
@@ -389,7 +394,7 @@ class LatexPage(wx.wizard.WizardPageSimple):
         sizer.Add(self.cbp, 0, flag=wx.LEFT, border=40)
 
         self.enable(False)
-        self.SetSizer(sizer)
+        self.SetSizerAndFit(sizer)
 
     def onCompiler(self, event):
         o = event.GetEventObject()
@@ -420,23 +425,6 @@ class LatexPage(wx.wizard.WizardPageSimple):
         for i in range(len(self.compilers)):
             self.comradio.EnableItem(i,value)
         self.cbp.Enable(value)
-
-# ----------------------------------------------------------------------------
-
-class HTMLPage(wx.wizard.WizardPageSimple):
-    """ Diagnosis of the PDF for the output data. """
-
-    def __init__(self, parent):
-        """
-        Constructor.
-        """
-        wx.wizard.WizardPageSimple.__init__(self, parent)
-
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        self.SetSizer(sizer)
-
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        self.SetSizer(sizer)
 
 # ----------------------------------------------------------------------------
 

@@ -49,13 +49,11 @@ Graphical User Interface to manage documents of a conference.
 # ---------------------------------------------------------------------------
 
 import sys
-import os
 import os.path
 from argparse import ArgumentParser
 import traceback
 import tkMessageBox
 import logging
-import subprocess
 
 # ---------------------------------------------------------------------------
 
@@ -113,8 +111,8 @@ sys.path.insert(0,PROCEED)
 
 try:
     from wxgui.manager import MainFrame
-    from utils.commons import setup_logging
-except ImportError,e:
+    from utils.commons import setup_logging, test_pdflatex, test_xetex, test_pdftk
+except ImportError as e:
     import tkMessageBox
     tkMessageBox.showwarning(
         "Installation Error...",
@@ -133,47 +131,6 @@ def install_gettext_in_builtin_namespace():
     import __builtin__
     if not "_" in __builtin__.__dict__:
         __builtin__.__dict__["_"] = _
-
-# ---------------------------------------------------------------------------
-# Test if Julius is installed.
-# ---------------------------------------------------------------------------
-
-def test_pdflatex(parent):
-    """
-    Test if pdflatex is available.
-    """
-    try:
-        NULL = open(os.devnull, "w")
-        subprocess.call(['pdflatex', '--help'], stdout=NULL, stderr=subprocess.STDOUT)
-    except OSError:
-        dial = wx.MessageDialog(None, 'pdflatex is not installed on your system.\nThe automatic generation WILL NOT WORK.', 'Exclamation',
-            wx.OK | wx.ICON_EXCLAMATION)
-        dial.ShowModal()
-
-def test_xetex(parent):
-    """
-    Test if pdflatex is available.
-    """
-    try:
-        NULL = open(os.devnull, "w")
-        subprocess.call(['xetex', '--help'], stdout=NULL, stderr=subprocess.STDOUT)
-    except OSError:
-        dial = wx.MessageDialog(None, 'xetex is not installed on your system.\nThe automatic generation WILL NOT WORK.', 'Exclamation',
-            wx.OK | wx.ICON_EXCLAMATION)
-        dial.ShowModal()
-
-def test_pdftk(parent):
-    """
-    Test if pdflatex is available.
-    """
-    try:
-        NULL = open(os.devnull, "w")
-        subprocess.call(['pdftk'], stdout=NULL, stderr=subprocess.STDOUT)
-    except OSError:
-        dial = wx.MessageDialog(None, 'pdftk is not installed on your system.\nThe automatic generation WILL NOT WORK.', 'Exclamation',
-            wx.OK | wx.ICON_EXCLAMATION)
-        dial.ShowModal()
-
 
 # ---------------------------------------------------------------------------
 # Main application
@@ -207,9 +164,22 @@ try:
     logging.debug('Welcome to Proceed')
     frame = MainFrame()
     mainmanager.SetTopWindow(frame)
-    test_pdflatex( frame )
-    test_xetex( frame )
-    test_pdftk( frame )
+
+    if test_pdflatex( ) is False:
+        dial = wx.MessageDialog(None, 'pdflatex is not installed on your system.\nThe automatic generation WILL NOT WORK.', 'Exclamation',
+        wx.OK | wx.ICON_EXCLAMATION)
+        dial.ShowModal()
+
+    if test_xetex( ) is False:
+        dial = wx.MessageDialog(None, 'xetex is not installed on your system.\nThe automatic generation WILL NOT WORK.', 'Exclamation',
+            wx.OK | wx.ICON_EXCLAMATION)
+        dial.ShowModal()
+
+    if test_pdftk( ) is False:
+        dial = wx.MessageDialog(None, 'pdftk is not installed on your system.\nThe automatic generation WILL NOT WORK.', 'Exclamation',
+            wx.OK | wx.ICON_EXCLAMATION)
+        dial.ShowModal()
+
     frame.Show()
 except:
     tkMessageBox.showwarning(

@@ -41,6 +41,8 @@
 import sys
 import logging
 from logging import info as loginfo
+import subprocess
+import os
 
 # ----------------------------------------------------------------------------
 
@@ -128,3 +130,37 @@ def __clean(entry):
 
 # End clean
 # -----------------------------------------------------------------------
+
+def test_pdflatex():
+    """
+    Test if pdflatex is available.
+    """
+    try:
+        NULL = open(os.devnull, "w")
+        subprocess.call(['pdflatex', '--help'], stdout=NULL, stderr=subprocess.STDOUT)
+    except OSError:
+        return False
+    return True
+
+def test_xetex():
+    """
+    Test if pdflatex is available.
+    """
+    try:
+        NULL = open(os.devnull, "w")
+        subprocess.call(['xetex', '--help'], stdout=NULL, stderr=subprocess.STDOUT)
+    except OSError:
+        return False
+    return True
+
+def test_pdftk():
+    """
+    Test if pdftk is available.
+    """
+    try:
+        NULL = open(os.devnull, "w")
+        subprocess.call(['pdftk'], stdout=NULL, stderr=subprocess.STDOUT)
+    except OSError:
+        return False
+    return True
+

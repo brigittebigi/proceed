@@ -45,6 +45,7 @@ import shutil
 from structs.prefs import Preferences
 from structs.abstracts_themes import all_themes
 
+from utils.commons import test_pdflatex, test_xetex
 import utils.abstracts   as abstracts
 import utils.unicode_tex as unicode_tex
 import utils.fileutils   as fileutils
@@ -114,6 +115,8 @@ class LaTeXWriter:
         if prefs is None:
             self.prefs.SetValue('COMPILER', 'str', 'pdflatex')
             self._prefs.SetTheme( all_themes[0][1] )
+        self.pdflatex_ok = test_pdflatex()
+        self.xetex_ok = test_xetex()
 
     def write_as_list( self, docs, filename ):
         with codecs.open ( filename , 'w' , 'utf-8') as fp:
@@ -156,35 +159,37 @@ class LaTeXWriter:
             self.__write_end(fp)
 
         # Perform the diagnosis
-        if self.prefs.GetValue('COMPILER') == 'pdflatex':
-            diag = LaTeXDiagnosis( filename ).run()
-        else:
-            comp = self.prefs.GetValue('COMPILER')
-            self.prefs.SetValue('COMPILER', 'str', 'pdflatex')
-            tmpname = fileutils.set_tmpfilename()
-            self.write_doc( doc, tmpname )
-            diag = LaTeXDiagnosis( tmpname ).run()
-            try:
-                os.remove( tmpname )
-            except Exception:
-                pass
-            self.prefs.SetValue('COMPILER', 'str', comp)
-        doc.set_pdfdiagnosis(diag)
+        if self.pdflatex_ok:
+            if self.prefs.GetValue('COMPILER') == 'pdflatex':
+                diag = LaTeXDiagnosis( filename ).run()
+            else:
+                comp = self.prefs.GetValue('COMPILER')
+                self.prefs.SetValue('COMPILER', 'str', 'pdflatex')
+                tmpname = fileutils.set_tmpfilename()
+                self.write_doc( doc, tmpname )
+                diag = LaTeXDiagnosis( tmpname ).run()
+                try:
+                    os.remove( tmpname )
+                except Exception:
+                    pass
+                self.prefs.SetValue('COMPILER', 'str', comp)
+            doc.set_pdfdiagnosis(diag)
 
         if tocompile is True:
-            try :
-                tmpname = fileutils.set_tmpfilename() + ".tex"
-                shutil.copy(filename, tmpname)
-                subprocess.check_output([self.prefs.GetValue('COMPILER'),"-interaction=nonstopmode",tmpname])
-            except Exception:
-                doc.set_pdfdiagnosis( 0 )
-            try:
-                os.remove( tmpname )
-                os.remove( tmpname.replace('.tex', '.log') )
-                os.remove( tmpname.replace('.tex', '.aux') )
-                shutil.move(tmpname.replace('.tex', '.pdf'), filename.replace('.tex', '.pdf'))
-            except Exception:
-                pass
+            if ( self.prefs.GetValue('COMPILER') == 'pdflatex' and self.pdflatex_ok ) or  ( self.prefs.GetValue('COMPILER') == 'xetex' and self.xetex_ok ):
+                try :
+                    tmpname = fileutils.set_tmpfilename() + ".tex"
+                    shutil.copy(filename, tmpname)
+                    subprocess.check_output([self.prefs.GetValue('COMPILER'),"-interaction=nonstopmode",tmpname])
+                except Exception:
+                    doc.set_pdfdiagnosis( 0 )
+                try:
+                    os.remove( tmpname )
+                    os.remove( tmpname.replace('.tex', '.log') )
+                    os.remove( tmpname.replace('.tex', '.aux') )
+                    shutil.move(tmpname.replace('.tex', '.pdf'), filename.replace('.tex', '.pdf'))
+                except Exception:
+                    pass
 
     def __write_separator(self,fp):
         fp.write('% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %\n')
@@ -207,6 +212,7 @@ class LaTeXWriter:
             fp.write('\usepackage[T1]{fontenc} %% this gets hyphenation and accented letters right for most of the European languages\n')
             fp.write('\usepackage{CJKutf8} %% for Chinese characters\n')
             fp.write('\usepackage[english]{babel}\n')
+            fp.write('\usepackage{textcomp}\n')
             fp.write('\n')
             fp.write('\usepackage[pdftex]{graphicx}\n')
             fp.write('\usepackage{amsfonts}\n')
