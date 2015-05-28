@@ -78,7 +78,7 @@ class ThemeBasic( BaseTheme ):
         self._choice['PAPER_SIZE']    = Option('str', 'a4paper', "Paper format")
         self._choice['FONT_SIZE']     = Option('str', '12pt', "Font size")
         self._choice["MARGIN_LEFT"]   = Option('int', 30) # millimeters
-        self._choice["MARGIN_RIGHT"]  = Option('int', 30) # millimeters
+        self._choice["MARGIN_RIGHT"]  = Option('int', 25) # millimeters
         self._choice["MARGIN_TOP"]    = Option('int', 25) # millimeters
         self._choice["MARGIN_BOTTOM"] = Option('int', 25) # millimeters
         self._choice['ENCODING']      = Option('str', 'utf8')
@@ -105,10 +105,6 @@ class ThemeBasic( BaseTheme ):
         # \textmd   \mdseries   Medium series
         # \textbf   \bfseries   Boldface series
 
-        if 'windows' in platform.system().lower():
-            self._encoding  = "latin1"
-        elif 'mac' in platform.system().lower():
-            self._encoding = "applemac"
 
 # ----------------------------------------------------------------------------
 
@@ -118,6 +114,7 @@ class ThemePalme( ThemeBasic ):
     def __init__(self):
 
         ThemeBasic.__init__(self)
+        self._choice['FONT_SIZE']     = Option('str', '11pt', "Font size")
 
         self._choice['TITLE'] 		= Option('str', '\\renewcommand{\\title}[1]{\LaTeXtitle{\Large\\textsf{\\textbf{#1}}}}')
         self._choice['LABOS']		= Option('str', '\\renewcommand\\Affilfont{\itshape\small}')

@@ -37,7 +37,6 @@
 # ---------------------------------------------------------------------------
 
 import codecs
-import re
 import os
 import datetime
 import subprocess
@@ -58,7 +57,7 @@ COMPILERS = ['pdflatex', 'xetex']
 
 class LaTeXDiagnosis() :
     """
-    Execute pdflatex on a document and return a disgnosis:
+    Execute pdflatex on a document and return a diagnosis:
         -  1 means ok (no compilation error)
         - -1 means that an error occurred.
     """
@@ -139,8 +138,8 @@ class LaTeXWriter:
 
 
     def write_doc( self, doc , filename ):
+        # Write the LaTeX file
         with codecs.open ( filename , 'w' , 'utf-8') as fp:
-
             self.__write_header(fp,doc.get_docid())
             self.__write_properties(fp)
             self.__write_style(fp)
@@ -158,6 +157,7 @@ class LaTeXWriter:
             self.__write_abstract(fp,doc.get_abstract())
             self.__write_end(fp)
 
+        # Perform the diagnosis
         if self.prefs.GetValue('COMPILER') == 'pdflatex':
             diag = LaTeXDiagnosis( filename ).run()
         else:
@@ -176,7 +176,6 @@ class LaTeXWriter:
     def __write_separator(self,fp):
         fp.write('% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %\n')
 
-
     def __write_header(self,fp,docid=None):
         now = datetime.datetime.now()
         self.__write_separator(fp)
@@ -191,22 +190,27 @@ class LaTeXWriter:
 
         ## Fix included package depending the compiler (and the encoding...)
         if self.prefs.GetValue('COMPILER') == "pdflatex":
-            fp.write('\usepackage['+self.prefs.GetValue('ENCODING')+'x]{inputenc}\n')
-            fp.write('\usepackage[T1]{fontenc} %% get hyphenation and accented letters right\n')
+            fp.write('\usepackage['+self.prefs.GetValue('ENCODING')+']{inputenc}\n')
+            fp.write('\usepackage[T1,T2A,T2B,T2C,X2,LFE,LAE]{fontenc} %% this gets hyphenation and accented letters right for most of the European languages\n')
+            fp.write('\usepackage[english]{babel}\n')
             fp.write('\n')
             fp.write('\usepackage[pdftex]{graphicx}\n')
             fp.write('\usepackage{amsfonts}\n')
             fp.write('\usepackage{amssymb}\n')
             fp.write('\usepackage{amsmath}\n')
             fp.write('\usepackage{mathptmx}        %% use fitting times fonts also in formulas\n')
+
         elif self.prefs.GetValue('COMPILER') == "xetex":
             fp.write('\usepackage{fontspec}       %% we will use a specific font\n')
             fp.write('\usepackage{xunicode}       %% this file is UTF8 \n')
             fp.write('\usepackage{lmodern}        %%  \n')
             fp.write('\setmainfont{Times New Roman} \n')
+            fp.write('\setsansfont{Arial} \n')
+            fp.write('\setmonofont[Color={0019D4}]{Courier New} \n')
             #fp.write('\setmainfont{DejaVu Serif}  %%  \n')
             #fp.write('\setmainfont{WenQuanYi Zen Hei Sharp}  %% The choosed font \n')
             fp.write('\n')
+
         else:
             message  = "Unrecognized compiler name: %s."%self.prefs.GetValue('COMPILER')
             message += "Must be one of %s"%' '.join(COMPILERS)
