@@ -449,6 +449,7 @@ class NotebookPanel( wx.Panel ):
     # ------------------------------------------------------------------------
 
     def saveCSV(self, pagename):
+        # TODO : write in tmp then copy in good file (in case of saving error)
         out = csv.DictWriter(open(os.path.join(self._path,pagename+".csv"), "wb"), fieldnames[pagename])
         d = {}
         for colname in fieldnames[pagename]:
@@ -457,7 +458,7 @@ class NotebookPanel( wx.Panel ):
         for entry in self._dataPages[pagename].values():
             rows = entry.prepare_save()
             for row in rows:
-                out.writerow( row.encode('utf8') )
+                out.writerow( dict((k, v.encode('utf-8')) for k, v in row.iteritems()) )
 
     # ------------------------------------------------------------------------
 

@@ -101,10 +101,10 @@ class Session:
     def prepare_save(self):
 
         if isinstance(self._date,date):
-            return [{"SESSION_ID":self._sessionid, "SESSION_NAME":self._session_name, "RANK":str(self._rank), "DATE":self._date.isoformat(), "H-DEB":self._h_deb, "H-FIN":self._h_fin, "CHAIRMAN":self._chairman, "LOCATION":self._location}]
+            return [{"SESSION_ID":self._sessionid, "SESSION_NAME":clean(self._session_name), "RANK":str(self._rank), "DATE":self._date.isoformat(), "H-DEB":self._h_deb, "H-FIN":self._h_fin, "CHAIRMAN":clean(self._chairman), "LOCATION":clean(self._location)}]
 
         else:
-            return [{"SESSION_ID":self._sessionid, "SESSION_NAME":self._session_name, "RANK":str(self._rank), "DATE":"", "H-DEB":self._h_deb, "H-FIN":self._h_fin, "CHAIRMAN":self._chairman, "LOCATION":self._location}]
+            return [{"SESSION_ID":self._sessionid, "SESSION_NAME":clean(self._session_name), "RANK":str(self._rank), "DATE":"", "H-DEB":self._h_deb, "H-FIN":self._h_fin, "CHAIRMAN":clean(self._chairman), "LOCATION":clean(self._location)}]
 
 
     # ------------------------------------------------------------------------
