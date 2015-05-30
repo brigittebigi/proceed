@@ -406,7 +406,7 @@ class LatexPage(wx.wizard.WizardPageSimple):
 
     def onPDFChange(self, event):
         o = event.GetEventObject()
-        self.pdf.SetValue( o.GetValue() )
+        self.pdf = bool( o.GetValue() )
 
     def onExport(self, event):
         o = event.GetEventObject()

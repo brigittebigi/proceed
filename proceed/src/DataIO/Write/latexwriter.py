@@ -342,13 +342,15 @@ class LaTeXWriter:
         fp.write('% % ABSTRACT CONTENT\n')
         fp.write('\n')
         # Convert important HMTL Tag into LateX
-        tmpa = abstracts.html_to_tex(abstract)
+        tmpa = abstracts.html_to_mytags(abstract)
         # Remove the other HTML tags
         parser = abstracts.HTMLCleaner()
         parser.feed(tmpa)
         a = parser.get_data()
         # Then, normalize the string
         a = unicode_tex.unicode_to_texipa(a)
+        # Convert my tags to real tex
+        a = abstracts.mytags_to_tex(abstract)
         # finally: write!
         fp.write(unicode(a))
         fp.write('\n')

@@ -2558,7 +2558,6 @@ unicode_to_tipa_map = {u'ʈ' : "\\textipa{ t' }",
     u'ʏ' : "\\textipa{ '\yc' }",
 }
 
-
 def unicode_to_tex(s):
     '''
     Convert unicode string s to its' corressponding tex equation.
@@ -2566,7 +2565,6 @@ def unicode_to_tex(s):
     >>> print unicode_to_tex( u"Somme accents: å é à ç and Chinese: 瓣" )
     '''
     return u''.join([unicode_to_tex_map.get(i, i) for i in s])
-
 
 def unicode_to_texipa(s):
     '''

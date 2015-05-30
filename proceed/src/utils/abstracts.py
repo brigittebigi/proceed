@@ -87,19 +87,49 @@ def html_to_tex(abstract):
     a = re.sub(u"<ul>", '', a, re.UNICODE)
     return a
 
+def html_to_mytags(abstract):
+    a = abstract
+    a = re.sub(u'<p align=["\s\w\xaa-\xff]+>', ur'\n', a, re.UNICODE)
+    a = re.sub(u"<[\s]*p[\s]*>", "\n", a, re.UNICODE)
+    a = re.sub(u"<[\s]/[\s]p[\s]>", "\n\n", a, re.UNICODE)
+    a = re.sub(u"<ol>", "\nBEGINENUMERATE\n", a, re.UNICODE)
+    a = re.sub(u"<[\s]*/[\s]*ol>", "\nENDENUMERATE\n", a, re.UNICODE)
+    a = re.sub(u"<li>", "\n    ITEMITEM ", a, re.UNICODE)
+    a = re.sub(u"<[\s]*/[\s]*li>", "\nENDITEMIZE\n", a, re.UNICODE)
+    a = re.sub(u"<i>", "BEGINITALIC", a, re.UNICODE)
+    a = re.sub(u"<[\s]*/[\s]*i>", "ENDITALIC", a, re.UNICODE)
+    a = re.sub(u"<b>", "BEGINBOLD", a, re.UNICODE)
+    a = re.sub(u"<[\s]*/[\s]*b>", "ENDBOLD", a, re.UNICODE)
+    a = re.sub(u"<strong>", "BEGINSTRONG", a, re.UNICODE)
+    a = re.sub(u"<[\s]*/[\s]*strong>", "ENDSTRONG", a, re.UNICODE)
+    a = re.sub(u"<br[\s]*/>", "\n\n", a, re.UNICODE)
+    a = re.sub(u"<ul>", '\nBEGINITEMIZE\n', a, re.UNICODE)
+    return a
+
+def mytags_to_tex(abstract):
+    a = abstract
+    a = re.sub(u"BEGINENUMERATE", '\\begin{enumerate}', a, re.UNICODE)
+    a = re.sub(u"ENDENUMERATE",   '\\end{enumerate}', a, re.UNICODE)
+    a = re.sub(u"BEGINITEMIZE",   '\\begin{itemize}', a, re.UNICODE)
+    a = re.sub(u"ENDITEMIZE",     '\\end{itemize}', a, re.UNICODE)
+    a = re.sub(u"ITEMITEM",       '\\item', a, re.UNICODE)
+    a = re.sub(u"BEGINITALIC",    '{\\it ', a, re.UNICODE)
+    a = re.sub(u"ENDITALIC",      '}', a, re.UNICODE)
+    a = re.sub(u"BEGINBOLD",      '{\\bf ', a, re.UNICODE)
+    a = re.sub(u"ENDBOLD",        '}', a, re.UNICODE)
+    a = re.sub(u"BEGINSTRONG",    '{\\em ', a, re.UNICODE)
+    a = re.sub(u"ENDSTRONG",      '}', a, re.UNICODE)
+
+    return a
+
 # ---------------------------------------------------------------------------
 
-def unicode_to_tex(a):
-    for k,v in unicode_to_tex_map.iteritems():
-        string=string.replace(k,v)
-    return string
 
-
-def unicode_to_tex_old(abstract):
+def unicode_to_tex_old_version(abstract):
     a = abstract
     a = re.sub(u' ', u" ", a, re.UNICODE)   # espace insecable
     a = re.sub(u'　', u" ", a, re.UNICODE)   # espace insecable version 2!
-    a = re.sub(u' ­­', u" ", a, re.UNICODE)   # espace insecable version 3!
+    a = re.sub(u' ­­', u" ", a, re.UNICODE) # espace insecable version 3!
     a = re.sub(u"ʼ", u"'", a, re.UNICODE)   # apostrophe
     a = re.sub(u"‘", u"'", a, re.UNICODE)   # apostrophe
     a = re.sub(u"É", u"\\'e", a, re.UNICODE)   #
