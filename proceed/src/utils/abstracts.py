@@ -89,21 +89,18 @@ def html_to_tex(abstract):
 
 def html_to_mytags(abstract):
     a = abstract
-    a = re.sub(u'<p align=["\s\w\xaa-\xff]+>', ur'\n', a, re.UNICODE)
-    a = re.sub(u"<[\s]*p[\s]*>", "\n", a, re.UNICODE)
+    a = re.sub(u'<p align=["\s\w\xaa-\xff]+>', ur'\n\n', a, re.UNICODE)
+    a = re.sub(u"<[\s]*p[\s]*>", "\n\n", a, re.UNICODE)
     a = re.sub(u"<[\s]/[\s]p[\s]>", "\n\n", a, re.UNICODE)
-    a = re.sub(u"<ol>", "\nBEGINENUMERATE\n", a, re.UNICODE)
-    a = re.sub(u"<[\s]*/[\s]*ol>", "\nENDENUMERATE\n", a, re.UNICODE)
-    a = re.sub(u"<li>", "\n    ITEMITEM ", a, re.UNICODE)
-    a = re.sub(u"<[\s]*/[\s]*li>", "\nENDITEMIZE\n", a, re.UNICODE)
+    a = re.sub(u"<br[\s]*/>", "\n\n", a, re.UNICODE)
+    a = re.sub(u"<li>", "\nBEGINITEMIZE\n    ITEMITEM ", a, re.UNICODE)
+    a = re.sub(u"<[\s]*/[\s]*li>", "ENDITEMIZE\n", a, re.UNICODE)
     a = re.sub(u"<i>", "BEGINITALIC", a, re.UNICODE)
     a = re.sub(u"<[\s]*/[\s]*i>", "ENDITALIC", a, re.UNICODE)
     a = re.sub(u"<b>", "BEGINBOLD", a, re.UNICODE)
     a = re.sub(u"<[\s]*/[\s]*b>", "ENDBOLD", a, re.UNICODE)
     a = re.sub(u"<strong>", "BEGINSTRONG", a, re.UNICODE)
     a = re.sub(u"<[\s]*/[\s]*strong>", "ENDSTRONG", a, re.UNICODE)
-    a = re.sub(u"<br[\s]*/>", "\n\n", a, re.UNICODE)
-    a = re.sub(u"<ul>", '\nBEGINITEMIZE\n', a, re.UNICODE)
     return a
 
 def mytags_to_tex(abstract):

@@ -350,7 +350,7 @@ class LaTeXWriter:
         # Then, normalize the string
         a = unicode_tex.unicode_to_texipa(a)
         # Convert my tags to real tex
-        a = abstracts.mytags_to_tex(abstract)
+        a = abstracts.mytags_to_tex(a)
         # finally: write!
         fp.write(unicode(a))
         fp.write('\n')
