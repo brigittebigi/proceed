@@ -105,6 +105,10 @@ class ThemeBasic( BaseTheme ):
         # \textmd   \mdseries   Medium series
         # \textbf   \bfseries   Boldface series
 
+        self._choice['SHOW_KEYWORDS'] = Option('bool', True)
+        self._choice['SHOW_LABOS']    = Option('bool', True)
+        self._choice['SHOW_LABOS_ADDRESS'] = Option('bool', True)
+        self._choice['SHOW_EMAIL']    = Option('bool', True)
 
 # ----------------------------------------------------------------------------
 
@@ -115,6 +119,10 @@ class ThemePalme( ThemeBasic ):
 
         ThemeBasic.__init__(self)
         self._choice['FONT_SIZE']     = Option('str', '11pt', "Font size")
+        self._choice["MARGIN_LEFT"]   = Option('int', 25) # millimeters
+        self._choice["MARGIN_RIGHT"]  = Option('int', 20) # millimeters
+        self._choice["MARGIN_TOP"]    = Option('int', 20) # millimeters
+        self._choice["MARGIN_BOTTOM"] = Option('int', 20) # millimeters
 
         self._choice['TITLE'] 		= Option('str', '\\renewcommand{\\title}[1]{\LaTeXtitle{\large\\textsf{\\textbf{#1}}}}')
         self._choice['LABOS']		= Option('str', '\\renewcommand\\Affilfont{\itshape\small}')
@@ -122,6 +130,8 @@ class ThemePalme( ThemeBasic ):
         self._choice['KEYWORDS']	= Option('str', '\\newcommand{\\keywords}[1]{\\noindent{\small{\\textbf{Keywords}: }#1\par \\vskip.7\\baselineskip}}')
         self._choice['ABSTRACT'] 	= Option('str' ,'\\renewcommand\\abstract[1]{\\noindent{\small{\\textbf{Abstract}: }#1}}')
         self._choice['AUTHORS']		= Option('str', '\\renewcommand\\Authfont{\scshape\small}')
+
+        self._choice['SHOW_EMAIL']    = Option('bool', False)
 
 # ----------------------------------------------------------------------------
 

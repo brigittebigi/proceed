@@ -2572,5 +2572,6 @@ def unicode_to_texipa(s):
 
     >>> print unicode_to_texipa( u"Somme accents: å é à ç then an IPA character: ɮ and Chinese: 瓣" )
     '''
-    tmp =  u''.join([unicode_to_tex_map.get(i, i) for i in s])
-    return u''.join([unicode_to_tipa_map.get(i, i) for i in tmp])
+    tmp = u''.join([unicode_to_tipa_map.get(i, i) for i in s])
+    return u''.join([unicode_to_tex_map.get(i, i) for i in tmp])
+

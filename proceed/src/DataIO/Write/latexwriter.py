@@ -41,6 +41,7 @@ import os
 import datetime
 import subprocess
 import shutil
+import logging
 
 from structs.prefs import Preferences
 from structs.abstracts_themes import all_themes
@@ -150,11 +151,12 @@ class LaTeXWriter:
             self.__write_separator(fp)
             self.__write_begindoc(fp)
             self.__write_maketitle(fp)
-            if len(doc.get_keywords()) > 0:
-                fp.write('\\keywords{ ')
-                self.__write_keywords(fp,doc.get_keywords())
-                fp.write('}\n')
-                fp.write('\\abstract{}\n')
+            if self.prefs.GetValue('SHOW_KEYWORDS') is True:
+                if len(doc.get_keywords()) > 0:
+                    fp.write('\\keywords{ ')
+                    self.__write_keywords(fp,doc.get_keywords())
+                    fp.write('}\n')
+                    fp.write('\\abstract{}\n')
             self.__write_abstract(fp,doc.get_abstract())
             self.__write_end(fp)
 
@@ -299,23 +301,51 @@ class LaTeXWriter:
     def __write_authors(self,fp,doc): # authors is a list of authors instances
         fp.write('% % Fix authors then affiliation and email for each author\n')
         i = 0
+        d = {}
         for auth in doc.get_authors():
             i = i+1
             ln = unicode(auth.get_lastname())
             mn = unicode(auth.get_middlename())
             fn = unicode(auth.get_firstname())
             fp.write('\\author['+str(i)+']{'+fn+' '+mn+' '+ln+'}\n')
-        i = 0
-        for auth in doc.get_authors():
-            i = i+1
             for lab in auth.get_labos():
                 labo = doc.get_laboratory()[int(lab)]
-                fp.write('\\affil['+str(i)+']{')
-                fp.write(unicode(labo.get_nom())+', ')
-                #fp.write(unicode(labo.get_address())+' ')
-                fp.write(unicode(labo.get_country())+' ')
-                fp.write('\emailaddress{'+unicode_tex.unicode_to_tex(auth.get_email()))
-                fp.write('}}\n')
+                laboname = unicode(labo.get_nom())
+                if not laboname in d.keys():
+                    d[laboname] = [ (str(i),labo) ]
+                else:
+                    d[laboname].append( (str(i),labo) )
+
+        if self.prefs.GetValue('SHOW_LABOS') is True:
+            # Compact view: dont show e-mails, then we can group affiliations
+            if self.prefs.GetValue('SHOW_EMAIL') is False:
+                for k,v in d.iteritems():
+                    # v is a list of tuples with the labo number related to an author, and the correspondind labo pointer
+                    stri = v[0][0]
+                    labo = v[0][1]
+                    for i in range(1,len(v)):
+                        stri = stri+","+v[i][0]
+                    fp.write('\\affil['+stri+']{')
+                    fp.write(unicode(labo.get_nom().strip()))
+                    if self.prefs.GetValue('SHOW_LABOS_ADDRESS') is True:
+                        fp.write(',\n')
+                        fp.write(unicode(labo.get_address())+' ')
+                        fp.write(unicode(labo.get_country()))
+                    fp.write('}\n')
+            # Extended view:
+            else:
+                i = 0
+                for auth in doc.get_authors():
+                    i = i+1
+                    for lab in auth.get_labos():
+                        labo = doc.get_laboratory()[int(lab)]
+                        fp.write('\\affil['+str(i)+']{')
+                        fp.write(unicode(labo.get_nom())+', ')
+                        if self.prefs.GetValue('SHOW_LABOS_ADDRESS') is True:
+                            fp.write(unicode(labo.get_address())+' ')
+                            fp.write(unicode(labo.get_country())+' ')
+                        fp.write(' \emailaddress{'+unicode_tex.unicode_to_tex(auth.get_email()))
+                        fp.write('}}\n')
 
 
     def __write_begindoc(self,fp):
