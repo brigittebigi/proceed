@@ -48,7 +48,7 @@ from structs.abstracts_themes import all_themes
 
 from utils.commons import test_pdflatex, test_xetex
 import utils.abstracts   as abstracts
-import utils.unicode_tex as unicode_tex
+from utils.unicode_tex import unicode_to_tex, specialchars_to_tex, unicode_to_texipa
 import utils.fileutils   as fileutils
 
 # ---------------------------------------------------------------------------
@@ -130,8 +130,8 @@ class LaTeXWriter:
             for doc in docs:
                 if doc.get_status()==self._status:
                     for auth in doc.get_authors():
-                        ln = unicode_tex.unicode_to_tex(auth.get_lastname())
-                        fn = unicode_tex.unicode_to_tex(auth.get_firstname())
+                        ln = unicode_to_tex(auth.get_lastname())
+                        fn = unicode_to_tex(auth.get_firstname())
                         fp.write(ln+' '+fn+', ')
                     fp.write(' & ')
                     fp.write(doc.get_title())
@@ -293,7 +293,7 @@ class LaTeXWriter:
     def __write_title(self,fp,title): # title is a string
         fp.write('\n')
         fp.write('% % Fix title\n')
-        fp.write('\\title{'+unicode(title)+'}\n')
+        fp.write('\\title{'+specialchars_to_tex(title)+'}\n')
         fp.write('\date{}\n')
         fp.write('\n')
 
@@ -310,7 +310,7 @@ class LaTeXWriter:
             fp.write('\\author['+str(i)+']{'+fn+' '+mn+' '+ln+'}\n')
             for lab in auth.get_labos():
                 labo = doc.get_laboratory()[int(lab)]
-                laboname = unicode(labo.get_nom())
+                laboname = specialchars_to_tex(labo.get_nom())
                 if not laboname in d.keys():
                     d[laboname] = [ (str(i),labo) ]
                 else:
@@ -326,11 +326,11 @@ class LaTeXWriter:
                     for i in range(1,len(v)):
                         stri = stri+","+v[i][0]
                     fp.write('\\affil['+stri+']{')
-                    fp.write(unicode(labo.get_nom().strip()))
+                    fp.write(specialchars_to_tex(labo.get_nom().strip()))
                     if self.prefs.GetValue('SHOW_LABOS_ADDRESS') is True:
                         fp.write(',\n')
-                        fp.write(unicode(labo.get_address())+' ')
-                        fp.write(unicode(labo.get_country()))
+                        fp.write(specialchars_to_tex(labo.get_address())+' ')
+                        fp.write(specialchars_to_tex(labo.get_country()))
                     fp.write('}\n')
             # Extended view:
             else:
@@ -340,11 +340,11 @@ class LaTeXWriter:
                     for lab in auth.get_labos():
                         labo = doc.get_laboratory()[int(lab)]
                         fp.write('\\affil['+str(i)+']{')
-                        fp.write(unicode(labo.get_nom())+', ')
+                        fp.write(specialchars_to_tex(labo.get_nom())+', ')
                         if self.prefs.GetValue('SHOW_LABOS_ADDRESS') is True:
-                            fp.write(unicode(labo.get_address())+' ')
-                            fp.write(unicode(labo.get_country())+' ')
-                        fp.write(' \emailaddress{'+unicode_tex.unicode_to_tex(auth.get_email()))
+                            fp.write(specialchars_to_tex(labo.get_address())+' ')
+                            fp.write(specialchars_to_tex(labo.get_country())+' ')
+                        fp.write(' \emailaddress{'+specialchars_to_tex(auth.get_email()))
                         fp.write('}}\n')
 
 
@@ -363,9 +363,9 @@ class LaTeXWriter:
 
     def __write_keywords(self,fp,kwds): # kwds is a list of strings
         for kwidx in range(len(kwds)-1):
-            fp.write(unicode_tex.unicode_to_tex(kwds[kwidx]))
+            fp.write(unicode_to_tex(kwds[kwidx]))
             fp.write(', ')
-        fp.write(unicode_tex.unicode_to_tex(kwds[len(kwds)-1]))
+        fp.write(unicode_to_tex(kwds[len(kwds)-1]))
 
 
     def __write_abstract(self,fp,abstract): # abstract is a string
@@ -378,7 +378,7 @@ class LaTeXWriter:
         parser.feed(tmpa)
         a = parser.get_data()
         # Then, normalize the string
-        a = unicode_tex.unicode_to_texipa(a)
+        a = unicode_to_texipa(a)
         # Convert my tags to real tex
         a = abstracts.mytags_to_tex(a)
         # finally: write!
