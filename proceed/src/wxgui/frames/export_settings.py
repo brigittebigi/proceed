@@ -147,7 +147,7 @@ class ExportSettings( wx.Dialog ):
         self.notebook.AddPage(FooterSettings(self.notebook, self._prefsIO),   " Footer ")
         self.notebook.AddPage(GenerateSettings(self.notebook, self._prefsIO), "Generate")
         self.notebook.AddPage(TitlesSettings(self.notebook, self._prefsIO),   " Titles ")
-        self.notebook.AddPage(SortSettings(self.notebook, self._prefsIO),     " Sorter ")
+        self.notebook.AddPage(OtherSettings(self.notebook, self._prefsIO),    " Others ")
 
     #-------------------------------------------------------------------------
 
@@ -398,23 +398,42 @@ class TitlesSettings( wx.Panel ):
 
 #-----------------------------------------------------------------------------
 
-class SortSettings( wx.Panel ):
+class OtherSettings( wx.Panel ):
 
     def __init__(self, parent, prefsIO):
 
         wx.Panel.__init__(self, parent)
         self.preferences = prefsIO
         sizer = wx.BoxSizer(wx.VERTICAL)
+
         sm = ['Follow the planning', 'By session types first then follow the planning']
         pf = wx.RadioBox(self, label="Sort method for submissions: ", choices=sm, majorDimension=1)
         pf.SetSelection( int( self.preferences.GetValue("SORT_BY_SESSION_TYPE_FIRST") ) )
         pf.Bind(wx.EVT_RADIOBOX, self.onSessionSort)
         sizer.Add(pf, 0, flag=wx.ALL, border=0)
+        sizer.Add((-1, 10))
+
+        colorall = ["COLOR_1", "COLOR_2", "COLOR_3"]
+        for gen in colorall:
+            s = wx.BoxSizer( wx.HORIZONTAL )
+            txt = wx.TextCtrl(self, -1, "", size=wx.Size(280,-1), style=wx.TE_LEFT)
+            txt.WriteText( self.preferences.GetValue(gen) )
+            txt.Bind(wx.EVT_TEXT, lambda evt, skey=gen, stype='str': self.onPrefsChange(evt, skey, stype) )
+            s.Add(wx.StaticText(self, label=self.preferences.GetText(gen), size=(150,-1)), 1, flag=wx.ALL, border=0)
+            s.Add(txt, 1, flag=wx.ALL, border=0)
+            sizer.Add(s, 0, flag=wx.ALL, border=0)
+        self.SetSizer(sizer)
 
     def onSessionSort(self, event):
         o = event.GetEventObject()
         idx = o.GetSelection()
         logging.debug(' Set pref: key=SORT_BY_SESSION_TYPE_FIRST, newvalue=%s'%(bool(idx)))
         self.preferences.SetValue( 'SORT_BY_SESSION_TYPE_FIRST', 'bool', bool(idx) )
+
+    def onPrefsChange(self, event, skey, stype):
+        o = event.GetEventObject()
+        v = o.GetValue() # accents must be in standard LaTeX
+        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
+        self.preferences.SetValue( skey, stype, v )
 
 #-----------------------------------------------------------------------------

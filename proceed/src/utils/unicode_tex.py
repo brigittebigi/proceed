@@ -2415,7 +2415,9 @@ unicode_to_tex_map = {  #u' ': u'\\space{}',
     u'\U0001d7fc': u'\\mathtt{6}',
     u'\U0001d7fd': u'\\mathtt{7}',
     u'\U0001d7fe': u'\\mathtt{8}',
-    u'\U0001d7ff': u'\\mathtt{9}'
+    u'\U0001d7ff': u'\\mathtt{9}',
+    u'‑': u'\-',
+    u' ': u' ', # espace inseccable
     }
 
 unicode_to_tipa_map = {u'ʈ' : "\\textipa{\:t}", #
@@ -2423,7 +2425,7 @@ unicode_to_tipa_map = {u'ʈ' : "\\textipa{\:t}", #
     u'ɟ' : "\\textipa{\textbardotlessj}", #
     u'ɢ' : "\\textipa{\;G}", #
     u'ʔ' : "\\textipa{P}", #
-    u'ɱ' : "\\textipa{\mj}",
+    u'ɱ' : "\\textipa{M}",
     u'ɳ' : "\\textipa{\:n}", #
     u'ɲ' : "\\textipa{\textltailn}", #
     u'ŋ' : "\\textipa{N}", #
@@ -2433,9 +2435,9 @@ unicode_to_tipa_map = {u'ʈ' : "\\textipa{\:t}", #
     u'ɾ' : "\\textipa{R}", #
     u'ɽ' : "\\textipa{\:r}", #
     u'ɸ' : "\\textipa{F}", #
-    u'β' : "\\textipa{B}", #
-    u'θ' : "\\textipa{\\tf}",
-    u'ð' : "\\textipa{\dh}",
+    u'β' : "\\textipa{B}", # Error
+    u'θ' : "\\textipa{T}",
+    u'ð' : "\\textipa{D}",
     u'ʃ' : "\\textipa{S}", #
     u'ʒ' : "\\textipa{Z}", #
     u'ʂ' : "\\textipa{\:s}", #
@@ -2449,88 +2451,62 @@ unicode_to_tipa_map = {u'ʈ' : "\\textipa{\:t}", #
     u'ʕ' : "\\textipa{Q}", #
     u'ɦ' : "\\textipa{H}", #
     u'ɬ' : "\\textipa{\textbeltl}", #
-    u'ɮ' : "\\textipa{\textlioghlig}", #
+    u'ɮ' : "\\textipa{\textlyoghlig}", #
     u'ʋ' : "\\textipa{V}", #
     u'ɹ' : "\\textipa{\*r}", #
-    u'ɻ' : "\\textipa{\:r}", #
-    u'ɰ' : "\\textipa{W}", #
+    u'ɻ' : "\\textipa{\:R}", #
+    u'ɰ' : "\\textipa{\textturnmrleg}", #
     u'ɭ' : "\\textipa{\:l}", #
     u'ʎ' : "\\textipa{L}", #
     u'ʟ' : "\\textipa{\;L}", #
     u'ɕ' : "\\textipa{C}", #
-    #u'ʤ' : "\\textipa{none}",
-    u'ɧ' : "\\textipa{\hj}",
+    u'ʤ' : "\\textipa{\dz}",
+    u'ɧ' : "\\textipa{\texththeng}",
     u'ɥ' : "\\textipa{4}", #
     u'ʜ' : "\\textipa{\;H}", #
     #u'ɫ' : "\\textipa{\l~}",
-    #u'ɺ' : "\\textipa{\\rl}",
-    #u'ʧ' : "\\textipa{none}",
-    #u'ʍ' : "\\textipa{\wt}",
+    u'ɺ' : "\\textipa{\textturnlonglegr}",
+    u'ʧ' : "\\textipa{tS}",
+    u'ʍ' : "\\textipa{\*w}",
     u'ʑ' : "\\textipa{\textctz}", #
     u'ʡ' : "\\textipa{\textbarglotstop}", #
     u'ʢ' : "\\textipa{\textbarrevglotstop}", #
-    u'ʘ' : "\\textipa{\O.}",
-    u'ǀ' : "\\textipa{\ }",
+    u'ʘ' : "\\textipa{\!o}",
+    u'ǀ' : "\\textipa{|}",
     u'ǃ' : "\\textipa{!}",
-    u'ǂ' : "\\textipa{\ }",
-    u'ǁ' : "\\textipa{\ }",
-    u'ɓ' : "\\textipa{\\b^}",
-    u'ɗ' : "\\textipa{\d^}",
-    u'ʄ' : "\\textipa{\i-}",
-    u'ɠ' : "\\textipa{\g^}",
-    u'ʛ' : "\\textipa{\G^}",
-    u'ʰ' : "\\textipa{H' }",
-    u'ʲ' : "\\textipa{J}",
-    u'ʷ' : "\\textipa{W}",
-    u'̥' : "\\textipa{\0v}",
-    u'̤' : "\\textipa{\ }",
-    u'̪' : "\\textipa{ }",
-    u'̰' : "\\textipa{\~v}",
-    u'̺' : "\\textipa{ }",
-    u'̼' : "\\textipa{m{}}",
-    u'̹' : "\\textipa{)}",
-    u'̃' : "\\textipa{\~^\'}",
-    u'̜' : "\\textipa{(}",
-    u'̟' : "\\textipa{+}",
-    u'̠' : "\\textipa{\-v}",
-    u'̈' : "\\textipa{\ }",
-    u'̽' : "\\textipa{x{}}",
-    u'̝' : "\\textipa{\''}",
-    u'̩' : "\\textipa{\ }",
-    u'̞' : "\\textipa{`'}",
-    u'̘' : "\\textipa{<}",
-    u'̙' : "\\textipa{>}",
-    u'ˈ' : "\\textipa{\\\'1' }",
-    u'ˌ' : "\\textipa{\\\'2' }",
-    u'ː' : "\\textipa{ }",
-    u'͡' : "\\textipa{\li}",
-    u'‖' : "\\textipa{ }",
-    u'́' : "\\textipa{\\\'^}",
-    u'̄' : "\\textipa{\-^}",
-    u'̀' : "\\textipa{\`^}",
+    u'ǂ' : "\\textipa{\textdoublebarpipe}",
+    u'ǁ' : "\\textipa{\textdoublepipe}",
+    u'ɓ' : "\\textipa{\!b}",
+    u'ɗ' : "\\textipa{\!d}",
+    u'ʄ' : "\\textipa{\!j}",
+    u'ɠ' : "\\textipa{\!g}",
+    u'ʛ' : "\\textipa{\!G}",
+    u'|' : "\\textipa{|}",
+    u'‖' : "\\textipa{textdoublepipe}",
     u'ɑ' : "\\textipa{A}", #
-    u'ɐ' : "\\textipa{\\at}",
-    u'ɒ' : "\\textipa{\\ab}",
+    u'ɐ' : "\\textipa{5}",
+    u'ɒ' : "\\textipa{6}",
     u'æ' : "\\textipa{\\ae}", #
     u'ɔ' : "\\textipa{O}", #
     u'ə' : "\\textipa{@}", #
-    u'ɘ' : "\\textipa{\e-}",
-    u'ɚ' : "\\textipa{\sr}",
+    u'ɘ' : "\\textipa{9}",
+    #u'ɚ' : "\\textipa{}",
     u'ɛ' : "\\textipa{E}", #
     u'ɜ' : "\\textipa{3}", #
-    #u'ɞ' : "\\textipa{\kb}",
+    #u'ɝ' : "\\textipa{}", #
+    u'ɞ' : "\\textipa{\textcloserevepsilon}",
     u'ɨ' : "\\textipa{1}", #
     u'ɪ' : "\\textipa{I}", #
     u'ɯ' : "\\textipa{W}", #
     u'ø' : "\\textipa{\o}", #
     u'ɵ' : "\\textipa{8}", #
     u'œ' : "\\textipa{\oe}", #
-    u'ɶ' : "\\textipa{\Oe}",
+    u'ɶ' : "\\textipa{\OE}",
     #u'ʉ' : "\\textipa{\\u-}",
     u'ʊ' : "\\textipa{U}", #
     u'ʌ' : "\\textipa{2}", #
     u'ɤ' : "\\textipa{7}", #
-    u'ʏ' : "\\textipa{Y'}", #
+    u'ʏ' : "\\textipa{Y}", #
     u'ǒ' : "\\textipa{\v{o}}",
     u'ē' : "\\textipa{\={e}}",
     u'ě' : "\\textipa{\v{e}}",
@@ -2538,19 +2514,10 @@ unicode_to_tipa_map = {u'ʈ' : "\\textipa{\:t}", #
     u'ǐ' : "\\textipa{\v{i}}",
     u'ū' : "\\textipa{\={i}}",
     u'ǔ' : "\\textipa{\v{u}}",
-    u'Ā' : '\\textipa{\=A}',
-    u'Ē' : '\\textipa{\=E}',
-    u'Ī' : '\\textipa{\=I}',
-    u'Ō' : '\\textipa{\=O}',
-    u'Ū' : '\\textipa{\=U}',
-    u'Ă' : '\\textipa{\\v{A}}',
-    u'Ĕ' : '\\textipa{\\v{E}}',
-    u'Ĭ' : '\\textipa{\\v{I}}',
-    u'Ŏ' : '\\textipa{\\v{O}}',
-    u'Ŭ' : '\\textipa{\\v{U}}',
     u'Ṽ' : '\\~V',
     u'i͂' : '\\~i',
 }
+
 
 # already included in unicode_to_tex_map
 specialchars_to_tex_map = {

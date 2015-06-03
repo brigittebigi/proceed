@@ -93,8 +93,8 @@ def html_to_mytags(abstract):
     a = re.sub(u"<[\s]*p[\s]*>", "\n\n", a, re.UNICODE)
     a = re.sub(u"<[\s]/[\s]p[\s]>", "\n\n", a, re.UNICODE)
     a = re.sub(u"<br[\s]*/>", "\n\n", a, re.UNICODE)
-    a = re.sub(u"<li>", "\nBEGINITEMIZE\n    ITEMITEM ", a, re.UNICODE)
-    a = re.sub(u"<[\s]*/[\s]*li>", "ENDITEMIZE\n", a, re.UNICODE)
+    a = re.sub(u"<li>", "\n BEGINITEMIZE\n    ITEMITEM ", a, re.UNICODE)
+    a = re.sub(u"<[\s]*/[\s]*li>", "\n ENDITEMIZE\n", a, re.UNICODE)
     a = re.sub(u"<i>", "BEGINITALIC", a, re.UNICODE)
     a = re.sub(u"<[\s]*/[\s]*i>", "ENDITALIC", a, re.UNICODE)
     a = re.sub(u"<b>", "BEGINBOLD", a, re.UNICODE)
@@ -106,9 +106,9 @@ def html_to_mytags(abstract):
 def mytags_to_tex(abstract):
     a = abstract
     a = re.sub(u"BEGINENUMERATE", '\\begin{enumerate}', a, re.UNICODE)
-    a = re.sub(u"ENDENUMERATE",   '\\end{enumerate}', a, re.UNICODE)
-    a = re.sub(u"BEGINITEMIZE",   '\\begin{itemize}', a, re.UNICODE)
-    a = re.sub(u"ENDITEMIZE",     '\\end{itemize}', a, re.UNICODE)
+    a = re.sub(u"ENDENUMERATE",   '\\end{enumerate}',   a, re.UNICODE)
+    a = re.sub(u"BEGINITEMIZE",   '\\begin{itemize}',   a, re.UNICODE)
+    a = re.sub(u"ENDITEMIZE",     '\\end{itemize}',     a, re.UNICODE)
     a = re.sub(u"ITEMITEM",       '\\item', a, re.UNICODE)
     a = re.sub(u"BEGINITALIC",    '{\\it ', a, re.UNICODE)
     a = re.sub(u"ENDITALIC",      '}', a, re.UNICODE)

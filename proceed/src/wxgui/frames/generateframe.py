@@ -66,11 +66,11 @@ class GenerateFrame( wx.Dialog ):
 
     """
 
-    def __init__(self, parent, id, title, documents, authors, sessions, path):
+    def __init__(self, parent, idd, title, documents, authors, sessions, path):
         """
         Constructor.
         """
-        wx.Dialog.__init__(self, parent, id, title, size=(380, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
+        wx.Dialog.__init__(self, parent, idd, title, size=(380, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
         _icon = wx.EmptyIcon()
         _icon.CopyFromBitmap( wx.Bitmap(APP_EXPORT_PDF_ICON, wx.BITMAP_TYPE_ANY) )
@@ -105,6 +105,9 @@ class GenerateFrame( wx.Dialog ):
 
 
     def _reset_prefs(self):
+        """
+        Fix default preferences.
+        """
         # Page
         self._prefsIO.SetValue('PAGE_FORMAT','str', 'a4paper', "Paper format")
         self._prefsIO.SetValue('PAGE_NUMBER','int', 1, "First page number")
@@ -146,6 +149,10 @@ class GenerateFrame( wx.Dialog ):
 
         # Sort by session types first (1. keynotes, then 2. orals then 3. posters)
         self._prefsIO.SetValue('SORT_BY_SESSION_TYPE_FIRST','bool', False)
+
+        self._prefsIO.SetValue('COLOR_1','str', "139,53,49", "Color for session codes")
+        self._prefsIO.SetValue('COLOR_2','str', "120,80,60", "Color for dates")
+        self._prefsIO.SetValue('COLOR_3','str', "190,70,30", "Color for session names")
 
     #-------------------------------------------------------------------------
 

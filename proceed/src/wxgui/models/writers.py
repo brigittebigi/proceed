@@ -47,12 +47,9 @@ import re
 import os.path
 import wx
 import logging
-from threading import *
+from threading import Thread
 
-from TagPDF.tagPDF       import tagPdfFile
-from TagPDF.genPDF       import GenPdfFile
-from TagPDF.genLaTeX     import GenLaTeXFile
-from TagPDF.name         import GenName
+from TagPDF.tagPDF  import tagPdfFile
 import TagPDF.utils as utils
 
 from wxgui.models.datadocument import Document
@@ -60,6 +57,7 @@ from wxgui.models.dataauthor   import Author
 from wxgui.models.datasession  import Session
 from wxgui.models.validate     import Validate
 
+from utils.unicode_tex import unicode_to_tex, specialchars_to_tex, unicode_to_texipa
 
 # ---------------------------------------------------------------------------
 # Define notification event for thread completion
@@ -256,7 +254,7 @@ class pdf_writer( Thread ):
                 logging.info('     ... tag: %s --> %s'%(docid,s))
                 N = int( tagpdf.tagFile( inputname,outputname ) )
                 N = int( tagpdf.tagFile( inputname,outputname2 ) )
-            except Exception,e:
+            except Exception as e:
                 self._initialize()
                 logging.info('     ... ... ERROR. %s'%str(e))
                 wx.PostEvent(self._notify_window, ResultEvent(text='PDF export failed for file: '+docid+'. Error: '+str(e), num=-1))
@@ -313,7 +311,7 @@ class pdf_writer( Thread ):
             ret = utils.run_command( command )
             if len(ret.strip())>0:
                 raise IOError('pdftk can not merge files due to the following reason: \n'+ret)
-        except Exception,e:
+        except Exception as e:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Can not merge files. No merged output. %s' % e, num=-1))
             return
@@ -380,7 +378,7 @@ class pdf_writer( Thread ):
         try:
             # No header nor footer in the TOC
             self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "TableOfContent.pdf"), inc=False)
-        except Exception,e:
+        except Exception as e:
             self._initialize()
             logging.info('... Error. Can not create the TOC: %s'%str(e))
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the table of contents.', num=-1))
@@ -428,7 +426,7 @@ class pdf_writer( Thread ):
             tagpdf = self._create_tagpdf()
             #self.__unset_session_in_tag(tagpdf)
             self.__generate_latex( tagpdf, latex, os.path.join(self.path, "AuthorsIndex.pdf") )
-        except Exception,e:
+        except Exception:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the index of authors.', num=-1))
             return
@@ -466,7 +464,7 @@ class pdf_writer( Thread ):
             tagpdf = self._create_tagpdf()
             self.__unset_session_in_tag(tagpdf)
             self.__generate_latex( tagpdf, latex, os.path.join(self.path, "AuthorsList.pdf"), inc=False)
-        except Exception,e:
+        except Exception:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the list of authors.', num=-1))
             return
@@ -534,7 +532,7 @@ class pdf_writer( Thread ):
 
         try:
             self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "Program.pdf"), inc=False)
-        except Exception, e:
+        except Exception as e:
             self._initialize()
             logging.info('... Error. Can not create the Program: %s'%str(e))
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the program.', num=-1))
@@ -603,7 +601,7 @@ class pdf_writer( Thread ):
         latex = latex.replace('_', '\_')
         try:
             self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "ProgramOverview.pdf"), inc=False)
-        except Exception, e:
+        except Exception:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the program overview.', num=-1))
             return
@@ -829,6 +827,10 @@ class pdf_writer( Thread ):
         tagpdf.set_header_rule( self._prefsIO.GetValue('HEADER_RULER') )
         tagpdf.set_footer_rule( self._prefsIO.GetValue('FOOTER_RULER') )
 
+        tagpdf.set_option('color1', self._prefsIO.GetValue('COLOUR_1') )
+        tagpdf.set_option('color2', self._prefsIO.GetValue('COLOUR_2') )
+        tagpdf.set_option('color3', self._prefsIO.GetValue('COLOUR_3') )
+
         tagpdf.set_page_number( self.nbpages )
 
         return tagpdf
@@ -944,7 +946,7 @@ class pdf_writer( Thread ):
             self.nbpages += 1
 
         tagpdf.set_page_number( self.nbpages )
-        tagpdf.set_tex_content( self.__format(latex) )
+        tagpdf.set_tex_content( unicode_to_texipa(latex) )
         tagpdf.exportPDF( filename )
         tagpdf.set_tex_content( None )
 
@@ -962,93 +964,5 @@ class pdf_writer( Thread ):
 
     # End __initials
     # -----------------------------------------------------------------------
-
-
-    def __format(self,s):
-        a = s.replace("_", "\_")
-        a = a.replace("%", "\%")
-        a = a.replace("#", "\#")
-        a = a.replace("^", "\^{}")
-        a = re.sub(u' ', u" ", a, re.UNICODE)   # espace insecable
-        a = re.sub(u'　', u" ", a, re.UNICODE)  # espace insecable version 2!
-        a = re.sub(u' ­­', u" ", a, re.UNICODE) # espace insecable version 3!
-        a = re.sub(u"ʼ", u"'", a, re.UNICODE)   # apostrophe
-        a = re.sub(u"‘", u"'", a, re.UNICODE)   # apostrophe
-        a = re.sub(u"É", u"\\'e", a, re.UNICODE)   #
-        a = re.sub(u"é", u"\\'e", a, re.UNICODE)   #
-        a = re.sub(u"è", u"\\`e", a, re.UNICODE)   #
-        a = re.sub(u"ë", u'\\"e', a, re.UNICODE)   #
-        a = re.sub(u"ê", u"\\^e", a, re.UNICODE)   #
-        a = re.sub(u"à", u"\\`a", a, re.UNICODE)   #
-        a = re.sub(u"â", u"\\^a", a, re.UNICODE)   #
-        a = re.sub(u"ã", u"\\~a", a, re.UNICODE)   #
-        a = re.sub(u"î", u"\\^i", a, re.UNICODE)   #
-        a = re.sub(u"ï", u'\\"i', a, re.UNICODE)   #
-        a = re.sub(u"í", u"\\'i", a, re.UNICODE)
-        a = re.sub(u"ù", u"\\`u", a, re.UNICODE)   #
-        a = re.sub(u"ü", u'\\"u', a, re.UNICODE)
-        a = re.sub(u"ú", u"\\'u", a, re.UNICODE)
-        a = re.sub(u"ç", u"\\c{c}", a, re.UNICODE)   #
-        a = re.sub(u"ô", u"\\^o", a, re.UNICODE)   #
-        a = re.sub(u"ó", u"\\'o", a, re.UNICODE)
-
-        a = re.sub(u"–", u"-", a, re.UNICODE)
-        a = re.sub(u"’", u"'", a, re.UNICODE)   # apostrophe
-        a = re.sub(u"ˈ", "'", a, re.UNICODE)
-        a = re.sub(u'´', "'", a, re.UNICODE)
-
-        a = re.sub(u"é", u"\\'e", a, re.UNICODE)
-        a = re.sub(u"è", u"\\`e", a, re.UNICODE)
-        a = re.sub(u"à", u"\\`a", a, re.UNICODE)
-        a = re.sub(u"û", u"\\^u", a, re.UNICODE)
-        a = re.sub(u"â", u"\\^a", a, re.UNICODE)
-        a = re.sub(u"ç", u"\\c{c}", a, re.UNICODE)   #
-        a = a.replace(u'≤', '$\leq$')
-        a = a.replace(u'‐', '--')
-        a = a.replace(u'ﬂ', 'fl')
-        a = a.replace(u'í', "\\'i")
-
-        a = a.replace(u'η', "$\eta$") # grec
-
-        a = a.replace(u'ɛ̃','\\textipa{\~E}')
-        a = a.replace(u'ɑ̃','\\textipa{\~A}')
-        a = a.replace(u'ɐ̃','\\textipa{\~5}')
-        a = a.replace(u'Ā', '\\textipa{\=A}')
-        a = a.replace(u'Ē', '\\textipa{\=E}')
-        a = a.replace(u'Ī', '\\textipa{\=I}')
-        a = a.replace(u'Ō', '\\textipa{\=O}')
-        a = a.replace(u'Ū', '\\textipa{\=U}')
-        a = a.replace(u'Ă', '\\textipa{\\v{A}}')
-        a = a.replace(u'Ĕ', '\\textipa{\\v{E}}')
-        a = a.replace(u'Ĭ', '\\textipa{\\v{I}}')
-        a = a.replace(u'Ŏ', '\\textipa{\\v{O}}')
-        a = a.replace(u'Ŭ', '\\textipa{\\v{U}}')
-        a = a.replace(u'Ṽ','\\~V')
-        a = a.replace(u'i͂','\\~i')
-        a = a.replace(u'w̃','\\~w')
-        a = a.replace(u'j̃','\\~j')
-
-        a = a.replace(u'ɨ', "\\textipa{1}") # IPA
-        a = a.replace(u'ʃ','\\textipa{S}')
-        a = a.replace(u'ʝ','\\textipa{J}')
-        a = a.replace(u'ɛ','\\textipa{E}')
-        a = a.replace(u'æ','\\textipa{\\ae}')
-        a = a.replace(u'ɾ','\\textipa{R}')
-        a = a.replace(u'ɹ','\\textipa{\*r}')
-        a = a.replace(u'ɻ','\\textipa{\:r}')
-        a = a.replace(u'ʎ','\\textipa{L}')
-        a = a.replace(u'ə','\\textipa{@}')
-        a = a.replace(u'ɑ','\\textipa{A}')
-        a = a.replace(u'ɔ','\\textipa{O}')
-        a = a.replace(u'ʒ','\\textipa{Z}')
-        a = a.replace(u'ʀ','\\textipa{\;R}')
-        a = a.replace(u'ʁ','\\textipa{K}')
-        a = a.replace(u'ʔ','\\textipa{P}')
-        a = a.replace(u'ø','\\textipa{\o}')
-
-        return a
-
-
-
 
 # ---------------------------------------------------------------------------

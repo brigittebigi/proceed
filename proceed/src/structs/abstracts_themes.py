@@ -83,7 +83,7 @@ class ThemeBasic( BaseTheme ):
         self._choice["MARGIN_BOTTOM"] = Option('int', 25) # millimeters
         self._choice['ENCODING']      = Option('str', 'utf8')
         self._choice['PARINDENT']     = Option('int', 0)
-        self._choice['PARSKIP']       = Option('int', 6)
+        self._choice['PARSKIP']       = Option('int', 4)
 
         self._choice['TITLE'] 		= Option('str', '\\renewcommand{\\title}[1]{\LaTeXtitle{\Large\\textbf{#1}}}')
         self._choice['LABOS']		= Option('str', '\\renewcommand\\Affilfont{\small}')

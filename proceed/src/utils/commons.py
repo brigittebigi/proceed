@@ -140,6 +140,7 @@ def merge_dicts(*dict_args):
     for dictionary in dict_args:
         result.update(dictionary)
     return result
+
 # -----------------------------------------------------------------------
 
 def test_pdflatex():
@@ -153,13 +154,13 @@ def test_pdflatex():
         return False
     return True
 
-def test_xetex():
+def test_xelatex():
     """
-    Test if pdflatex is available.
+    Test if xelatex is available.
     """
     try:
         NULL = open(os.devnull, "w")
-        subprocess.call(['xetex', '--help'], stdout=NULL, stderr=subprocess.STDOUT)
+        subprocess.call(['xelatex', '--help'], stdout=NULL, stderr=subprocess.STDOUT)
     except OSError:
         return False
     return True

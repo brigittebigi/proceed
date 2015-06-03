@@ -63,8 +63,8 @@ class GenLaTeXFile:
     def __init__(self):
         """
         Creates a new GenLaTeXFile instance.
-        
-        Fix default options.
+
+        Fix default options that mostly will be overridden.
 
         """
         self.__papersformat = ["a4paper", "letterpaper", "b5paper", "a5paper" ]
@@ -96,9 +96,9 @@ class GenLaTeXFile:
         #self.__options["color2"] = "0,60,150"   # blue
         #self.__options["color3"] = "190,70,30"  # dark orange
         # For LARP7:
-        self.__options["color1"] = "139,53,49"  # for session codes
+        self.__options["color1"] = "139,53,49"   # for session codes
         self.__options["color2"] = "120,80,60"   # for the date
-        self.__options["color3"] = "190,70,30"  # for session names: dark orange
+        self.__options["color3"] = "190,70,30"   # for session names: dark orange
 
         # A possible text to add into the file
         self.__content = None
@@ -404,7 +404,7 @@ class GenLaTeXFile:
         """
         Fix the value of an existing option.
 
-        Do not use this funtion if you dont exactly know what you are doing with!
+        Do not use this funtion if you dont exactly know what you are doing!
 
         - optionname (string)
         - optionvalue (any type)

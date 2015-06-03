@@ -46,14 +46,14 @@ import logging
 from structs.prefs import Preferences
 from structs.abstracts_themes import all_themes
 
-from utils.commons import test_pdflatex, test_xetex
+from utils.commons import test_pdflatex, test_xelatex
 import utils.abstracts   as abstracts
 from utils.unicode_tex import unicode_to_tex, specialchars_to_tex, unicode_to_texipa
 import utils.fileutils   as fileutils
 
 # ---------------------------------------------------------------------------
 
-COMPILERS = ['pdflatex', 'xetex']
+COMPILERS = ['pdflatex', 'xelatex']
 
 # ---------------------------------------------------------------------------
 
@@ -117,7 +117,7 @@ class LaTeXWriter:
             self.prefs.SetValue('COMPILER', 'str', 'pdflatex')
             self._prefs.SetTheme( all_themes[0][1] )
         self.pdflatex_ok = test_pdflatex()
-        self.xetex_ok = test_xetex()
+        self.xelatex_ok = test_xelatex()
 
     def write_as_list( self, docs, filename ):
         with codecs.open ( filename , 'w' , 'utf-8') as fp:
@@ -156,6 +156,7 @@ class LaTeXWriter:
                     fp.write('\\keywords{ ')
                     self.__write_keywords(fp,doc.get_keywords())
                     fp.write('}\n')
+                    fp.write('\\vspace{-3mm}\n')
                     fp.write('\\abstract{}\n')
             self.__write_abstract(fp,doc.get_abstract())
             self.__write_end(fp)
@@ -178,7 +179,7 @@ class LaTeXWriter:
             doc.set_pdfdiagnosis(diag)
 
         if tocompile is True:
-            if ( self.prefs.GetValue('COMPILER') == 'pdflatex' and self.pdflatex_ok ) or  ( self.prefs.GetValue('COMPILER') == 'xetex' and self.xetex_ok ):
+            if ( self.prefs.GetValue('COMPILER') == 'pdflatex' and self.pdflatex_ok ) or  ( self.prefs.GetValue('COMPILER') == 'xelatex' and self.xelatex_ok ):
                 try :
                     tmpname = fileutils.set_tmpfilename() + ".tex"
                     shutil.copy(filename, tmpname)
@@ -222,7 +223,7 @@ class LaTeXWriter:
             fp.write('\usepackage{amsmath}\n')
             fp.write('\usepackage{mathptmx}        %% use fitting times fonts also in formulas\n')
 
-        elif self.prefs.GetValue('COMPILER') == "xetex":
+        elif self.prefs.GetValue('COMPILER') == "xelatex":
             fp.write('\usepackage{fontspec}       %% we will use a specific font\n')
             fp.write('\usepackage{xunicode}       %% this file is UTF8 \n')
             fp.write('\usepackage{lmodern}        %%  \n')
@@ -358,7 +359,7 @@ class LaTeXWriter:
     def __write_maketitle(self,fp):
         fp.write('% % MAKE THE TITLE\n')
         fp.write('\maketitle\n')
-        fp.write('\n')
+        fp.write('\\vspace{-10mm}\n\n') # I dont know how to do this in a cleanest way!
 
 
     def __write_keywords(self,fp,kwds): # kwds is a list of strings
@@ -369,8 +370,6 @@ class LaTeXWriter:
 
 
     def __write_abstract(self,fp,abstract): # abstract is a string
-        fp.write('% % ABSTRACT CONTENT\n')
-        fp.write('\n')
         # Convert important HMTL Tag into LateX
         tmpa = abstracts.html_to_mytags(abstract)
         # Remove the other HTML tags

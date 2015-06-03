@@ -111,7 +111,7 @@ sys.path.insert(0,PROCEED)
 
 try:
     from wxgui.manager import MainFrame
-    from utils.commons import setup_logging, test_pdflatex, test_xetex, test_pdftk
+    from utils.commons import setup_logging, test_pdflatex, test_xelatex, test_pdftk
 except ImportError as e:
     import tkMessageBox
     tkMessageBox.showwarning(
@@ -170,7 +170,7 @@ try:
         wx.OK | wx.ICON_EXCLAMATION)
         dial.ShowModal()
 
-    if test_xetex( ) is False:
+    if test_xelatex( ) is False:
         dial = wx.MessageDialog(None, 'xetex is not installed on your system.\nThe automatic generation WILL NOT WORK.', 'Exclamation',
             wx.OK | wx.ICON_EXCLAMATION)
         dial.ShowModal()
