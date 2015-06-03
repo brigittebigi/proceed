@@ -121,7 +121,7 @@ class ThemePalme( ThemeBasic ):
         self._choice['FONT_SIZE']     = Option('str', '11pt', "Font size")
         self._choice["MARGIN_LEFT"]   = Option('int', 25) # millimeters
         self._choice["MARGIN_RIGHT"]  = Option('int', 20) # millimeters
-        self._choice["MARGIN_TOP"]    = Option('int', 20) # millimeters
+        self._choice["MARGIN_TOP"]    = Option('int', 15) # millimeters
         self._choice["MARGIN_BOTTOM"] = Option('int', 20) # millimeters
 
         self._choice['TITLE'] 		= Option('str', '\\renewcommand{\\title}[1]{\LaTeXtitle{\large\\textsf{\\textbf{#1}}}}')

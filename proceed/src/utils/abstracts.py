@@ -105,11 +105,18 @@ def html_to_mytags(abstract):
 
 def mytags_to_tex(abstract):
     a = abstract
-    a = re.sub(u"BEGINENUMERATE", '\\begin{enumerate}', a, re.UNICODE)
-    a = re.sub(u"ENDENUMERATE",   '\\end{enumerate}',   a, re.UNICODE)
-    a = re.sub(u"BEGINITEMIZE",   '\\begin{itemize}',   a, re.UNICODE)
-    a = re.sub(u"ENDITEMIZE",     '\\end{itemize}',     a, re.UNICODE)
-    a = re.sub(u"ITEMITEM",       '\\item', a, re.UNICODE)
+
+    # this generates a bug: \begin is found as ^Hegin in final latex file:
+#     a = re.sub(u"BEGINENUMERATE", '\\begin{enumerate}', a, re.UNICODE)
+#     a = re.sub(u"ENDENUMERATE",   '\\end{enumerate}',   a, re.UNICODE)
+#     a = re.sub(u"BEGINITEMIZE",   '\\begin{itemize}',   a, re.UNICODE)
+#     a = re.sub(u"ENDITEMIZE",     '\\end{itemize}',     a, re.UNICODE)
+#     a = re.sub(u"ITEMITEM",       '\\item', a, re.UNICODE)
+    # Quick and dirty solution:
+    a = re.sub(u"BEGINITEMIZE",   '\n',   a, re.UNICODE)
+    a = re.sub(u"ENDITEMIZE",     '\n',     a, re.UNICODE)
+    a = re.sub(u"ITEMITEM",       '\hspace{5mm} - ', a, re.UNICODE)
+
     a = re.sub(u"BEGINITALIC",    '{\\it ', a, re.UNICODE)
     a = re.sub(u"ENDITALIC",      '}', a, re.UNICODE)
     a = re.sub(u"BEGINBOLD",      '{\\bf ', a, re.UNICODE)

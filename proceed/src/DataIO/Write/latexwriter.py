@@ -303,6 +303,7 @@ class LaTeXWriter:
         fp.write('% % Fix authors then affiliation and email for each author\n')
         i = 0
         d = {}
+        l = [] # it will allow to preserve a sorted list of labs
         for auth in doc.get_authors():
             i = i+1
             ln = unicode(auth.get_lastname())
@@ -314,13 +315,15 @@ class LaTeXWriter:
                 laboname = specialchars_to_tex(labo.get_nom())
                 if not laboname in d.keys():
                     d[laboname] = [ (str(i),labo) ]
+                    l.append(laboname)
                 else:
                     d[laboname].append( (str(i),labo) )
 
         if self.prefs.GetValue('SHOW_LABOS') is True:
             # Compact view: dont show e-mails, then we can group affiliations
             if self.prefs.GetValue('SHOW_EMAIL') is False:
-                for k,v in d.iteritems():
+                for laboname in l:
+                    v = d[laboname]
                     # v is a list of tuples with the labo number related to an author, and the correspondind labo pointer
                     stri = v[0][0]
                     labo = v[0][1]
