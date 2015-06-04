@@ -72,15 +72,106 @@
 <header>
 <h1 class="title">Proceed Documentation</h1>
 <h2 class="author">Brigitte Bigi</h2>
-<h3 class="date">Version 0.3</h3>
+<h3 class="date">Version 0.4</h3>
 </header>
 <nav id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#what-is-proceed">What is Proceed?</a><ul>
+<li><a href="#main-features">Main features</a></li>
+<li><a href="#copyright-and-licenses">Copyright and Licenses</a></li>
+<li><a href="#need-help">Need help</a></li>
+<li><a href="#supports-and-contributors">Supports and contributors</a></li>
+</ul></li>
+<li><a href="#getting-and-installing">Getting and installing</a><ul>
+<li><a href="#website">Website</a></li>
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#download-and-install-proceed">Download and install Proceed</a></li>
+<li><a href="#the-package">The package</a></li>
+<li><a href="#update">Update</a></li>
+</ul></li>
+<li><a href="#capabilities">Capabilities</a><ul>
+<li><a href="#how-to-use-proceed">How to use Proceed?</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </nav>
 <hr />
 <h1 id="introduction">Introduction</h1>
+<h2 id="what-is-proceed">What is Proceed?</h2>
+<h3 id="main-features">Main features</h3>
+<p>Proceed is a computer software package written and maintained by Brigitte Bigi of the Laboratoire Parole et Langage, in Aix-en-Provence, France. Available for free, with open source code, there is simply no other package. Proceed is developed to allow the almost automatic generation of proceedings and book of abstracts.</p>
+<blockquote>
+<p>This documentation will assume that you are using a relatively recent version of Proceed (last version available), and there's no reason not to download the latest version whenever released.</p>
+</blockquote>
+<h3 id="copyright-and-licenses">Copyright and Licenses</h3>
+<p><em>(c) 2013-2015 Brigitte Bigi, Laboratoire Parole et Langage, Aix-en-Provence, France</em></p>
+<p>Proceed software is distributed under the terms of the <strong>GNU GENERAL PUBLIC LICENSE</strong>.</p>
+<h3 id="need-help">Need help</h3>
+<ol type="1">
+<li><p>When looking for more detail about some subject, one can search this documentation. This documentation is available in-line (see the Proceed website), it is also included in the package (in PDF format) and it can be explored with the Graphical User Interface by clicking on the 'Help' button.</p></li>
+<li><p>Many problems can be solved by updating the version of Proceed.</p></li>
+<li><p>If none of the above helps, you may send e-mail to the author. It is very important to indicate: 1/ your operating system and its version, 2/ the version of PROCEED (supposed to be the last one), and 3/ for automatic generation in PDF problem, send the files on which a problem occurs.</p></li>
+</ol>
+<p>And/Or, if you have any question, if you want to contribute to PROCEED, or anything else, do not hesitate to contact the author by e-mail: <code>brigitte.bigi@gmail.com</code>.</p>
+<h3 id="supports-and-contributors">Supports and contributors</h3>
+<p>2015: Supported by the conference EuroSLA (the European Second Language Association): <a href="http://www.eurosla.org/">http://www.eurosla.org/</a></p>
+<p>Here is the list of contributors:</p>
+<ul>
+<li>Since 2013: Brigitte Bigi is the main author;</li>
+<li>June 2013: Bastien Herbaut;</li>
+<li>April-June 2015: Maëva Lauzier.</li>
+</ul>
+<h2 id="getting-and-installing">Getting and installing</h2>
+<h3 id="website">Website</h3>
+<p>The source code with recent stable releases and the development version is available at:</p>
+<p><a href="https://github.com/brigittebigi/proceed">https://github.com/brigittebigi/proceed</a></p>
+<p>From this website, anyone can download the stable and the development versions, contribute, send comments and/or declare an issue.</p>
+<h3 id="dependencies">Dependencies</h3>
+<p>Other programs are required for Proceed to operate. Of course, they must be installed before using Proceed, and <em>only once</em>. This operation doesn't take too long, duration depending on the operating system. The following software are required:</p>
+<ol type="1">
+<li>Python, version 2.7.x</li>
+<li>wxPython &gt;= 3.0</li>
+<li>pdftk</li>
+<li>pdflatex</li>
+</ol>
+<p>Administrator rights are required to perform these installations.</p>
+<h3 id="download-and-install-proceed">Download and install Proceed</h3>
+<p>Proceed is ready to run, so it does not need elaborate installation, except for its dependencies (other software required for Proceed to work properly). All you need to do is to copy the Proceed package from the web site to somewhere on your computer. Preferably, choose a location without spaces nor accentuated characters in the name of the path.</p>
+<p>The package is compressed and zipped, so you will need to <em>decompress and unpack</em> it once you've got it.</p>
+<h3 id="the-package">The package</h3>
+<p>The package is a folder with content as files and sub-folders.</p>
+<p>The Proceed package contains:</p>
+<ul>
+<li>the <code>README.txt</code> file, which aims to be read by users!</li>
+<li>the files <code>proceed.bat</code> and <code>proceed.command</code> to execute the Graphical User Interface</li>
+<li>the <code>samples</code> are sets of submissions freely distributed to test Proceed</li>
+<li>the <code>proceed</code> directory contains the program itself</li>
+<li><p>the <code>documentation</code>, which contains:</p>
+<ul>
+<li>a copy of the licenses.</li>
+<li>the <code>documentation</code> in PDF.</li>
+<li>a file INSTALL with the list of requirements to use the software.</li>
+<li>the <code>etc</code> directory is for internal use. Do not modify or remove it.</li>
+</ul></li>
+</ul>
+<h3 id="update">Update</h3>
+<p>Updating Proceed is very (very very!) easy and fast:</p>
+<ol type="1">
+<li>Optionally, put the old package into the Trash,</li>
+<li>Download and unpack the new version.</li>
+</ol>
+<h2 id="capabilities">Capabilities</h2>
+<h3 id="how-to-use-proceed">How to use Proceed?</h3>
+<p>There are two main ways to use Proceed:</p>
+<ol type="1">
+<li><p>The Graphical User Interface (GUI), to use Proceed as user-friendly as possible:</p>
+<ul>
+<li>double-click on the <code>proceed.bat</code> file, under Windows;</li>
+<li>double-click on the <code>proceed.command</code> file, under MacOS or Linux.</li>
+</ul></li>
+<li><p>The Command-line User Interface (CLI), with a set of programs, each one essentially independent of the others, that can be run on its own at the level of the shell.</p></li>
+</ol>
 <hr />
     <footer>
         <p style="text-align:right">

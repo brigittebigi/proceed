@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.dependencies.markdown.inlinepatterns</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.dependencies-module.html">Package&nbsp;dependencies</a> ::
+        <a href="src.dependencies.markdown-module.html">Package&nbsp;markdown</a> ::
+        Module&nbsp;inlinepatterns
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module inlinepatterns</h1><p class="nomargin-top"><span class="codelink"><a href="src.dependencies.markdown.inlinepatterns-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+
+INLINE PATTERNS
+=============================================================================
+
+Inline patterns such as *emphasis* are handled by means of auxiliary
+objects, one per pattern.  Pattern objects must be instances of classes
+that extend markdown.Pattern.  Each pattern object uses a single regular
+expression and needs support the following methods:
+
+    pattern.getCompiledRegExp() # returns a regular expression
+
+    pattern.handleMatch(m) # takes a match object and returns
+                           # an ElementTree element or just plain text
+
+All of python markdown's built-in patterns subclass from Pattern,
+but you can add additional patterns that don't.
+
+Also note that all the regular expressions used by inline must
+capture the whole block.  For this reason, they all start with
+'^(.*)' and end with '(.*)!'.  In case with built-in expression
+Pattern takes care of adding the &quot;^(.*)&quot; and &quot;(.*)!&quot;.
+
+Finally, the order in which regular expressions are applied is very
+important - e.g. if we first replace http://.../ links with &lt;a&gt; tags
+and _then_ try to replace inline html, we would end up with a mess.
+So, we apply the expressions in the following order:
+
+* escape and backticks have to go before everything else, so
+  that we can preempt any markdown patterns by escaping them.
+
+* then we handle auto-links (must be done before inline html)
+
+* then we handle inline HTML.  At this point we will simply
+  replace all inline HTML strings with a placeholder and add
+  the actual HTML to a hash.
+
+* then inline images (must be done before links)
+
+* then bracketed links, first regular then reference-style
+
+* finally we apply strong and emphasis
+
+</pre>
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.Pattern-class.html" class="summary-name">Pattern</a><br />
+      Base class that inline patterns subclass.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.SimpleTextPattern-class.html" class="summary-name">SimpleTextPattern</a><br />
+      Return a simple text of group(2) of a Pattern.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.EscapePattern-class.html" class="summary-name">EscapePattern</a><br />
+      Return an escaped character.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.SimpleTagPattern-class.html" class="summary-name">SimpleTagPattern</a><br />
+      Return element of type `tag` with a text attribute of group(3) of a
+        Pattern.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.SubstituteTagPattern-class.html" class="summary-name">SubstituteTagPattern</a><br />
+      Return an element of type `tag` with no children.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.BacktickPattern-class.html" class="summary-name">BacktickPattern</a><br />
+      Return a `&lt;code&gt;` element containing the matching text.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.DoubleTagPattern-class.html" class="summary-name">DoubleTagPattern</a><br />
+      Return a ElementTree element nested in tag2 nested in tag1.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.HtmlPattern-class.html" class="summary-name">HtmlPattern</a><br />
+      Store raw inline html and return a placeholder.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.LinkPattern-class.html" class="summary-name">LinkPattern</a><br />
+      Return a link element from the given match.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.ImagePattern-class.html" class="summary-name">ImagePattern</a><br />
+      Return a img element from the given match.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.ReferencePattern-class.html" class="summary-name">ReferencePattern</a><br />
+      Match to a stored reference and return link element.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.ImageReferencePattern-class.html" class="summary-name">ImageReferencePattern</a><br />
+      Match to a stored reference and return img element.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.AutolinkPattern-class.html" class="summary-name">AutolinkPattern</a><br />
+      Return a link Element given an autolink 
+        (`&lt;http://example/com&gt;`).
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns.AutomailPattern-class.html" class="summary-name">AutomailPattern</a><br />
+      Return a mailto link Element given an automail link 
+        (`&lt;foo@example.com&gt;`).
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="build_inlinepatterns"></a><span class="summary-sig-name">build_inlinepatterns</span>(<span class="summary-sig-arg">md_instance</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Build the default set of inline patterns for Markdown.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.dependencies.markdown.inlinepatterns-pysrc.html#build_inlinepatterns">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="dequote"></a><span class="summary-sig-name">dequote</span>(<span class="summary-sig-arg">string</span>)</span><br />
+      Remove quotes from around a string.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.dependencies.markdown.inlinepatterns-pysrc.html#dequote">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="handleAttributes"></a><span class="summary-sig-name">handleAttributes</span>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">parent</span>)</span><br />
+      Set values of an element based on attribute definitions ({@id=123}).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.dependencies.markdown.inlinepatterns-pysrc.html#handleAttributes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="NOBRACKET"></a><span class="summary-name">NOBRACKET</span> = <code title="u'[^\]\[]*'"><code class="variable-quote">u'</code><code class="variable-string">[^\]\[]*</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns-module.html#BRK" class="summary-name">BRK</a> = <code title="u'\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\\
+[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\\
+])*[^\]\[]*)\]'"><code class="variable-quote">u'</code><code class="variable-string">\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="NOIMG"></a><span class="summary-name">NOIMG</span> = <code title="u'(?&lt;!\!)'"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;!\!)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="BACKTICK_RE"></a><span class="summary-name">BACKTICK_RE</span> = <code title="u'(?&lt;!\\)(`+)(.+?)(?&lt;!`)\2(?!`)'"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;!\\)(`+)(.+?)(?&lt;!`)\2(?!`)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="ESCAPE_RE"></a><span class="summary-name">ESCAPE_RE</span> = <code title="u'\\(.)'"><code class="variable-quote">u'</code><code class="variable-string">\\(.)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="EMPHASIS_RE"></a><span class="summary-name">EMPHASIS_RE</span> = <code title="u'(\*)([^\*]+)\2'"><code class="variable-quote">u'</code><code class="variable-string">(\*)([^\*]+)\2</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="STRONG_RE"></a><span class="summary-name">STRONG_RE</span> = <code title="u'(\*{2}|_{2})(.+?)\2'"><code class="variable-quote">u'</code><code class="variable-string">(\*{2}|_{2})(.+?)\2</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="EM_STRONG_RE"></a><span class="summary-name">EM_STRONG_RE</span> = <code title="u'(\*|_)\2{2}(.+?)\2(.*?)\2{2}'"><code class="variable-quote">u'</code><code class="variable-string">(\*|_)\2{2}(.+?)\2(.*?)\2{2}</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="STRONG_EM_RE"></a><span class="summary-name">STRONG_EM_RE</span> = <code title="u'(\*|_)\2{2}(.+?)\2{2}(.*?)\2'"><code class="variable-quote">u'</code><code class="variable-string">(\*|_)\2{2}(.+?)\2{2}(.*?)\2</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="SMART_EMPHASIS_RE"></a><span class="summary-name">SMART_EMPHASIS_RE</span> = <code title="u'(?&lt;!\w)(_)(?!_)(.+?)(?&lt;!_)\2(?!\w)'"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;!\w)(_)(?!_)(.+?)(?&lt;!_)\2(?!\w)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="EMPHASIS_2_RE"></a><span class="summary-name">EMPHASIS_2_RE</span> = <code title="u'(_)(.+?)\2'"><code class="variable-quote">u'</code><code class="variable-string">(_)(.+?)\2</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns-module.html#LINK_RE" class="summary-name">LINK_RE</a> = <code title="u'(?&lt;!\!)\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\\
+]\[]*(\[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\
+\]\[]*\])*[^\]\[]*)\]\(\s*(&lt;.*?&gt;|((?:(?:\(.*?\))|[^\(\)]))*?)\s*((['&quot;]\
+)(.*?)\12\s*)?\)'"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;!\!)\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns-module.html#IMAGE_LINK_RE" class="summary-name">IMAGE_LINK_RE</a> = <code title="u'\!\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*\
+(\[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]\
+*\])*[^\]\[]*)\]\s*\((&lt;.*?&gt;|([^&quot;)]+&quot;[^&quot;]*&quot;|[^\)]*))\)'"><code class="variable-quote">u'</code><code class="variable-string">\!\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns-module.html#REFERENCE_RE" class="summary-name">REFERENCE_RE</a> = <code title="u'(?&lt;!\!)\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\\
+]\[]*(\[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\
+\]\[]*\])*[^\]\[]*)\]\s?\[([^\]]*)\]'"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;!\!)\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="SHORT_REF_RE"></a><span class="summary-name">SHORT_REF_RE</span> = <code title="u'(?&lt;!\!)\[([^\]]+)\]'"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;!\!)\[([^\]]+)\]</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.inlinepatterns-module.html#IMAGE_REFERENCE_RE" class="summary-name">IMAGE_REFERENCE_RE</a> = <code title="u'\!\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*\
+(\[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]\
+*\])*[^\]\[]*)\]\s?\[([^\]]*)\]'"><code class="variable-quote">u'</code><code class="variable-string">\!\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="NOT_STRONG_RE"></a><span class="summary-name">NOT_STRONG_RE</span> = <code title="u'((^| )(\*|_)( |$))'"><code class="variable-quote">u'</code><code class="variable-string">((^| )(\*|_)( |$))</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="AUTOLINK_RE"></a><span class="summary-name">AUTOLINK_RE</span> = <code title="u'&lt;((?:[Ff]|[Hh][Tt])[Tt][Pp][Ss]?://[^&gt;]*)&gt;'"><code class="variable-quote">u'</code><code class="variable-string">&lt;((?:[Ff]|[Hh][Tt])[Tt][Pp][Ss]?://[^&gt;]*)&gt;</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="AUTOMAIL_RE"></a><span class="summary-name">AUTOMAIL_RE</span> = <code title="u'&lt;([^&gt; \!]*@[^&gt; ]*)&gt;'"><code class="variable-quote">u'</code><code class="variable-string">&lt;([^&gt; \!]*@[^&gt; ]*)&gt;</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="HTML_RE"></a><span class="summary-name">HTML_RE</span> = <code title="u'(\&lt;([a-zA-Z/][^\&gt;]*?|\!--.*?--)\&gt;)'"><code class="variable-quote">u'</code><code class="variable-string">(\&lt;([a-zA-Z/][^\&gt;]*?|\!--.*?--)\&gt;)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="ENTITY_RE"></a><span class="summary-name">ENTITY_RE</span> = <code title="u'(&amp;[\#a-zA-Z0-9]*;)'"><code class="variable-quote">u'</code><code class="variable-string">(&amp;[\#a-zA-Z0-9]*;)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="LINE_BREAK_RE"></a><span class="summary-name">LINE_BREAK_RE</span> = <code title="u'  \n'"><code class="variable-quote">u'</code><code class="variable-string">  \n</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="ATTR_RE"></a><span class="summary-name">ATTR_RE</span> = <code title="re.compile(r'\{@([^\}]*)=([^\}]*)\}')">re.compile(r'\{@<code class="re-group">(</code><code class="re-group">[^</code>\}<code class="re-group">]</code><code class="re-op">*</code><code class="re-group">)</code>=<code class="re-group">(</code><code class="re-group">[^</code>\}<code class="re-group">]</code><code class="re-op">*</code><code class="re-group">)</code>\}')</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'src.dependencies.markdown'"><code class="variable-quote">'</code><code class="variable-string">src.dependencies.markdown</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables Details</span></td>
+</tr>
+</table>
+<a name="BRK"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">BRK</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">])*[^\]\[]*)\]</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="LINK_RE"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">LINK_RE</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">(?&lt;!\!)\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">]\[]*(\[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">\]\[]*\])*[^\]\[]*)\]\(\s*(&lt;.*?&gt;|((?:(?:\(.*?\))|[^\(\)]))*?)\s*((['&quot;]</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">)(.*?)\12\s*)?\)</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="IMAGE_LINK_RE"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">IMAGE_LINK_RE</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">\!\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">(\[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">*\])*[^\]\[]*)\]\s*\((&lt;.*?&gt;|([^&quot;)]+&quot;[^&quot;]*&quot;|[^\)]*))\)</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="REFERENCE_RE"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">REFERENCE_RE</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">(?&lt;!\!)\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">]\[]*(\[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">\]\[]*\])*[^\]\[]*)\]\s?\[([^\]]*)\]</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="IMAGE_REFERENCE_RE"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">IMAGE_REFERENCE_RE</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">\!\[([^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*(\[[^\]\[]*</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">(\[[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]*\])*[^\]\[]</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">*\])*[^\]\[]*)\]\s?\[([^\]]*)\]</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Jun  4 12:15:26 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.dependencies.markdown.extensions.headerid</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.dependencies-module.html">Package&nbsp;dependencies</a> ::
+        <a href="src.dependencies.markdown-module.html">Package&nbsp;markdown</a> ::
+        <a href="src.dependencies.markdown.extensions-module.html" onclick="show_private();">Package&nbsp;extensions</a> ::
+        Module&nbsp;headerid
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="src.dependencies.markdown.extensions.headerid-module.html">Module src.dependencies.markdown.extensions.headerid</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">HeaderID Extension for Python-Markdown</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">======================================</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">Auto-generate id attributes for HTML headers.</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">See &lt;https://pythonhosted.org/Markdown/extensions/header_id.html&gt; </tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">for documentation.</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">Original code Copyright 2007-2011 [Waylan Limberg](http://achinghead.com/).</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">All changes Copyright 2011-2014 The Python Markdown Project</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">License: [BSD](http://www.opensource.org/licenses/bsd-license.php) </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">__future__</tt> <tt class="py-keyword">import</tt> <tt class="py-name">absolute_import</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">__future__</tt> <tt class="py-keyword">import</tt> <tt class="py-name">unicode_literals</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-op">.</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Class src.dependencies.markdown.extensions.Extension=src.dependencies.markdown.extensions.Extension-class.html"><a title="src.dependencies.markdown.extensions.Extension" class="py-name" href="#" onclick="return doclink('link-0', 'Extension', 'link-0');">Extension</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-op">.</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module src.dependencies.markdown.treeprocessors=src.dependencies.markdown.treeprocessors-module.html"><a title="src.dependencies.markdown.treeprocessors" class="py-name" href="#" onclick="return doclink('link-1', 'treeprocessors', 'link-1');">treeprocessors</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Class src.dependencies.markdown.treeprocessors.Treeprocessor=src.dependencies.markdown.treeprocessors.Treeprocessor-class.html"><a title="src.dependencies.markdown.treeprocessors.Treeprocessor" class="py-name" href="#" onclick="return doclink('link-2', 'Treeprocessor', 'link-2');">Treeprocessor</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-op">.</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Module src.dependencies.markdown.util=src.dependencies.markdown.util-module.html"><a title="src.dependencies.markdown.util" class="py-name" href="#" onclick="return doclink('link-3', 'util', 'link-3');">util</a></tt> <tt class="py-keyword">import</tt> <tt id="link-4" class="py-name" targets="Variable src.dependencies.markdown.util.HTML_PLACEHOLDER_RE=src.dependencies.markdown.util-module.html#HTML_PLACEHOLDER_RE"><a title="src.dependencies.markdown.util.HTML_PLACEHOLDER_RE" class="py-name" href="#" onclick="return doclink('link-4', 'HTML_PLACEHOLDER_RE', 'link-4');">HTML_PLACEHOLDER_RE</a></tt><tt class="py-op">,</tt> <tt id="link-5" class="py-name" targets="Function src.dependencies.markdown.util.parseBoolValue()=src.dependencies.markdown.util-module.html#parseBoolValue"><a title="src.dependencies.markdown.util.parseBoolValue" class="py-name" href="#" onclick="return doclink('link-5', 'parseBoolValue', 'link-5');">parseBoolValue</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">logging</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">unicodedata</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable src.dependencies.markdown.__main__.logger=src.dependencies.markdown.__main__-module.html#logger,Variable src.dependencies.markdown.blockprocessors.logger=src.dependencies.markdown.blockprocessors-module.html#logger,Variable src.dependencies.markdown.extensions.headerid.logger=src.dependencies.markdown.extensions.headerid-module.html#logger,Variable src.dependencies.markdown.logger=src.dependencies.markdown-module.html#logger"><a title="src.dependencies.markdown.__main__.logger
+src.dependencies.markdown.blockprocessors.logger
+src.dependencies.markdown.extensions.headerid.logger
+src.dependencies.markdown.logger" class="py-name" href="#" onclick="return doclink('link-6', 'logger', 'link-6');">logger</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-string">'MARKDOWN'</tt><tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable src.dependencies.markdown.extensions.headerid.IDCOUNT_RE=src.dependencies.markdown.extensions.headerid-module.html#IDCOUNT_RE"><a title="src.dependencies.markdown.extensions.headerid.IDCOUNT_RE" class="py-name" href="#" onclick="return doclink('link-7', 'IDCOUNT_RE', 'link-7');">IDCOUNT_RE</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">compile</tt><tt class="py-op">(</tt><tt class="py-string">r'^(.*)_([0-9]+)$'</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="slugify"></a><div id="slugify-def"><a name="L32"></a><tt class="py-lineno"> 32</tt> <a class="py-toggle" href="#" id="slugify-toggle" onclick="return toggle('slugify');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid-module.html#slugify">slugify</a><tt class="py-op">(</tt><tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">separator</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="slugify-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="slugify-expanded"><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt class="py-docstring">""" Slugify a string, to make it URL friendly. """</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">unicodedata</tt><tt class="py-op">.</tt><tt class="py-name">normalize</tt><tt class="py-op">(</tt><tt class="py-string">'NFKD'</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'ascii'</tt><tt class="py-op">,</tt> <tt class="py-string">'ignore'</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-string">'[^\w\s-]'</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">.</tt><tt class="py-name">decode</tt><tt class="py-op">(</tt><tt class="py-string">'ascii'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-string">'[%s\s]+'</tt> <tt class="py-op">%</tt> <tt id="link-8" class="py-name" targets="Method src.wxgui.frames.checkframe.CheckFrame.separator()=src.wxgui.frames.checkframe.CheckFrame-class.html#separator"><a title="src.wxgui.frames.checkframe.CheckFrame.separator" class="py-name" href="#" onclick="return doclink('link-8', 'separator', 'link-8');">separator</a></tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name"><a title="src.wxgui.frames.checkframe.CheckFrame.separator" class="py-name" href="#" onclick="return doclink('link-9', 'separator', 'link-8');">separator</a></tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="unique"></a><div id="unique-def"><a name="L39"></a><tt class="py-lineno"> 39</tt> <a class="py-toggle" href="#" id="unique-toggle" onclick="return toggle('unique');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid-module.html#unique">unique</a><tt class="py-op">(</tt><tt class="py-param">id</tt><tt class="py-op">,</tt> <tt class="py-param">ids</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="unique-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="unique-expanded"><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-docstring">""" Ensure id is unique in set of ids. Append '_1', '_2'... if not """</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-name">id</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ids</tt> <tt class="py-keyword">or</tt> <tt class="py-keyword">not</tt> <tt class="py-name">id</tt><tt class="py-op">:</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-name">m</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="src.dependencies.markdown.extensions.headerid.IDCOUNT_RE" class="py-name" href="#" onclick="return doclink('link-10', 'IDCOUNT_RE', 'link-7');">IDCOUNT_RE</a></tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">m</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">            <tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt class="py-string">'%s_%d'</tt><tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">m</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">m</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">            <tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt class="py-string">'%s_%d'</tt><tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-name">ids</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method src.dependencies.markdown.odict.OrderedDict.add()=src.dependencies.markdown.odict.OrderedDict-class.html#add"><a title="src.dependencies.markdown.odict.OrderedDict.add" class="py-name" href="#" onclick="return doclink('link-11', 'add', 'link-11');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">id</tt> </tt>
+</div><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"> </tt>
+<a name="itertext"></a><div id="itertext-def"><a name="L51"></a><tt class="py-lineno"> 51</tt> <a class="py-toggle" href="#" id="itertext-toggle" onclick="return toggle('itertext');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid-module.html#itertext">itertext</a><tt class="py-op">(</tt><tt class="py-param">elem</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="itertext-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="itertext-expanded"><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">    <tt class="py-docstring">""" Loop through all children and return text only. </tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">    Reimplements method of same name added to ElementTree in Python 2.7</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">elem</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-keyword">yield</tt> <tt class="py-name">elem</tt><tt class="py-op">.</tt><tt class="py-name">text</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">e</tt> <tt class="py-keyword">in</tt> <tt class="py-name">elem</tt><tt class="py-op">:</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">s</tt> <tt class="py-keyword">in</tt> <tt id="link-12" class="py-name" targets="Function src.dependencies.markdown.extensions.headerid.itertext()=src.dependencies.markdown.extensions.headerid-module.html#itertext"><a title="src.dependencies.markdown.extensions.headerid.itertext" class="py-name" href="#" onclick="return doclink('link-12', 'itertext', 'link-12');">itertext</a></tt><tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">            <tt class="py-keyword">yield</tt> <tt class="py-name">s</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">e</tt><tt class="py-op">.</tt><tt class="py-name">tail</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">            <tt class="py-keyword">yield</tt> <tt class="py-name">e</tt><tt class="py-op">.</tt><tt class="py-name">tail</tt> </tt>
+</div><a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="stashedHTML2text"></a><div id="stashedHTML2text-def"><a name="L66"></a><tt class="py-lineno"> 66</tt> <a class="py-toggle" href="#" id="stashedHTML2text-toggle" onclick="return toggle('stashedHTML2text');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid-module.html#stashedHTML2text">stashedHTML2text</a><tt class="py-op">(</tt><tt class="py-param">text</tt><tt class="py-op">,</tt> <tt class="py-param">md</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="stashedHTML2text-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="stashedHTML2text-expanded"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-docstring">""" Extract raw HTML, reduce to plain text and swap with placeholder. """</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-keyword">def</tt> <tt class="py-def-name">_html_sub</tt><tt class="py-op">(</tt><tt class="py-param">m</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-docstring">""" Substitute raw html with plain text. """</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-name">raw</tt><tt class="py-op">,</tt> <tt class="py-name">safe</tt> <tt class="py-op">=</tt> <tt class="py-name">md</tt><tt class="py-op">.</tt><tt class="py-name">htmlStash</tt><tt class="py-op">.</tt><tt class="py-name">rawHtmlBlocks</tt><tt class="py-op">[</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">m</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-op">(</tt><tt class="py-name">IndexError</tt><tt class="py-op">,</tt> <tt class="py-name">TypeError</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">m</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">md</tt><tt class="py-op">.</tt><tt class="py-name">safeMode</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt class="py-name">safe</tt><tt class="py-op">:</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-string">''</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-comment"># Strip out tags and entities - leaveing text</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-string">r'(&lt;[^&gt;]+&gt;)|(&amp;[\#a-zA-Z0-9]+;)'</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">,</tt> <tt class="py-name">raw</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-13" class="py-name"><a title="src.dependencies.markdown.util.HTML_PLACEHOLDER_RE" class="py-name" href="#" onclick="return doclink('link-13', 'HTML_PLACEHOLDER_RE', 'link-4');">HTML_PLACEHOLDER_RE</a></tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-name">_html_sub</tt><tt class="py-op">,</tt> <tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="HeaderIdTreeprocessor"></a><div id="HeaderIdTreeprocessor-def"><a name="L82"></a><tt class="py-lineno"> 82</tt> <a class="py-toggle" href="#" id="HeaderIdTreeprocessor-toggle" onclick="return toggle('HeaderIdTreeprocessor');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor-class.html">HeaderIdTreeprocessor</a><tt class="py-op">(</tt><tt class="py-base-class">Treeprocessor</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeaderIdTreeprocessor-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="HeaderIdTreeprocessor-expanded"><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt class="py-docstring">""" Assign IDs to headers. """</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">    <tt id="link-14" class="py-name" targets="Variable src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor.IDs=src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor-class.html#IDs"><a title="src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor.IDs" class="py-name" href="#" onclick="return doclink('link-14', 'IDs', 'link-14');">IDs</a></tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name" targets="Method src.dependencies.markdown.blockparser.State.set()=src.dependencies.markdown.blockparser.State-class.html#set,Method src.structs.option.Option.set()=src.structs.option.Option-class.html#set,Method src.wxgui.models.dataauthor.Author.set()=src.wxgui.models.dataauthor.Author-class.html#set,Method src.wxgui.models.dataconference.Conference.set()=src.wxgui.models.dataconference.Conference-class.html#set,Method src.wxgui.models.datadocument.Document.set()=src.wxgui.models.datadocument.Document-class.html#set,Method src.wxgui.models.datasession.Session.set()=src.wxgui.models.datasession.Session-class.html#set"><a title="src.dependencies.markdown.blockparser.State.set
+src.structs.option.Option.set
+src.wxgui.models.dataauthor.Author.set
+src.wxgui.models.dataconference.Conference.set
+src.wxgui.models.datadocument.Document.set
+src.wxgui.models.datasession.Session.set" class="py-name" href="#" onclick="return doclink('link-15', 'set', 'link-15');">set</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="HeaderIdTreeprocessor.run"></a><div id="HeaderIdTreeprocessor.run-def"><a name="L87"></a><tt class="py-lineno"> 87</tt> <a class="py-toggle" href="#" id="HeaderIdTreeprocessor.run-toggle" onclick="return toggle('HeaderIdTreeprocessor.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">doc</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeaderIdTreeprocessor.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HeaderIdTreeprocessor.run-expanded"><a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-name">start_level</tt><tt class="py-op">,</tt> <tt class="py-name">force_id</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_get_meta</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt id="link-16" class="py-name" targets="Function src.dependencies.markdown.extensions.headerid.slugify()=src.dependencies.markdown.extensions.headerid-module.html#slugify"><a title="src.dependencies.markdown.extensions.headerid.slugify" class="py-name" href="#" onclick="return doclink('link-16', 'slugify', 'link-16');">slugify</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Variable src.dependencies.markdown.extensions.Extension.config=src.dependencies.markdown.extensions.Extension-class.html#config"><a title="src.dependencies.markdown.extensions.Extension.config" class="py-name" href="#" onclick="return doclink('link-17', 'config', 'link-17');">config</a></tt><tt class="py-op">[</tt><tt class="py-string">'slugify'</tt><tt class="py-op">]</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-name">sep</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="src.dependencies.markdown.extensions.Extension.config" class="py-name" href="#" onclick="return doclink('link-18', 'config', 'link-17');">config</a></tt><tt class="py-op">[</tt><tt class="py-string">'separator'</tt><tt class="py-op">]</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">elem</tt> <tt class="py-keyword">in</tt> <tt class="py-name">doc</tt><tt class="py-op">.</tt><tt class="py-name">getiterator</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">elem</tt><tt class="py-op">.</tt><tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-string">'h1'</tt><tt class="py-op">,</tt> <tt class="py-string">'h2'</tt><tt class="py-op">,</tt> <tt class="py-string">'h3'</tt><tt class="py-op">,</tt> <tt class="py-string">'h4'</tt><tt class="py-op">,</tt> <tt class="py-string">'h5'</tt><tt class="py-op">,</tt> <tt class="py-string">'h6'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">force_id</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-string">"id"</tt> <tt class="py-keyword">in</tt> <tt class="py-name">elem</tt><tt class="py-op">.</tt><tt class="py-name">attrib</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">                        <tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt class="py-name">elem</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'id'</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">                    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">                        <tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt id="link-19" class="py-name" targets="Function src.dependencies.markdown.extensions.headerid.stashedHTML2text()=src.dependencies.markdown.extensions.headerid-module.html#stashedHTML2text"><a title="src.dependencies.markdown.extensions.headerid.stashedHTML2text" class="py-name" href="#" onclick="return doclink('link-19', 'stashedHTML2text', 'link-19');">stashedHTML2text</a></tt><tt class="py-op">(</tt><tt class="py-string">''</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt id="link-20" class="py-name"><a title="src.dependencies.markdown.extensions.headerid.itertext" class="py-name" href="#" onclick="return doclink('link-20', 'itertext', 'link-12');">itertext</a></tt><tt class="py-op">(</tt><tt class="py-name">elem</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">md</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                        <tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name"><a title="src.dependencies.markdown.extensions.headerid.slugify" class="py-name" href="#" onclick="return doclink('link-21', 'slugify', 'link-16');">slugify</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">,</tt> <tt class="py-name">sep</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">                    <tt class="py-name">elem</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="src.dependencies.markdown.blockparser.State.set
+src.structs.option.Option.set
+src.wxgui.models.dataauthor.Author.set
+src.wxgui.models.dataconference.Conference.set
+src.wxgui.models.datadocument.Document.set
+src.wxgui.models.datasession.Session.set" class="py-name" href="#" onclick="return doclink('link-22', 'set', 'link-15');">set</a></tt><tt class="py-op">(</tt><tt class="py-string">'id'</tt><tt class="py-op">,</tt> <tt id="link-23" class="py-name" targets="Function src.dependencies.markdown.extensions.headerid.unique()=src.dependencies.markdown.extensions.headerid-module.html#unique"><a title="src.dependencies.markdown.extensions.headerid.unique" class="py-name" href="#" onclick="return doclink('link-23', 'unique', 'link-23');">unique</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor.IDs" class="py-name" href="#" onclick="return doclink('link-24', 'IDs', 'link-14');">IDs</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">start_level</tt><tt class="py-op">:</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">                    <tt class="py-name">level</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">elem</tt><tt class="py-op">.</tt><tt class="py-name">tag</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-name">start_level</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-name">level</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">6</tt><tt class="py-op">:</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">                        <tt class="py-name">level</tt> <tt class="py-op">=</tt> <tt class="py-number">6</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                    <tt class="py-name">elem</tt><tt class="py-op">.</tt><tt class="py-name">tag</tt> <tt class="py-op">=</tt> <tt class="py-string">'h%d'</tt> <tt class="py-op">%</tt> <tt class="py-name">level</tt> </tt>
+</div><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"> </tt>
+<a name="HeaderIdTreeprocessor._get_meta"></a><div id="HeaderIdTreeprocessor._get_meta-def"><a name="L107"></a><tt class="py-lineno">107</tt> <a class="py-toggle" href="#" id="HeaderIdTreeprocessor._get_meta-toggle" onclick="return toggle('HeaderIdTreeprocessor._get_meta');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor-class.html#_get_meta">_get_meta</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeaderIdTreeprocessor._get_meta-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HeaderIdTreeprocessor._get_meta-expanded"><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-docstring">""" Return meta data suported by this ext as a tuple """</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-name">level</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="src.dependencies.markdown.extensions.Extension.config" class="py-name" href="#" onclick="return doclink('link-25', 'config', 'link-17');">config</a></tt><tt class="py-op">[</tt><tt class="py-string">'level'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">force</tt> <tt class="py-op">=</tt> <tt id="link-26" class="py-name"><a title="src.dependencies.markdown.util.parseBoolValue" class="py-name" href="#" onclick="return doclink('link-26', 'parseBoolValue', 'link-5');">parseBoolValue</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="src.dependencies.markdown.extensions.Extension.config" class="py-name" href="#" onclick="return doclink('link-27', 'config', 'link-17');">config</a></tt><tt class="py-op">[</tt><tt class="py-string">'forceid'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">md</tt><tt class="py-op">,</tt> <tt class="py-string">'Meta'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-string">'header_level'</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">md</tt><tt class="py-op">.</tt><tt class="py-name">Meta</tt><tt class="py-op">:</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">                <tt class="py-name">level</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">md</tt><tt class="py-op">.</tt><tt class="py-name">Meta</tt><tt class="py-op">[</tt><tt class="py-string">'header_level'</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-string">'header_forceid'</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">md</tt><tt class="py-op">.</tt><tt class="py-name">Meta</tt><tt class="py-op">:</tt>  </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">                <tt class="py-name">force</tt> <tt class="py-op">=</tt> <tt id="link-28" class="py-name"><a title="src.dependencies.markdown.util.parseBoolValue" class="py-name" href="#" onclick="return doclink('link-28', 'parseBoolValue', 'link-5');">parseBoolValue</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">md</tt><tt class="py-op">.</tt><tt class="py-name">Meta</tt><tt class="py-op">[</tt><tt class="py-string">'header_forceid'</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">level</tt><tt class="py-op">,</tt> <tt class="py-name">force</tt> </tt>
+</div></div><a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"> </tt>
+<a name="HeaderIdExtension"></a><div id="HeaderIdExtension-def"><a name="L119"></a><tt class="py-lineno">119</tt> <a class="py-toggle" href="#" id="HeaderIdExtension-toggle" onclick="return toggle('HeaderIdExtension');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html">HeaderIdExtension</a><tt class="py-op">(</tt><tt class="py-base-class">Extension</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeaderIdExtension-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="HeaderIdExtension-expanded"><a name="HeaderIdExtension.__init__"></a><div id="HeaderIdExtension.__init__-def"><a name="L120"></a><tt class="py-lineno">120</tt> <a class="py-toggle" href="#" id="HeaderIdExtension.__init__-toggle" onclick="return toggle('HeaderIdExtension.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeaderIdExtension.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HeaderIdExtension.__init__-expanded"><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-comment"># set defaults</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="src.dependencies.markdown.extensions.Extension.config" class="py-name" href="#" onclick="return doclink('link-29', 'config', 'link-17');">config</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">                <tt class="py-string">'level'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-string">'1'</tt><tt class="py-op">,</tt> <tt class="py-string">'Base level for headers.'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">                <tt class="py-string">'forceid'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-string">'True'</tt><tt class="py-op">,</tt> <tt class="py-string">'Force all headers to have an id.'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">                <tt class="py-string">'separator'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-string">'-'</tt><tt class="py-op">,</tt> <tt class="py-string">'Word separator.'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">                <tt class="py-string">'slugify'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt id="link-30" class="py-name"><a title="src.dependencies.markdown.extensions.headerid.slugify" class="py-name" href="#" onclick="return doclink('link-30', 'slugify', 'link-16');">slugify</a></tt><tt class="py-op">,</tt> <tt class="py-string">'Callable to generate anchors'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt>  </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">            <tt class="py-op">}</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-31" class="py-name" targets="Class src.dependencies.markdown.extensions.headerid.HeaderIdExtension=src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html"><a title="src.dependencies.markdown.extensions.headerid.HeaderIdExtension" class="py-name" href="#" onclick="return doclink('link-31', 'HeaderIdExtension', 'link-31');">HeaderIdExtension</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Method src.DataIO.Documents.documents.author.__init__()=src.DataIO.Documents.documents.author-class.html#__init__,Method src.DataIO.Documents.documents.document.__init__()=src.DataIO.Documents.documents.document-class.html#__init__,Method src.DataIO.Documents.documents.laboratory.__init__()=src.DataIO.Documents.documents.laboratory-class.html#__init__,Method src.DataIO.Read.readEasyChair.readEasyChair.__init__()=src.DataIO.Read.readEasyChair.readEasyChair-class.html#__init__,Method src.DataIO.Read.readXML.readXML.__init__()=src.DataIO.Read.readXML.readXML-class.html#__init__,Method src.DataIO.Read.reader.Reader.__init__()=src.DataIO.Read.reader.Reader-class.html#__init__,Method src.DataIO.Write.csvwriter.CSVWriter.__init__()=src.DataIO.Write.csvwriter.CSVWriter-class.html#__init__,Method src.DataIO.Write.htmlwriter.HTMLWriter.__init__()=src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__init__,Method src.DataIO.Write.indexwriter.IndexWriter.__init__()=src.DataIO.Write.indexwriter.IndexWriter-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXDiagnosis.__init__()=src.DataIO.Write.latexwriter.LaTeXDiagnosis-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXWriter.__init__()=src.DataIO.Write.latexwriter.LaTeXWriter-class.html#__init__,Method src.DataIO.Write.writer.Writer.__init__()=src.DataIO.Write.writer.Writer-class.html#__init__,Method src.TagPDF.genLaTeX.GenLaTeXFile.__init__()=src.TagPDF.genLaTeX.GenLaTeXFile-class.html#__init__,Method src.TagPDF.genPDF.GenPdfFile.__init__()=src.TagPDF.genPDF.GenPdfFile-class.html#__init__,Method src.TagPDF.name.GenName.__init__()=src.TagPDF.name.GenName-class.html#__init__,Method src.TagPDF.tagPDF.tagPdfFile.__init__()=src.TagPDF.tagPDF.tagPdfFile-class.html#__init__,Method src.dependencies.markdown.Markdown.__init__()=src.dependencies.markdown.Markdown-class.html#__init__,Method src.dependencies.markdown.blockparser.BlockParser.__init__()=src.dependencies.markdown.blockparser.BlockParser-class.html#__init__,Method src.dependencies.markdown.blockprocessors.BlockProcessor.__init__()=src.dependencies.markdown.blockprocessors.BlockProcessor-class.html#__init__,Method src.dependencies.markdown.blockprocessors.ListIndentProcessor.__init__()=src.dependencies.markdown.blockprocessors.ListIndentProcessor-class.html#__init__,Method src.dependencies.markdown.extensions.Extension.__init__()=src.dependencies.markdown.extensions.Extension-class.html#__init__,Method src.dependencies.markdown.extensions.abbr.AbbrPattern.__init__()=src.dependencies.markdown.extensions.abbr.AbbrPattern-class.html#__init__,Method src.dependencies.markdown.extensions.codehilite.CodeHilite.__init__()=src.dependencies.markdown.extensions.codehilite.CodeHilite-class.html#__init__,Method src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension.__init__()=src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension-class.html#__init__,Method src.dependencies.markdown.extensions.extra.ExtraExtension.__init__()=src.dependencies.markdown.extensions.extra.ExtraExtension-class.html#__init__,Method src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.__init__()=src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnoteExtension.__init__()=src.dependencies.markdown.extensions.footnotes.FootnoteExtension-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePattern.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePattern-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.headerid.HeaderIdExtension.__init__()=src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html#__init__,Method src.dependencies.markdown.extensions.smarty.SmartyExtension.__init__()=src.dependencies.markdown.extensions.smarty.SmartyExtension-class.html#__init__,Method src.dependencies.markdown.extensions.smarty.SubstituteTextPattern.__init__()=src.dependencies.markdown.extensions.smarty.SubstituteTextPattern-class.html#__init__,Method src.dependencies.markdown.extensions.toc.TocExtension.__init__()=src.dependencies.markdown.extensions.toc.TocExtension-class.html#__init__,Method src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension.__init__()=src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension-class.html#__init__,Method src.dependencies.markdown.extensions.wikilinks.WikiLinks.__init__()=src.dependencies.markdown.extensions.wikilinks.WikiLinks-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.BacktickPattern.__init__()=src.dependencies.markdown.inlinepatterns.BacktickPattern-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.Pattern.__init__()=src.dependencies.markdown.inlinepatterns.Pattern-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.SimpleTagPattern.__init__()=src.dependencies.markdown.inlinepatterns.SimpleTagPattern-class.html#__init__,Method src.dependencies.markdown.odict.OrderedDict.__init__()=src.dependencies.markdown.odict.OrderedDict-class.html#__init__,Method src.dependencies.markdown.treeprocessors.InlineProcessor.__init__()=src.dependencies.markdown.treeprocessors.InlineProcessor-class.html#__init__,Method src.dependencies.markdown.util.HtmlStash.__init__()=src.dependencies.markdown.util.HtmlStash-class.html#__init__,Method src.dependencies.markdown.util.Processor.__init__()=src.dependencies.markdown.util.Processor-class.html#__init__,Method src.structs.abstracts_themes.ThemeBasic.__init__()=src.structs.abstracts_themes.ThemeBasic-class.html#__init__,Method src.structs.abstracts_themes.ThemeNalte.__init__()=src.structs.abstracts_themes.ThemeNalte-class.html#__init__,Method src.structs.abstracts_themes.ThemePalme.__init__()=src.structs.abstracts_themes.ThemePalme-class.html#__init__,Method src.structs.option.Option.__init__()=src.structs.option.Option-class.html#__init__,Method src.structs.prefs.Preferences.__init__()=src.structs.prefs.Preferences-class.html#__init__,Method src.structs.prefs.Preferences_IO.__init__()=src.structs.prefs.Preferences_IO-class.html#__init__,Method src.structs.themes.BaseTheme.__init__()=src.structs.themes.BaseTheme-class.html#__init__,Method src.structs.themes.Themes.__init__()=src.structs.themes.Themes-class.html#__init__,Method src.term.terminalcontroller.TerminalController.__init__()=src.term.terminalcontroller.TerminalController-class.html#__init__,Method src.term.textprogress.TextProgress.__init__()=src.term.textprogress.TextProgress-class.html#__init__,Method src.utils.abstracts.HTMLCleaner.__init__()=src.utils.abstracts.HTMLCleaner-class.html#__init__,Method src.utils.name.genName.__init__()=src.utils.name.genName-class.html#__init__,Method src.wxgui.cutils.textutils.TextAsNumericValidator.__init__()=src.wxgui.cutils.textutils.TextAsNumericValidator-class.html#__init__,Method src.wxgui.cutils.textutils.TextAsPercentageValidator.__init__()=src.wxgui.cutils.textutils.TextAsPercentageValidator-class.html#__init__,Method src.wxgui.cutils.textutils.TextValidator.__init__()=src.wxgui.cutils.textutils.TextValidator-class.html#__init__,Method src.wxgui.cutils.viewsutils.spFrame.__init__()=src.wxgui.cutils.viewsutils.spFrame-class.html#__init__,Method src.wxgui.cutils.viewsutils.spHeaderPanel.__init__()=src.wxgui.cutils.viewsutils.spHeaderPanel-class.html#__init__,Method src.wxgui.frames.about.AboutBox.__init__()=src.wxgui.frames.about.AboutBox-class.html#__init__,Method src.wxgui.frames.checkframe.CheckFrame.__init__()=src.wxgui.frames.checkframe.CheckFrame-class.html#__init__,Method src.wxgui.frames.createframe.CreateAuthor.__init__()=src.wxgui.frames.createframe.CreateAuthor-class.html#__init__,Method src.wxgui.frames.createframe.CreateConference.__init__()=src.wxgui.frames.createframe.CreateConference-class.html#__init__,Method src.wxgui.frames.createframe.CreateDocument.__init__()=src.wxgui.frames.createframe.CreateDocument-class.html#__init__,Method src.wxgui.frames.createframe.CreateSession.__init__()=src.wxgui.frames.createframe.CreateSession-class.html#__init__,Method src.wxgui.frames.createframe.SessionValidator.__init__()=src.wxgui.frames.createframe.SessionValidator-class.html#__init__,Method src.wxgui.frames.export_settings.ExportSettings.__init__()=src.wxgui.frames.export_settings.ExportSettings-class.html#__init__,Method src.wxgui.frames.export_settings.FooterSettings.__init__()=src.wxgui.frames.export_settings.FooterSettings-class.html#__init__,Method src.wxgui.frames.export_settings.GenerateSettings.__init__()=src.wxgui.frames.export_settings.GenerateSettings-class.html#__init__,Method src.wxgui.frames.export_settings.HeaderSettings.__init__()=src.wxgui.frames.export_settings.HeaderSettings-class.html#__init__,Method src.wxgui.frames.export_settings.OtherSettings.__init__()=src.wxgui.frames.export_settings.OtherSettings-class.html#__init__,Method src.wxgui.frames.export_settings.PageSettings.__init__()=src.wxgui.frames.export_settings.PageSettings-class.html#__init__,Method src.wxgui.frames.export_settings.TitlesSettings.__init__()=src.wxgui.frames.export_settings.TitlesSettings-class.html#__init__,Method src.wxgui.frames.feedback.FeedbackDialog.__init__()=src.wxgui.frames.feedback.FeedbackDialog-class.html#__init__,Method src.wxgui.frames.feedback.FeedbackForm.__init__()=src.wxgui.frames.feedback.FeedbackForm-class.html#__init__,Method src.wxgui.frames.generateframe.GenerateFrame.__init__()=src.wxgui.frames.generateframe.GenerateFrame-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpBrowser.__init__()=src.wxgui.frames.helpbrowser.HelpBrowser-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpPage.__init__()=src.wxgui.frames.helpbrowser.HelpPage-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpSystem.__init__()=src.wxgui.frames.helpbrowser.HelpSystem-class.html#__init__,Method src.wxgui.frames.import_wizard.ImportWizard.__init__()=src.wxgui.frames.import_wizard.ImportWizard-class.html#__init__,Method src.wxgui.frames.import_wizard.InputPage.__init__()=src.wxgui.frames.import_wizard.InputPage-class.html#__init__,Method src.wxgui.frames.import_wizard.LatexPage.__init__()=src.wxgui.frames.import_wizard.LatexPage-class.html#__init__,Method src.wxgui.frames.import_wizard.OutputPage.__init__()=src.wxgui.frames.import_wizard.OutputPage-class.html#__init__,Method src.wxgui.frames.modifframe.AddAuthor.__init__()=src.wxgui.frames.modifframe.AddAuthor-class.html#__init__,Method src.wxgui.frames.modifframe.ModifFrame.__init__()=src.wxgui.frames.modifframe.ModifFrame-class.html#__init__,Method src.wxgui.frames.processprogress.ProcessProgressDialog.__init__()=src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#__init__,Method src.wxgui.manager.MainFrame.__init__()=src.wxgui.manager.MainFrame-class.html#__init__,Method src.wxgui.models.dataauthor.Author.__init__()=src.wxgui.models.dataauthor.Author-class.html#__init__,Method src.wxgui.models.dataconference.Conference.__init__()=src.wxgui.models.dataconference.Conference-class.html#__init__,Method src.wxgui.models.datadocument.Document.__init__()=src.wxgui.models.datadocument.Document-class.html#__init__,Method src.wxgui.models.datasession.Session.__init__()=src.wxgui.models.datasession.Session-class.html#__init__,Method src.wxgui.models.readers.authors_csv_reader.__init__()=src.wxgui.models.readers.authors_csv_reader-class.html#__init__,Method src.wxgui.models.readers.conference_csv_reader.__init__()=src.wxgui.models.readers.conference_csv_reader-class.html#__init__,Method src.wxgui.models.readers.documents_csv_reader.__init__()=src.wxgui.models.readers.documents_csv_reader-class.html#__init__,Method src.wxgui.models.readers.sessions_csv_reader.__init__()=src.wxgui.models.readers.sessions_csv_reader-class.html#__init__,Method src.wxgui.models.validate.Validate.__init__()=src.wxgui.models.validate.Validate-class.html#__init__,Method src.wxgui.models.writers.ResultEvent.__init__()=src.wxgui.models.writers.ResultEvent-class.html#__init__,Method src.wxgui.models.writers.pdf_writer.__init__()=src.wxgui.models.writers.pdf_writer-class.html#__init__,Method src.wxgui.panels.checklistpanel.CheckListPanel.__init__()=src.wxgui.panels.checklistpanel.CheckListPanel-class.html#__init__,Method src.wxgui.panels.datalist.NotebookPanel.__init__()=src.wxgui.panels.datalist.NotebookPanel-class.html#__init__,Method src.wxgui.panels.infopanel.InformationPanel.__init__()=src.wxgui.panels.infopanel.InformationPanel-class.html#__init__,Method src.wxgui.ui.CustomCheckBox.CustomCheckBox.__init__()=src.wxgui.ui.CustomCheckBox.CustomCheckBox-class.html#__init__"><a title="src.DataIO.Documents.documents.author.__init__
+src.DataIO.Documents.documents.document.__init__
+src.DataIO.Documents.documents.laboratory.__init__
+src.DataIO.Read.readEasyChair.readEasyChair.__init__
+src.DataIO.Read.readXML.readXML.__init__
+src.DataIO.Read.reader.Reader.__init__
+src.DataIO.Write.csvwriter.CSVWriter.__init__
+src.DataIO.Write.htmlwriter.HTMLWriter.__init__
+src.DataIO.Write.indexwriter.IndexWriter.__init__
+src.DataIO.Write.latexwriter.LaTeXDiagnosis.__init__
+src.DataIO.Write.latexwriter.LaTeXWriter.__init__
+src.DataIO.Write.writer.Writer.__init__
+src.TagPDF.genLaTeX.GenLaTeXFile.__init__
+src.TagPDF.genPDF.GenPdfFile.__init__
+src.TagPDF.name.GenName.__init__
+src.TagPDF.tagPDF.tagPdfFile.__init__
+src.dependencies.markdown.Markdown.__init__
+src.dependencies.markdown.blockparser.BlockParser.__init__
+src.dependencies.markdown.blockprocessors.BlockProcessor.__init__
+src.dependencies.markdown.blockprocessors.ListIndentProcessor.__init__
+src.dependencies.markdown.extensions.Extension.__init__
+src.dependencies.markdown.extensions.abbr.AbbrPattern.__init__
+src.dependencies.markdown.extensions.codehilite.CodeHilite.__init__
+src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension.__init__
+src.dependencies.markdown.extensions.extra.ExtraExtension.__init__
+src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnoteExtension.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePattern.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.__init__
+src.dependencies.markdown.extensions.headerid.HeaderIdExtension.__init__
+src.dependencies.markdown.extensions.smarty.SmartyExtension.__init__
+src.dependencies.markdown.extensions.smarty.SubstituteTextPattern.__init__
+src.dependencies.markdown.extensions.toc.TocExtension.__init__
+src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension.__init__
+src.dependencies.markdown.extensions.wikilinks.WikiLinks.__init__
+src.dependencies.markdown.inlinepatterns.BacktickPattern.__init__
+src.dependencies.markdown.inlinepatterns.Pattern.__init__
+src.dependencies.markdown.inlinepatterns.SimpleTagPattern.__init__
+src.dependencies.markdown.odict.OrderedDict.__init__
+src.dependencies.markdown.treeprocessors.InlineProcessor.__init__
+src.dependencies.markdown.util.HtmlStash.__init__
+src.dependencies.markdown.util.Processor.__init__
+src.structs.abstracts_themes.ThemeBasic.__init__
+src.structs.abstracts_themes.ThemeNalte.__init__
+src.structs.abstracts_themes.ThemePalme.__init__
+src.structs.option.Option.__init__
+src.structs.prefs.Preferences.__init__
+src.structs.prefs.Preferences_IO.__init__
+src.structs.themes.BaseTheme.__init__
+src.structs.themes.Themes.__init__
+src.term.terminalcontroller.TerminalController.__init__
+src.term.textprogress.TextProgress.__init__
+src.utils.abstracts.HTMLCleaner.__init__
+src.utils.name.genName.__init__
+src.wxgui.cutils.textutils.TextAsNumericValidator.__init__
+src.wxgui.cutils.textutils.TextAsPercentageValidator.__init__
+src.wxgui.cutils.textutils.TextValidator.__init__
+src.wxgui.cutils.viewsutils.spFrame.__init__
+src.wxgui.cutils.viewsutils.spHeaderPanel.__init__
+src.wxgui.frames.about.AboutBox.__init__
+src.wxgui.frames.checkframe.CheckFrame.__init__
+src.wxgui.frames.createframe.CreateAuthor.__init__
+src.wxgui.frames.createframe.CreateConference.__init__
+src.wxgui.frames.createframe.CreateDocument.__init__
+src.wxgui.frames.createframe.CreateSession.__init__
+src.wxgui.frames.createframe.SessionValidator.__init__
+src.wxgui.frames.export_settings.ExportSettings.__init__
+src.wxgui.frames.export_settings.FooterSettings.__init__
+src.wxgui.frames.export_settings.GenerateSettings.__init__
+src.wxgui.frames.export_settings.HeaderSettings.__init__
+src.wxgui.frames.export_settings.OtherSettings.__init__
+src.wxgui.frames.export_settings.PageSettings.__init__
+src.wxgui.frames.export_settings.TitlesSettings.__init__
+src.wxgui.frames.feedback.FeedbackDialog.__init__
+src.wxgui.frames.feedback.FeedbackForm.__init__
+src.wxgui.frames.generateframe.GenerateFrame.__init__
+src.wxgui.frames.helpbrowser.HelpBrowser.__init__
+src.wxgui.frames.helpbrowser.HelpPage.__init__
+src.wxgui.frames.helpbrowser.HelpSystem.__init__
+src.wxgui.frames.import_wizard.ImportWizard.__init__
+src.wxgui.frames.import_wizard.InputPage.__init__
+src.wxgui.frames.import_wizard.LatexPage.__init__
+src.wxgui.frames.import_wizard.OutputPage.__init__
+src.wxgui.frames.modifframe.AddAuthor.__init__
+src.wxgui.frames.modifframe.ModifFrame.__init__
+src.wxgui.frames.processprogress.ProcessProgressDialog.__init__
+src.wxgui.manager.MainFrame.__init__
+src.wxgui.models.dataauthor.Author.__init__
+src.wxgui.models.dataconference.Conference.__init__
+src.wxgui.models.datadocument.Document.__init__
+src.wxgui.models.datasession.Session.__init__
+src.wxgui.models.readers.authors_csv_reader.__init__
+src.wxgui.models.readers.conference_csv_reader.__init__
+src.wxgui.models.readers.documents_csv_reader.__init__
+src.wxgui.models.readers.sessions_csv_reader.__init__
+src.wxgui.models.validate.Validate.__init__
+src.wxgui.models.writers.ResultEvent.__init__
+src.wxgui.models.writers.pdf_writer.__init__
+src.wxgui.panels.checklistpanel.CheckListPanel.__init__
+src.wxgui.panels.datalist.NotebookPanel.__init__
+src.wxgui.panels.infopanel.InformationPanel.__init__
+src.wxgui.ui.CustomCheckBox.CustomCheckBox.__init__" class="py-name" href="#" onclick="return doclink('link-32', '__init__', 'link-32');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-name">kwargs</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="HeaderIdExtension.extendMarkdown"></a><div id="HeaderIdExtension.extendMarkdown-def"><a name="L131"></a><tt class="py-lineno">131</tt> <a class="py-toggle" href="#" id="HeaderIdExtension.extendMarkdown-toggle" onclick="return toggle('HeaderIdExtension.extendMarkdown');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html#extendMarkdown">extendMarkdown</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">md</tt><tt class="py-op">,</tt> <tt class="py-param">md_globals</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeaderIdExtension.extendMarkdown-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HeaderIdExtension.extendMarkdown-expanded"><a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">md</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method src.dependencies.markdown.Markdown.registerExtension()=src.dependencies.markdown.Markdown-class.html#registerExtension"><a title="src.dependencies.markdown.Markdown.registerExtension" class="py-name" href="#" onclick="return doclink('link-33', 'registerExtension', 'link-33');">registerExtension</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">processor</tt> <tt class="py-op">=</tt> <tt id="link-34" class="py-name" targets="Class src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor=src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor-class.html"><a title="src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor" class="py-name" href="#" onclick="return doclink('link-34', 'HeaderIdTreeprocessor', 'link-34');">HeaderIdTreeprocessor</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">processor</tt><tt class="py-op">.</tt><tt class="py-name">md</tt> <tt class="py-op">=</tt> <tt class="py-name">md</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">processor</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="src.dependencies.markdown.extensions.Extension.config" class="py-name" href="#" onclick="return doclink('link-35', 'config', 'link-17');">config</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Method src.dependencies.markdown.extensions.Extension.getConfigs()=src.dependencies.markdown.extensions.Extension-class.html#getConfigs"><a title="src.dependencies.markdown.extensions.Extension.getConfigs" class="py-name" href="#" onclick="return doclink('link-36', 'getConfigs', 'link-36');">getConfigs</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-string">'attr_list'</tt> <tt class="py-keyword">in</tt> <tt class="py-name">md</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="src.dependencies.markdown.treeprocessors" class="py-name" href="#" onclick="return doclink('link-37', 'treeprocessors', 'link-1');">treeprocessors</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Method src.dependencies.markdown.odict.OrderedDict.keys()=src.dependencies.markdown.odict.OrderedDict-class.html#keys"><a title="src.dependencies.markdown.odict.OrderedDict.keys" class="py-name" href="#" onclick="return doclink('link-38', 'keys', 'link-38');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">            <tt class="py-comment"># insert after attr_list treeprocessor</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">            <tt class="py-name">md</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="src.dependencies.markdown.treeprocessors" class="py-name" href="#" onclick="return doclink('link-39', 'treeprocessors', 'link-1');">treeprocessors</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="src.dependencies.markdown.odict.OrderedDict.add" class="py-name" href="#" onclick="return doclink('link-40', 'add', 'link-11');">add</a></tt><tt class="py-op">(</tt><tt class="py-string">'headerid'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">processor</tt><tt class="py-op">,</tt> <tt class="py-string">'&gt;attr_list'</tt><tt class="py-op">)</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">            <tt class="py-comment"># insert after 'prettify' treeprocessor.</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">            <tt class="py-name">md</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="src.dependencies.markdown.treeprocessors" class="py-name" href="#" onclick="return doclink('link-41', 'treeprocessors', 'link-1');">treeprocessors</a></tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="src.dependencies.markdown.odict.OrderedDict.add" class="py-name" href="#" onclick="return doclink('link-42', 'add', 'link-11');">add</a></tt><tt class="py-op">(</tt><tt class="py-string">'headerid'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">processor</tt><tt class="py-op">,</tt> <tt class="py-string">'&gt;prettify'</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"> </tt>
+<a name="HeaderIdExtension.reset"></a><div id="HeaderIdExtension.reset-def"><a name="L143"></a><tt class="py-lineno">143</tt> <a class="py-toggle" href="#" id="HeaderIdExtension.reset-toggle" onclick="return toggle('HeaderIdExtension.reset');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html#reset">reset</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeaderIdExtension.reset-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="HeaderIdExtension.reset-expanded"><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">processor</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor.IDs" class="py-name" href="#" onclick="return doclink('link-43', 'IDs', 'link-14');">IDs</a></tt> <tt class="py-op">=</tt> <tt id="link-44" class="py-name"><a title="src.dependencies.markdown.blockparser.State.set
+src.structs.option.Option.set
+src.wxgui.models.dataauthor.Author.set
+src.wxgui.models.dataconference.Conference.set
+src.wxgui.models.datadocument.Document.set
+src.wxgui.models.datasession.Session.set" class="py-name" href="#" onclick="return doclink('link-44', 'set', 'link-15');">set</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"> </tt>
+<a name="makeExtension"></a><div id="makeExtension-def"><a name="L147"></a><tt class="py-lineno">147</tt> <a class="py-toggle" href="#" id="makeExtension-toggle" onclick="return toggle('makeExtension');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.extensions.headerid-module.html#makeExtension">makeExtension</a><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="makeExtension-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="makeExtension-expanded"><a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-45" class="py-name"><a title="src.dependencies.markdown.extensions.headerid.HeaderIdExtension" class="py-name" href="#" onclick="return doclink('link-45', 'HeaderIdExtension', 'link-31');">HeaderIdExtension</a></tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-name">kwargs</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Jun  4 12:15:29 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

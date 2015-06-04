@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.dependencies.markdown.extensions.smarty</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.dependencies-module.html">Package&nbsp;dependencies</a> ::
+        <a href="src.dependencies.markdown-module.html">Package&nbsp;markdown</a> ::
+        <a href="src.dependencies.markdown.extensions-module.html" onclick="show_private();">Package&nbsp;extensions</a> ::
+        Module&nbsp;smarty
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module smarty</h1><p class="nomargin-top"><span class="codelink"><a href="src.dependencies.markdown.extensions.smarty-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+
+Smarty extension for Python-Markdown
+====================================
+
+Adds conversion of ASCII dashes, quotes and ellipses to their HTML 
+entity equivalents.
+
+See &lt;https://pythonhosted.org/Markdown/extensions/smarty.html&gt; 
+for documentation.
+
+Author: 2013, Dmitry Shachnev &lt;mitya57@gmail.com&gt;
+
+All changes Copyright 2013-2014 The Python Markdown Project
+
+License: [BSD](http://www.opensource.org/licenses/bsd-license.php) 
+
+SmartyPants license:
+
+   Copyright (c) 2003 John Gruber &lt;http://daringfireball.net/&gt;
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+
+   *  Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+   *  Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the
+      distribution.
+
+   *  Neither the name &quot;SmartyPants&quot; nor the names of its contributors 
+      may be used to endorse or promote products derived from this
+      software without specific prior written permission.
+
+   This software is provided by the copyright holders and contributors &quot;as
+   is&quot; and any express or implied warranties, including, but not limited
+   to, the implied warranties of merchantability and fitness for a
+   particular purpose are disclaimed. In no event shall the copyright
+   owner or contributors be liable for any direct, indirect, incidental,
+   special, exemplary, or consequential damages (including, but not
+   limited to, procurement of substitute goods or services; loss of use,
+   data, or profits; or business interruption) however caused and on any
+   theory of liability, whether in contract, strict liability, or tort
+   (including negligence or otherwise) arising in any way out of the use
+   of this software, even if advised of the possibility of such damage.
+
+
+smartypants.py license:
+
+   smartypants.py is a derivative work of SmartyPants.
+   Copyright (c) 2004, 2007 Chad Miller &lt;http://web.chad.org/&gt;
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+
+   *  Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+   *  Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the
+      distribution.
+
+   This software is provided by the copyright holders and contributors &quot;as
+   is&quot; and any express or implied warranties, including, but not limited
+   to, the implied warranties of merchantability and fitness for a
+   particular purpose are disclaimed. In no event shall the copyright
+   owner or contributors be liable for any direct, indirect, incidental,
+   special, exemplary, or consequential damages (including, but not
+   limited to, procurement of substitute goods or services; loss of use,
+   data, or profits; or business interruption) however caused and on any
+   theory of liability, whether in contract, strict liability, or tort
+   (including negligence or otherwise) arising in any way out of the use
+   of this software, even if advised of the possibility of such damage.
+
+</pre>
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty.SubstituteTextPattern-class.html" class="summary-name">SubstituteTextPattern</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty.SmartyExtension-class.html" class="summary-name">SmartyExtension</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="makeExtension"></a><span class="summary-sig-name">makeExtension</span>(<span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.dependencies.markdown.extensions.smarty-pysrc.html#makeExtension">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="punctClass"></a><span class="summary-name">punctClass</span> = <code title="u'[!&quot;#\$\%'()*+,-.\/:;&lt;=&gt;?\@\[\\\]\^_`{|}~]'"><code class="variable-quote">u'</code><code class="variable-string">[!&quot;#\$\%'()*+,-.\/:;&lt;=&gt;?\@\[\\\]\^_`{|}~]</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="endOfWordClass"></a><span class="summary-name">endOfWordClass</span> = <code title="u'[\s.,;:!?)]'"><code class="variable-quote">u'</code><code class="variable-string">[\s.,;:!?)]</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#closeClass" class="summary-name">closeClass</a> = <code title="u'''[^\ 	
+\[\{\(\-]'''"><code class="variable-quote">u'</code><code class="variable-string">[^\</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#openingQuotesBase" class="summary-name">openingQuotesBase</a> = <code title="u'(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#8211;|&amp;#8212;)'"><code class="variable-quote">u'</code><code class="variable-string">(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#8211;|&amp;#8</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#substitutions" class="summary-name">substitutions</a> = <code title="{u'ellipsis': u'&amp;hellip;',
+ u'left-angle-quote': u'&amp;laquo;',
+ u'left-double-quote': u'&amp;ldquo;',
+ u'left-single-quote': u'&amp;lsquo;',
+ u'mdash': u'&amp;mdash;',
+ u'ndash': u'&amp;ndash;',
+ u'right-angle-quote': u'&amp;raquo;',
+ u'right-double-quote': u'&amp;rdquo;',
+..."><code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string">ellipsis</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;hellip;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">left-angle-quote</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#singleQuoteStartRe" class="summary-name">singleQuoteStartRe</a> = <code title="u'^'(?=[!&quot;#\$\%'()*+,-.\/:;&lt;=&gt;?\@\[\\\]\^_`{|}~]\B)'"><code class="variable-quote">u'</code><code class="variable-string">^'(?=[!&quot;#\$\%'()*+,-.\/:;&lt;=&gt;?\@\[\\\]\^</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#doubleQuoteStartRe" class="summary-name">doubleQuoteStartRe</a> = <code title="u'^&quot;(?=[!&quot;#\$\%'()*+,-.\/:;&lt;=&gt;?\@\[\\\]\^_`{|}~]\B)'"><code class="variable-quote">u'</code><code class="variable-string">^&quot;(?=[!&quot;#\$\%'()*+,-.\/:;&lt;=&gt;?\@\[\\\]\^</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="doubleQuoteSetsRe"></a><span class="summary-name">doubleQuoteSetsRe</span> = <code title="u'&quot;'(?=\w)'"><code class="variable-quote">u'</code><code class="variable-string">&quot;'(?=\w)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="singleQuoteSetsRe"></a><span class="summary-name">singleQuoteSetsRe</span> = <code title="u''&quot;(?=\w)'"><code class="variable-quote">u'</code><code class="variable-string">'&quot;(?=\w)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#openingDoubleQuotesRegex" class="summary-name">openingDoubleQuotesRegex</a> = <code title="u'(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#8211;|&amp;#8212;)&quot;(?=\w)'"><code class="variable-quote">u'</code><code class="variable-string">(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#82</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="closingDoubleQuotesRegex"></a><span class="summary-name">closingDoubleQuotesRegex</span> = <code title="u'&quot;(?=\s)'"><code class="variable-quote">u'</code><code class="variable-string">&quot;(?=\s)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#closingDoubleQuotesRegex2" class="summary-name">closingDoubleQuotesRegex2</a> = <code title="u'''(?&lt;=[^\ 	
+\[\{\(\-])&quot;'''"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;=[^\</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#openingSingleQuotesRegex" class="summary-name">openingSingleQuotesRegex</a> = <code title="u'(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#8211;|&amp;#8212;)'(?=\w)'"><code class="variable-quote">u'</code><code class="variable-string">(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#82</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#closingSingleQuotesRegex" class="summary-name">closingSingleQuotesRegex</a> = <code title="u'''(?&lt;=[^\ 	
+\[\{\(\-])'(?!\s|s\b|\d)'''"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;=[^\</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="src.dependencies.markdown.extensions.smarty-module.html#closingSingleQuotesRegex2" class="summary-name">closingSingleQuotesRegex2</a> = <code title="u'''(?&lt;=[^\ 	
+\[\{\(\-])'(\s|s\b)'''"><code class="variable-quote">u'</code><code class="variable-string">(?&lt;=[^\</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="remainingSingleQuotesRegex"></a><span class="summary-name">remainingSingleQuotesRegex</span> = <code title="u'''"><code class="variable-quote">u'</code><code class="variable-string">'</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="remainingDoubleQuotesRegex"></a><span class="summary-name">remainingDoubleQuotesRegex</span> = <code title="u'&quot;'"><code class="variable-quote">u'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'src.dependencies.markdown.extensions'"><code class="variable-quote">'</code><code class="variable-string">src.dependencies.markdown.extensions</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables Details</span></td>
+</tr>
+</table>
+<a name="closeClass"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">closeClass</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'''</code><code class="variable-string">[^\ 	</code>
+<code class="variable-string">\[\{\(\-]</code><code class="variable-quote">'''</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="openingQuotesBase"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">openingQuotesBase</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#8211;|&amp;#8212;)</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="substitutions"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">substitutions</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string">ellipsis</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;hellip;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">left-angle-quote</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;laquo;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">left-double-quote</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;ldquo;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">left-single-quote</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;lsquo;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">mdash</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;mdash;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">ndash</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;ndash;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">right-angle-quote</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;raquo;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">right-double-quote</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;rdquo;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="singleQuoteStartRe"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">singleQuoteStartRe</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">^'(?=[!&quot;#\$\%'()*+,-.\/:;&lt;=&gt;?\@\[\\\]\^_`{|}~]\B)</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="doubleQuoteStartRe"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">doubleQuoteStartRe</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">^&quot;(?=[!&quot;#\$\%'()*+,-.\/:;&lt;=&gt;?\@\[\\\]\^_`{|}~]\B)</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="openingDoubleQuotesRegex"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">openingDoubleQuotesRegex</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#8211;|&amp;#8212;)&quot;(?=\w)</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="closingDoubleQuotesRegex2"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">closingDoubleQuotesRegex2</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'''</code><code class="variable-string">(?&lt;=[^\ 	</code>
+<code class="variable-string">\[\{\(\-])&quot;</code><code class="variable-quote">'''</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="openingSingleQuotesRegex"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">openingSingleQuotesRegex</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'</code><code class="variable-string">(\s|&amp;nbsp;|--|&#8211;|&#8212;|&amp;[mn]dash;|&amp;#8211;|&amp;#8212;)'(?=\w)</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="closingSingleQuotesRegex"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">closingSingleQuotesRegex</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'''</code><code class="variable-string">(?&lt;=[^\ 	</code>
+<code class="variable-string">\[\{\(\-])'(?!\s|s\b|\d)</code><code class="variable-quote">'''</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="closingSingleQuotesRegex2"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">closingSingleQuotesRegex2</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">u'''</code><code class="variable-string">(?&lt;=[^\ 	</code>
+<code class="variable-string">\[\{\(\-])'(\s|s\b)</code><code class="variable-quote">'''</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Jun  4 12:15:26 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.structs.prefs</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.structs-module.html">Package&nbsp;structs</a> ::
+        Module&nbsp;prefs
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="src.structs.prefs-module.html">Module src.structs.prefs</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: UTF-8 -*-</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#            ___   __    __    __    ___</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#           /     |  \  |  \  |  \  /        Automatic</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment">#           \__   |__/  |__/  |___| \__      Annotation</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment">#              \  |     |     |   |    \     of</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment">#           ___/  |     |     |   | ___/     Speech</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment">#           =============================</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment">#           http://sldr.org/sldr000800/preview/</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># developed at:</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#       Laboratoire Parole et Langage</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#       Copyright (C) 2011-2015  Brigitte Bigi</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment">#       Use of this software is governed by the GPL, v3</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment">#       This banner notice must not be removed</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># (at your option) any later version.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is distributed in the hope that it will be useful,</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># but WITHOUT ANY WARRANTY; without even the implied warranty of</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-comment"># GNU General Public License for more details.</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-comment"># You should have received a copy of the GNU General Public License</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment"># along with SPPAS. If not, see &lt;http://www.gnu.org/licenses/&gt;.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-comment"># File: prefs.py</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-docstring">"""epytext"""</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-name">__authors__</tt>   <tt class="py-op">=</tt> <tt class="py-string">"""Brigitte Bigi"""</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-name">__copyright__</tt> <tt class="py-op">=</tt> <tt class="py-string">"""Copyright (C) 2011-2015  Brigitte Bigi"""</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">logging</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">codecs</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">pickle</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package src.structs=src.structs-module.html"><a title="src.structs" class="py-name" href="#" onclick="return doclink('link-0', 'structs', 'link-0');">structs</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module src.structs.option=src.structs.option-module.html"><a title="src.structs.option" class="py-name" href="#" onclick="return doclink('link-1', 'option', 'link-1');">option</a></tt>  <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Class src.structs.option.Option=src.structs.option.Option-class.html"><a title="src.structs.option.Option" class="py-name" href="#" onclick="return doclink('link-2', 'Option', 'link-2');">Option</a></tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="Preferences"></a><div id="Preferences-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="Preferences-toggle" onclick="return toggle('Preferences');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.structs.prefs.Preferences-class.html">Preferences</a><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Preferences-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring">    Manage a dictionary with user's preferences.</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    @author:  Brigitte Bigi</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">    @contact: brigitte.bigi@gmail.com</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">    @license: GPL</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: This class is used to manage a dictionary of settings.</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
+<a name="Preferences.__init__"></a><div id="Preferences.__init__-def"><a name="L70"></a><tt class="py-lineno"> 70</tt> <a class="py-toggle" href="#" id="Preferences.__init__-toggle" onclick="return toggle('Preferences.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">theme</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences.__init__-expanded"><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor.</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">        Creates a dict of Option() instances, with option id as key.</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">        Theme is used to group specifics options.</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-comment"># Set a default theme to assign values in the dictionary.</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">theme</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method src.structs.prefs.Preferences.SetTheme()=src.structs.prefs.Preferences-class.html#SetTheme"><a title="src.structs.prefs.Preferences.SetTheme" class="py-name" href="#" onclick="return doclink('link-3', 'SetTheme', 'link-3');">SetTheme</a></tt><tt class="py-op">(</tt> <tt class="py-name">theme</tt> <tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-string">'THEME'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">    <tt class="py-comment"># End __init__</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-comment"># Getters and Setters</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="Preferences.GetValue"></a><div id="Preferences.GetValue-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="Preferences.GetValue-toggle" onclick="return toggle('Preferences.GetValue');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences-class.html#GetValue">GetValue</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences.GetValue-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences.GetValue-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-docstring">""" Return the typed-value of the given key. """</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method src.structs.option.Option.get_value()=src.structs.option.Option-class.html#get_value"><a title="src.structs.option.Option.get_value" class="py-name" href="#" onclick="return doclink('link-4', 'get_value', 'link-4');">get_value</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-comment"># End GetValue</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="Preferences.GetText"></a><div id="Preferences.GetText-def"><a name="L101"></a><tt class="py-lineno">101</tt> <a class="py-toggle" href="#" id="Preferences.GetText-toggle" onclick="return toggle('Preferences.GetText');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences-class.html#GetText">GetText</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences.GetText-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences.GetText-expanded"><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-docstring">""" Return the text describing the given key. """</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method src.structs.option.Option.get_text()=src.structs.option.Option-class.html#get_text"><a title="src.structs.option.Option.get_text" class="py-name" href="#" onclick="return doclink('link-5', 'get_text', 'link-5');">get_text</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-comment"># End GetValue</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="Preferences.SetValue"></a><div id="Preferences.SetValue-def"><a name="L109"></a><tt class="py-lineno">109</tt> <a class="py-toggle" href="#" id="Preferences.SetValue-toggle" onclick="return toggle('Preferences.SetValue');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences-class.html#SetValue">SetValue</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">,</tt> <tt class="py-param">t</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">v</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">text</tt><tt class="py-op">=</tt><tt class="py-string">''</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences.SetValue-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences.SetValue-expanded"><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-docstring">""" Set a new couple key/(type,typed-value,text). """</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">key</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">:</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="src.structs.option.Option" class="py-name" href="#" onclick="return doclink('link-6', 'Option', 'link-2');">Option</a></tt><tt class="py-op">(</tt><tt class="py-name">optiontype</tt><tt class="py-op">=</tt><tt class="py-name">t</tt><tt class="py-op">,</tt> <tt class="py-name">optionvalue</tt><tt class="py-op">=</tt><tt class="py-name">v</tt><tt class="py-op">,</tt> <tt class="py-name">optiontext</tt><tt class="py-op">=</tt><tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method src.structs.option.Option.set_value()=src.structs.option.Option-class.html#set_value"><a title="src.structs.option.Option.set_value" class="py-name" href="#" onclick="return doclink('link-7', 'set_value', 'link-7');">set_value</a></tt><tt class="py-op">(</tt><tt class="py-name">v</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">    <tt class="py-comment"># End SetValue</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="Preferences.SetOption"></a><div id="Preferences.SetOption-def"><a name="L121"></a><tt class="py-lineno">121</tt> <a class="py-toggle" href="#" id="Preferences.SetOption-toggle" onclick="return toggle('Preferences.SetOption');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences-class.html#SetOption">SetOption</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">,</tt> <tt class="py-param">option</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences.SetOption-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences.SetOption-expanded"><a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-docstring">""" Set a new couple key/Option. """</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="src.structs.option" class="py-name" href="#" onclick="return doclink('link-8', 'option', 'link-1');">option</a></tt> </tt>
+</div><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-comment"># End SetOption</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
+<a name="Preferences.GetTheme"></a><div id="Preferences.GetTheme-def"><a name="L130"></a><tt class="py-lineno">130</tt> <a class="py-toggle" href="#" id="Preferences.GetTheme-toggle" onclick="return toggle('Preferences.GetTheme');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences-class.html#GetTheme">GetTheme</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences.GetTheme-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences.GetTheme-expanded"><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-docstring">""" Return the the current theme. """</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'THEME'</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">    <tt class="py-comment"># End GetTheme</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"> </tt>
+<a name="Preferences.SetTheme"></a><div id="Preferences.SetTheme-def"><a name="L139"></a><tt class="py-lineno">139</tt> <a class="py-toggle" href="#" id="Preferences.SetTheme-toggle" onclick="return toggle('Preferences.SetTheme');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences-class.html#SetTheme">SetTheme</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">theme</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences.SetTheme-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences.SetTheme-expanded"><a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-docstring">""" Set a new theme. """</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Set to a new theme.'</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-string">'THEME'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">theme</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">key</tt> <tt class="py-keyword">in</tt> <tt class="py-name">theme</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method src.structs.themes.BaseTheme.get_keys()=src.structs.themes.BaseTheme-class.html#get_keys"><a title="src.structs.themes.BaseTheme.get_keys" class="py-name" href="#" onclick="return doclink('link-9', 'get_keys', 'link-9');">get_keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">            <tt class="py-name">opt</tt> <tt class="py-op">=</tt> <tt class="py-name">theme</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method src.structs.themes.BaseTheme.get_choice()=src.structs.themes.BaseTheme-class.html#get_choice"><a title="src.structs.themes.BaseTheme.get_choice" class="py-name" href="#" onclick="return doclink('link-10', 'get_choice', 'link-10');">get_choice</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">opt</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method src.structs.prefs.Preferences.SetOption()=src.structs.prefs.Preferences-class.html#SetOption"><a title="src.structs.prefs.Preferences.SetOption" class="py-name" href="#" onclick="return doclink('link-11', 'SetOption', 'link-11');">SetOption</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">opt</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">    <tt class="py-comment"># End SetTheme</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="Preferences_IO"></a><div id="Preferences_IO-def"><a name="L157"></a><tt class="py-lineno">157</tt> <a class="py-toggle" href="#" id="Preferences_IO-toggle" onclick="return toggle('Preferences_IO');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.structs.prefs.Preferences_IO-class.html">Preferences_IO</a><tt class="py-op">(</tt> <tt class="py-base-class">Preferences</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences_IO-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Preferences_IO-expanded"><a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"><tt class="py-docstring">    Input/Output preferences.</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"><tt class="py-docstring">    @author: Brigitte Bigi</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"><tt class="py-docstring">    @contact: brigitte.bigi@gmail.com</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"><tt class="py-docstring">    @license: GPL,v3</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: This class is used to manage a file of settings.</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"> </tt>
+<a name="Preferences_IO.__init__"></a><div id="Preferences_IO.__init__-def"><a name="L168"></a><tt class="py-lineno">168</tt> <a class="py-toggle" href="#" id="Preferences_IO.__init__-toggle" onclick="return toggle('Preferences_IO.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences_IO-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">filename</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences_IO.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences_IO.__init__-expanded"><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-docstring">""" Create a new dictionary of preferences. """</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt id="link-12" class="py-name" targets="Class src.structs.prefs.Preferences=src.structs.prefs.Preferences-class.html"><a title="src.structs.prefs.Preferences" class="py-name" href="#" onclick="return doclink('link-12', 'Preferences', 'link-12');">Preferences</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method src.DataIO.Documents.documents.author.__init__()=src.DataIO.Documents.documents.author-class.html#__init__,Method src.DataIO.Documents.documents.document.__init__()=src.DataIO.Documents.documents.document-class.html#__init__,Method src.DataIO.Documents.documents.laboratory.__init__()=src.DataIO.Documents.documents.laboratory-class.html#__init__,Method src.DataIO.Read.readEasyChair.readEasyChair.__init__()=src.DataIO.Read.readEasyChair.readEasyChair-class.html#__init__,Method src.DataIO.Read.readXML.readXML.__init__()=src.DataIO.Read.readXML.readXML-class.html#__init__,Method src.DataIO.Read.reader.Reader.__init__()=src.DataIO.Read.reader.Reader-class.html#__init__,Method src.DataIO.Write.csvwriter.CSVWriter.__init__()=src.DataIO.Write.csvwriter.CSVWriter-class.html#__init__,Method src.DataIO.Write.htmlwriter.HTMLWriter.__init__()=src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__init__,Method src.DataIO.Write.indexwriter.IndexWriter.__init__()=src.DataIO.Write.indexwriter.IndexWriter-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXDiagnosis.__init__()=src.DataIO.Write.latexwriter.LaTeXDiagnosis-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXWriter.__init__()=src.DataIO.Write.latexwriter.LaTeXWriter-class.html#__init__,Method src.DataIO.Write.writer.Writer.__init__()=src.DataIO.Write.writer.Writer-class.html#__init__,Method src.TagPDF.genLaTeX.GenLaTeXFile.__init__()=src.TagPDF.genLaTeX.GenLaTeXFile-class.html#__init__,Method src.TagPDF.genPDF.GenPdfFile.__init__()=src.TagPDF.genPDF.GenPdfFile-class.html#__init__,Method src.TagPDF.name.GenName.__init__()=src.TagPDF.name.GenName-class.html#__init__,Method src.TagPDF.tagPDF.tagPdfFile.__init__()=src.TagPDF.tagPDF.tagPdfFile-class.html#__init__,Method src.dependencies.markdown.Markdown.__init__()=src.dependencies.markdown.Markdown-class.html#__init__,Method src.dependencies.markdown.blockparser.BlockParser.__init__()=src.dependencies.markdown.blockparser.BlockParser-class.html#__init__,Method src.dependencies.markdown.blockprocessors.BlockProcessor.__init__()=src.dependencies.markdown.blockprocessors.BlockProcessor-class.html#__init__,Method src.dependencies.markdown.blockprocessors.ListIndentProcessor.__init__()=src.dependencies.markdown.blockprocessors.ListIndentProcessor-class.html#__init__,Method src.dependencies.markdown.extensions.Extension.__init__()=src.dependencies.markdown.extensions.Extension-class.html#__init__,Method src.dependencies.markdown.extensions.abbr.AbbrPattern.__init__()=src.dependencies.markdown.extensions.abbr.AbbrPattern-class.html#__init__,Method src.dependencies.markdown.extensions.codehilite.CodeHilite.__init__()=src.dependencies.markdown.extensions.codehilite.CodeHilite-class.html#__init__,Method src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension.__init__()=src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension-class.html#__init__,Method src.dependencies.markdown.extensions.extra.ExtraExtension.__init__()=src.dependencies.markdown.extensions.extra.ExtraExtension-class.html#__init__,Method src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.__init__()=src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnoteExtension.__init__()=src.dependencies.markdown.extensions.footnotes.FootnoteExtension-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePattern.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePattern-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.headerid.HeaderIdExtension.__init__()=src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html#__init__,Method src.dependencies.markdown.extensions.smarty.SmartyExtension.__init__()=src.dependencies.markdown.extensions.smarty.SmartyExtension-class.html#__init__,Method src.dependencies.markdown.extensions.smarty.SubstituteTextPattern.__init__()=src.dependencies.markdown.extensions.smarty.SubstituteTextPattern-class.html#__init__,Method src.dependencies.markdown.extensions.toc.TocExtension.__init__()=src.dependencies.markdown.extensions.toc.TocExtension-class.html#__init__,Method src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension.__init__()=src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension-class.html#__init__,Method src.dependencies.markdown.extensions.wikilinks.WikiLinks.__init__()=src.dependencies.markdown.extensions.wikilinks.WikiLinks-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.BacktickPattern.__init__()=src.dependencies.markdown.inlinepatterns.BacktickPattern-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.Pattern.__init__()=src.dependencies.markdown.inlinepatterns.Pattern-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.SimpleTagPattern.__init__()=src.dependencies.markdown.inlinepatterns.SimpleTagPattern-class.html#__init__,Method src.dependencies.markdown.odict.OrderedDict.__init__()=src.dependencies.markdown.odict.OrderedDict-class.html#__init__,Method src.dependencies.markdown.treeprocessors.InlineProcessor.__init__()=src.dependencies.markdown.treeprocessors.InlineProcessor-class.html#__init__,Method src.dependencies.markdown.util.HtmlStash.__init__()=src.dependencies.markdown.util.HtmlStash-class.html#__init__,Method src.dependencies.markdown.util.Processor.__init__()=src.dependencies.markdown.util.Processor-class.html#__init__,Method src.structs.abstracts_themes.ThemeBasic.__init__()=src.structs.abstracts_themes.ThemeBasic-class.html#__init__,Method src.structs.abstracts_themes.ThemeNalte.__init__()=src.structs.abstracts_themes.ThemeNalte-class.html#__init__,Method src.structs.abstracts_themes.ThemePalme.__init__()=src.structs.abstracts_themes.ThemePalme-class.html#__init__,Method src.structs.option.Option.__init__()=src.structs.option.Option-class.html#__init__,Method src.structs.prefs.Preferences.__init__()=src.structs.prefs.Preferences-class.html#__init__,Method src.structs.prefs.Preferences_IO.__init__()=src.structs.prefs.Preferences_IO-class.html#__init__,Method src.structs.themes.BaseTheme.__init__()=src.structs.themes.BaseTheme-class.html#__init__,Method src.structs.themes.Themes.__init__()=src.structs.themes.Themes-class.html#__init__,Method src.term.terminalcontroller.TerminalController.__init__()=src.term.terminalcontroller.TerminalController-class.html#__init__,Method src.term.textprogress.TextProgress.__init__()=src.term.textprogress.TextProgress-class.html#__init__,Method src.utils.abstracts.HTMLCleaner.__init__()=src.utils.abstracts.HTMLCleaner-class.html#__init__,Method src.utils.name.genName.__init__()=src.utils.name.genName-class.html#__init__,Method src.wxgui.cutils.textutils.TextAsNumericValidator.__init__()=src.wxgui.cutils.textutils.TextAsNumericValidator-class.html#__init__,Method src.wxgui.cutils.textutils.TextAsPercentageValidator.__init__()=src.wxgui.cutils.textutils.TextAsPercentageValidator-class.html#__init__,Method src.wxgui.cutils.textutils.TextValidator.__init__()=src.wxgui.cutils.textutils.TextValidator-class.html#__init__,Method src.wxgui.cutils.viewsutils.spFrame.__init__()=src.wxgui.cutils.viewsutils.spFrame-class.html#__init__,Method src.wxgui.cutils.viewsutils.spHeaderPanel.__init__()=src.wxgui.cutils.viewsutils.spHeaderPanel-class.html#__init__,Method src.wxgui.frames.about.AboutBox.__init__()=src.wxgui.frames.about.AboutBox-class.html#__init__,Method src.wxgui.frames.checkframe.CheckFrame.__init__()=src.wxgui.frames.checkframe.CheckFrame-class.html#__init__,Method src.wxgui.frames.createframe.CreateAuthor.__init__()=src.wxgui.frames.createframe.CreateAuthor-class.html#__init__,Method src.wxgui.frames.createframe.CreateConference.__init__()=src.wxgui.frames.createframe.CreateConference-class.html#__init__,Method src.wxgui.frames.createframe.CreateDocument.__init__()=src.wxgui.frames.createframe.CreateDocument-class.html#__init__,Method src.wxgui.frames.createframe.CreateSession.__init__()=src.wxgui.frames.createframe.CreateSession-class.html#__init__,Method src.wxgui.frames.createframe.SessionValidator.__init__()=src.wxgui.frames.createframe.SessionValidator-class.html#__init__,Method src.wxgui.frames.export_settings.ExportSettings.__init__()=src.wxgui.frames.export_settings.ExportSettings-class.html#__init__,Method src.wxgui.frames.export_settings.FooterSettings.__init__()=src.wxgui.frames.export_settings.FooterSettings-class.html#__init__,Method src.wxgui.frames.export_settings.GenerateSettings.__init__()=src.wxgui.frames.export_settings.GenerateSettings-class.html#__init__,Method src.wxgui.frames.export_settings.HeaderSettings.__init__()=src.wxgui.frames.export_settings.HeaderSettings-class.html#__init__,Method src.wxgui.frames.export_settings.OtherSettings.__init__()=src.wxgui.frames.export_settings.OtherSettings-class.html#__init__,Method src.wxgui.frames.export_settings.PageSettings.__init__()=src.wxgui.frames.export_settings.PageSettings-class.html#__init__,Method src.wxgui.frames.export_settings.TitlesSettings.__init__()=src.wxgui.frames.export_settings.TitlesSettings-class.html#__init__,Method src.wxgui.frames.feedback.FeedbackDialog.__init__()=src.wxgui.frames.feedback.FeedbackDialog-class.html#__init__,Method src.wxgui.frames.feedback.FeedbackForm.__init__()=src.wxgui.frames.feedback.FeedbackForm-class.html#__init__,Method src.wxgui.frames.generateframe.GenerateFrame.__init__()=src.wxgui.frames.generateframe.GenerateFrame-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpBrowser.__init__()=src.wxgui.frames.helpbrowser.HelpBrowser-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpPage.__init__()=src.wxgui.frames.helpbrowser.HelpPage-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpSystem.__init__()=src.wxgui.frames.helpbrowser.HelpSystem-class.html#__init__,Method src.wxgui.frames.import_wizard.ImportWizard.__init__()=src.wxgui.frames.import_wizard.ImportWizard-class.html#__init__,Method src.wxgui.frames.import_wizard.InputPage.__init__()=src.wxgui.frames.import_wizard.InputPage-class.html#__init__,Method src.wxgui.frames.import_wizard.LatexPage.__init__()=src.wxgui.frames.import_wizard.LatexPage-class.html#__init__,Method src.wxgui.frames.import_wizard.OutputPage.__init__()=src.wxgui.frames.import_wizard.OutputPage-class.html#__init__,Method src.wxgui.frames.modifframe.AddAuthor.__init__()=src.wxgui.frames.modifframe.AddAuthor-class.html#__init__,Method src.wxgui.frames.modifframe.ModifFrame.__init__()=src.wxgui.frames.modifframe.ModifFrame-class.html#__init__,Method src.wxgui.frames.processprogress.ProcessProgressDialog.__init__()=src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#__init__,Method src.wxgui.manager.MainFrame.__init__()=src.wxgui.manager.MainFrame-class.html#__init__,Method src.wxgui.models.dataauthor.Author.__init__()=src.wxgui.models.dataauthor.Author-class.html#__init__,Method src.wxgui.models.dataconference.Conference.__init__()=src.wxgui.models.dataconference.Conference-class.html#__init__,Method src.wxgui.models.datadocument.Document.__init__()=src.wxgui.models.datadocument.Document-class.html#__init__,Method src.wxgui.models.datasession.Session.__init__()=src.wxgui.models.datasession.Session-class.html#__init__,Method src.wxgui.models.readers.authors_csv_reader.__init__()=src.wxgui.models.readers.authors_csv_reader-class.html#__init__,Method src.wxgui.models.readers.conference_csv_reader.__init__()=src.wxgui.models.readers.conference_csv_reader-class.html#__init__,Method src.wxgui.models.readers.documents_csv_reader.__init__()=src.wxgui.models.readers.documents_csv_reader-class.html#__init__,Method src.wxgui.models.readers.sessions_csv_reader.__init__()=src.wxgui.models.readers.sessions_csv_reader-class.html#__init__,Method src.wxgui.models.validate.Validate.__init__()=src.wxgui.models.validate.Validate-class.html#__init__,Method src.wxgui.models.writers.ResultEvent.__init__()=src.wxgui.models.writers.ResultEvent-class.html#__init__,Method src.wxgui.models.writers.pdf_writer.__init__()=src.wxgui.models.writers.pdf_writer-class.html#__init__,Method src.wxgui.panels.checklistpanel.CheckListPanel.__init__()=src.wxgui.panels.checklistpanel.CheckListPanel-class.html#__init__,Method src.wxgui.panels.datalist.NotebookPanel.__init__()=src.wxgui.panels.datalist.NotebookPanel-class.html#__init__,Method src.wxgui.panels.infopanel.InformationPanel.__init__()=src.wxgui.panels.infopanel.InformationPanel-class.html#__init__,Method src.wxgui.ui.CustomCheckBox.CustomCheckBox.__init__()=src.wxgui.ui.CustomCheckBox.CustomCheckBox-class.html#__init__"><a title="src.DataIO.Documents.documents.author.__init__
+src.DataIO.Documents.documents.document.__init__
+src.DataIO.Documents.documents.laboratory.__init__
+src.DataIO.Read.readEasyChair.readEasyChair.__init__
+src.DataIO.Read.readXML.readXML.__init__
+src.DataIO.Read.reader.Reader.__init__
+src.DataIO.Write.csvwriter.CSVWriter.__init__
+src.DataIO.Write.htmlwriter.HTMLWriter.__init__
+src.DataIO.Write.indexwriter.IndexWriter.__init__
+src.DataIO.Write.latexwriter.LaTeXDiagnosis.__init__
+src.DataIO.Write.latexwriter.LaTeXWriter.__init__
+src.DataIO.Write.writer.Writer.__init__
+src.TagPDF.genLaTeX.GenLaTeXFile.__init__
+src.TagPDF.genPDF.GenPdfFile.__init__
+src.TagPDF.name.GenName.__init__
+src.TagPDF.tagPDF.tagPdfFile.__init__
+src.dependencies.markdown.Markdown.__init__
+src.dependencies.markdown.blockparser.BlockParser.__init__
+src.dependencies.markdown.blockprocessors.BlockProcessor.__init__
+src.dependencies.markdown.blockprocessors.ListIndentProcessor.__init__
+src.dependencies.markdown.extensions.Extension.__init__
+src.dependencies.markdown.extensions.abbr.AbbrPattern.__init__
+src.dependencies.markdown.extensions.codehilite.CodeHilite.__init__
+src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension.__init__
+src.dependencies.markdown.extensions.extra.ExtraExtension.__init__
+src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnoteExtension.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePattern.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.__init__
+src.dependencies.markdown.extensions.headerid.HeaderIdExtension.__init__
+src.dependencies.markdown.extensions.smarty.SmartyExtension.__init__
+src.dependencies.markdown.extensions.smarty.SubstituteTextPattern.__init__
+src.dependencies.markdown.extensions.toc.TocExtension.__init__
+src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension.__init__
+src.dependencies.markdown.extensions.wikilinks.WikiLinks.__init__
+src.dependencies.markdown.inlinepatterns.BacktickPattern.__init__
+src.dependencies.markdown.inlinepatterns.Pattern.__init__
+src.dependencies.markdown.inlinepatterns.SimpleTagPattern.__init__
+src.dependencies.markdown.odict.OrderedDict.__init__
+src.dependencies.markdown.treeprocessors.InlineProcessor.__init__
+src.dependencies.markdown.util.HtmlStash.__init__
+src.dependencies.markdown.util.Processor.__init__
+src.structs.abstracts_themes.ThemeBasic.__init__
+src.structs.abstracts_themes.ThemeNalte.__init__
+src.structs.abstracts_themes.ThemePalme.__init__
+src.structs.option.Option.__init__
+src.structs.prefs.Preferences.__init__
+src.structs.prefs.Preferences_IO.__init__
+src.structs.themes.BaseTheme.__init__
+src.structs.themes.Themes.__init__
+src.term.terminalcontroller.TerminalController.__init__
+src.term.textprogress.TextProgress.__init__
+src.utils.abstracts.HTMLCleaner.__init__
+src.utils.name.genName.__init__
+src.wxgui.cutils.textutils.TextAsNumericValidator.__init__
+src.wxgui.cutils.textutils.TextAsPercentageValidator.__init__
+src.wxgui.cutils.textutils.TextValidator.__init__
+src.wxgui.cutils.viewsutils.spFrame.__init__
+src.wxgui.cutils.viewsutils.spHeaderPanel.__init__
+src.wxgui.frames.about.AboutBox.__init__
+src.wxgui.frames.checkframe.CheckFrame.__init__
+src.wxgui.frames.createframe.CreateAuthor.__init__
+src.wxgui.frames.createframe.CreateConference.__init__
+src.wxgui.frames.createframe.CreateDocument.__init__
+src.wxgui.frames.createframe.CreateSession.__init__
+src.wxgui.frames.createframe.SessionValidator.__init__
+src.wxgui.frames.export_settings.ExportSettings.__init__
+src.wxgui.frames.export_settings.FooterSettings.__init__
+src.wxgui.frames.export_settings.GenerateSettings.__init__
+src.wxgui.frames.export_settings.HeaderSettings.__init__
+src.wxgui.frames.export_settings.OtherSettings.__init__
+src.wxgui.frames.export_settings.PageSettings.__init__
+src.wxgui.frames.export_settings.TitlesSettings.__init__
+src.wxgui.frames.feedback.FeedbackDialog.__init__
+src.wxgui.frames.feedback.FeedbackForm.__init__
+src.wxgui.frames.generateframe.GenerateFrame.__init__
+src.wxgui.frames.helpbrowser.HelpBrowser.__init__
+src.wxgui.frames.helpbrowser.HelpPage.__init__
+src.wxgui.frames.helpbrowser.HelpSystem.__init__
+src.wxgui.frames.import_wizard.ImportWizard.__init__
+src.wxgui.frames.import_wizard.InputPage.__init__
+src.wxgui.frames.import_wizard.LatexPage.__init__
+src.wxgui.frames.import_wizard.OutputPage.__init__
+src.wxgui.frames.modifframe.AddAuthor.__init__
+src.wxgui.frames.modifframe.ModifFrame.__init__
+src.wxgui.frames.processprogress.ProcessProgressDialog.__init__
+src.wxgui.manager.MainFrame.__init__
+src.wxgui.models.dataauthor.Author.__init__
+src.wxgui.models.dataconference.Conference.__init__
+src.wxgui.models.datadocument.Document.__init__
+src.wxgui.models.datasession.Session.__init__
+src.wxgui.models.readers.authors_csv_reader.__init__
+src.wxgui.models.readers.conference_csv_reader.__init__
+src.wxgui.models.readers.documents_csv_reader.__init__
+src.wxgui.models.readers.sessions_csv_reader.__init__
+src.wxgui.models.validate.Validate.__init__
+src.wxgui.models.writers.ResultEvent.__init__
+src.wxgui.models.writers.pdf_writer.__init__
+src.wxgui.panels.checklistpanel.CheckListPanel.__init__
+src.wxgui.panels.datalist.NotebookPanel.__init__
+src.wxgui.panels.infopanel.InformationPanel.__init__
+src.wxgui.ui.CustomCheckBox.CustomCheckBox.__init__" class="py-name" href="#" onclick="return doclink('link-13', '__init__', 'link-13');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_filename</tt> <tt class="py-op">=</tt> <tt class="py-name">filename</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">(</tt><tt class="py-string">'Settings file name is: %s'</tt><tt class="py-op">%</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_filename</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line"> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">    <tt class="py-comment"># End __init__</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"> </tt>
+<a name="Preferences_IO.HasFilename"></a><div id="Preferences_IO.HasFilename-def"><a name="L180"></a><tt class="py-lineno">180</tt> <a class="py-toggle" href="#" id="Preferences_IO.HasFilename-toggle" onclick="return toggle('Preferences_IO.HasFilename');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences_IO-class.html#HasFilename">HasFilename</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences_IO.HasFilename-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences_IO.HasFilename-expanded"><a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"><tt class="py-docstring">        Return True if a file name was defined.</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_filename</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">    <tt class="py-comment"># End HasFilename</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"> </tt>
+<a name="Preferences_IO.Read"></a><div id="Preferences_IO.Read-def"><a name="L192"></a><tt class="py-lineno">192</tt> <a class="py-toggle" href="#" id="Preferences_IO.Read-toggle" onclick="return toggle('Preferences_IO.Read');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences_IO-class.html#Read">Read</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences_IO.Read-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences_IO.Read-expanded"><a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-docstring">        Read user preferences from a file.</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"><tt class="py-docstring">        Return True if preferences have been read.</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">            <tt class="py-keyword">with</tt> <tt class="py-name">codecs</tt><tt class="py-op">.</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_filename</tt><tt class="py-op">,</tt> <tt class="py-name">mode</tt><tt class="py-op">=</tt><tt class="py-string">"rb"</tt><tt class="py-op">)</tt> <tt class="py-keyword">as</tt> <tt class="py-name">f</tt><tt class="py-op">:</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">                <tt id="link-14" class="py-name" targets="Module src.structs.prefs=src.structs.prefs-module.html"><a title="src.structs.prefs" class="py-name" href="#" onclick="return doclink('link-14', 'prefs', 'link-14');">prefs</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">load</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">Exception</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">            <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Preferences NOT read, error: %s'</tt><tt class="py-op">%</tt><tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="src.structs.prefs" class="py-name" href="#" onclick="return doclink('link-15', 'prefs', 'link-14');">prefs</a></tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Settings read successfully'</tt><tt class="py-op">)</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">    <tt class="py-comment"># End Read</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"> </tt>
+<a name="Preferences_IO.Write"></a><div id="Preferences_IO.Write-def"><a name="L213"></a><tt class="py-lineno">213</tt> <a class="py-toggle" href="#" id="Preferences_IO.Write-toggle" onclick="return toggle('Preferences_IO.Write');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences_IO-class.html#Write">Write</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences_IO.Write-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences_IO.Write-expanded"><a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"><tt class="py-docstring">        Save user preferences into a file.</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"><tt class="py-docstring">        Return True if preferences have been saved.</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line"> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_filename</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line"> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">            <tt class="py-keyword">with</tt> <tt class="py-name">codecs</tt><tt class="py-op">.</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_filename</tt><tt class="py-op">,</tt> <tt class="py-name">mode</tt><tt class="py-op">=</tt><tt class="py-string">"wb"</tt><tt class="py-op">)</tt> <tt class="py-keyword">as</tt> <tt class="py-name">f</tt><tt class="py-op">:</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">                <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">dump</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">,</tt> <tt class="py-name">f</tt><tt class="py-op">,</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">HIGHEST_PROTOCOL</tt><tt class="py-op">)</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">Exception</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">            <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Preferences NOT saved, error: %s'</tt><tt class="py-op">%</tt><tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line"> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">        <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Settings saved successfully.'</tt><tt class="py-op">)</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line"> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">    <tt class="py-comment"># End Write</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line"> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line"> </tt>
+<a name="Preferences_IO.Copy"></a><div id="Preferences_IO.Copy-def"><a name="L236"></a><tt class="py-lineno">236</tt> <a class="py-toggle" href="#" id="Preferences_IO.Copy-toggle" onclick="return toggle('Preferences_IO.Copy');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.structs.prefs.Preferences_IO-class.html#Copy">Copy</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Preferences_IO.Copy-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Preferences_IO.Copy-expanded"><a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line"><tt class="py-docstring">        Return a deep copy of self.</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">        <tt class="py-name">cpref</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name" targets="Class src.structs.prefs.Preferences_IO=src.structs.prefs.Preferences_IO-class.html"><a title="src.structs.prefs.Preferences_IO" class="py-name" href="#" onclick="return doclink('link-16', 'Preferences_IO', 'link-16');">Preferences_IO</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line"> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">key</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method src.dependencies.markdown.odict.OrderedDict.keys()=src.dependencies.markdown.odict.OrderedDict-class.html#keys"><a title="src.dependencies.markdown.odict.OrderedDict.keys" class="py-name" href="#" onclick="return doclink('link-17', 'keys', 'link-17');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">key</tt> <tt class="py-op">==</tt> <tt class="py-string">'THEME'</tt><tt class="py-op">:</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">                <tt class="py-name">cpref</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="src.structs.prefs.Preferences.SetTheme" class="py-name" href="#" onclick="return doclink('link-18', 'SetTheme', 'link-3');">SetTheme</a></tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">)</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">                <tt class="py-name">t</tt>   <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method src.structs.option.Option.get_type()=src.structs.option.Option-class.html#get_type"><a title="src.structs.option.Option.get_type" class="py-name" href="#" onclick="return doclink('link-19', 'get_type', 'link-19');">get_type</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">                <tt class="py-name">v</tt>   <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method src.structs.option.Option.get_untypedvalue()=src.structs.option.Option-class.html#get_untypedvalue"><a title="src.structs.option.Option.get_untypedvalue" class="py-name" href="#" onclick="return doclink('link-20', 'get_untypedvalue', 'link-20');">get_untypedvalue</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">                <tt class="py-name">txt</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_prefs</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="src.structs.option.Option.get_text" class="py-name" href="#" onclick="return doclink('link-21', 'get_text', 'link-5');">get_text</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">                <tt class="py-name">opt</tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name"><a title="src.structs.option.Option" class="py-name" href="#" onclick="return doclink('link-22', 'Option', 'link-2');">Option</a></tt><tt class="py-op">(</tt><tt class="py-name">t</tt><tt class="py-op">,</tt><tt class="py-name">v</tt><tt class="py-op">,</tt><tt class="py-name">txt</tt><tt class="py-op">)</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">                <tt class="py-name">cpref</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="src.structs.prefs.Preferences.SetOption" class="py-name" href="#" onclick="return doclink('link-23', 'SetOption', 'link-11');">SetOption</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">opt</tt><tt class="py-op">)</tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">cpref</tt> </tt>
+</div></div><a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line"> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">    <tt class="py-comment"># End Copy</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line"> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Jun  4 12:15:29 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

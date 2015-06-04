@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.dependencies.markdown.blockparser</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.dependencies-module.html">Package&nbsp;dependencies</a> ::
+        <a href="src.dependencies.markdown-module.html">Package&nbsp;markdown</a> ::
+        Module&nbsp;blockparser
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="src.dependencies.markdown.blockparser-module.html" onclick="show_private();">Module src.dependencies.markdown.blockparser</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">__future__</tt> <tt class="py-keyword">import</tt> <tt class="py-name">unicode_literals</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">__future__</tt> <tt class="py-keyword">import</tt> <tt class="py-name">absolute_import</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-op">.</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module src.dependencies.markdown.util=src.dependencies.markdown.util-module.html"><a title="src.dependencies.markdown.util" class="py-name" href="#" onclick="return doclink('link-0', 'util', 'link-0');">util</a></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-op">.</tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module src.dependencies.markdown.odict=src.dependencies.markdown.odict-module.html"><a title="src.dependencies.markdown.odict" class="py-name" href="#" onclick="return doclink('link-1', 'odict', 'link-1');">odict</a></tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"> </tt>
+<a name="State"></a><div id="State-def"><a name="L6"></a><tt class="py-lineno"> 6</tt> <a class="py-toggle" href="#" id="State-toggle" onclick="return toggle('State');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.State-class.html">State</a><tt class="py-op">(</tt><tt class="py-base-class">list</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="State-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="State-expanded"><a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line">    <tt class="py-docstring">""" Track the current and nested state of the parser. </tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">    This utility class is used to track the state of the BlockParser and </tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">    support multiple levels if nesting. It's just a simple API wrapped around</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-docstring">    a list. Each time a state is set, that state is appended to the end of the</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-docstring">    list. Each time a state is reset, that state is removed from the end of</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-docstring">    the list.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-docstring">    Therefore, each time a state is set for a nested block, that state must be </tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-docstring">    reset when we back out of that level of nesting or the state could be</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-docstring">    corrupted.</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring">    While all the methods of a list object are available, only the three</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">    defined below need be used.</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="State.set"></a><div id="State.set-def"><a name="L24"></a><tt class="py-lineno">24</tt> <a class="py-toggle" href="#" id="State.set-toggle" onclick="return toggle('State.set');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.State-class.html#set">set</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">state</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="State.set-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="State.set-expanded"><a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-docstring">""" Set a new state. """</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">state</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="State.reset"></a><div id="State.reset-def"><a name="L28"></a><tt class="py-lineno">28</tt> <a class="py-toggle" href="#" id="State.reset-toggle" onclick="return toggle('State.reset');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.State-class.html#reset">reset</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="State.reset-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="State.reset-expanded"><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-docstring">""" Step back one step in nested state. """</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method src.dependencies.markdown.odict.OrderedDict.pop()=src.dependencies.markdown.odict.OrderedDict-class.html#pop"><a title="src.dependencies.markdown.odict.OrderedDict.pop" class="py-name" href="#" onclick="return doclink('link-2', 'pop', 'link-2');">pop</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="State.isstate"></a><div id="State.isstate-def"><a name="L32"></a><tt class="py-lineno">32</tt> <a class="py-toggle" href="#" id="State.isstate-toggle" onclick="return toggle('State.isstate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.State-class.html#isstate">isstate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">state</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="State.isstate-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="State.isstate-expanded"><a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-docstring">""" Test that top (current) level is of given state. """</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">state</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+</div></div><a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="BlockParser"></a><div id="BlockParser-def"><a name="L39"></a><tt class="py-lineno">39</tt> <a class="py-toggle" href="#" id="BlockParser-toggle" onclick="return toggle('BlockParser');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.BlockParser-class.html">BlockParser</a><tt class="py-op">:</tt> </tt>
+</div><div id="BlockParser-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="BlockParser-expanded"><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-docstring">""" Parse Markdown blocks into an ElementTree object. </tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"><tt class="py-docstring">    A wrapper class that stitches the various BlockProcessors together,</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"><tt class="py-docstring">    looping through them and creating an ElementTree object.</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"> </tt>
+<a name="BlockParser.__init__"></a><div id="BlockParser.__init__-def"><a name="L46"></a><tt class="py-lineno">46</tt> <a class="py-toggle" href="#" id="BlockParser.__init__-toggle" onclick="return toggle('BlockParser.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.BlockParser-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">markdown</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BlockParser.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="BlockParser.__init__-expanded"><a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Module src.dependencies.markdown.blockprocessors=src.dependencies.markdown.blockprocessors-module.html"><a title="src.dependencies.markdown.blockprocessors" class="py-name" href="#" onclick="return doclink('link-3', 'blockprocessors', 'link-3');">blockprocessors</a></tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="src.dependencies.markdown.odict" class="py-name" href="#" onclick="return doclink('link-4', 'odict', 'link-1');">odict</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Class src.dependencies.markdown.odict.OrderedDict=src.dependencies.markdown.odict.OrderedDict-class.html"><a title="src.dependencies.markdown.odict.OrderedDict" class="py-name" href="#" onclick="return doclink('link-5', 'OrderedDict', 'link-5');">OrderedDict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">state</tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name" targets="Class src.dependencies.markdown.blockparser.State=src.dependencies.markdown.blockparser.State-class.html"><a title="src.dependencies.markdown.blockparser.State" class="py-name" href="#" onclick="return doclink('link-6', 'State', 'link-6');">State</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Package src.dependencies.markdown=src.dependencies.markdown-module.html,Function src.dependencies.markdown.markdown()=src.dependencies.markdown-module.html#markdown"><a title="src.dependencies.markdown
+src.dependencies.markdown.markdown" class="py-name" href="#" onclick="return doclink('link-7', 'markdown', 'link-7');">markdown</a></tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="src.dependencies.markdown
+src.dependencies.markdown.markdown" class="py-name" href="#" onclick="return doclink('link-8', 'markdown', 'link-7');">markdown</a></tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
+<a name="BlockParser.parseDocument"></a><div id="BlockParser.parseDocument-def"><a name="L51"></a><tt class="py-lineno">51</tt> <a class="py-toggle" href="#" id="BlockParser.parseDocument-toggle" onclick="return toggle('BlockParser.parseDocument');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.BlockParser-class.html#parseDocument">parseDocument</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">lines</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BlockParser.parseDocument-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="BlockParser.parseDocument-expanded"><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">        <tt class="py-docstring">""" Parse a markdown document into an ElementTree. </tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"><tt class="py-docstring">        Given a list of lines, an ElementTree object (not just a parent Element)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"><tt class="py-docstring">        is created and the root element is passed to the parser as the parent.</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"><tt class="py-docstring">        The ElementTree object is returned.</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-docstring">        This should only be called on an entire document, not pieces.</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-comment"># Create a ElementTree from the lines</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">root</tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="src.dependencies.markdown.util" class="py-name" href="#" onclick="return doclink('link-9', 'util', 'link-0');">util</a></tt><tt class="py-op">.</tt><tt class="py-name">etree</tt><tt class="py-op">.</tt><tt class="py-name">Element</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="src.dependencies.markdown
+src.dependencies.markdown.markdown" class="py-name" href="#" onclick="return doclink('link-10', 'markdown', 'link-7');">markdown</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Variable src.dependencies.markdown.Markdown.doc_tag=src.dependencies.markdown.Markdown-class.html#doc_tag"><a title="src.dependencies.markdown.Markdown.doc_tag" class="py-name" href="#" onclick="return doclink('link-11', 'doc_tag', 'link-11');">doc_tag</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method src.dependencies.markdown.blockparser.BlockParser.parseChunk()=src.dependencies.markdown.blockparser.BlockParser-class.html#parseChunk"><a title="src.dependencies.markdown.blockparser.BlockParser.parseChunk" class="py-name" href="#" onclick="return doclink('link-12', 'parseChunk', 'link-12');">parseChunk</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">root</tt><tt class="py-op">,</tt> <tt class="py-string">'\n'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">lines</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-13" class="py-name"><a title="src.dependencies.markdown.util" class="py-name" href="#" onclick="return doclink('link-13', 'util', 'link-0');">util</a></tt><tt class="py-op">.</tt><tt class="py-name">etree</tt><tt class="py-op">.</tt><tt class="py-name">ElementTree</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">root</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"> </tt>
+<a name="BlockParser.parseChunk"></a><div id="BlockParser.parseChunk-def"><a name="L66"></a><tt class="py-lineno">66</tt> <a class="py-toggle" href="#" id="BlockParser.parseChunk-toggle" onclick="return toggle('BlockParser.parseChunk');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.BlockParser-class.html#parseChunk">parseChunk</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">parent</tt><tt class="py-op">,</tt> <tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BlockParser.parseChunk-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="BlockParser.parseChunk-expanded"><a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">        <tt class="py-docstring">""" Parse a chunk of markdown text and attach to given etree node. </tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"><tt class="py-docstring">        While the ``text`` argument is generally assumed to contain multiple</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line"><tt class="py-docstring">        blocks which will be split on blank lines, it could contain only one</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line"><tt class="py-docstring">        block. Generally, this method would be called by extensions when</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line"><tt class="py-docstring">        block parsing is required. </tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"><tt class="py-docstring">        The ``parent`` etree Element passed in is altered in place. </tt> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"><tt class="py-docstring">        Nothing is returned.</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method src.dependencies.markdown.blockparser.BlockParser.parseBlocks()=src.dependencies.markdown.blockparser.BlockParser-class.html#parseBlocks"><a title="src.dependencies.markdown.blockparser.BlockParser.parseBlocks" class="py-name" href="#" onclick="return doclink('link-14', 'parseBlocks', 'link-14');">parseBlocks</a></tt><tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">,</tt> <tt class="py-name">text</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'\n\n'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line"> </tt>
+<a name="BlockParser.parseBlocks"></a><div id="BlockParser.parseBlocks-def"><a name="L80"></a><tt class="py-lineno">80</tt> <a class="py-toggle" href="#" id="BlockParser.parseBlocks-toggle" onclick="return toggle('BlockParser.parseBlocks');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.dependencies.markdown.blockparser.BlockParser-class.html#parseBlocks">parseBlocks</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">parent</tt><tt class="py-op">,</tt> <tt class="py-param">blocks</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BlockParser.parseBlocks-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="BlockParser.parseBlocks-expanded"><a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line">        <tt class="py-docstring">""" Process blocks of markdown text and attach to given etree node. </tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line"><tt class="py-docstring">        Given a list of ``blocks``, each blockprocessor is stepped through</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line"><tt class="py-docstring">        until there are no blocks left. While an extension could potentially</tt> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line"><tt class="py-docstring">        call this method directly, it's generally expected to be used internally.</tt> </tt>
+<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line"><tt class="py-docstring">        This is a public method as an extension may need to add/alter additional</tt> </tt>
+<a name="L88"></a><tt class="py-lineno">88</tt>  <tt class="py-line"><tt class="py-docstring">        BlockProcessors which call this method to recursively parse a nested</tt> </tt>
+<a name="L89"></a><tt class="py-lineno">89</tt>  <tt class="py-line"><tt class="py-docstring">        block.</tt> </tt>
+<a name="L90"></a><tt class="py-lineno">90</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L91"></a><tt class="py-lineno">91</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L92"></a><tt class="py-lineno">92</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-name">blocks</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno">93</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">processor</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="src.dependencies.markdown.blockprocessors" class="py-name" href="#" onclick="return doclink('link-15', 'blockprocessors', 'link-3');">blockprocessors</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method src.dependencies.markdown.odict.OrderedDict.values()=src.dependencies.markdown.odict.OrderedDict-class.html#values"><a title="src.dependencies.markdown.odict.OrderedDict.values" class="py-name" href="#" onclick="return doclink('link-16', 'values', 'link-16');">values</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno">94</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">processor</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method src.dependencies.markdown.blockprocessors.BlockProcessor.test()=src.dependencies.markdown.blockprocessors.BlockProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.BlockQuoteProcessor.test()=src.dependencies.markdown.blockprocessors.BlockQuoteProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.CodeBlockProcessor.test()=src.dependencies.markdown.blockprocessors.CodeBlockProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.EmptyBlockProcessor.test()=src.dependencies.markdown.blockprocessors.EmptyBlockProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.HRProcessor.test()=src.dependencies.markdown.blockprocessors.HRProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.HashHeaderProcessor.test()=src.dependencies.markdown.blockprocessors.HashHeaderProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.ListIndentProcessor.test()=src.dependencies.markdown.blockprocessors.ListIndentProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.OListProcessor.test()=src.dependencies.markdown.blockprocessors.OListProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.ParagraphProcessor.test()=src.dependencies.markdown.blockprocessors.ParagraphProcessor-class.html#test,Method src.dependencies.markdown.blockprocessors.SetextHeaderProcessor.test()=src.dependencies.markdown.blockprocessors.SetextHeaderProcessor-class.html#test,Method src.dependencies.markdown.extensions.admonition.AdmonitionProcessor.test()=src.dependencies.markdown.extensions.admonition.AdmonitionProcessor-class.html#test,Method src.dependencies.markdown.extensions.def_list.DefListProcessor.test()=src.dependencies.markdown.extensions.def_list.DefListProcessor-class.html#test,Method src.dependencies.markdown.extensions.extra.MarkdownInHtmlProcessor.test()=src.dependencies.markdown.extensions.extra.MarkdownInHtmlProcessor-class.html#test,Method src.dependencies.markdown.extensions.tables.TableProcessor.test()=src.dependencies.markdown.extensions.tables.TableProcessor-class.html#test"><a title="src.dependencies.markdown.blockprocessors.BlockProcessor.test
+src.dependencies.markdown.blockprocessors.BlockQuoteProcessor.test
+src.dependencies.markdown.blockprocessors.CodeBlockProcessor.test
+src.dependencies.markdown.blockprocessors.EmptyBlockProcessor.test
+src.dependencies.markdown.blockprocessors.HRProcessor.test
+src.dependencies.markdown.blockprocessors.HashHeaderProcessor.test
+src.dependencies.markdown.blockprocessors.ListIndentProcessor.test
+src.dependencies.markdown.blockprocessors.OListProcessor.test
+src.dependencies.markdown.blockprocessors.ParagraphProcessor.test
+src.dependencies.markdown.blockprocessors.SetextHeaderProcessor.test
+src.dependencies.markdown.extensions.admonition.AdmonitionProcessor.test
+src.dependencies.markdown.extensions.def_list.DefListProcessor.test
+src.dependencies.markdown.extensions.extra.MarkdownInHtmlProcessor.test
+src.dependencies.markdown.extensions.tables.TableProcessor.test" class="py-name" href="#" onclick="return doclink('link-17', 'test', 'link-17');">test</a></tt><tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">,</tt> <tt class="py-name">blocks</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno">95</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-name">processor</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method src.DataIO.Write.latexwriter.LaTeXDiagnosis.run()=src.DataIO.Write.latexwriter.LaTeXDiagnosis-class.html#run,Function src.dependencies.markdown.__main__.run()=src.dependencies.markdown.__main__-module.html#run,Method src.dependencies.markdown.blockprocessors.BlockProcessor.run()=src.dependencies.markdown.blockprocessors.BlockProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.BlockQuoteProcessor.run()=src.dependencies.markdown.blockprocessors.BlockQuoteProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.CodeBlockProcessor.run()=src.dependencies.markdown.blockprocessors.CodeBlockProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.EmptyBlockProcessor.run()=src.dependencies.markdown.blockprocessors.EmptyBlockProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.HRProcessor.run()=src.dependencies.markdown.blockprocessors.HRProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.HashHeaderProcessor.run()=src.dependencies.markdown.blockprocessors.HashHeaderProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.ListIndentProcessor.run()=src.dependencies.markdown.blockprocessors.ListIndentProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.OListProcessor.run()=src.dependencies.markdown.blockprocessors.OListProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.ParagraphProcessor.run()=src.dependencies.markdown.blockprocessors.ParagraphProcessor-class.html#run,Method src.dependencies.markdown.blockprocessors.SetextHeaderProcessor.run()=src.dependencies.markdown.blockprocessors.SetextHeaderProcessor-class.html#run,Method src.dependencies.markdown.extensions.abbr.AbbrPreprocessor.run()=src.dependencies.markdown.extensions.abbr.AbbrPreprocessor-class.html#run,Method src.dependencies.markdown.extensions.admonition.AdmonitionProcessor.run()=src.dependencies.markdown.extensions.admonition.AdmonitionProcessor-class.html#run,Method src.dependencies.markdown.extensions.attr_list.AttrListTreeprocessor.run()=src.dependencies.markdown.extensions.attr_list.AttrListTreeprocessor-class.html#run,Method src.dependencies.markdown.extensions.codehilite.HiliteTreeprocessor.run()=src.dependencies.markdown.extensions.codehilite.HiliteTreeprocessor-class.html#run,Method src.dependencies.markdown.extensions.def_list.DefListProcessor.run()=src.dependencies.markdown.extensions.def_list.DefListProcessor-class.html#run,Method src.dependencies.markdown.extensions.extra.MarkdownInHtmlProcessor.run()=src.dependencies.markdown.extensions.extra.MarkdownInHtmlProcessor-class.html#run,Method src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.run()=src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor-class.html#run,Method src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.run()=src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor-class.html#run,Method src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.run()=src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor-class.html#run,Method src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.run()=src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor-class.html#run,Method src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor.run()=src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor-class.html#run,Method src.dependencies.markdown.extensions.meta.MetaPreprocessor.run()=src.dependencies.markdown.extensions.meta.MetaPreprocessor-class.html#run,Method src.dependencies.markdown.extensions.tables.TableProcessor.run()=src.dependencies.markdown.extensions.tables.TableProcessor-class.html#run,Method src.dependencies.markdown.extensions.toc.TocTreeprocessor.run()=src.dependencies.markdown.extensions.toc.TocTreeprocessor-class.html#run,Method src.dependencies.markdown.postprocessors.AndSubstitutePostprocessor.run()=src.dependencies.markdown.postprocessors.AndSubstitutePostprocessor-class.html#run,Method src.dependencies.markdown.postprocessors.Postprocessor.run()=src.dependencies.markdown.postprocessors.Postprocessor-class.html#run,Method src.dependencies.markdown.postprocessors.RawHtmlPostprocessor.run()=src.dependencies.markdown.postprocessors.RawHtmlPostprocessor-class.html#run,Method src.dependencies.markdown.postprocessors.UnescapePostprocessor.run()=src.dependencies.markdown.postprocessors.UnescapePostprocessor-class.html#run,Method src.dependencies.markdown.preprocessors.HtmlBlockPreprocessor.run()=src.dependencies.markdown.preprocessors.HtmlBlockPreprocessor-class.html#run,Method src.dependencies.markdown.preprocessors.NormalizeWhitespace.run()=src.dependencies.markdown.preprocessors.NormalizeWhitespace-class.html#run,Method src.dependencies.markdown.preprocessors.Preprocessor.run()=src.dependencies.markdown.preprocessors.Preprocessor-class.html#run,Method src.dependencies.markdown.preprocessors.ReferencePreprocessor.run()=src.dependencies.markdown.preprocessors.ReferencePreprocessor-class.html#run,Method src.dependencies.markdown.treeprocessors.InlineProcessor.run()=src.dependencies.markdown.treeprocessors.InlineProcessor-class.html#run,Method src.dependencies.markdown.treeprocessors.PrettifyTreeprocessor.run()=src.dependencies.markdown.treeprocessors.PrettifyTreeprocessor-class.html#run,Method src.dependencies.markdown.treeprocessors.Treeprocessor.run()=src.dependencies.markdown.treeprocessors.Treeprocessor-class.html#run,Method src.wxgui.models.writers.pdf_writer.run()=src.wxgui.models.writers.pdf_writer-class.html#run"><a title="src.DataIO.Write.latexwriter.LaTeXDiagnosis.run
+src.dependencies.markdown.__main__.run
+src.dependencies.markdown.blockprocessors.BlockProcessor.run
+src.dependencies.markdown.blockprocessors.BlockQuoteProcessor.run
+src.dependencies.markdown.blockprocessors.CodeBlockProcessor.run
+src.dependencies.markdown.blockprocessors.EmptyBlockProcessor.run
+src.dependencies.markdown.blockprocessors.HRProcessor.run
+src.dependencies.markdown.blockprocessors.HashHeaderProcessor.run
+src.dependencies.markdown.blockprocessors.ListIndentProcessor.run
+src.dependencies.markdown.blockprocessors.OListProcessor.run
+src.dependencies.markdown.blockprocessors.ParagraphProcessor.run
+src.dependencies.markdown.blockprocessors.SetextHeaderProcessor.run
+src.dependencies.markdown.extensions.abbr.AbbrPreprocessor.run
+src.dependencies.markdown.extensions.admonition.AdmonitionProcessor.run
+src.dependencies.markdown.extensions.attr_list.AttrListTreeprocessor.run
+src.dependencies.markdown.extensions.codehilite.HiliteTreeprocessor.run
+src.dependencies.markdown.extensions.def_list.DefListProcessor.run
+src.dependencies.markdown.extensions.extra.MarkdownInHtmlProcessor.run
+src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.run
+src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.run
+src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.run
+src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.run
+src.dependencies.markdown.extensions.headerid.HeaderIdTreeprocessor.run
+src.dependencies.markdown.extensions.meta.MetaPreprocessor.run
+src.dependencies.markdown.extensions.tables.TableProcessor.run
+src.dependencies.markdown.extensions.toc.TocTreeprocessor.run
+src.dependencies.markdown.postprocessors.AndSubstitutePostprocessor.run
+src.dependencies.markdown.postprocessors.Postprocessor.run
+src.dependencies.markdown.postprocessors.RawHtmlPostprocessor.run
+src.dependencies.markdown.postprocessors.UnescapePostprocessor.run
+src.dependencies.markdown.preprocessors.HtmlBlockPreprocessor.run
+src.dependencies.markdown.preprocessors.NormalizeWhitespace.run
+src.dependencies.markdown.preprocessors.Preprocessor.run
+src.dependencies.markdown.preprocessors.ReferencePreprocessor.run
+src.dependencies.markdown.treeprocessors.InlineProcessor.run
+src.dependencies.markdown.treeprocessors.PrettifyTreeprocessor.run
+src.dependencies.markdown.treeprocessors.Treeprocessor.run
+src.wxgui.models.writers.pdf_writer.run" class="py-name" href="#" onclick="return doclink('link-18', 'run', 'link-18');">run</a></tt><tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">,</tt> <tt class="py-name">blocks</tt><tt class="py-op">)</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">False</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno">96</tt>  <tt class="py-line">                        <tt class="py-comment"># run returns True or None</tt> </tt>
+<a name="L97"></a><tt class="py-lineno">97</tt>  <tt class="py-line">                        <tt class="py-keyword">break</tt> </tt>
+</div></div><a name="L98"></a><tt class="py-lineno">98</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Jun  4 12:15:28 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -55,6 +55,17 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Writer</h1><p class="nomargin-top"><span class="codelink"><a href="src.DataIO.Write.writer-pysrc.html#Writer">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+        object --+        
+                 |        
+threading._Verbose --+    
+                     |    
+      threading.Thread --+
+                         |
+                        <strong class="uidshort">Writer</strong>
+</pre>
+
+<hr />
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
         Brigitte Bigi
@@ -79,10 +90,28 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">docs</span>)</span></td>
+          <td><span class="summary-sig"><a href="src.DataIO.Write.writer.Writer-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">docs</span>)</span><br />
+      This constructor should always be called with keyword arguments.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.DataIO.Write.writer-pysrc.html#Writer.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_progress"></a><span class="summary-sig-name">set_progress</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.DataIO.Write.writer-pysrc.html#Writer.set_progress">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -115,7 +144,8 @@
         <tr>
           <td><span class="summary-sig"><a name="writeLaTeX_as_Dir"></a><span class="summary-sig-name">writeLaTeX_as_Dir</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">outputname</span>,
-        <span class="summary-sig-arg">stylename</span>)</span><br />
+        <span class="summary-sig-arg">prefs</span>,
+        <span class="summary-sig-arg">tocompile</span>=<span class="summary-sig-default">True</span>)</span><br />
       Write the authors/title/abstract of each document in separated LaTeX 
       files.</td>
           <td align="right" valign="top">
@@ -170,7 +200,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="src.DataIO.Write.writer.Writer-class.html#writeLaTeX" class="summary-sig-name">writeLaTeX</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">outputname</span>)</span><br />
+        <span class="summary-sig-arg">outputname</span>,
+        <span class="summary-sig-arg">prefs</span>)</span><br />
       Write the list of authors/title/...</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.DataIO.Write.writer-pysrc.html#Writer.writeLaTeX">source&nbsp;code</a></span>
@@ -217,6 +248,56 @@
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>threading.Thread</code></b>:
+      <code>__repr__</code>,
+      <code>getName</code>,
+      <code>isAlive</code>,
+      <code>isDaemon</code>,
+      <code>is_alive</code>,
+      <code>join</code>,
+      <code>run</code>,
+      <code>setDaemon</code>,
+      <code>setName</code>,
+      <code>start</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>threading.Thread</code></b>:
+      <code>daemon</code>,
+      <code>ident</code>,
+      <code>name</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
 </table>
 <!-- ==================== METHOD DETAILS ==================== -->
 <a name="section-MethodDetails"></a>
@@ -227,6 +308,45 @@
     <span class="table-header">Method Details</span></td>
 </tr>
 </table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">docs</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="src.DataIO.Write.writer-pysrc.html#Writer.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This constructor should always be called with keyword arguments. 
+  Arguments are:</p>
+  <p>*group* should be None; reserved for future extension when a 
+  ThreadGroup class is implemented.</p>
+  <p>*target* is the callable object to be invoked by the run() method. 
+  Defaults to None, meaning nothing is called.</p>
+  <p>*name* is the thread name. By default, a unique name is constructed of
+  the form &quot;Thread-N&quot; where N is a small decimal number.</p>
+  <p>*args* is the argument tuple for the target invocation. Defaults to 
+  ().</p>
+  <p>*kwargs* is a dictionary of keyword arguments for the target 
+  invocation. Defaults to {}.</p>
+  <p>If a subclass overrides the constructor, it must make sure to invoke 
+  the base class constructor (Thread.__init__()) before doing anything else
+  to the thread.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <a name="write_as_file"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -278,7 +398,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">writeLaTeX</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">outputname</span>)</span>
+        <span class="sig-arg">outputname</span>,
+        <span class="sig-arg">prefs</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="src.DataIO.Write.writer-pysrc.html#Writer.writeLaTeX">source&nbsp;code</a></span>&nbsp;
@@ -362,7 +483,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat May 23 08:26:56 2015
+    Generated by Epydoc 3.0.1 on Thu Jun  4 12:15:26 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Brigitte Bigi">
+  <title>Proceed Documentation</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="etc/styles/sppas.css">
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Jura">
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Inconsolata">
+      <link rel="icon" href="../etc/icons/sppas.ico" />
+  
+      <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-38055333-1']);
+          _gaq.push(['_trackPageview']);
+  
+          (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+      </script>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="./etc/logos/app.png" width="64" height="64" alt="Home" />
+        </a>
+        <span id='tagline'>
+          <em>-- </em>Automatic Proceeding Generator <br />
+          <font size=-1><a href="..">Brigitte Bigi</a> - Laboratoire Parole et Langage - Aix-en-Provence - France</font>
+        </span>
+    </header>
+
+    <table align="center"  cellpadding="15px;" cellspacing="20px;">
+    <tr>
+        <td >
+            <a href="installation.html">
+                <figure>
+                <img src="./etc/icons/install.png" width="64" height="64" />
+                <figcaption>Installation</figcaption>
+                </figure>
+            </a>
+        </td>
+
+        <td >
+            <a href="download.html">
+                <figure>
+                <img src="./etc/icons/download.png" width="64" height="64" />
+                <figcaption>Download</figcaption>
+                </figure>
+            </a>
+        </td>
+
+        <td >
+            <a href="documentation.html">
+                <figure>
+                <img src="./etc/icons/help.png" width="64" height="64" />
+                <figcaption>Documentation</figcaption>
+                </figure>
+            </a>
+        </td>
+
+    </tr>
+    </table>
+<header>
+<h1 class="title">Proceed Documentation</h1>
+<h2 class="author">Brigitte Bigi</h2>
+<h3 class="date">Version 0.4</h3>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#data-description">Data description</a><ul>
+<li><a href="#importingexporting-data-of-a-submission-web-site">Importing/Exporting data of a submission web site</a></li>
+<li><a href="#conference-data-description">Conference data description</a></li>
+<li><a href="#documents-data-description">Documents data description</a></li>
+<li><a href="#authors-data-description">Authors data description</a></li>
+<li><a href="#sessions-data-description">Sessions data description</a></li>
+</ul></li>
+</ul>
+</nav>
+<hr />
+<h1 id="data-description">Data description</h1>
+<h2 id="importingexporting-data-of-a-submission-web-site">Importing/Exporting data of a submission web site</h2>
+<p>Proceed can take as input the files of some conference submission web sites:</p>
+<ul>
+<li>sciencesconf.org: Export submissions in XML or CSV;</li>
+<li>easychair.org: Get the &quot;snapshot&quot; XLSX file then save the pages &quot;Submissions&quot; and &quot;Authors&quot; as CSV files with &quot;;&quot; as separator. Then convert both files to UTF8 encoding and replace carriage returns of the abstracts by ' ~ '. Remarks: only OpenOffice/LibreOffice can perform the required convertions (impossible with Excel).</li>
+</ul>
+<p>Proceed will import some of the data and create the following files:</p>
+<ul>
+<li>CONFERENCE.csv</li>
+<li>DOCUMENTS.csv</li>
+<li>SESSIONS.csv</li>
+<li>AUTHORS.csv</li>
+</ul>
+<h2 id="conference-data-description">Conference data description</h2>
+<h2 id="documents-data-description">Documents data description</h2>
+<h2 id="authors-data-description">Authors data description</h2>
+<h2 id="sessions-data-description">Sessions data description</h2>
+<hr />
+    <footer>
+        <p style="text-align:right">
+        Brigitte Bigi &copy; 2011-2015
+        </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.wxgui.frames.processprogress</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        <a href="src.wxgui-module.html">Package&nbsp;wxgui</a> ::
+        <a href="src.wxgui.frames-module.html">Package&nbsp;frames</a> ::
+        Module&nbsp;processprogress
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="src.wxgui.frames.processprogress-module.html">Module src.wxgui.frames.processprogress</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python2</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: UTF-8 -*-</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#            ___   __    __    __    ___</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#           /     |  \  |  \  |  \  /        Automatic</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment">#           \__   |__/  |__/  |___| \__      Annotation</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment">#              \  |     |     |   |    \     of</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment">#           ___/  |     |     |   | ___/     Speech</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment">#           =============================</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment">#           http://sldr.org/sldr000800/preview/</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># developed at:</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#       Laboratoire Parole et Langage</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#       Copyright (C) 2011-2015  Brigitte Bigi</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment">#       Use of this software is governed by the GPL, v3</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment">#       This banner notice must not be removed</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># (at your option) any later version.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is distributed in the hope that it will be useful,</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># but WITHOUT ANY WARRANTY; without even the implied warranty of</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-comment"># GNU General Public License for more details.</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-comment"># You should have received a copy of the GNU General Public License</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment"># along with SPPAS. If not, see &lt;http://www.gnu.org/licenses/&gt;.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-comment"># File: processprogress.py</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-docstring">"""epytext"""</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-name">__authors__</tt>   <tt class="py-op">=</tt> <tt class="py-string">"""Brigitte Bigi"""</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-name">__copyright__</tt> <tt class="py-op">=</tt> <tt class="py-string">"""Copyright (C) 2011-2015  Brigitte Bigi"""</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">wx</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package src.wxgui=src.wxgui-module.html"><a title="src.wxgui" class="py-name" href="#" onclick="return doclink('link-0', 'wxgui', 'link-0');">wxgui</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module src.wxgui.sp_icons=src.wxgui.sp_icons-module.html"><a title="src.wxgui.sp_icons" class="py-name" href="#" onclick="return doclink('link-1', 'sp_icons', 'link-1');">sp_icons</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Variable src.wxgui.sp_icons.APP_ICON=src.wxgui.sp_icons-module.html#APP_ICON"><a title="src.wxgui.sp_icons.APP_ICON" class="py-name" href="#" onclick="return doclink('link-2', 'APP_ICON', 'link-2');">APP_ICON</a></tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name"><a title="src.wxgui" class="py-name" href="#" onclick="return doclink('link-3', 'wxgui', 'link-0');">wxgui</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="src.wxgui.sp_icons" class="py-name" href="#" onclick="return doclink('link-4', 'sp_icons', 'link-1');">sp_icons</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Variable src.wxgui.sp_icons.PROCESS_ICON=src.wxgui.sp_icons-module.html#PROCESS_ICON"><a title="src.wxgui.sp_icons.PROCESS_ICON" class="py-name" href="#" onclick="return doclink('link-5', 'PROCESS_ICON', 'link-5');">PROCESS_ICON</a></tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-6" class="py-name"><a title="src.wxgui" class="py-name" href="#" onclick="return doclink('link-6', 'wxgui', 'link-0');">wxgui</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Package src.wxgui.cutils=src.wxgui.cutils-module.html"><a title="src.wxgui.cutils" class="py-name" href="#" onclick="return doclink('link-7', 'cutils', 'link-7');">cutils</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Module src.wxgui.cutils.imageutils=src.wxgui.cutils.imageutils-module.html"><a title="src.wxgui.cutils.imageutils" class="py-name" href="#" onclick="return doclink('link-8', 'imageutils', 'link-8');">imageutils</a></tt> <tt class="py-keyword">import</tt> <tt id="link-9" class="py-name" targets="Function src.wxgui.cutils.imageutils.spBitmap()=src.wxgui.cutils.imageutils-module.html#spBitmap"><a title="src.wxgui.cutils.imageutils.spBitmap" class="py-name" href="#" onclick="return doclink('link-9', 'spBitmap', 'link-9');">spBitmap</a></tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-10" class="py-name"><a title="src.wxgui" class="py-name" href="#" onclick="return doclink('link-10', 'wxgui', 'link-0');">wxgui</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Module src.wxgui.sp_consts=src.wxgui.sp_consts-module.html"><a title="src.wxgui.sp_consts" class="py-name" href="#" onclick="return doclink('link-11', 'sp_consts', 'link-11');">sp_consts</a></tt> <tt class="py-keyword">import</tt> <tt id="link-12" class="py-name" targets="Variable src.wxgui.sp_consts.FRAME_STYLE=src.wxgui.sp_consts-module.html#FRAME_STYLE"><a title="src.wxgui.sp_consts.FRAME_STYLE" class="py-name" href="#" onclick="return doclink('link-12', 'FRAME_STYLE', 'link-12');">FRAME_STYLE</a></tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-13" class="py-name"><a title="src.wxgui" class="py-name" href="#" onclick="return doclink('link-13', 'wxgui', 'link-0');">wxgui</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="src.wxgui.sp_consts" class="py-name" href="#" onclick="return doclink('link-14', 'sp_consts', 'link-11');">sp_consts</a></tt> <tt class="py-keyword">import</tt> <tt id="link-15" class="py-name" targets="Variable src.wxgui.sp_consts.FRAME_TITLE=src.wxgui.sp_consts-module.html#FRAME_TITLE"><a title="src.wxgui.sp_consts.FRAME_TITLE" class="py-name" href="#" onclick="return doclink('link-15', 'FRAME_TITLE', 'link-15');">FRAME_TITLE</a></tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-16" class="py-name"><a title="src.wxgui" class="py-name" href="#" onclick="return doclink('link-16', 'wxgui', 'link-0');">wxgui</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="src.wxgui.sp_consts" class="py-name" href="#" onclick="return doclink('link-17', 'sp_consts', 'link-11');">sp_consts</a></tt> <tt class="py-keyword">import</tt> <tt id="link-18" class="py-name" targets="Variable src.wxgui.sp_consts.HEADER_FONTSIZE=src.wxgui.sp_consts-module.html#HEADER_FONTSIZE"><a title="src.wxgui.sp_consts.HEADER_FONTSIZE" class="py-name" href="#" onclick="return doclink('link-18', 'HEADER_FONTSIZE', 'link-18');">HEADER_FONTSIZE</a></tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog"></a><div id="ProcessProgressDialog-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog-toggle" onclick="return toggle('ProcessProgressDialog');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html">ProcessProgressDialog</a><tt class="py-op">(</tt> <tt class="py-base-class">wx</tt><tt class="py-op">.</tt><tt class="py-base-class">MiniFrame</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ProcessProgressDialog-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring">    @author:  Brigitte Bigi</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">    @contact: brigitte.bigi@gmail.com</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    @license: GPL, v3</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Frame indicating a progress, with 2 text fields.</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog.__init__"></a><div id="ProcessProgressDialog.__init__-def"><a name="L68"></a><tt class="py-lineno"> 68</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog.__init__-toggle" onclick="return toggle('ProcessProgressDialog.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">parent</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog.__init__-expanded"><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor.</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">MiniFrame</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method src.DataIO.Documents.documents.author.__init__()=src.DataIO.Documents.documents.author-class.html#__init__,Method src.DataIO.Documents.documents.document.__init__()=src.DataIO.Documents.documents.document-class.html#__init__,Method src.DataIO.Documents.documents.laboratory.__init__()=src.DataIO.Documents.documents.laboratory-class.html#__init__,Method src.DataIO.Read.readEasyChair.readEasyChair.__init__()=src.DataIO.Read.readEasyChair.readEasyChair-class.html#__init__,Method src.DataIO.Read.readXML.readXML.__init__()=src.DataIO.Read.readXML.readXML-class.html#__init__,Method src.DataIO.Read.reader.Reader.__init__()=src.DataIO.Read.reader.Reader-class.html#__init__,Method src.DataIO.Write.csvwriter.CSVWriter.__init__()=src.DataIO.Write.csvwriter.CSVWriter-class.html#__init__,Method src.DataIO.Write.htmlwriter.HTMLWriter.__init__()=src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__init__,Method src.DataIO.Write.indexwriter.IndexWriter.__init__()=src.DataIO.Write.indexwriter.IndexWriter-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXDiagnosis.__init__()=src.DataIO.Write.latexwriter.LaTeXDiagnosis-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXWriter.__init__()=src.DataIO.Write.latexwriter.LaTeXWriter-class.html#__init__,Method src.DataIO.Write.writer.Writer.__init__()=src.DataIO.Write.writer.Writer-class.html#__init__,Method src.TagPDF.genLaTeX.GenLaTeXFile.__init__()=src.TagPDF.genLaTeX.GenLaTeXFile-class.html#__init__,Method src.TagPDF.genPDF.GenPdfFile.__init__()=src.TagPDF.genPDF.GenPdfFile-class.html#__init__,Method src.TagPDF.name.GenName.__init__()=src.TagPDF.name.GenName-class.html#__init__,Method src.TagPDF.tagPDF.tagPdfFile.__init__()=src.TagPDF.tagPDF.tagPdfFile-class.html#__init__,Method src.dependencies.markdown.Markdown.__init__()=src.dependencies.markdown.Markdown-class.html#__init__,Method src.dependencies.markdown.blockparser.BlockParser.__init__()=src.dependencies.markdown.blockparser.BlockParser-class.html#__init__,Method src.dependencies.markdown.blockprocessors.BlockProcessor.__init__()=src.dependencies.markdown.blockprocessors.BlockProcessor-class.html#__init__,Method src.dependencies.markdown.blockprocessors.ListIndentProcessor.__init__()=src.dependencies.markdown.blockprocessors.ListIndentProcessor-class.html#__init__,Method src.dependencies.markdown.extensions.Extension.__init__()=src.dependencies.markdown.extensions.Extension-class.html#__init__,Method src.dependencies.markdown.extensions.abbr.AbbrPattern.__init__()=src.dependencies.markdown.extensions.abbr.AbbrPattern-class.html#__init__,Method src.dependencies.markdown.extensions.codehilite.CodeHilite.__init__()=src.dependencies.markdown.extensions.codehilite.CodeHilite-class.html#__init__,Method src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension.__init__()=src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension-class.html#__init__,Method src.dependencies.markdown.extensions.extra.ExtraExtension.__init__()=src.dependencies.markdown.extensions.extra.ExtraExtension-class.html#__init__,Method src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.__init__()=src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnoteExtension.__init__()=src.dependencies.markdown.extensions.footnotes.FootnoteExtension-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePattern.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePattern-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.headerid.HeaderIdExtension.__init__()=src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html#__init__,Method src.dependencies.markdown.extensions.smarty.SmartyExtension.__init__()=src.dependencies.markdown.extensions.smarty.SmartyExtension-class.html#__init__,Method src.dependencies.markdown.extensions.smarty.SubstituteTextPattern.__init__()=src.dependencies.markdown.extensions.smarty.SubstituteTextPattern-class.html#__init__,Method src.dependencies.markdown.extensions.toc.TocExtension.__init__()=src.dependencies.markdown.extensions.toc.TocExtension-class.html#__init__,Method src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension.__init__()=src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension-class.html#__init__,Method src.dependencies.markdown.extensions.wikilinks.WikiLinks.__init__()=src.dependencies.markdown.extensions.wikilinks.WikiLinks-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.BacktickPattern.__init__()=src.dependencies.markdown.inlinepatterns.BacktickPattern-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.Pattern.__init__()=src.dependencies.markdown.inlinepatterns.Pattern-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.SimpleTagPattern.__init__()=src.dependencies.markdown.inlinepatterns.SimpleTagPattern-class.html#__init__,Method src.dependencies.markdown.odict.OrderedDict.__init__()=src.dependencies.markdown.odict.OrderedDict-class.html#__init__,Method src.dependencies.markdown.treeprocessors.InlineProcessor.__init__()=src.dependencies.markdown.treeprocessors.InlineProcessor-class.html#__init__,Method src.dependencies.markdown.util.HtmlStash.__init__()=src.dependencies.markdown.util.HtmlStash-class.html#__init__,Method src.dependencies.markdown.util.Processor.__init__()=src.dependencies.markdown.util.Processor-class.html#__init__,Method src.structs.abstracts_themes.ThemeBasic.__init__()=src.structs.abstracts_themes.ThemeBasic-class.html#__init__,Method src.structs.abstracts_themes.ThemeNalte.__init__()=src.structs.abstracts_themes.ThemeNalte-class.html#__init__,Method src.structs.abstracts_themes.ThemePalme.__init__()=src.structs.abstracts_themes.ThemePalme-class.html#__init__,Method src.structs.option.Option.__init__()=src.structs.option.Option-class.html#__init__,Method src.structs.prefs.Preferences.__init__()=src.structs.prefs.Preferences-class.html#__init__,Method src.structs.prefs.Preferences_IO.__init__()=src.structs.prefs.Preferences_IO-class.html#__init__,Method src.structs.themes.BaseTheme.__init__()=src.structs.themes.BaseTheme-class.html#__init__,Method src.structs.themes.Themes.__init__()=src.structs.themes.Themes-class.html#__init__,Method src.term.terminalcontroller.TerminalController.__init__()=src.term.terminalcontroller.TerminalController-class.html#__init__,Method src.term.textprogress.TextProgress.__init__()=src.term.textprogress.TextProgress-class.html#__init__,Method src.utils.abstracts.HTMLCleaner.__init__()=src.utils.abstracts.HTMLCleaner-class.html#__init__,Method src.utils.name.genName.__init__()=src.utils.name.genName-class.html#__init__,Method src.wxgui.cutils.textutils.TextAsNumericValidator.__init__()=src.wxgui.cutils.textutils.TextAsNumericValidator-class.html#__init__,Method src.wxgui.cutils.textutils.TextAsPercentageValidator.__init__()=src.wxgui.cutils.textutils.TextAsPercentageValidator-class.html#__init__,Method src.wxgui.cutils.textutils.TextValidator.__init__()=src.wxgui.cutils.textutils.TextValidator-class.html#__init__,Method src.wxgui.cutils.viewsutils.spFrame.__init__()=src.wxgui.cutils.viewsutils.spFrame-class.html#__init__,Method src.wxgui.cutils.viewsutils.spHeaderPanel.__init__()=src.wxgui.cutils.viewsutils.spHeaderPanel-class.html#__init__,Method src.wxgui.frames.about.AboutBox.__init__()=src.wxgui.frames.about.AboutBox-class.html#__init__,Method src.wxgui.frames.checkframe.CheckFrame.__init__()=src.wxgui.frames.checkframe.CheckFrame-class.html#__init__,Method src.wxgui.frames.createframe.CreateAuthor.__init__()=src.wxgui.frames.createframe.CreateAuthor-class.html#__init__,Method src.wxgui.frames.createframe.CreateConference.__init__()=src.wxgui.frames.createframe.CreateConference-class.html#__init__,Method src.wxgui.frames.createframe.CreateDocument.__init__()=src.wxgui.frames.createframe.CreateDocument-class.html#__init__,Method src.wxgui.frames.createframe.CreateSession.__init__()=src.wxgui.frames.createframe.CreateSession-class.html#__init__,Method src.wxgui.frames.createframe.SessionValidator.__init__()=src.wxgui.frames.createframe.SessionValidator-class.html#__init__,Method src.wxgui.frames.export_settings.ExportSettings.__init__()=src.wxgui.frames.export_settings.ExportSettings-class.html#__init__,Method src.wxgui.frames.export_settings.FooterSettings.__init__()=src.wxgui.frames.export_settings.FooterSettings-class.html#__init__,Method src.wxgui.frames.export_settings.GenerateSettings.__init__()=src.wxgui.frames.export_settings.GenerateSettings-class.html#__init__,Method src.wxgui.frames.export_settings.HeaderSettings.__init__()=src.wxgui.frames.export_settings.HeaderSettings-class.html#__init__,Method src.wxgui.frames.export_settings.OtherSettings.__init__()=src.wxgui.frames.export_settings.OtherSettings-class.html#__init__,Method src.wxgui.frames.export_settings.PageSettings.__init__()=src.wxgui.frames.export_settings.PageSettings-class.html#__init__,Method src.wxgui.frames.export_settings.TitlesSettings.__init__()=src.wxgui.frames.export_settings.TitlesSettings-class.html#__init__,Method src.wxgui.frames.feedback.FeedbackDialog.__init__()=src.wxgui.frames.feedback.FeedbackDialog-class.html#__init__,Method src.wxgui.frames.feedback.FeedbackForm.__init__()=src.wxgui.frames.feedback.FeedbackForm-class.html#__init__,Method src.wxgui.frames.generateframe.GenerateFrame.__init__()=src.wxgui.frames.generateframe.GenerateFrame-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpBrowser.__init__()=src.wxgui.frames.helpbrowser.HelpBrowser-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpPage.__init__()=src.wxgui.frames.helpbrowser.HelpPage-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpSystem.__init__()=src.wxgui.frames.helpbrowser.HelpSystem-class.html#__init__,Method src.wxgui.frames.import_wizard.ImportWizard.__init__()=src.wxgui.frames.import_wizard.ImportWizard-class.html#__init__,Method src.wxgui.frames.import_wizard.InputPage.__init__()=src.wxgui.frames.import_wizard.InputPage-class.html#__init__,Method src.wxgui.frames.import_wizard.LatexPage.__init__()=src.wxgui.frames.import_wizard.LatexPage-class.html#__init__,Method src.wxgui.frames.import_wizard.OutputPage.__init__()=src.wxgui.frames.import_wizard.OutputPage-class.html#__init__,Method src.wxgui.frames.modifframe.AddAuthor.__init__()=src.wxgui.frames.modifframe.AddAuthor-class.html#__init__,Method src.wxgui.frames.modifframe.ModifFrame.__init__()=src.wxgui.frames.modifframe.ModifFrame-class.html#__init__,Method src.wxgui.frames.processprogress.ProcessProgressDialog.__init__()=src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#__init__,Method src.wxgui.manager.MainFrame.__init__()=src.wxgui.manager.MainFrame-class.html#__init__,Method src.wxgui.models.dataauthor.Author.__init__()=src.wxgui.models.dataauthor.Author-class.html#__init__,Method src.wxgui.models.dataconference.Conference.__init__()=src.wxgui.models.dataconference.Conference-class.html#__init__,Method src.wxgui.models.datadocument.Document.__init__()=src.wxgui.models.datadocument.Document-class.html#__init__,Method src.wxgui.models.datasession.Session.__init__()=src.wxgui.models.datasession.Session-class.html#__init__,Method src.wxgui.models.readers.authors_csv_reader.__init__()=src.wxgui.models.readers.authors_csv_reader-class.html#__init__,Method src.wxgui.models.readers.conference_csv_reader.__init__()=src.wxgui.models.readers.conference_csv_reader-class.html#__init__,Method src.wxgui.models.readers.documents_csv_reader.__init__()=src.wxgui.models.readers.documents_csv_reader-class.html#__init__,Method src.wxgui.models.readers.sessions_csv_reader.__init__()=src.wxgui.models.readers.sessions_csv_reader-class.html#__init__,Method src.wxgui.models.validate.Validate.__init__()=src.wxgui.models.validate.Validate-class.html#__init__,Method src.wxgui.models.writers.ResultEvent.__init__()=src.wxgui.models.writers.ResultEvent-class.html#__init__,Method src.wxgui.models.writers.pdf_writer.__init__()=src.wxgui.models.writers.pdf_writer-class.html#__init__,Method src.wxgui.panels.checklistpanel.CheckListPanel.__init__()=src.wxgui.panels.checklistpanel.CheckListPanel-class.html#__init__,Method src.wxgui.panels.datalist.NotebookPanel.__init__()=src.wxgui.panels.datalist.NotebookPanel-class.html#__init__,Method src.wxgui.panels.infopanel.InformationPanel.__init__()=src.wxgui.panels.infopanel.InformationPanel-class.html#__init__,Method src.wxgui.ui.CustomCheckBox.CustomCheckBox.__init__()=src.wxgui.ui.CustomCheckBox.CustomCheckBox-class.html#__init__"><a title="src.DataIO.Documents.documents.author.__init__
+src.DataIO.Documents.documents.document.__init__
+src.DataIO.Documents.documents.laboratory.__init__
+src.DataIO.Read.readEasyChair.readEasyChair.__init__
+src.DataIO.Read.readXML.readXML.__init__
+src.DataIO.Read.reader.Reader.__init__
+src.DataIO.Write.csvwriter.CSVWriter.__init__
+src.DataIO.Write.htmlwriter.HTMLWriter.__init__
+src.DataIO.Write.indexwriter.IndexWriter.__init__
+src.DataIO.Write.latexwriter.LaTeXDiagnosis.__init__
+src.DataIO.Write.latexwriter.LaTeXWriter.__init__
+src.DataIO.Write.writer.Writer.__init__
+src.TagPDF.genLaTeX.GenLaTeXFile.__init__
+src.TagPDF.genPDF.GenPdfFile.__init__
+src.TagPDF.name.GenName.__init__
+src.TagPDF.tagPDF.tagPdfFile.__init__
+src.dependencies.markdown.Markdown.__init__
+src.dependencies.markdown.blockparser.BlockParser.__init__
+src.dependencies.markdown.blockprocessors.BlockProcessor.__init__
+src.dependencies.markdown.blockprocessors.ListIndentProcessor.__init__
+src.dependencies.markdown.extensions.Extension.__init__
+src.dependencies.markdown.extensions.abbr.AbbrPattern.__init__
+src.dependencies.markdown.extensions.codehilite.CodeHilite.__init__
+src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension.__init__
+src.dependencies.markdown.extensions.extra.ExtraExtension.__init__
+src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnoteExtension.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePattern.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.__init__
+src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.__init__
+src.dependencies.markdown.extensions.headerid.HeaderIdExtension.__init__
+src.dependencies.markdown.extensions.smarty.SmartyExtension.__init__
+src.dependencies.markdown.extensions.smarty.SubstituteTextPattern.__init__
+src.dependencies.markdown.extensions.toc.TocExtension.__init__
+src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension.__init__
+src.dependencies.markdown.extensions.wikilinks.WikiLinks.__init__
+src.dependencies.markdown.inlinepatterns.BacktickPattern.__init__
+src.dependencies.markdown.inlinepatterns.Pattern.__init__
+src.dependencies.markdown.inlinepatterns.SimpleTagPattern.__init__
+src.dependencies.markdown.odict.OrderedDict.__init__
+src.dependencies.markdown.treeprocessors.InlineProcessor.__init__
+src.dependencies.markdown.util.HtmlStash.__init__
+src.dependencies.markdown.util.Processor.__init__
+src.structs.abstracts_themes.ThemeBasic.__init__
+src.structs.abstracts_themes.ThemeNalte.__init__
+src.structs.abstracts_themes.ThemePalme.__init__
+src.structs.option.Option.__init__
+src.structs.prefs.Preferences.__init__
+src.structs.prefs.Preferences_IO.__init__
+src.structs.themes.BaseTheme.__init__
+src.structs.themes.Themes.__init__
+src.term.terminalcontroller.TerminalController.__init__
+src.term.textprogress.TextProgress.__init__
+src.utils.abstracts.HTMLCleaner.__init__
+src.utils.name.genName.__init__
+src.wxgui.cutils.textutils.TextAsNumericValidator.__init__
+src.wxgui.cutils.textutils.TextAsPercentageValidator.__init__
+src.wxgui.cutils.textutils.TextValidator.__init__
+src.wxgui.cutils.viewsutils.spFrame.__init__
+src.wxgui.cutils.viewsutils.spHeaderPanel.__init__
+src.wxgui.frames.about.AboutBox.__init__
+src.wxgui.frames.checkframe.CheckFrame.__init__
+src.wxgui.frames.createframe.CreateAuthor.__init__
+src.wxgui.frames.createframe.CreateConference.__init__
+src.wxgui.frames.createframe.CreateDocument.__init__
+src.wxgui.frames.createframe.CreateSession.__init__
+src.wxgui.frames.createframe.SessionValidator.__init__
+src.wxgui.frames.export_settings.ExportSettings.__init__
+src.wxgui.frames.export_settings.FooterSettings.__init__
+src.wxgui.frames.export_settings.GenerateSettings.__init__
+src.wxgui.frames.export_settings.HeaderSettings.__init__
+src.wxgui.frames.export_settings.OtherSettings.__init__
+src.wxgui.frames.export_settings.PageSettings.__init__
+src.wxgui.frames.export_settings.TitlesSettings.__init__
+src.wxgui.frames.feedback.FeedbackDialog.__init__
+src.wxgui.frames.feedback.FeedbackForm.__init__
+src.wxgui.frames.generateframe.GenerateFrame.__init__
+src.wxgui.frames.helpbrowser.HelpBrowser.__init__
+src.wxgui.frames.helpbrowser.HelpPage.__init__
+src.wxgui.frames.helpbrowser.HelpSystem.__init__
+src.wxgui.frames.import_wizard.ImportWizard.__init__
+src.wxgui.frames.import_wizard.InputPage.__init__
+src.wxgui.frames.import_wizard.LatexPage.__init__
+src.wxgui.frames.import_wizard.OutputPage.__init__
+src.wxgui.frames.modifframe.AddAuthor.__init__
+src.wxgui.frames.modifframe.ModifFrame.__init__
+src.wxgui.frames.processprogress.ProcessProgressDialog.__init__
+src.wxgui.manager.MainFrame.__init__
+src.wxgui.models.dataauthor.Author.__init__
+src.wxgui.models.dataconference.Conference.__init__
+src.wxgui.models.datadocument.Document.__init__
+src.wxgui.models.datasession.Session.__init__
+src.wxgui.models.readers.authors_csv_reader.__init__
+src.wxgui.models.readers.conference_csv_reader.__init__
+src.wxgui.models.readers.documents_csv_reader.__init__
+src.wxgui.models.readers.sessions_csv_reader.__init__
+src.wxgui.models.validate.Validate.__init__
+src.wxgui.models.writers.ResultEvent.__init__
+src.wxgui.models.writers.pdf_writer.__init__
+src.wxgui.panels.checklistpanel.CheckListPanel.__init__
+src.wxgui.panels.datalist.NotebookPanel.__init__
+src.wxgui.panels.infopanel.InformationPanel.__init__
+src.wxgui.ui.CustomCheckBox.CustomCheckBox.__init__" class="py-name" href="#" onclick="return doclink('link-19', '__init__', 'link-19');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">parent</tt><tt class="py-op">,</tt> <tt class="py-name">title</tt><tt class="py-op">=</tt><tt id="link-20" class="py-name"><a title="src.wxgui.sp_consts.FRAME_TITLE" class="py-name" href="#" onclick="return doclink('link-20', 'FRAME_TITLE', 'link-15');">FRAME_TITLE</a></tt><tt class="py-op">+</tt><tt class="py-string">" - Progress"</tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">=</tt><tt class="py-op">(</tt><tt class="py-number">420</tt><tt class="py-op">,</tt> <tt class="py-number">220</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_create_gui</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">    <tt class="py-comment"># Create the GUI</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog._create_gui"></a><div id="ProcessProgressDialog._create_gui-def"><a name="L80"></a><tt class="py-lineno"> 80</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog._create_gui-toggle" onclick="return toggle('ProcessProgressDialog._create_gui');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#_create_gui">_create_gui</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog._create_gui-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog._create_gui-expanded"><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_init_infos</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_create_title_label</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_create_content</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_layout_components</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog._init_infos"></a><div id="ProcessProgressDialog._init_infos-def"><a name="L86"></a><tt class="py-lineno"> 86</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog._init_infos-toggle" onclick="return toggle('ProcessProgressDialog._init_infos');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#_init_infos">_init_infos</a><tt class="py-op">(</tt> <tt class="py-param">self</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog._init_infos-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog._init_infos-expanded"><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">GetApp</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">SetAppName</tt><tt class="py-op">(</tt> <tt class="py-string">"progress"</tt> <tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-comment"># icon</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-name">_icon</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EmptyIcon</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-name">_icon</tt><tt class="py-op">.</tt><tt class="py-name">CopyFromBitmap</tt><tt class="py-op">(</tt> <tt id="link-21" class="py-name"><a title="src.wxgui.cutils.imageutils.spBitmap" class="py-name" href="#" onclick="return doclink('link-21', 'spBitmap', 'link-9');">spBitmap</a></tt><tt class="py-op">(</tt><tt id="link-22" class="py-name"><a title="src.wxgui.sp_icons.APP_ICON" class="py-name" href="#" onclick="return doclink('link-22', 'APP_ICON', 'link-2');">APP_ICON</a></tt><tt class="py-op">)</tt> <tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetIcon</tt><tt class="py-op">(</tt><tt class="py-name">_icon</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog._create_title_label"></a><div id="ProcessProgressDialog._create_title_label-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog._create_title_label-toggle" onclick="return toggle('ProcessProgressDialog._create_title_label');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#_create_title_label">_create_title_label</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog._create_title_label-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog._create_title_label-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_layout</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">BoxSizer</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">HORIZONTAL</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-name">bmp</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">BitmapButton</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">bitmap</tt><tt class="py-op">=</tt><tt id="link-23" class="py-name"><a title="src.wxgui.cutils.imageutils.spBitmap" class="py-name" href="#" onclick="return doclink('link-23', 'spBitmap', 'link-9');">spBitmap</a></tt><tt class="py-op">(</tt><tt id="link-24" class="py-name"><a title="src.wxgui.sp_icons.PROCESS_ICON" class="py-name" href="#" onclick="return doclink('link-24', 'PROCESS_ICON', 'link-5');">PROCESS_ICON</a></tt><tt class="py-op">,</tt> <tt class="py-number">32</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">style</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">NO_BORDER</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-name">font</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">Font</tt><tt class="py-op">(</tt><tt id="link-25" class="py-name"><a title="src.wxgui.sp_consts.HEADER_FONTSIZE" class="py-name" href="#" onclick="return doclink('link-25', 'HEADER_FONTSIZE', 'link-18');">HEADER_FONTSIZE</a></tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">MODERN</tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Variable src.term.terminalcontroller.TerminalController.NORMAL=src.term.terminalcontroller.TerminalController-class.html#NORMAL"><a title="src.term.terminalcontroller.TerminalController.NORMAL" class="py-name" href="#" onclick="return doclink('link-26', 'NORMAL', 'link-26');">NORMAL</a></tt><tt class="py-op">,</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Variable src.term.terminalcontroller.TerminalController.BOLD=src.term.terminalcontroller.TerminalController-class.html#BOLD"><a title="src.term.terminalcontroller.TerminalController.BOLD" class="py-name" href="#" onclick="return doclink('link-27', 'BOLD', 'link-27');">BOLD</a></tt><tt class="py-op">,</tt> <tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-string">u'Consolas'</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_label</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">StaticText</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">label</tt><tt class="py-op">=</tt><tt class="py-string">"Processing..."</tt><tt class="py-op">,</tt> <tt class="py-name">style</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_CENTER</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_label</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method src.wxgui.ui.CustomCheckBox.CustomCheckBox.SetFont()=src.wxgui.ui.CustomCheckBox.CustomCheckBox-class.html#SetFont"><a title="src.wxgui.ui.CustomCheckBox.CustomCheckBox.SetFont" class="py-name" href="#" onclick="return doclink('link-28', 'SetFont', 'link-28');">SetFont</a></tt><tt class="py-op">(</tt> <tt class="py-name">font</tt> <tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_layout</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">bmp</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">flag</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">TOP</tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Variable src.term.terminalcontroller.TerminalController.RIGHT=src.term.terminalcontroller.TerminalController-class.html#RIGHT"><a title="src.term.terminalcontroller.TerminalController.RIGHT" class="py-name" href="#" onclick="return doclink('link-29', 'RIGHT', 'link-29');">RIGHT</a></tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_RIGHT</tt><tt class="py-op">,</tt> <tt class="py-name">border</tt><tt class="py-op">=</tt><tt class="py-number">5</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_layout</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_label</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">flag</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EXPAND</tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALL</tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_CENTER_VERTICAL</tt><tt class="py-op">,</tt> <tt class="py-name">border</tt><tt class="py-op">=</tt><tt class="py-number">5</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog._create_content"></a><div id="ProcessProgressDialog._create_content-def"><a name="L103"></a><tt class="py-lineno">103</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog._create_content-toggle" onclick="return toggle('ProcessProgressDialog._create_content');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#_create_content">_create_content</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog._create_content-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog._create_content-expanded"><a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-comment"># an header text used to print the annotation step</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">header</tt>      <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">StaticText</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">id</tt><tt class="py-op">=</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">label</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">,</tt> <tt class="py-name">style</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_CENTRE</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-comment"># the gauge</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">gauProgress</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">Gauge</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">range</tt><tt class="py-op">=</tt><tt class="py-number">100</tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">=</tt><tt class="py-op">(</tt><tt class="py-number">400</tt><tt class="py-op">,</tt> <tt class="py-number">24</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-comment"># a bottom text used to print the current file name</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt>        <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">StaticText</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">id</tt><tt class="py-op">=</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">label</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">,</tt> <tt class="py-name">style</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALIGN_CENTRE</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog._layout_components"></a><div id="ProcessProgressDialog._layout_components-def"><a name="L112"></a><tt class="py-lineno">112</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog._layout_components-toggle" onclick="return toggle('ProcessProgressDialog._layout_components');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#_layout_components">_layout_components</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog._layout_components-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog._layout_components-expanded"><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">BoxSizer</tt><tt class="py-op">(</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">VERTICAL</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_layout</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">flag</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALL</tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EXPAND</tt><tt class="py-op">,</tt> <tt class="py-name">border</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">)</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">header</tt><tt class="py-op">,</tt>      <tt class="py-name">proportion</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">flag</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALL</tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EXPAND</tt><tt class="py-op">,</tt> <tt class="py-name">border</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">gauProgress</tt><tt class="py-op">,</tt> <tt class="py-name">proportion</tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">flag</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALL</tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EXPAND</tt><tt class="py-op">,</tt> <tt class="py-name">border</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">Add</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">,</tt>        <tt class="py-name">proportion</tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">flag</tt><tt class="py-op">=</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">ALL</tt><tt class="py-op">|</tt><tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EXPAND</tt><tt class="py-op">,</tt> <tt class="py-name">border</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetSizer</tt><tt class="py-op">(</tt> <tt class="py-name">vbox</tt> <tt class="py-op">)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetMinSize</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">420</tt><tt class="py-op">,</tt><tt class="py-number">200</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Layout</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Raise</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetFocus</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Center</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method src.wxgui.frames.modifframe.ModifFrame.Refresh()=src.wxgui.frames.modifframe.ModifFrame-class.html#Refresh"><a title="src.wxgui.frames.modifframe.ModifFrame.Refresh" class="py-name" href="#" onclick="return doclink('link-30', 'Refresh', 'link-30');">Refresh</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog.set_title"></a><div id="ProcessProgressDialog.set_title-def"><a name="L128"></a><tt class="py-lineno">128</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog.set_title-toggle" onclick="return toggle('ProcessProgressDialog.set_title');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#set_title">set_title</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">title</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog.set_title-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog.set_title-expanded"><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-docstring">        Fix the title label.</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_label</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method src.wxgui.ui.CustomCheckBox.CustomCheckBox.SetLabel()=src.wxgui.ui.CustomCheckBox.CustomCheckBox-class.html#SetLabel"><a title="src.wxgui.ui.CustomCheckBox.CustomCheckBox.SetLabel" class="py-name" href="#" onclick="return doclink('link-31', 'SetLabel', 'link-31');">SetLabel</a></tt><tt class="py-op">(</tt><tt class="py-name">title</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">title_label</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="src.wxgui.frames.modifframe.ModifFrame.Refresh" class="py-name" href="#" onclick="return doclink('link-32', 'Refresh', 'link-30');">Refresh</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">    <tt class="py-comment"># ------------------------------------------------------------------------</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog.set_new"></a><div id="ProcessProgressDialog.set_new-def"><a name="L137"></a><tt class="py-lineno">137</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog.set_new-toggle" onclick="return toggle('ProcessProgressDialog.set_new');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#set_new">set_new</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">label</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">,</tt> <tt class="py-param">text</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">,</tt> <tt class="py-param">fraction</tt><tt class="py-op">=</tt><tt class="py-number">0.</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog.set_new-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog.set_new-expanded"><a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-docstring">        Initialize a new progress box.</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-docstring">        @param label:    progress box label (default: None)</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-docstring">        @param text:     progress bar text  (default: None)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-docstring">        @param fraction: progress bar value (default: 0)</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method src.term.textprogress.TextProgress.set_header()=src.term.textprogress.TextProgress-class.html#set_header,Method src.wxgui.frames.processprogress.ProcessProgressDialog.set_header()=src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#set_header"><a title="src.term.textprogress.TextProgress.set_header
+src.wxgui.frames.processprogress.ProcessProgressDialog.set_header" class="py-name" href="#" onclick="return doclink('link-33', 'set_header', 'link-33');">set_header</a></tt><tt class="py-op">(</tt><tt class="py-name">label</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method src.structs.option.Option.set_text()=src.structs.option.Option-class.html#set_text,Method src.term.textprogress.TextProgress.set_text()=src.term.textprogress.TextProgress-class.html#set_text,Method src.wxgui.frames.processprogress.ProcessProgressDialog.set_text()=src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#set_text"><a title="src.structs.option.Option.set_text
+src.term.textprogress.TextProgress.set_text
+src.wxgui.frames.processprogress.ProcessProgressDialog.set_text" class="py-name" href="#" onclick="return doclink('link-34', 'set_text', 'link-34');">set_text</a></tt><tt class="py-op">(</tt><tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name" targets="Method src.term.textprogress.TextProgress.set_fraction()=src.term.textprogress.TextProgress-class.html#set_fraction,Method src.wxgui.frames.processprogress.ProcessProgressDialog.set_fraction()=src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#set_fraction"><a title="src.term.textprogress.TextProgress.set_fraction
+src.wxgui.frames.processprogress.ProcessProgressDialog.set_fraction" class="py-name" href="#" onclick="return doclink('link-35', 'set_fraction', 'link-35');">set_fraction</a></tt><tt class="py-op">(</tt><tt class="py-name">fraction</tt><tt class="py-op">)</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="src.wxgui.frames.modifframe.ModifFrame.Refresh" class="py-name" href="#" onclick="return doclink('link-36', 'Refresh', 'link-30');">Refresh</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog.set_fraction"></a><div id="ProcessProgressDialog.set_fraction-def"><a name="L152"></a><tt class="py-lineno">152</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog.set_fraction-toggle" onclick="return toggle('ProcessProgressDialog.set_fraction');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#set_fraction">set_fraction</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">fraction</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog.set_fraction-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog.set_fraction-expanded"><a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-docstring">        Set a new progress value to the progress bar.</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"><tt class="py-docstring">        @param fraction: new progress value</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-comment"># convert fraction to a percentage (if necessary)</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">fraction</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">            <tt class="py-name">fraction</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">fraction</tt><tt class="py-op">*</tt><tt class="py-number">100</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">gauProgress</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name" targets="Method src.structs.prefs.Preferences.SetValue()=src.structs.prefs.Preferences-class.html#SetValue,Method src.wxgui.ui.CustomCheckBox.CustomCheckBox.SetValue()=src.wxgui.ui.CustomCheckBox.CustomCheckBox-class.html#SetValue"><a title="src.structs.prefs.Preferences.SetValue
+src.wxgui.ui.CustomCheckBox.CustomCheckBox.SetValue" class="py-name" href="#" onclick="return doclink('link-37', 'SetValue', 'link-37');">SetValue</a></tt><tt class="py-op">(</tt><tt class="py-name">fraction</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="src.wxgui.frames.modifframe.ModifFrame.Refresh" class="py-name" href="#" onclick="return doclink('link-38', 'Refresh', 'link-30');">Refresh</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog.set_text"></a><div id="ProcessProgressDialog.set_text-def"><a name="L166"></a><tt class="py-lineno">166</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog.set_text-toggle" onclick="return toggle('ProcessProgressDialog.set_text');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#set_text">set_text</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog.set_text-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog.set_text-expanded"><a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-docstring">        Set a new progress text to the progress bar.</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-docstring">        @param text: new progress text</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="src.wxgui.ui.CustomCheckBox.CustomCheckBox.SetLabel" class="py-name" href="#" onclick="return doclink('link-39', 'SetLabel', 'link-31');">SetLabel</a></tt><tt class="py-op">(</tt> <tt class="py-name">text</tt> <tt class="py-op">)</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="src.wxgui.frames.modifframe.ModifFrame.Refresh" class="py-name" href="#" onclick="return doclink('link-40', 'Refresh', 'link-30');">Refresh</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog.set_header"></a><div id="ProcessProgressDialog.set_header-def"><a name="L177"></a><tt class="py-lineno">177</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog.set_header-toggle" onclick="return toggle('ProcessProgressDialog.set_header');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#set_header">set_header</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">label</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog.set_header-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog.set_header-expanded"><a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"><tt class="py-docstring">        Set a new progress label to the progress box.</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"><tt class="py-docstring">        @param label: new progress label</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">header</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="src.wxgui.ui.CustomCheckBox.CustomCheckBox.SetLabel" class="py-name" href="#" onclick="return doclink('link-41', 'SetLabel', 'link-31');">SetLabel</a></tt><tt class="py-op">(</tt> <tt class="py-name">label</tt> <tt class="py-op">)</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="src.wxgui.frames.modifframe.ModifFrame.Refresh" class="py-name" href="#" onclick="return doclink('link-42', 'Refresh', 'link-30');">Refresh</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog.update"></a><div id="ProcessProgressDialog.update-def"><a name="L188"></a><tt class="py-lineno">188</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog.update-toggle" onclick="return toggle('ProcessProgressDialog.update');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#update">update</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">fraction</tt><tt class="py-op">,</tt><tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog.update-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog.update-expanded"><a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"><tt class="py-docstring">        Update the progress box.</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt class="py-docstring">        @param text:     progress bar text  (default: None)</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"><tt class="py-docstring">        @param fraction: progress bar value (default: 0)</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="src.structs.option.Option.set_text
+src.term.textprogress.TextProgress.set_text
+src.wxgui.frames.processprogress.ProcessProgressDialog.set_text" class="py-name" href="#" onclick="return doclink('link-43', 'set_text', 'link-34');">set_text</a></tt><tt class="py-op">(</tt><tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="src.term.textprogress.TextProgress.set_fraction
+src.wxgui.frames.processprogress.ProcessProgressDialog.set_fraction" class="py-name" href="#" onclick="return doclink('link-44', 'set_fraction', 'link-35');">set_fraction</a></tt><tt class="py-op">(</tt><tt class="py-name">fraction</tt><tt class="py-op">)</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="src.wxgui.frames.modifframe.ModifFrame.Refresh" class="py-name" href="#" onclick="return doclink('link-45', 'Refresh', 'link-30');">Refresh</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"> </tt>
+<a name="ProcessProgressDialog.close"></a><div id="ProcessProgressDialog.close-def"><a name="L201"></a><tt class="py-lineno">201</tt> <a class="py-toggle" href="#" id="ProcessProgressDialog.close-toggle" onclick="return toggle('ProcessProgressDialog.close');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#close">close</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProcessProgressDialog.close-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProcessProgressDialog.close-expanded"><a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"><tt class="py-docstring">        Close the progress box.</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">Destroy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.lpl-aix.fr/~bigi/sppas/">SPPAS</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Jun  4 12:15:28 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
