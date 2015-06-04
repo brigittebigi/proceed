@@ -46,6 +46,7 @@ import wx
 import wx.lib
 import logging
 import wx.grid
+import shutil
 import os
 import csv
 
@@ -449,8 +450,14 @@ class NotebookPanel( wx.Panel ):
     # ------------------------------------------------------------------------
 
     def saveCSV(self, pagename):
-        # TODO : write in tmp then copy in good file (in case of saving error)
-        out = csv.DictWriter(open(os.path.join(self._path,pagename+".csv"), "wb"), fieldnames[pagename])
+        # create a backup before saving
+        filename = os.path.join(self._path,pagename+".csv")
+        try:
+            shutil.copy(filename, filename+".backup")
+        except Exception:
+            pass
+        # then save
+        out = csv.DictWriter(open(filename, "wb"), fieldnames[pagename])
         d = {}
         for colname in fieldnames[pagename]:
             d[colname] = colname
