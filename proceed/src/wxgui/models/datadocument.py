@@ -146,7 +146,7 @@ class Document:
         self._authors = new_authors
 
     def set_session(self, new_session):
-        self._session = clean(new_session)
+        self._session = new_session
 
     def set_rank(self, new_rank):
         self._rank = new_rank
