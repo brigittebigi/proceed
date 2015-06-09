@@ -72,7 +72,7 @@ class Document:
         self._docid   = clean(docid)
         self._title   = clean(title)
         self._authors = authors
-        self._session = clean(session)
+        self._session = session
         self._rank    = rank
         self._page    = page
         self._pdf     = pdf_diagnosis
