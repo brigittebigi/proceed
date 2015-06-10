@@ -54,7 +54,7 @@ The Proceed package contains:
 
     - a copy of the licenses.
     - the `documentation` in PDF.
-    - a file INSTALL with the list of requirements to use the software.
+    - a file `INSTALL` with the list of requirements to use the software.
     - the `etc` directory is for internal use. Do not modify or remove it.
 
 
