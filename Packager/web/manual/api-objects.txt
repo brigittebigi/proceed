@@ -403,7 +403,6 @@ src.wxgui.frames.createframe.Document	src.wxgui.models.datadocument.Document-cla
 src.wxgui.frames.export_settings	src.wxgui.frames.export_settings-module.html
 src.wxgui.frames.export_settings.FONT_SIZES	src.wxgui.frames.export_settings-module.html#FONT_SIZES
 src.wxgui.frames.export_settings.FONT_STYLES	src.wxgui.frames.export_settings-module.html#FONT_STYLES
-src.wxgui.frames.export_settings.ID_SAVE	src.wxgui.frames.export_settings-module.html#ID_SAVE
 src.wxgui.frames.export_settings.PAPER_SIZES	src.wxgui.frames.export_settings-module.html#PAPER_SIZES
 src.wxgui.frames.feedback	src.wxgui.frames.feedback-module.html
 src.wxgui.frames.feedback.ID_OTHER	src.wxgui.frames.feedback-module.html#ID_OTHER

@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------
 
 author:     Brigitte Bigi
-contact:    brigite.bigi@gmail.com
+contact:    brigitte.bigi@gmail.com
 program:    Proceed - Automatic Proceedings Generator
 date:       2015-06-03
 version:    0.4

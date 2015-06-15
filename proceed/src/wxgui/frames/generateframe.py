@@ -44,6 +44,7 @@ __docformat__ = "epytext"
 # ---------------------------------------------------------------------------
 
 import os.path
+import logging
 import wx
 
 from sp_glob import SETTINGS_FILE
@@ -67,7 +68,7 @@ class GenerateFrame( wx.Dialog ):
 
     """
 
-    def __init__(self, parent, idd, title, documents, authors, sessions, path):
+    def __init__(self, parent, idd, title, conference, documents, authors, sessions, path):
         """
         Constructor.
         """
@@ -82,6 +83,7 @@ class GenerateFrame( wx.Dialog ):
         sizer = self._create_content(self)
 
         # Members
+        self.conference = conference
         self.documents = documents
         self.authors   = authors
         self.sessions  = sessions
@@ -217,10 +219,10 @@ class GenerateFrame( wx.Dialog ):
 
         if not self.pdfwriter:
             self.text.SetLabel('Task in Progress.')
-            self.gauge.SetRange( 6 ) # number of files to generate!
+            self.gauge.SetRange( 100 ) # percentage
             self.gauge.SetValue( 0 )
 
-            self.pdfwriter = pdf_writer(self, self._prefsIO, self.documents, self.authors, self.sessions, self.path)
+            self.pdfwriter = pdf_writer(self, self._prefsIO, self.conference, self.documents, self.authors, self.sessions, self.path)
             self.pdfwriter.start()
 
     # End OnOk
@@ -242,9 +244,14 @@ class GenerateFrame( wx.Dialog ):
     def OnResult(self, event):
         """ Show current status. """
 
-        if event.tasktext is None:
+        if event.taskpercent is not None:
+            logging.debug(' set gauge to %d'%int(event.taskpercent))
+            self.gauge.SetValue( int(event.taskpercent) )
+
+        elif event.tasktext is None:
             # Thread aborted (using our convention of None return)
             self.text.SetLabel('Computation aborted.')
+
         elif event.tasknum == -1:
             # Process results here
             self.text.SetLabel( event.tasktext )
@@ -252,8 +259,9 @@ class GenerateFrame( wx.Dialog ):
             self.btn1.Disable()
             self.btn2.Disable()
             self.pdfwriter = None
+
         else:
-            self.gauge.SetValue( event.tasknum )
+            self.gauge.SetValue( 0 )
             self.text.SetLabel( event.tasktext )
             self.Layout()
 

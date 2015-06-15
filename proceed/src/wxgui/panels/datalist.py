@@ -293,7 +293,7 @@ class NotebookPanel( wx.Panel ):
             wx.MessageBox( "Unknown data path.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
             return
 
-        dlg = GenerateFrame(self, -1, "PDF generator...", self._dataPages['Documents'], self._dataPages['Authors'], self._dataPages['Sessions'], self._path)
+        dlg = GenerateFrame(self, -1, "PDF generator...", self._dataPages['Conference'],  self._dataPages['Documents'], self._dataPages['Authors'], self._dataPages['Sessions'], self._path)
         dlg.ShowModal()
 
     # End OnGenerate

@@ -83,12 +83,16 @@
 <li><a href="#notebook">Notebook</a></li>
 <li><a href="#data-panel">Data panel</a></li>
 </ul></li>
-<li><a href="#importing-data">Importing data</a></li>
-<li><a href="#opening-saving">Opening / Saving</a></li>
-<li><a href="#checking-exporting">Checking / Exporting</a></li>
+<li><a href="#importing-data">Importing data</a><ul>
+<li><a href="#saving-a-document">Saving a document</a></li>
+<li><a href="#opening-a-document">Opening a document</a></li>
+</ul></li>
+<li><a href="#checking-exporting">Checking / Exporting</a><ul>
+<li><a href="#checking">Checking</a></li>
+<li><a href="#exporting">Exporting</a></li>
+</ul></li>
 <li><a href="#complete-data">Complete data</a><ul>
 <li><a href="#add">Add</a></li>
-<li><a href="#edit">Edit</a></li>
 <li><a href="#delete">Delete</a></li>
 </ul></li>
 </ul></li>
@@ -139,12 +143,129 @@
 <h3 id="data-panel">Data panel</h3>
 <p>This is an area to show the content of an entry. Nothing else!</p>
 <h2 id="importing-data">Importing data</h2>
-<h2 id="opening-saving">Opening / Saving</h2>
+<p>To import a document follow the few steps below :</p>
+<ul>
+<li>Step 1 : click on the <code>Import</code> button.</li>
+</ul>
+<figure>
+<img src="./etc/screenshots/OverallView.png" alt="Software overall view" /><figcaption>Software overall view</figcaption>
+</figure>
+<ul>
+<li>Step 2 : indicate the path of your document (where it is) and where does it come from ( scienceconf or easychair )</li>
+</ul>
+<figure>
+<img src="./etc/screenshots/fileSelection.png" alt="Document path" /><figcaption>Document path</figcaption>
+</figure>
+<ul>
+<li>Step 3 : here come the moment where you have to be patient if you have a heavy document, for exemple it takes about 10 minutes for 220 submissions.</li>
+</ul>
+<blockquote>
+<p>If you are in this case, the software could stop (particularly under Windows), just close it et open it again, redo step 1 and 2 and let it works without using the computer.</p>
+</blockquote>
+<figure>
+<img src="./etc/screenshots/Loading.png" alt="Loading" /><figcaption>Loading</figcaption>
+</figure>
+<ul>
+<li>Step 4 : when the loading is completed, you have to choose where do you want to save the import. You can also choose if you want to save the document which were accepted or not and what do you want, the CSV and/or HTML file with your documents.</li>
+</ul>
+<figure>
+<img src="./etc/screenshots/Saving" alt="Document path" /><figcaption>Document path</figcaption>
+</figure>
+<ul>
+<li>Step 5 : at the end you can choose if you want to generate the LateX files or not with some options including the theme of the documents and the compiler.</li>
+</ul>
+<figure>
+<img src="./etc/screenshots/LatexOrNot.png" alt="Latex generation or not" /><figcaption>Latex generation or not</figcaption>
+</figure>
+<ul>
+<li>Step 6 : you have to wait again for the LateX generation.</li>
+</ul>
+<blockquote>
+<p>If the same problem as in step 2 occurs, follow the tips above.</p>
+</blockquote>
+<p>Your documents are, now, import in the software ! ## Saving / Opening</p>
+<p>To save and open a document, nothing is easier.</p>
+<h3 id="saving-a-document">Saving a document</h3>
+<p>You just have to click on the <code>Save</code> button. Confirm your choice and it's done.</p>
+<figure>
+<img src="./etc/screenshots/Save.png" alt="Confirm your saving" /><figcaption>Confirm your saving</figcaption>
+</figure>
+<blockquote>
+<p>It produces in your project directory backup file in case of problems.</p>
+</blockquote>
+<figure>
+<img src="./etc/screenshots/Backup.png" alt="Backup" /><figcaption>Backup</figcaption>
+</figure>
+<h3 id="opening-a-document">Opening a document</h3>
+<p>You just have to click on the <code>Open</code> button and select the directory where you have saved your data and it's done.</p>
+<figure>
+<img src="./etc/screenshots/Opening.png" alt="Opening file" /><figcaption>Opening file</figcaption>
+</figure>
 <h2 id="checking-exporting">Checking / Exporting</h2>
+<h3 id="checking">Checking</h3>
+<p>Before exporting, you must check your document to verify if you linked all the document to a session ...</p>
+<p>To do that, you just have to click on the <code>Check</code> button</p>
+<h3 id="exporting">Exporting</h3>
+<p>To export you have to click on the <code>Export</code> button and complete de settings as you want to clicking on <code>Settings</code></p>
+<figure>
+<img src="./etc/screenshots/Export1.png" alt="Export" /><figcaption>Export</figcaption>
+</figure>
+<p>Now, a new window appears with six tabs to enable you to custom your export.</p>
+<ul>
+<li>Page's options</li>
+</ul>
+<p>In this section you can change the paper format and all the margins including header's and footer's one.</p>
+<figure>
+<img src="./etc/screenshots/ExportSettings1.png" alt="Page Settings" /><figcaption>Page Settings</figcaption>
+</figure>
+<ul>
+<li>Header's and footer's options</li>
+</ul>
+<p>These section are dedicated to the header and the footer to add them a personalize one. You could choose style and color.</p>
+<figure>
+<img src="./etc/screenshots/ExportSettings2.png" alt="Header settings" /><figcaption>Header settings</figcaption>
+</figure>
+<figure>
+<img src="./etc/screenshots/ExportSettings3.png" alt="Footer settings" /><figcaption>Footer settings</figcaption>
+</figure>
+<ul>
+<li>Generating</li>
+</ul>
+<p>In this section you can choose what you want to generate :</p>
+<pre><code>* the Program
+* the Program Overview
+* the Table of Content
+* the Merged submissions
+* the Index of authors
+* the list of authors</code></pre>
+<figure>
+<img src="./etc/screenshots/Exportsettings4.png" alt="Generate" /><figcaption>Generate</figcaption>
+</figure>
+<ul>
+<li>Titles</li>
+</ul>
+<p>Here, you can change title of section and adapt them to the language you need.</p>
+<figure>
+<img src="./etc/screenshots/ExportSettings5.png" alt="Export" /><figcaption>Export</figcaption>
+</figure>
+<ul>
+<li>Other parameters In this tab you can choose the sort of the submission :
+<ul>
+<li>follow the planning</li>
+<li>sessions types and some other color style options.</li>
+</ul></li>
+</ul>
+<figure>
+<img src="./etc/screenshots/ExportSettings6.png" alt="Other parameters" /><figcaption>Other parameters</figcaption>
+</figure>
+<p>When you personalize all the settings you need you can save it and click on <code>Start</code> to begin the export.</p>
 <h2 id="complete-data">Complete data</h2>
 <h3 id="add">Add</h3>
-<h3 id="edit">Edit</h3>
+<p>To add data it's easy you just have to choose the tabs corresponding : * Conference tab : to add a conference * Documents tab : to add a document * Authors tab : to add an author * Sessions tab : to add a session</p>
+<p>click on <code>add</code>and follow the instructions. You'll have to enter few information an to complete them, use the button <code>edit</code>. ### Edit</p>
+<p>When you add something, you can complete all the informations or simply modify them editing the add in question and follow the fill to feed.</p>
 <h3 id="delete">Delete</h3>
+<p>If you want to delete an add or else you just have to select the object and click on <code>delete</code>.</p>
 <hr />
     <footer>
         <p style="text-align:right">

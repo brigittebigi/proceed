@@ -74,13 +74,14 @@ def EVT_RESULT(win, func):
 class ResultEvent(wx.PyEvent):
     """ Simple event to carry result data. """
 
-    def __init__(self, text, num):
+    def __init__(self, text, num, percent=None):
         """Init Result Event."""
 
         wx.PyEvent.__init__(self)
         self.SetEventType(EVT_RESULT_ID)
         self.tasktext = text
         self.tasknum  = num
+        self.taskpercent = percent
 
 # ---------------------------------------------------------------------------
 
@@ -97,7 +98,7 @@ class pdf_writer( Thread ):
 
     """
 
-    def __init__(self, notify_window, prefs, documents, authors, sessions, path):
+    def __init__(self, notify_window, prefs, conference, documents, authors, sessions, path):
         """
         Init Worker Thread Class.
         """
@@ -107,6 +108,7 @@ class pdf_writer( Thread ):
         # Members
         self._prefsIO  = prefs
         self.validator = Validate( documents, authors, sessions )
+        self.conference = conference
         self.documents = documents
         self.authors   = authors
         self.sessions  = sessions
@@ -245,20 +247,20 @@ class pdf_writer( Thread ):
             self.__set_session_in_tag( tagpdf, docid)
 
             inputname  = os.path.join(self.path, docid + ".pdf")
-            outputname  = os.path.join(self.path, docid + "-tag.pdf")
+            outputname = os.path.join(self.path, docid + "-tag.pdf")
             s = self.__get_sessionid_and_rank(docid)
             s = "Paper_" + s[1:-1] + ".pdf"
             outputname2 = os.path.join(self.path,s)
 
+            logging.info('     ... tag: %s --> %s'%(docid,s))
             try:
-                logging.info('     ... tag: %s --> %s'%(docid,s))
                 N = int( tagpdf.tagFile( inputname,outputname ) )
                 N = int( tagpdf.tagFile( inputname,outputname2 ) )
             except Exception as e:
                 self._initialize()
-                logging.info('     ... ... ERROR. %s'%str(e))
-                wx.PostEvent(self._notify_window, ResultEvent(text='PDF export failed for file: '+docid+'. Error: '+str(e), num=-1))
-                return
+                logging.info('     ... ... ERROR for doc %s: %s'%(docid,str(e)))
+                wx.PostEvent(self._notify_window, ResultEvent(text='PDF export failed for doc '+docid+'. Error: '+str(e), num=-1))
+                #return
 
             oldN = int( tagpdf.get_page_number() )
             self.nbpages = N+oldN
@@ -272,6 +274,8 @@ class pdf_writer( Thread ):
             # a separate event type)
                 wx.PostEvent(self._notify_window, ResultEvent(text=None, num=-1))
                 return
+            else:
+                wx.PostEvent(self._notify_window, ResultEvent(text=self.tasktext, num=self.tasknum, percent=100.*float(count)/float(len(self.sorteddocs))))
 
     # End run_tag_pdf
     # -----------------------------------------------------------------------
@@ -337,6 +341,7 @@ class pdf_writer( Thread ):
         latex += '\\section*{'+title+'}\n'
         latex += "\\begin{longtable}{p{15cm}p{1cm}}\n"
 
+        count = 0
         for session in self.sortedsessions:
 
             # Add the session name only for sessions with documents
@@ -372,7 +377,10 @@ class pdf_writer( Thread ):
                     # Use a result of None to acknowledge the abort.
                         wx.PostEvent(self._notify_window, ResultEvent(text=None, num=-1))
                         return
+                    else:
+                        wx.PostEvent(self._notify_window, ResultEvent(text=self.tasktext, num=self.tasknum, percent=100.*float(count)/float(len(self.sortedsessions))))
 
+            count = count + 1
         latex +=  "\\end{longtable}\n"
         latex = latex.replace('_', '\_')
         try:
