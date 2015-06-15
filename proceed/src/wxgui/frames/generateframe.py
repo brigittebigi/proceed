@@ -46,6 +46,7 @@ __docformat__ = "epytext"
 import os.path
 import wx
 
+from sp_glob import SETTINGS_FILE
 from wxgui.sp_icons import APP_EXPORT_PDF_ICON
 from wxgui.frames.export_settings import ExportSettings
 
@@ -85,7 +86,7 @@ class GenerateFrame( wx.Dialog ):
         self.authors   = authors
         self.sessions  = sessions
         self.path      = path
-        self._prefsIO  = Preferences_IO()
+        self._prefsIO  = Preferences_IO(SETTINGS_FILE)
 
         # Try to get prefs from a file, or fix default values.
         if not self._prefsIO.Read():
@@ -150,9 +151,9 @@ class GenerateFrame( wx.Dialog ):
         # Sort by session types first (1. keynotes, then 2. orals then 3. posters)
         self._prefsIO.SetValue('SORT_BY_SESSION_TYPE_FIRST','bool', False)
 
-        self._prefsIO.SetValue('COLOR_1','str', "139,53,49", "Color for session codes")
-        self._prefsIO.SetValue('COLOR_2','str', "120,80,60", "Color for dates")
-        self._prefsIO.SetValue('COLOR_3','str', "190,70,30", "Color for session names")
+        self._prefsIO.SetValue('COLOUR_1','str', "139,53,49", "Color for session codes")
+        self._prefsIO.SetValue('COLOUR_2','str', "120,80,60", "Color for dates")
+        self._prefsIO.SetValue('COLOUR_3','str', "190,70,30", "Color for session names")
 
     #-------------------------------------------------------------------------
 

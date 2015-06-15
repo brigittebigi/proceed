@@ -68,7 +68,6 @@ from sp_glob import ICONS_PATH
 # Constants
 # ----------------------------------------------------------------------------
 
-ID_SAVE   = wx.NewId()
 
 FONT_SIZES  = [10,11,12]
 FONT_STYLES = ["\\rm","\\it","\\bf","\\sl","\\sf","\\sc","\\tt"]
@@ -193,7 +192,6 @@ class ExportSettings( wx.Dialog ):
 
     def onSave(self, event):
         """ Save preferences in a file. """
-
         self._prefsIO.Write()
 
     def onClose(self, event):
@@ -413,7 +411,7 @@ class OtherSettings( wx.Panel ):
         sizer.Add(pf, 0, flag=wx.ALL, border=0)
         sizer.Add((-1, 10))
 
-        colorall = ["COLOR_1", "COLOR_2", "COLOR_3"]
+        colorall = ["COLOUR_1", "COLOUR_2", "COLOUR_3"]
         for gen in colorall:
             s = wx.BoxSizer( wx.HORIZONTAL )
             txt = wx.TextCtrl(self, -1, "", size=wx.Size(280,-1), style=wx.TE_LEFT)

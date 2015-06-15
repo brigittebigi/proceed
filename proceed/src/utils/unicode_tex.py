@@ -2493,7 +2493,7 @@ unicode_to_tipa_map = {u'ʈ' : "\\textipa{\:t}", #
     #u'ɚ' : "\\textipa{}",
     u'ɛ' : "\\textipa{E}", #
     u'ɜ' : "\\textipa{3}", #
-    #u'ɝ' : "\\textipa{}", #
+    u'ɝ' : "\\textipa{3\\textrhoticity}", #
     u'ɞ' : "\\textipa{\textcloserevepsilon}",
     u'ɨ' : "\\textipa{1}", #
     u'ɪ' : "\\textipa{I}", #
@@ -2516,6 +2516,7 @@ unicode_to_tipa_map = {u'ʈ' : "\\textipa{\:t}", #
     u'ǔ' : "\\textipa{\v{u}}",
     u'Ṽ' : '\\~V',
     u'i͂' : '\\~i',
+    u'ː' : "\\textipa{:}",
 }
 
 
