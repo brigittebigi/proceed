@@ -17,7 +17,7 @@ To import a document follow the few steps below :
 
 * Step 4 : when the loading is completed, you have to choose where do you want to save the import. You can also choose if you want to save the document which were accepted or not and what do you want, the CSV and/or HTML file with your documents.  
 
-![Document path](./etc/screenshots/Saving)
+![Document path](./etc/screenshots/Saving.png)
 
 * Step 5 : at the end you can choose if you want to generate the LateX files or not with some options including the theme of the documents and the compiler. 
 

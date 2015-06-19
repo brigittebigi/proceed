@@ -104,8 +104,9 @@ class GenPdfFile( GenLaTeXFile ):
             os.rename(fname+".pdf", filename)
             os.rename(fname+".tex", filename[:-4]+".tex")
         else:
-            raise IOError('Error: pdflatex produced no output with command: %s. LaTeX file is backed-up in error.tex.'%command)
-            os.rename( fname, os.path.join(os.path.dirname(fname),"error.tex"))
+            backup = "error_"+fname+".backup"
+            raise IOError('Error: pdflatex produced no output with command: %s. LaTeX file is backed-up in %s.'%(command,backup))
+            os.rename( fname, backup)
 
         for f in os.listdir(os.getcwd()):
             if os.path.basename(fname) in f and not f.endswith(".tex"):

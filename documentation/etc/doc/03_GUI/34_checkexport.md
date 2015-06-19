@@ -40,7 +40,7 @@ In this section you can choose what you want to generate :
 	* the Index of authors
 	* the list of authors
 
-![Generate](./etc/screenshots/Exportsettings4.png)
+![Generate](./etc/screenshots/ExportSettings4.png)
 
 *  Titles 
 
