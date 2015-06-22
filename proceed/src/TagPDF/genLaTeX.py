@@ -95,7 +95,7 @@ class GenLaTeXFile:
         #self.__options["color1"] = "30,120,200" # cyan (= light blue)
         #self.__options["color2"] = "0,60,150"   # blue
         #self.__options["color3"] = "190,70,30"  # dark orange
-        # For LARP7:
+        # For others:
         self.__options["color1"] = "139,53,49"   # for session codes
         self.__options["color2"] = "85,85,240"   # for the date
         self.__options["color3"] = "190,70,30"   # for session names: dark orange

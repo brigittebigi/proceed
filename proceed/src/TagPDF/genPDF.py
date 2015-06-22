@@ -109,13 +109,12 @@ class GenPdfFile( GenLaTeXFile ):
         if os.path.exists(fname+".pdf"):
             os.rename(fname+".pdf", filename)
             os.rename(fname+".tex", filename[:-4]+".tex")
+        elif os.path.exists(fname+".tex"):
+            backup = os.path.join(os.path.dirname(filename),"proceed_error_"+os.path.basename(filename)[:-4]+".tex.backup")
+            os.rename( fname+".tex", backup)
+            raise IOError('Error: compilation produced no output with command: %s. LaTeX file is backed-up in %s.'%(command,backup))
         else:
-            try:
-                backup = os.path.join(os.path.dirname(filename),"proceed_error_"+filename[:-4]+".tex.backup")
-                os.rename( fname, backup)
-                raise IOError('Error: compilation produced no output with command: %s. LaTeX file is backed-up in %s.'%(command,backup))
-            except Exception:
-                raise IOError('Error: compilation produced no output with command: %s. No LaTeX file generated!'%command)
+            raise IOError('Error: compilation produced no output with command: %s. No LaTeX file generated!'%command)
 
     # End exportPDF
     # -------------------------------------------------------------------------

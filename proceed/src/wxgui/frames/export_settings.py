@@ -56,7 +56,6 @@ from wxgui.sp_icons import APP_ICON
 
 from wxgui.cutils.imageutils import spBitmap
 from wxgui.cutils.ctrlutils import CreateGenButton
-import utils.unicode_tex as unicode_tex
 
 from wxgui.sp_consts import FRAME_STYLE
 from wxgui.sp_consts import FRAME_TITLE
@@ -292,8 +291,8 @@ class HeaderSettings( wx.Panel ):
 
     def onPrefsChange(self, event, skey, stype):
         o = event.GetEventObject()
-        v = unicode_tex.unicode_to_tex(o.GetValue()) # accents must be in standard LaTeX
-        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
+        v = o.GetValue().encode('utf8')
+        #logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
         self.preferences.SetValue( skey, stype, v )
 
 #-----------------------------------------------------------------------------
@@ -341,8 +340,8 @@ class FooterSettings( wx.Panel ):
 
     def onPrefsChange(self, event, skey, stype):
         o = event.GetEventObject()
-        v = unicode_tex.unicode_to_tex(o.GetValue()) # accents must be in standard LaTeX
-        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
+        v = o.GetValue().encode('utf8')
+        #logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
         self.preferences.SetValue( skey, stype, v )
 
 #-----------------------------------------------------------------------------
@@ -390,8 +389,8 @@ class TitlesSettings( wx.Panel ):
 
     def onPrefsChange(self, event, skey, stype):
         o = event.GetEventObject()
-        v = unicode_tex.unicode_to_tex(o.GetValue()) # accents must be in standard LaTeX
-        logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
+        v = o.GetValue().encode('utf8')
+        #logging.debug(' Set pref: key=%s, newvalue=%s'%(skey,v))
         self.preferences.SetValue( skey, stype, v )
 
 #-----------------------------------------------------------------------------

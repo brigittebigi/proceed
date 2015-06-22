@@ -363,12 +363,12 @@ class pdf_writer( Thread ):
                         continue
                     # first line : title, then page number
                     #latex += "{\\bf " + self.documents[docid].get_title() + "} & "
-                    latex += "$ \\color{color1}{"+self.__get_sessionid_and_rank(doc.get_docid()) + "}$ {\\bf " + doc.get_title() + "} "
+                    latex += "$ \\color{color1}{"+self.__get_sessionid_and_rank(doc.get_docid()) + "}$ {\\bf " + unicode_to_tex(doc.get_title()) + "} "
                     latex += " & \\color{color2}{" + str(doc.get_page())  + "} \\\\ \n"
                     # second line : complete list of authors
                     latex +=" {\it "
                     for author in doc.get_authors():
-                        latex += author.get_firstname()+" "+author.get_lastname()+", "
+                        latex += unicode_to_tex(author.get_firstname())+" "+unicode_to_tex(author.get_lastname())+", "
                     latex = latex[:-2] + "} & \\\\ \n"
                     # an empty line between 2 documents
                     latex += "  &  \\\\ \n"
@@ -382,7 +382,7 @@ class pdf_writer( Thread ):
 
             count = count + 1
         latex +=  "\\end{longtable}\n"
-        latex = latex.replace('_', '\_')
+        #latex = latex.replace('_', '\_')
         try:
             # No header nor footer in the TOC
             self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "TableOfContent.pdf"), inc=False)
@@ -420,8 +420,8 @@ class pdf_writer( Thread ):
 
             if len(pages) > 0:
                 docspages = ", ".join(pages)
-                latex += author.get_lastname()+", "+self.__initials(author.get_firstname()) + ". & "
-                latex += "{\sf "+author.get_email() + "} & "
+                latex += unicode_to_tex(author.get_lastname())+", "+self.__initials(author.get_firstname()) + ". & "
+                latex += "{\sf " + unicode_to_tex(author.get_email()) + "} & "
                 latex += docspages + " \\\\ \n"
 
             if self._want_abort:
@@ -434,8 +434,9 @@ class pdf_writer( Thread ):
             tagpdf = self._create_tagpdf()
             #self.__unset_session_in_tag(tagpdf)
             self.__generate_latex( tagpdf, latex, os.path.join(self.path, "AuthorsIndex.pdf") )
-        except Exception:
+        except Exception as e:
             self._initialize()
+            logging.info('... Error. Can not create the index of authors: %s'%str(e))
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the index of authors.', num=-1))
             return
 
@@ -459,21 +460,21 @@ class pdf_writer( Thread ):
             # get only authors of a document!
             for doc in self.documents.values():
                 if author in doc.get_authors():
-                    latex += author.get_lastname()+" "+author.get_firstname() + " & "
-                    latex += author.get_email() + " \\\\ \n"
-
+                    latex += unicode_to_tex(author.get_lastname())+" "+unicode_to_tex(author.get_firstname()) + " & "
+                    latex += unicode_to_tex(author.get_email()) + " \\\\ \n"
                 if self._want_abort:
                 # Use a result of None to acknowledge the abort.
                     wx.PostEvent(self._notify_window, ResultEvent(text=None, num=-1))
                     return
-
         latex += "\\end{longtable}\n"
+
         try:
             tagpdf = self._create_tagpdf()
             self.__unset_session_in_tag(tagpdf)
             self.__generate_latex( tagpdf, latex, os.path.join(self.path, "AuthorsList.pdf"), inc=False)
-        except Exception:
+        except Exception as e:
             self._initialize()
+            logging.info('... Error. Can not create the list of authors: %s'%str(e))
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the list of authors.', num=-1))
             return
 
@@ -510,7 +511,7 @@ class pdf_writer( Thread ):
                     # Add the hours info
                     latex += "{\\bf " + session.get_h_deb()+" - "+session.get_h_fin()+"} & "
                     # Add the Session Name
-                    latex += "\\color{color3}{{\\bf " + session.get_session_name() +"}} \\\\ \n"
+                    latex += "\\color{color3}{{\\bf " + unicode_to_tex(session.get_session_name()) +"}} \\\\ \n"
                     latex += " & \\\\ \n"
 
                     # Add the list of documents
@@ -522,11 +523,11 @@ class pdf_writer( Thread ):
                             latex +=" & "
                             # first line : sessionid, title, then page number
                             latex += "$ \\color{color1}{"+ self.__get_sessionid_and_rank(doc.get_docid()) + "} $ "
-                            latex += "{\\bf  "+ doc.get_title() + "} \\\\ \n"
+                            latex += "{\\bf  "+ unicode_to_tex(doc.get_title()) + "} \\\\ \n"
                             # second line : complete list of authors
                             latex +=" & {\it "
                             for author in doc.get_authors():
-                                latex += author.get_firstname()+" "+author.get_lastname()+", "
+                                latex += unicode_to_tex(author.get_firstname())+" "+unicode_to_tex(author.get_lastname())+", "
                             latex = latex[:-2] + "} \\\\ \n"
                     #latex += " & \\\\ \n"
 
@@ -534,9 +535,8 @@ class pdf_writer( Thread ):
                     # Use a result of None to acknowledge the abort.
                         wx.PostEvent(self._notify_window, ResultEvent(text=None, num=-1))
                         return
-
             latex +=  "\\end{longtable}\n"
-        latex = latex.replace('_', '\_')
+        #latex = latex.replace('_', '\_')
 
         try:
             self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "Program.pdf"), inc=False)
@@ -591,7 +591,7 @@ class pdf_writer( Thread ):
                         latex += "\\color{color1}{" + session.get_sessionid()+"} "
 
                     # Add the Session Name
-                    latex += "\\color{color3}{ " + session.get_session_name() + "} & "
+                    latex += "\\color{color3}{ " + unicode_to_tex(session.get_session_name()) + "} & "
                     if session.get_location() is not None:
                         latex += session.get_location()
                     latex += " \\\\ \n"
@@ -601,12 +601,11 @@ class pdf_writer( Thread ):
                     # Use a result of None to acknowledge the abort.
                         wx.PostEvent(self._notify_window, ResultEvent(text=None, num=-1))
                         return
-
             latex += "\\hline \n"
             latex +=  "\\end{longtable}\n"
             latex +=  "\\pagebreak\n"
+        #latex = latex.replace('_', '\_')
 
-        latex = latex.replace('_', '\_')
         try:
             self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "ProgramOverview.pdf"), inc=False)
         except Exception:
@@ -821,12 +820,12 @@ class pdf_writer( Thread ):
         tagpdf.set_head_size( self._prefsIO.GetValue('HEADER_SIZE') )
         tagpdf.set_foot_size( self._prefsIO.GetValue('FOOTER_SIZE') )
 
-        tagpdf.set_left_header( self._prefsIO.GetValue('HEADER_LEFT') )
-        tagpdf.set_center_header( self._prefsIO.GetValue('HEADER_CENTER') )
-        tagpdf.set_right_header( self._prefsIO.GetValue('HEADER_RIGHT') )
-        tagpdf.set_left_footer( self._prefsIO.GetValue('FOOTER_LEFT') )
-        tagpdf.set_center_footer( self._prefsIO.GetValue('FOOTER_CENTER') )
-        tagpdf.set_right_footer( self._prefsIO.GetValue('FOOTER_RIGHT') )
+        tagpdf.set_left_header(   unicode_to_tex(self._prefsIO.GetValue('HEADER_LEFT')) )
+        tagpdf.set_center_header( unicode_to_tex(self._prefsIO.GetValue('HEADER_CENTER')) )
+        tagpdf.set_right_header(  unicode_to_tex(self._prefsIO.GetValue('HEADER_RIGHT')) )
+        tagpdf.set_left_footer(   unicode_to_tex(self._prefsIO.GetValue('FOOTER_LEFT')) )
+        tagpdf.set_center_footer( unicode_to_tex(self._prefsIO.GetValue('FOOTER_CENTER')) )
+        tagpdf.set_right_footer(  unicode_to_tex(self._prefsIO.GetValue('FOOTER_RIGHT')) )
 
         tagpdf.set_header_color( self._prefsIO.GetValue('HEADER_COLOR') )
         tagpdf.set_footer_color( self._prefsIO.GetValue('FOOTER_COLOR') )
