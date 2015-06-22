@@ -99,18 +99,23 @@ class GenPdfFile( GenLaTeXFile ):
             logging.debug(ret)
             raise IOError('Error while executing run_command. Does pdflatex installed properly?')
 
+        # Remove temporary files resulting from the compilation.
+        if os.path.exists( fname+".aux" ):
+            os.remove(fname+".aux")
+        if os.path.exists( fname+".log" ):
+            os.remove(fname+".log")
+
         # Manage output
         if os.path.exists(fname+".pdf"):
             os.rename(fname+".pdf", filename)
             os.rename(fname+".tex", filename[:-4]+".tex")
         else:
-            backup = "error_"+fname+".backup"
-            raise IOError('Error: pdflatex produced no output with command: %s. LaTeX file is backed-up in %s.'%(command,backup))
-            os.rename( fname, backup)
-
-        for f in os.listdir(os.getcwd()):
-            if os.path.basename(fname) in f and not f.endswith(".tex"):
-                os.remove(f)
+            try:
+                backup = os.path.join(os.path.dirname(filename),"proceed_error_"+filename[:-4]+".tex.backup")
+                os.rename( fname, backup)
+                raise IOError('Error: compilation produced no output with command: %s. LaTeX file is backed-up in %s.'%(command,backup))
+            except Exception:
+                raise IOError('Error: compilation produced no output with command: %s. No LaTeX file generated!'%command)
 
     # End exportPDF
     # -------------------------------------------------------------------------
@@ -127,7 +132,7 @@ def usage(output):
     @param output is a string representing the output (for example: sys.stdout)
 
     """
-    output.write('genPdf.py [options] where options are:\n')
+    output.write('genPDF.py [options] where options are:\n')
     output.write('      -o outputfile           Output file name [REQUIRED] \n')
     output.write('      -l "left header"        Left Header Text\n')
     output.write('      -c "center header"      Center Header Text \n')

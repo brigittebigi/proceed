@@ -954,7 +954,7 @@ class pdf_writer( Thread ):
             self.nbpages += 1
 
         tagpdf.set_page_number( self.nbpages )
-        tagpdf.set_tex_content( unicode_to_texipa(latex) )
+        tagpdf.set_tex_content( latex ) #unicode_to_texipa(latex) )
         tagpdf.exportPDF( filename )
         tagpdf.set_tex_content( None )
 

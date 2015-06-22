@@ -79,7 +79,7 @@ class genName():
         today    = str(date.today())
 
         # filename
-        filename = "sppas_tmp_"+today+"_"+pid+"_"+randval
+        filename = "proceed_tmp_"+today+"_"+pid+"_"+randval
 
         # final file name is path/filename
         tempdir = tempfile.gettempdir() # get the system temporary directory

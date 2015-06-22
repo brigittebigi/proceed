@@ -245,8 +245,8 @@ class GenerateFrame( wx.Dialog ):
         """ Show current status. """
 
         if event.taskpercent is not None:
-            logging.debug(' set gauge to %d'%int(event.taskpercent))
             self.gauge.SetValue( int(event.taskpercent) )
+            self.Refresh()
 
         elif event.tasktext is None:
             # Thread aborted (using our convention of None return)
