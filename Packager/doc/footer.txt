@@ -1,6 +1,19 @@
-    <footer>
-        <p style="text-align:right">
-        Brigitte Bigi &copy; 2013-2015
+
+        </div>
+    </div>
+    
+    <div id="footer">
+        <img src="image-general/gnu.png">       
+
+        <p class="copyright">
+            Brigitte Bigi © 2013-2015 
         </p>
-    </footer>
+    </div>   
+     
+    <span class="scrollT"></span>
+    <script type="text/javascript" src="./etc/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="./etc/scripts/fn.scrollT.js"></script>
+    <script type="text/javascript" src="./etc/scripts/fn.center.js"></script>
+    <script type="text/javascript" src="./etc/scripts/diapo.js"></script>    
+    <script type="text/javascript" src="./etc/scripts/main.js"></script>
 

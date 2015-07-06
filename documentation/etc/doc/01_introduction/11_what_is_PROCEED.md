@@ -6,7 +6,8 @@
 Proceed is a computer software package written and maintained
 by Brigitte Bigi of the Laboratoire Parole et Langage, in Aix-en-Provence,
 France.
-Available for free, with open source code, there is simply no other package.
+Available for free, with open source code, there is simply no other package
+to export automatically proceedings and book of abstracts:
 Proceed is developed to allow the almost automatic generation of proceedings 
 and book of abstracts. 
 

@@ -1,32 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+    
 <head>
     <meta charset="utf-8">
     <meta name="description" content="Proceed - LPL" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proceed</title>  
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./etc/styles/style.css" />
     <link href="favicon.png" type="image/x-icon" rel="icon" />
     <link href="favicon.png" type="image/x-icon" rel="shortcut icon" />
 </head>
+
 <body> 
-    <!-- Div principale -->
+
     <div class="cols12 section1">
-        <!-- Espacement latérale -->
         <div class="cols3"></div>
-        <div class="cols7 mg-top3 ">
+        <div class="cols7 mg-top1 ">
             <a id="title-proceed" href="index.php"><h1>PROCEED</h1></a>
             <div class="menu">
-                <a href="#"><img src="icon-menu/dl.png">Download</a>
-                <a href="install.php"><img src="icon-menu/install.png">Installation</a>
-                <a href="doc.php"><img src="icon-menu/doc.png">Documentation</a>
-                <a href="#"><img src="icon-menu/dev.png">Development</a>
-            </div>          
+                <a href="download.html"><img src="icon-menu/dl.png">Download</a>
+                <a href="installation.html"><img src="icon-menu/install.png">Installation</a>
+                <a href="documentation.html"><img src="icon-menu/doc.png">Documentation</a>
+                <a href="http://github.com/brigittebigi/proceed/"><img src="icon-menu/dev.png">Development</a>
+            </div> 
         </div>
-    </div>    <div class="cols12 section3">
-        <!-- Espacement latérale -->
+    </div> 
+    </div> 
+       
+    <div class="cols12 section2">
         <div class="cols2"></div>
-        <div class="cols5 mg-top1 left">
+        <div class="cols7 mg-top2 right">
+            
             <h1 class="title0 left cols10">Installation</h1>
 <p>SPPAS installation only consists to unpack the package.
 
@@ -36,14 +40,21 @@
         <i>Administrator rights are required to perform these installations.</i>
         Follow <b>carefully</b> instructions of this page to download and install all of them:
     </p>
+    
     <ul>
         <li> Python 2.7</li>
         <li> wxPython </li>
-        <li> Julius </li>
+        <li> pdftk </li>
+        <li> LaTeX </li>
     </ul>
 
-
-    <h1>Installing dependencies on Windows</h1>
+    </div> 
+    </div> 
+       
+    <div class="cols12 section3">
+        <div class="cols2"></div>
+        <div class="cols7 mg-top1 left">
+    <h1 class="title0 left cols10">Installing dependencies on Windows</h1>
 
         <h4>How to know if my computer is a 32-bits or 64-bits architecture?</h4>
 
@@ -100,39 +111,12 @@
             During  the installation, click on the "Next" button and then on "Finish".
         </p>
 
-        <h2>Julius installation:</h2>
+        <h2>pdftk</h2>
 
-        <p>
-            <a href="http://sourceforge.jp/projects/julius/downloads/60273/julius-4.3.1-win32bin.zip/">Click here to download <b> Julius (release >= 4.1)</b></a>
-        </p>
-
-        <p>
-            Open the Explorer and go to into the julius installation directory.
-            Open the "bin" directory then select the file "julius.exe".
-            <b>Copy this file into C:\WINDOWS\ </b><br>
-            Take care: the file name must be STRICTLY julius.exe, and nothing else
-            (you'll have to rename it by removing the version number if any).
-        </p>
+        <h2>LaTeX</h2>
 
 
-    <h1>Dependencies installation on Linux</h1>
-
-        <p>
-            For <b>Linux Ubuntu</b> users, there are <i>deb</i> packages for
-            all dependencies (python2.7, wxpython, julius). <br>
-
-            python-wxgtk-media and gstreamer must be installed too.
-        </p>
-
-        <p>
-            For <b>Linux Fedora</b> users, there are <i>rpm</i> packages for
-            python2.7 and wxpython. The Julius tool will have to be installed
-            from sources.
-        </p>
-
-
-    <h1>Dependencies installation on MacOS</h1>
-    <!-- <img src="images/macos.png" width="40"/> -->
+    <h1 class="title0 left cols10">Dependencies installation on MacOS</h1>
 
         <h2>Python</h2>
 
@@ -151,34 +135,34 @@
               Click on the package and follow instructions.
             </p>
 
-        <h2>Julius installation: </h2>
+        <h2>pdftk</h2>
 
-            <p>
-            I compiled a 64-bits version which include a ready-to-use version of Julius for MacOS.
-            This version is available here:
-            </p>
-            <p>
-            <a href="http://hdl.handle.net/11041/sldr000800/Julius-MacOS-10.7.3.tgz">Julius for MacOS (515Ko)</a>
-            </p>
-            <p>
-            Download, extract the archive and drag-and-drop the package content into the <b>/usr/local/bin</b> directory.
-            </p>
+        <h2>LaTeX</h2>
 
-    <hr />     
+
+    <h1 class="title0 left cols10">Dependencies installation on Linux</h1>
+
+        <p>
+        There are packages for all dependencies. <br>
+        </p>
+
         </div>
     </div>    
+    
     <div id="footer">
         <img src="image-general/gnu.png">       
 
         <p class="copyright">
-            Brigitte Bigi © 2011-2015 
+            Brigitte Bigi © 2013-2015 
         </p>
-    </div>    
+    </div>   
+     
     <span class="scrollT"></span>
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="fn.scrollT.js"></script>
-    <script type="text/javascript" src="fn.center.js"></script>
-    <script type="text/javascript" src="diapo.js"></script>    
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="./etc/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="./etc/scripts/fn.scrollT.js"></script>
+    <script type="text/javascript" src="./etc/scripts/fn.center.js"></script>
+    <script type="text/javascript" src="./etc/scripts/diapo.js"></script>    
+    <script type="text/javascript" src="./etc/scripts/main.js"></script>
+    
 </body>
 </html>
