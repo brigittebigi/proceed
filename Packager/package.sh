@@ -383,7 +383,7 @@ function fct_proceed_doc {
         local files="$DOC_DIR/header.md"
         files="$files $(fct_get_md_idx $folder)"
         files="$files $DOC_DIR/footer.md"
-        pandoc -s --toc --mathjax -t html5 --css $ETC_DIR/styles/sppas.css -H $DOC_DIR/include-scripts.txt -B $DOC_DIR/header.txt -A $DOC_DIR/footer.txt $files --highlight-style haddock -o $WEB_DIR/documentation_${folder}.html
+        pandoc -s --toc --mathjax -t html5 --css $ETC_DIR/styles/style.css -H $DOC_DIR/include-scripts.txt -B $DOC_DIR/header.txt -A $DOC_DIR/footer.txt $files --highlight-style haddock -o $WEB_DIR/documentation_${folder}.html
     done
 
     # A Unique file is generated from all files of the documentation

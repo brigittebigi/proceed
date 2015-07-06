@@ -1,7 +1,12 @@
 /*Inclusion des polices */
 @font-face {
-    font-family: FontTitre;
-    src: url(font/font.ttf);
+    font-family: FontTitle;
+    src: url(../../etc/font/wargames.ttf);
+}
+
+@font-face {
+    font-family: FontHeader;
+    src: url(../../etc/font/striped.ttf);
 }
 
 /* Page de documentation */
@@ -41,12 +46,12 @@ td {
 
 
 .section1 {
-	background: url("image-general/bg5.jpg") no-repeat center;
+	background: url("../../image-general/bg5.jpg") no-repeat center;
 	padding-bottom: 60px;
 }
 
 .section2 {
-	background-color: #9E9E9E;
+	background-color: #BFBFBF;
 	min-height: 320px;
 }
 .section3 {
@@ -58,40 +63,48 @@ td {
 	background-color: rgba(60,60,60,0.30);
 	padding: 15px;
 }
+
 /*==========  Logo  ==========*/
+
 .logo {
 	display: block;
 	float: center;
 	width: 80px;
 	padding: 5px 0 7px 15px;
 }
-#title-proceed {
+
+.maintitle {
 	color: black;
 	text-decoration: none;
-	font-family: FontTitre;
-	font-size: 400%;
+	font-family: FontHeader;
+	font-size: 600%;
 }
+
+
 /*==========  Paragraphe  ==========*/
+
 .p1 {
 	text-align: justify;
-	font-size: 15px;
+	font-size: 120%;
 	padding: 10px;
 }
 
 .text-center {
 	margin: 0 auto;
 }
+
 .p2 {
 	display: block;
 	float: left;
 	width: 92%;
 	padding: 20px;
 	text-align: justify;
-	font-size: 13px;
+	font-size: 110%;
 }
+
 .p3 {
 	text-align: justify;
-	font-size: 12px;
+	font-size: 100%;
 	height: 12px;
 	color: red;
 }
@@ -182,6 +195,17 @@ h1, h2, h3, h4, h5, h6 {padding: 4px;}
 
 h1 {
 	margin-top: 30px;
+    font-family: FontTitle;
+    font-size: 240%;
+    /* h1 is sytematically class="title0 left cols10" */ 
+	float: left;
+	width: 83%;
+	border-bottom: 1px solid #252525;
+	margin-bottom: 15px;
+	margin-top: 40px;
+	display: inline-block !important;
+	float: none;
+	vertical-align: top;
 }
 
 h2 {
@@ -327,26 +351,25 @@ video {
 
 .button {
     padding: 10px;
-    margin-right: 5px;
-    margin-left: 5px;
     margin-bottom:20px;
     text-shadow:0 1px 1px rgba(0, 0, 0, 0.25);
     display: inline-block;
     white-space: nowrap;
-    line-height:1em;
+    line-height:140%;
     position:relative;
     outline: none;
     overflow: visible;
     cursor: pointer;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius:4px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
     box-shadow:1px 1px 2px 0 #CCCCCC;
     -moz-box-shadow: 1px 1px 2px 0 #CCCCCC;
     -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC;
 
-    font-size: 100%;
-    font-weight: bold;
+    font-size: 140%;
+    font-family: FontTitle;
+    /*font-weight: bold;*/
     text-align: center;
     background: url('http://www.lpl-aix.fr/~bigi/sppas/etc/icons/download.png') 3px 5px no-repeat;
     background-size: auto 60%; /* Width: auto is to keep aspect ratio */
@@ -355,13 +378,13 @@ video {
 
 }
 
-.button_red {
+.button_wargame {
     border: 1px solid #755830;
-    color: #FBFBFB;
-    background-color: #b31414;
+    color: #B2C2ED;
+    background-color: #353840;
 }
 
-.button_red:hover {
+.button_wargame:hover {
     color: #FBFBFB;
     opacity:0.9;
     filter:alpha(opacity=90);
@@ -436,7 +459,7 @@ video {
 	position: fixed;
 	bottom: 0px;
 	right: 5px;
-	background: url('image-general/up.png') no-repeat 50% 50% #f8f8f8;
+	background: url('../../image-general/up.png') no-repeat 50% 50% #f8f8f8;
 	-webkit-background-size: 100% 100%;
 	        background-size: 100%;
 	opacity: 0.8; -webkit-transition-duration: 0.4s; transition-duration: 0.4s;
@@ -445,9 +468,6 @@ video {
 .scrollT:hover {
 	cursor: pointer;
 }
-
-
-
 
 
 .title0 {
@@ -551,16 +571,16 @@ object {
 .g1-1 {min-width: 8%; max-width: 12%;}
 
 .mg-top1 {
-	margin-top: 20px;
+	margin-top: 2%;
 }
 .mg-top2 {
-	margin-top: 40px;
+	margin-top: 4%;
 }
 .mg-top3 {
-	margin-top: 80px;
+	margin-top: 8%;
 }
 .mg-top4 {
-	margin-top: 160px;
+	margin-top: 12%;
 }
 
 /*-----  End of GRID-ELEMENTS  ------*/

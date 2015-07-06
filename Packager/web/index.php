@@ -16,7 +16,9 @@
     <div class="cols12 section1">
         <div class="cols3"></div>
         <div class="cols7 mg-top1 ">
-            <a id="title-proceed" href="index.php"><h1>PROCEED</h1></a>
+
+            <a href="index.php"><div class="maintitle mg-top4">PROCEED</div></a>
+ 
             <div class="menu">
                 <a href="download.html"><img src="icon-menu/dl.png">Download</a>
                 <a href="installation.html"><img src="icon-menu/install.png">Installation</a>
@@ -25,12 +27,11 @@
             </div> 
         </div>
     </div> 
-    </div> 
-       
+
     <div class="cols12 section2">
         <div class="cols2"></div>
         <div class="cols7 mg-top2 right">
-            <h1 class="title0 left cols10">Proceed</h1>
+            <h1>Proceed</h1>
             <p class="txt-justify cols10 left"> 
              Proceed is a computer software package written and maintained by Brigitte Bigi 
              of the Laboratoire Parole et Langage, in Aix-en-Provence, France. 
@@ -43,7 +44,7 @@
     <div class="cols12 section3">
         <div class="cols2"></div>
         <div class="cols5 mg-top2 right">
-            <h1 class="title0 left cols10">Download and install Proceed</h1>
+            <h1>Download and install Proceed</h1>
             <p class="txt-justify cols10 left"> 
             Proceed is ready to run, so it does not need elaborate installation, except for 
             its dependencies (other software required for Proceed to work properly). 
