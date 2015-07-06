@@ -1,6 +1,6 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Jura">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Inconsolata">
-    <link rel="icon" href="../etc/icons/sppas.ico" />
+    <link rel="icon" href="../etc/icons/proceed.ico" />
 
     <script type="text/javascript">
         var _gaq = _gaq || [];

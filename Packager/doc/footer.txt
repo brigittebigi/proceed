@@ -1,6 +1,6 @@
     <footer>
         <p style="text-align:right">
-        Brigitte Bigi &copy; 2011-2015
+        Brigitte Bigi &copy; 2013-2015
         </p>
     </footer>
 

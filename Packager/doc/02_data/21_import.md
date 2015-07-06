@@ -12,8 +12,8 @@ the required convertions (impossible with Excel).
 
 Proceed will import some of the data and create the following files:
 
-- CONFERENCE.csv
-- DOCUMENTS.csv
-- SESSIONS.csv
-- AUTHORS.csv
+- conference.csv
+- documents.csv
+- sessions.csv
+- authors.csv
 
