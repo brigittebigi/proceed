@@ -429,7 +429,7 @@ function fct_package {
 
     local packagename=`pwd`/${PROGRAM_NAME}-${PROGRAM_VERSION}-${TODAY}.zip
     pushd $PROGRAM_DIR
-    zip -q -r $packagename proceed.bat proceed.command bin etc documentation proceed samples *.txt
+    zip -q -r $packagename proceed.bat proceed.command bin etc documentation proceed *.txt
     if [ "$?" != 0 ]; then
         echo -e "${RED}No package created!${NC}"
         popd
