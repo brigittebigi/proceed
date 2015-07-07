@@ -63,9 +63,8 @@
         </div>
     </div>
     
-    <!-- On réupére le nom des images à faire défiler en JS -->
     <script type="text/javascript">
-        var TabFiles = [".","..","Export1.png","LatexGen.png"]; 
+        var TabFiles = ["./etc/screenshots/Export1.png","./etc/screenshots/LatexGen.png"]; 
     </script>
       
     <div id="footer">
