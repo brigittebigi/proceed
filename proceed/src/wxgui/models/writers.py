@@ -586,8 +586,7 @@ class pdf_writer( Thread ):
 
             if len(self.sorteddates)>1:
                 latex +=  "\\subsection*{ \\color{color2}{"+datesession.strftime('%A, %B %d %Y')+"} }\n"
-            latex += "\\begin{longtable}{|p{4cm}p{10cm}p{2cm}|}\n"
-            latex += "\\hline \n"
+            latex += "\\begin{longtable}{p{35mm}p{105mm}r}\n"
 
             prec_hour = ""
             for session in self.sortedsessions:
@@ -613,7 +612,10 @@ class pdf_writer( Thread ):
                         latex += "\\color{color1}{" + session.get_sessionid()+"} "
 
                     # Add the Session Name
-                    latex += "\\color{color3}{ " + unicode_to_tex(session.get_session_name()) + "} & "
+                    sn = unicode_to_tex(session.get_session_name())
+                    if sn > 0:
+                        latex += "\\color{color3}{" + sn + "}"
+                    latex += " & "
                     if session.get_location() is not None:
                         latex += session.get_location()
                     latex += " \\\\ \n"
@@ -623,7 +625,6 @@ class pdf_writer( Thread ):
                     # Use a result of None to acknowledge the abort.
                         wx.PostEvent(self._notify_window, ResultEvent(text=None, num=-1))
                         return
-            latex += "\\hline \n"
             latex +=  "\\end{longtable}\n"
             latex +=  "\\pagebreak\n"
         #latex = latex.replace('_', '\_')
