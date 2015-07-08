@@ -103,14 +103,12 @@ class GenLaTeXFile:
         # A possible text to add into the file
         self.__content = None
 
-    # End __init__
     # ------------------------------------------------------------------------
 
 
     # ------------------------------------------------------------------------
     # Setters and Getters for Header/Footer options
     # ------------------------------------------------------------------------
-
 
     def set_paper_format(self, pformat):
         """
@@ -123,9 +121,7 @@ class GenLaTeXFile:
             raise TypeError
         self.__options["paper"] = pformat
 
-    # End set_paper_format
     # ------------------------------------------------------------------------
-
 
     def set_top_margin(self, margin):
         """
@@ -136,9 +132,7 @@ class GenLaTeXFile:
         """
         self.__options["topmargin"] = int(margin)
 
-    # End set_top_margin
     # ------------------------------------------------------------------------
-
 
     def set_bottom_margin(self, margin):
         """
@@ -148,9 +142,7 @@ class GenLaTeXFile:
         """
         self.__options["bottommargin"] = int(margin)
 
-    # End set_bottom_margin
     # ------------------------------------------------------------------------
-
 
     def set_head_size(self, head):
         """
@@ -161,9 +153,7 @@ class GenLaTeXFile:
         """
         self.__options["headsize"] = int(head)
 
-    # End set_head_size
     # ------------------------------------------------------------------------
-
 
     def set_foot_size(self, foot):
         """
@@ -174,9 +164,7 @@ class GenLaTeXFile:
         """
         self.__options["footsize"] = int(foot)
 
-    # End set_foot_size
     # ------------------------------------------------------------------------
-
 
     def set_left_header(self, text):
         """
@@ -187,9 +175,7 @@ class GenLaTeXFile:
         """
         self.__options["leftheader"] = text
 
-    # End set_left_header
     # ------------------------------------------------------------------------
-
 
     def set_center_header(self, text):
         """
@@ -200,9 +186,7 @@ class GenLaTeXFile:
         """
         self.__options["centerheader"] = text
 
-    # End set_center_header
     # ------------------------------------------------------------------------
-
 
     def set_right_header(self, text):
         """
@@ -213,9 +197,7 @@ class GenLaTeXFile:
         """
         self.__options["rightheader"] = text
 
-    # End set_right_header
     # ------------------------------------------------------------------------
-
 
     def set_left_footer(self, text):
         """
@@ -226,9 +208,7 @@ class GenLaTeXFile:
         """
         self.__options["leftfooter"] = text
 
-    # End set_left_footer
     # ------------------------------------------------------------------------
-
 
     def set_center_footer(self, text):
         """
@@ -239,9 +219,7 @@ class GenLaTeXFile:
         """
         self.__options["centerfooter"] = text
 
-    # End set_center_header
     # ------------------------------------------------------------------------
-
 
     def set_right_footer(self, text):
         """
@@ -252,35 +230,29 @@ class GenLaTeXFile:
         """
         self.__options["rightfooter"] = text
 
-    # End set_right_footer
     # ------------------------------------------------------------------------
-
 
     def set_header_color(self, RGB):
         """
         Fix the header color (by using rgb values).
 
-        @param RGB (string). Default is "100,100,100" (Gray).
+        @param RGB (string) as for example "100,100,100" (Gray).
 
         """
         self.__options["headercolor"] = RGB
 
-    # End set_header_color
     # ------------------------------------------------------------------------
-
 
     def set_footer_color(self, RGB):
         """
         Fix the footer color (by using rgb values).
 
-        @param RGB (string). Default is "100,100,100" (Gray).
+        @param RGB (string) as for example "100,100,100" (Gray).
 
         """
         self.__options["footercolor"] = RGB
 
-    # End set_footer_color
     # ------------------------------------------------------------------------
-
 
     def set_header_style(self, style):
         """
@@ -302,9 +274,7 @@ class GenLaTeXFile:
             raise TypeError('Style %s not supported.'%style)
         self.__options["headerstyle"] = style
 
-    # End set_header_style
     # ------------------------------------------------------------------------
-
 
     def set_footer_style(self, style):
         """
@@ -326,9 +296,7 @@ class GenLaTeXFile:
             raise TypeError('Style %s not supported.'%style)
         self.__options["footerstyle"] = style
 
-    # End set_footer_style
     # ------------------------------------------------------------------------
-
 
     def set_page_number(self, pagenumber):
         """
@@ -339,9 +307,7 @@ class GenLaTeXFile:
         """
         self.__options["pagenumber"] = str(pagenumber)
 
-    # End set_page_number
     # ------------------------------------------------------------------------
-
 
     def set_number_of_pages(self, number):
         """
@@ -355,9 +321,7 @@ class GenLaTeXFile:
             self.__options["numberofpages"] = 1
             raise Exception('Bad number of pages.')
 
-    # End set_number_of_pages
     # ------------------------------------------------------------------------
-
 
     def set_tex_content(self, text):
         """
@@ -370,9 +334,7 @@ class GenLaTeXFile:
         """
         self.__content = text
 
-    # End set_text_content
     # ------------------------------------------------------------------------
-
 
     def set_header_rule(self, boolean):
         """
@@ -383,9 +345,7 @@ class GenLaTeXFile:
         """
         self.__options["headerrule"] = boolean
 
-    # End set_header_rule
     # ------------------------------------------------------------------------
-
 
     def set_footer_rule(self, boolean):
         """
@@ -396,9 +356,7 @@ class GenLaTeXFile:
         """
         self.__options["footerrule"] = boolean
 
-    # End set_footer_rule
     # ------------------------------------------------------------------------
-
 
     def set_option(self, optionname, optionvalue):
         """
@@ -414,9 +372,7 @@ class GenLaTeXFile:
             raise TypeError('Unrecognized option')
         self.__options[optionname] = optionvalue
 
-    # End set_option
     # ------------------------------------------------------------------------
-
 
     def get_list_paper_format(self):
         """
@@ -424,9 +380,7 @@ class GenLaTeXFile:
         """
         return self.__papersformat
 
-    # End get_list_paper_format
     # ------------------------------------------------------------------------
-
 
     def get_list_textstyles(self):
         """
@@ -434,9 +388,7 @@ class GenLaTeXFile:
         """
         return self.__textstyles
 
-    # End get_list_textstyles
     # ------------------------------------------------------------------------
-
 
     def get_page_number(self):
         """
@@ -444,9 +396,7 @@ class GenLaTeXFile:
         """
         return self.__options["pagenumber"]
 
-    # End get_page_number
     # ------------------------------------------------------------------------
-
 
     def get_option(self, optionname):
         """
@@ -460,11 +410,9 @@ class GenLaTeXFile:
         """
         return self.__options
 
-
     # ------------------------------------------------------------------------
     # Write LaTeX document
     # ------------------------------------------------------------------------
-
 
     def exportLaTeX(self,filename):
         """
@@ -482,9 +430,7 @@ class GenLaTeXFile:
         self.save(fp)
         fp.close()
 
-    # End export_LaTeX
     # -------------------------------------------------------------------------
-
 
     def save(self,fp):
         """
@@ -505,7 +451,7 @@ class GenLaTeXFile:
         fp.write( " \\usepackage{xcolor} \n" )
         fp.write( " \\usepackage{longtable} \n" )
         fp.write( " \\usepackage{fancyhdr} \n" )
-        fp.write( " \\usepackage[left=20mm,right=20mm,top="+str(self.__options['topmargin'])+"mm,bottom="+str(self.__options['bottommargin'])+"mm,head="+str(self.__options['headsize'])+"pt,foot="+str(self.__options['footsize'])+"pt]{geometry} \n")
+        fp.write( " \\usepackage[left=20mm,right=15mm,top="+str(self.__options['topmargin'])+"mm,bottom="+str(self.__options['bottommargin'])+"mm,head="+str(self.__options['headsize'])+"pt,foot="+str(self.__options['footsize'])+"pt]{geometry} \n")
         fp.write( " \\fancyhead{} \n")
         fp.write( " \\fancyfoot{} \n")
 
@@ -560,7 +506,6 @@ class GenLaTeXFile:
         fp.write( " \n" )
         fp.write( " \end{document} \n" )
 
-    # End save
     # -------------------------------------------------------------------------
 
 

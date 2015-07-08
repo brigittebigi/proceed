@@ -288,12 +288,11 @@ class NotebookPanel( wx.Panel ):
             self.ForbiddenDialog(event)
             return
 
-        logging.debug('Generate')
         if self._path is None:
             wx.MessageBox( "Unknown data path.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
             return
 
-        dlg = GenerateFrame(self, -1, "PDF generator...", self._dataPages['Conference'],  self._dataPages['Documents'], self._dataPages['Authors'], self._dataPages['Sessions'], self._path)
+        dlg = GenerateFrame(self, "PDF generator...", self._dataPages['Conference'],  self._dataPages['Documents'], self._dataPages['Authors'], self._dataPages['Sessions'], self._path)
         dlg.ShowModal()
 
     # End OnGenerate
@@ -303,7 +302,6 @@ class NotebookPanel( wx.Panel ):
         """
         Callback to create a new entry.
         """
-        logging.debug('New entry in '+self._selectedPage)
 
         if self._selectedPage == "Authors":
             createdlg = CreateAuthor(self, -1, "Add an author")
@@ -363,15 +361,15 @@ class NotebookPanel( wx.Panel ):
                     self.GetTopLevelParent().GetStatusBar().SetStatusText('New session added.')
 
         elif self._selectedPage == "Conference":
+
             if len(self._dataPages['Conference']) == 0:
                 createdlg = CreateConference(self, -1, "Add information about the conference")
                 retCode   = createdlg.ShowModal()
                 if retCode == wx.ID_OK:
-                    acronym = createdlg.GetAcronym()
-                    logging.debug('   --> new conference='+acronym)
+                    acronym = createdlg.GetAcronym().strip()
                     if len(acronym)>0:
                         # update data
-                        self._dataPages[self._selectedPage][acronym] = Conference("", acronym=acronym)
+                        self._dataPages[self._selectedPage][acronym] = Conference(acronym)
                         # update wx.grid
                         self._pages[self._selectedPage].AddData([acronym])
                         self._isSaved = False
@@ -387,7 +385,6 @@ class NotebookPanel( wx.Panel ):
         """
         Callback to edit the selected entry.
         """
-        logging.debug('Edit')
         selection = self._pages[self._selectedPage].GetSelection()
         if selection is None or len(selection)==0:
             wx.MessageBox( "Nothing selected.", "Error...", wx.OK | wx.ICON_EXCLAMATION)
@@ -489,19 +486,16 @@ class NotebookPanel( wx.Panel ):
         logging.debug("Read the file: Conference.csv")
         confreader = readers.conference_csv_reader( os.path.join(path,self.findCSV(path,"Conference")) )
         rows = confreader.get_Rows()
-        logging.debug( "GOT FOLLOWING ROWS: %s"%rows)
 #        if len(rows) != 1:
 #            wx.MessageBox('hum... Conference CSV file is corrupted',"Error", wx.OK | wx.ICON_EXCLAMATION)
 #        else:
         for r in rows:
-            logging.debug( "GOT FOLLOWING ROW: %s"%r)
-
             confname = confreader.get_ConfName(r)
             acronym  = confreader.get_Acronym(r)
             place    = confreader.get_Place(r)
             dfrom    = confreader.get_DateFrom(r)
             dto      = confreader.get_DateTo(r)
-            ConfDict[acronym] = Conference(confname, acronym, place, dfrom, dto)
+            ConfDict[acronym] = Conference(acronym, confname, place, dfrom, dto)
         self._dataPages['Conference'] = ConfDict
 
         ################# Lecture du fichier DOCUMENTS.csv ###################

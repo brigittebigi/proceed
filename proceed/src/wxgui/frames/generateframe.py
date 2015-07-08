@@ -68,16 +68,15 @@ class GenerateFrame( wx.Dialog ):
 
     """
 
-    def __init__(self, parent, idd, title, conference, documents, authors, sessions, path):
+    def __init__(self, parent, title, conference, documents, authors, sessions, path):
         """
         Constructor.
         """
-        wx.Dialog.__init__(self, parent, idd, title, size=(380, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
+        wx.Dialog.__init__(self, parent, -1, title, size=(380, 200),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
         _icon = wx.EmptyIcon()
         _icon.CopyFromBitmap( wx.Bitmap(APP_EXPORT_PDF_ICON, wx.BITMAP_TYPE_ANY) )
         self.SetIcon(_icon)
-
         self.SetMinSize((380, 200))
 
         sizer = self._create_content(self)
@@ -122,14 +121,14 @@ class GenerateFrame( wx.Dialog ):
         # Header
         self._prefsIO.SetValue('HEADER_LEFT','str', '', 'Content of the header, at left')
         self._prefsIO.SetValue('HEADER_CENTER','str', '', 'Content of the header, at center')
-        self._prefsIO.SetValue('HEADER_RIGHT','str', '\\session', 'Content of the header, at right')
+        self._prefsIO.SetValue('HEADER_RIGHT','str', 'session', 'Content of the header, at right')
         self._prefsIO.SetValue('HEADER_STYLE','str', '\\it', "Header font style") # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
         self._prefsIO.SetValue('HEADER_COLOR','str', '20,20,20', "Header RGB color")
         self._prefsIO.SetValue('HEADER_RULER','bool', True, "Separate the header with a ruler")
 
         # Footer
         self._prefsIO.SetValue('FOOTER_LEFT','str', '', 'Content of the footer, at left')
-        self._prefsIO.SetValue('FOOTER_CENTER','str', '\\thepage', 'Content of the footer, at center')
+        self._prefsIO.SetValue('FOOTER_CENTER','str', 'page', 'Content of the footer, at center')
         self._prefsIO.SetValue('FOOTER_RIGHT','str', '', 'Content of the footer, at right')
         self._prefsIO.SetValue('FOOTER_STYLE','str', '\\bf', "Footer font style") # "\\rm","\\it","\\em","\\emph","\\bf","\\sl","\\sf","\\sc","\\tt"
         self._prefsIO.SetValue('FOOTER_COLOR','str', '20,20,20', "Footer color")

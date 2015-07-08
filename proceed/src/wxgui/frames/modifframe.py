@@ -46,6 +46,7 @@ __docformat__ = "epytext"
 import wx
 import wx.grid
 import wx.calendar
+import wx.lib
 
 import os.path
 import logging
@@ -83,7 +84,6 @@ class ModifFrame( wx.Dialog ):
         Create a new ModifFrame instance.
         Used to modify Document, Author or Session instances.
         """
-        logging.debug('Mofification in '+pagename)
         wx.Dialog.__init__(self, parent, id, title, size=(640, 520),style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
         self.parent   = parent
@@ -300,7 +300,7 @@ class ModifFrame( wx.Dialog ):
             choices.append(session.get_sessionid())
         choices = sorted(choices)
         session = self.DocObj.get_session()
-        if session != "":
+        if session is not None and session != "":
             session = session.get_sessionid()
         choices.append('')
 
@@ -370,6 +370,10 @@ class ModifFrame( wx.Dialog ):
 
     def createContentFor_Session(self):
         if self.eltid is None: return
+
+        # TODO
+        #self.panel = wx.lib.scrolledpanel.ScrolledPanel(self,-1, size=(640, 520), style=wx.SIMPLE_BORDER)
+        #self.panel.SetupScrolling()
 
         self.SessionObj = self.parent._dataPages['Sessions'][self.eltid]
 

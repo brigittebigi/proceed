@@ -243,8 +243,11 @@ class pdf_writer( Thread ):
             self.tasktext = 'Add header/footer to docid '+docid
             wx.PostEvent(self._notify_window, ResultEvent(text=self.tasktext, num=self.tasknum))
 
+            # Create and custumize the PDF tagger
             tagpdf = self._create_tagpdf()
             self.__set_session_in_tag( tagpdf, docid)
+            self.__set_page_in_tag( tagpdf )
+            self.__set_conference_in_tag( tagpdf )
 
             inputname  = os.path.join(self.path, docid + ".pdf")
             outputname = os.path.join(self.path, docid + "-tag.pdf")
@@ -256,10 +259,12 @@ class pdf_writer( Thread ):
             try:
                 N = int( tagpdf.tagFile( inputname,outputname ) )
                 N = int( tagpdf.tagFile( inputname,outputname2 ) )
+                self.documents[docid].set_pdf_diagnosis(0)
             except Exception as e:
                 self._initialize()
                 logging.info('     ... ... ERROR for doc %s: %s'%(docid,str(e)))
                 wx.PostEvent(self._notify_window, ResultEvent(text='PDF export failed for doc '+docid+'. Error: '+str(e), num=-1))
+                self.documents[docid].set_pdf_diagnosis(1)
                 #return
 
             oldN = int( tagpdf.get_page_number() )
@@ -336,10 +341,10 @@ class pdf_writer( Thread ):
         self.tasknum += 1
         wx.PostEvent(self._notify_window, ResultEvent(text=self.tasktext, num=self.tasknum))
 
-        latex =  "\\thispagestyle{empty}\n"
-        latex += "\\pagestyle{empty}\n"
-        latex += '\\section*{'+title+'}\n'
-        latex += "\\begin{longtable}{p{15cm}p{1cm}}\n"
+        #latex =  "\\thispagestyle{empty}\n"
+        #latex += "\\pagestyle{empty}\n"
+        latex = '\\section*{'+title+'}\n'
+        latex += "\\begin{longtable}{p{15cm}r}\n"
 
         count = 0
         for session in self.sortedsessions:
@@ -364,7 +369,7 @@ class pdf_writer( Thread ):
                     # first line : title, then page number
                     #latex += "{\\bf " + self.documents[docid].get_title() + "} & "
                     latex += "$ \\color{color1}{"+self.__get_sessionid_and_rank(doc.get_docid()) + "}$ {\\bf " + unicode_to_tex(doc.get_title()) + "} "
-                    latex += " & \\color{color2}{" + str(doc.get_page())  + "} \\\\ \n"
+                    latex += " & \\color{FooterColor}{" + str(doc.get_page())  + "} \\\\ \n"
                     # second line : complete list of authors
                     latex +=" {\it "
                     for author in doc.get_authors():
@@ -384,8 +389,11 @@ class pdf_writer( Thread ):
         latex +=  "\\end{longtable}\n"
         #latex = latex.replace('_', '\_')
         try:
-            # No header nor footer in the TOC
-            self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "TableOfContent.pdf"), inc=False)
+            tagpdf = self._create_tagpdf()
+            self.__unset_session_in_tag(tagpdf)
+            self.__unset_page_in_tag( tagpdf )
+            self.__set_conference_in_tag( tagpdf )
+            self.__generate_latex( tagpdf, latex, os.path.join(self.path, "TableOfContent.pdf"), inc=False)
         except Exception as e:
             self._initialize()
             logging.info('... Error. Can not create the TOC: %s'%str(e))
@@ -406,7 +414,7 @@ class pdf_writer( Thread ):
         wx.PostEvent(self._notify_window, ResultEvent(text=self.tasktext, num=self.tasknum))
 
         latex =  '\\section*{'+title+'}\n'
-        latex += "\\begin{longtable}{p{45mm}p{75mm}p{4cm}}\n"
+        latex += "\\begin{longtable}{p{45mm}p{75mm}r}\n"
 
         for authorid in sorted(self.authors.keys(), key=lambda v: v.upper()):
             author = self.authors[authorid]
@@ -432,7 +440,9 @@ class pdf_writer( Thread ):
 
         try:
             tagpdf = self._create_tagpdf()
-            #self.__unset_session_in_tag(tagpdf)
+            self.__unset_session_in_tag(tagpdf)
+            self.__unset_page_in_tag( tagpdf )
+            self.__set_conference_in_tag( tagpdf )
             self.__generate_latex( tagpdf, latex, os.path.join(self.path, "AuthorsIndex.pdf") )
         except Exception as e:
             self._initialize()
@@ -471,6 +481,8 @@ class pdf_writer( Thread ):
         try:
             tagpdf = self._create_tagpdf()
             self.__unset_session_in_tag(tagpdf)
+            self.__unset_page_in_tag( tagpdf )
+            self.__set_conference_in_tag( tagpdf )
             self.__generate_latex( tagpdf, latex, os.path.join(self.path, "AuthorsList.pdf"), inc=False)
         except Exception as e:
             self._initialize()
@@ -512,6 +524,9 @@ class pdf_writer( Thread ):
                     latex += "{\\bf " + session.get_h_deb()+" - "+session.get_h_fin()+"} & "
                     # Add the Session Name
                     latex += "\\color{color3}{{\\bf " + unicode_to_tex(session.get_session_name()) +"}} \\\\ \n"
+                    # next line: location or empty line;
+                    if session.get_location() is not None:
+                        latex += session.get_location()
                     latex += " & \\\\ \n"
 
                     # Add the list of documents
@@ -539,7 +554,8 @@ class pdf_writer( Thread ):
         #latex = latex.replace('_', '\_')
 
         try:
-            self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "Program.pdf"), inc=False)
+            tagpdf = self._create_empty_tagpdf()
+            self.__generate_latex(tagpdf, latex, os.path.join(self.path, "Program.pdf"), inc=False)
         except Exception as e:
             self._initialize()
             logging.info('... Error. Can not create the Program: %s'%str(e))
@@ -573,10 +589,16 @@ class pdf_writer( Thread ):
             latex += "\\begin{longtable}{|p{4cm}p{10cm}p{2cm}|}\n"
             latex += "\\hline \n"
 
+            prec_hour = ""
             for session in self.sortedsessions:
 
                 if session.get_date() == datesession:
-                    latex += " & & \\\\ \n"
+                    # add empty line only if the previous session was not at the same time (not in parallel)
+                    if prec_hour != session.get_h_deb():
+                        latex += " & & \\\\ \n"
+                    else:
+                        latex += "\n"
+                    prec_hour = session.get_h_deb()
                     # Add the hours info
                     latex += session.get_h_deb()+" - "+session.get_h_fin()+" & "
                     # Add the sessionID only for sessions with documents
@@ -595,7 +617,7 @@ class pdf_writer( Thread ):
                     if session.get_location() is not None:
                         latex += session.get_location()
                     latex += " \\\\ \n"
-                    latex += " & & \\\\ \n"
+                    #latex += " & & \\\\ \n"
 
                     if self._want_abort:
                     # Use a result of None to acknowledge the abort.
@@ -607,7 +629,8 @@ class pdf_writer( Thread ):
         #latex = latex.replace('_', '\_')
 
         try:
-            self.__generate_latex( self._create_empty_tagpdf(), latex, os.path.join(self.path, "ProgramOverview.pdf"), inc=False)
+            tagpdf = self._create_empty_tagpdf()
+            self.__generate_latex( tagpdf, latex, os.path.join(self.path, "ProgramOverview.pdf"), inc=False)
         except Exception:
             self._initialize()
             wx.PostEvent(self._notify_window, ResultEvent(text='Error. Can not create the program overview.', num=-1))
@@ -809,42 +832,6 @@ class pdf_writer( Thread ):
     # End sort_documents
     # -----------------------------------------------------------------------
 
-
-    def _create_tagpdf(self):
-        # Create a TagPDF instance from preferences.
-        tagpdf = tagPdfFile()
-
-        tagpdf.set_paper_format( self._prefsIO.GetValue('PAGE_FORMAT') )
-        tagpdf.set_top_margin( self._prefsIO.GetValue('TOP_MARGIN') )
-        tagpdf.set_bottom_margin( self._prefsIO.GetValue('BOTTOM_MARGIN') )
-        tagpdf.set_head_size( self._prefsIO.GetValue('HEADER_SIZE') )
-        tagpdf.set_foot_size( self._prefsIO.GetValue('FOOTER_SIZE') )
-
-        tagpdf.set_left_header(   unicode_to_tex(self._prefsIO.GetValue('HEADER_LEFT')) )
-        tagpdf.set_center_header( unicode_to_tex(self._prefsIO.GetValue('HEADER_CENTER')) )
-        tagpdf.set_right_header(  unicode_to_tex(self._prefsIO.GetValue('HEADER_RIGHT')) )
-        tagpdf.set_left_footer(   unicode_to_tex(self._prefsIO.GetValue('FOOTER_LEFT')) )
-        tagpdf.set_center_footer( unicode_to_tex(self._prefsIO.GetValue('FOOTER_CENTER')) )
-        tagpdf.set_right_footer(  unicode_to_tex(self._prefsIO.GetValue('FOOTER_RIGHT')) )
-
-        tagpdf.set_header_color( self._prefsIO.GetValue('HEADER_COLOR') )
-        tagpdf.set_footer_color( self._prefsIO.GetValue('FOOTER_COLOR') )
-        tagpdf.set_header_style( self._prefsIO.GetValue('HEADER_STYLE') )
-        tagpdf.set_footer_style( self._prefsIO.GetValue('FOOTER_STYLE') )
-        tagpdf.set_header_rule( self._prefsIO.GetValue('HEADER_RULER') )
-        tagpdf.set_footer_rule( self._prefsIO.GetValue('FOOTER_RULER') )
-
-        tagpdf.set_option('color1', self._prefsIO.GetValue('COLOUR_1') )
-        tagpdf.set_option('color2', self._prefsIO.GetValue('COLOUR_2') )
-        tagpdf.set_option('color3', self._prefsIO.GetValue('COLOUR_3') )
-
-        tagpdf.set_page_number( self.nbpages )
-
-        return tagpdf
-
-    # -----------------------------------------------------------------------
-
-
     def _create_empty_tagpdf(self):
         # Create a TagPDF with empty header/footer.
         tagpdf = tagPdfFile()
@@ -866,8 +853,13 @@ class pdf_writer( Thread ):
         tagpdf.set_footer_color( self._prefsIO.GetValue('FOOTER_COLOR') )
         tagpdf.set_header_style( self._prefsIO.GetValue('HEADER_STYLE') )
         tagpdf.set_footer_style( self._prefsIO.GetValue('FOOTER_STYLE') )
-        tagpdf.set_header_rule( False )
-        tagpdf.set_footer_rule( False )
+
+        tagpdf.set_header_rule( self._prefsIO.GetValue('HEADER_RULER') )
+        tagpdf.set_footer_rule( self._prefsIO.GetValue('FOOTER_RULER') )
+
+        tagpdf.set_option( "color1", self._prefsIO.GetValue('COLOUR_1') )
+        tagpdf.set_option( "color2", self._prefsIO.GetValue('COLOUR_2') )
+        tagpdf.set_option( "color3", self._prefsIO.GetValue('COLOUR_3') )
 
         tagpdf.set_page_number( self.nbpages )
 
@@ -875,6 +867,20 @@ class pdf_writer( Thread ):
 
     # -----------------------------------------------------------------------
 
+    def _create_tagpdf(self):
+        # Create a TagPDF instance from preferences.
+        tagpdf = self._create_empty_tagpdf()
+
+        tagpdf.set_left_header(   unicode_to_tex(self._prefsIO.GetValue('HEADER_LEFT')) )
+        tagpdf.set_center_header( unicode_to_tex(self._prefsIO.GetValue('HEADER_CENTER')) )
+        tagpdf.set_right_header(  unicode_to_tex(self._prefsIO.GetValue('HEADER_RIGHT')) )
+        tagpdf.set_left_footer(   unicode_to_tex(self._prefsIO.GetValue('FOOTER_LEFT')) )
+        tagpdf.set_center_footer( unicode_to_tex(self._prefsIO.GetValue('FOOTER_CENTER')) )
+        tagpdf.set_right_footer(  unicode_to_tex(self._prefsIO.GetValue('FOOTER_RIGHT')) )
+
+        return tagpdf
+
+    # -----------------------------------------------------------------------
 
     def __get_sessionid_and_rank(self, docid):
         # Get the session
@@ -894,12 +900,76 @@ class pdf_writer( Thread ):
         sessionid = sessionid[:-1] #.replace(']', '')
         return sessionid+"."+str(docrank)+"]"
 
-    # End __get_sessionid_and_rank
     # -----------------------------------------------------------------------
 
+    def __set_conference_in_tag(self, tagpdf):
+        acronym = self.conference.keys()[0]
+            # only one conference can be defined.
+            # and the acronym is the key of a conference
+
+        if "conference" in tagpdf.get_option("rightheader").lower():
+            tagpdf.set_right_header( acronym )
+
+        if "conference" in tagpdf.get_option("leftheader").lower():
+            tagpdf.set_left_header( acronym )
+
+        if "conference" in tagpdf.get_option("centerheader").lower():
+            tagpdf.set_center_header( acronym )
+
+        if "conference" in tagpdf.get_option("rightfooter").lower():
+            tagpdf.set_right_footer( acronym )
+
+        if "conference" in tagpdf.get_option("leftfooter").lower():
+            tagpdf.set_left_footer( acronym )
+
+        if "conference" in tagpdf.get_option("centerfooter").lower():
+            tagpdf.set_center_footer( acronym )
+
+    # -----------------------------------------------------------------------
+
+    def __set_page_in_tag(self, tagpdf):
+
+        if "page" in tagpdf.get_option("rightheader").lower():
+            tagpdf.set_right_header( "\\thepage" )
+
+        if "page" in tagpdf.get_option("leftheader").lower():
+            tagpdf.set_left_header( "\\thepage" )
+
+        if "page" in tagpdf.get_option("centerheader").lower():
+            tagpdf.set_center_header( "\\thepage" )
+
+        if "page" in tagpdf.get_option("rightfooter").lower():
+            tagpdf.set_right_footer( "\\thepage" )
+
+        if "page" in tagpdf.get_option("leftfooter").lower():
+            tagpdf.set_left_footer( "\\thepage" )
+
+        if "page" in tagpdf.get_option("centerfooter").lower():
+            tagpdf.set_center_footer( "\\thepage" )
+
+    def __unset_page_in_tag(self, tagpdf):
+
+        if "page" in tagpdf.get_option("rightheader").lower():
+            tagpdf.set_right_header( "" )
+
+        if "page" in tagpdf.get_option("leftheader").lower():
+            tagpdf.set_left_header( "" )
+
+        if "page" in tagpdf.get_option("centerheader").lower():
+            tagpdf.set_center_header( "" )
+
+        if "page" in tagpdf.get_option("rightfooter").lower():
+            tagpdf.set_right_footer( "" )
+
+        if "page" in tagpdf.get_option("leftfooter").lower():
+            tagpdf.set_left_footer( "" )
+
+        if "page" in tagpdf.get_option("centerfooter").lower():
+            tagpdf.set_center_footer( "" )
+
+    # -----------------------------------------------------------------------
 
     def __set_session_in_tag(self, tagpdf, docid):
-        # A LA SAUVAGE: on suppose que seuls les ID de sessions contiennent des []
 
         if "session" in tagpdf.get_option("rightheader").lower():
             tagpdf.set_right_header( self.__get_sessionid_and_rank(docid) )
@@ -919,12 +989,8 @@ class pdf_writer( Thread ):
         if "session" in tagpdf.get_option("centerfooter").lower():
             tagpdf.set_center_footer( self.__get_sessionid_and_rank(docid) )
 
-    # End __set_session_in_tag
-    # -----------------------------------------------------------------------
-
-
     def __unset_session_in_tag(self, tagpdf):
-        # A LA SAUVAGE: on suppose que seuls les ID de sessions contiennent des []
+
         if "session" in tagpdf.get_option("rightheader").lower():
             tagpdf.set_right_header( "" )
 
@@ -943,9 +1009,7 @@ class pdf_writer( Thread ):
         if "session" in tagpdf.get_option("centerfooter").lower():
             tagpdf.set_center_footer( "" )
 
-    # End __unset_session_in_tag
     # -----------------------------------------------------------------------
-
 
     def __generate_latex(self, tagpdf, latex, filename, inc=True):
         # recto or verso? Supposed to be on a recto (impair number)
@@ -961,9 +1025,7 @@ class pdf_writer( Thread ):
         if inc is True and os.path.exists( filename ):
             self.nbpages += utils.countPages( filename )
 
-    # End __generate_latex
     # -----------------------------------------------------------------------
-
 
     def __initials(self, name):
         """ Get upper characters of name, separated by a dot. """

@@ -68,11 +68,11 @@ class conference_csv_reader:
         csvReader = csv.DictReader(open(self.fileName, "rb"))
         return csvReader
 
-    def get_ConfName(self, row):
-        return row['CONFERENCE_NAME']
-
     def get_Acronym(self, row):
         return row['ACRONYM']
+
+    def get_ConfName(self, row):
+        return row['CONFERENCE_NAME']
 
     def get_Place(self, row):
         return row['PLACE']
