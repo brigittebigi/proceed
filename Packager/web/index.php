@@ -43,6 +43,7 @@
         <div class="cols4 left mg-top3">
         <div class="slideshow">
         <ul>
+            <li><img src="./etc/screenshots/OverallView.png" alt="" width="350" height="200" /></li>
         <?php
             $temp_files = glob('./etc/screenshots/*');
             foreach($temp_files as $file)
@@ -51,8 +52,17 @@
                 echo PHP_EOL;
             }
         ?>
-		    <li><img src="./etc/screenshots/OverallView.png" alt="" width="350" height="200" /></li>
         </ul>
+        <script type="text/javascript" src="./etc/scripts/jquery.min.js"></script>
+        <script type="text/javascript">
+           $(function(){
+              setInterval(function(){
+                 $(".slideshow ul").animate({marginLeft:-350},800,function(){
+                    $(this).css({marginLeft:0}).find("li:last").after($(this).find("li:first"));
+                 })
+              }, 3000);
+           });
+        </script>
         </div>
         </div>
 
@@ -85,11 +95,8 @@
     </div>
     
     <span class="scrollT"></span>
-    <script type="text/javascript" src="./etc/scripts/jquery.min.js"></script>
     <script type="text/javascript" src="./etc/scripts/fn.scrollT.js"></script>
     <script type="text/javascript" src="./etc/scripts/fn.center.js"></script>
     <script type="text/javascript" src="./etc/scripts/main.js"></script>
-    <script type="text/javascript" src="./etc/scripts/slideshow.js"></script>
-
 </body>
 </html>
