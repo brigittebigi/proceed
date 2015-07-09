@@ -210,6 +210,11 @@ h1 {
 
 h2 {
 	margin-top: 15px;
+    border-bottom: 1px dashed #454545;
+	margin-bottom: 15px;
+    display: inline-block !important;
+	float: none;
+	vertical-align: top;
 }
 
 h3 {
@@ -294,6 +299,27 @@ video {
 /*-----  End of HTML-ELEMENTS  ------*/
 
 
+.slideshow {
+   width:    350px;
+   height:   200px;
+   overflow: hidden;
+   border-top:    1px solid #E2E2E2;
+   border-left:   1px solid #E2E2E2;
+   border-bottom: 3px solid #D2D2D2;
+   border-right:  2px solid #D2D2D2;
+
+   }
+
+.slideshow ul {
+    /* 4 images donc 4 x 100% */
+   width: 200%;
+   height: 200px;
+   padding:0; margin:0;
+   list-style: none;
+}
+.slideshow li {
+   float: left;
+}
 
 /*==========  1 - OBJECTS-ELEMENTS  ==========*/
 
@@ -562,7 +588,7 @@ object {
 
 .cols9, .g9 { width: 75%; } 
 
-.cols10, .g10 { width: 83.3333333%; } 
+.cols10, .g10 { width: 83.33%; } 
 
 .cols11, .g11 { width: 91.6666667%; } 
 

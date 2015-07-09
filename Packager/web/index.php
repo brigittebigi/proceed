@@ -44,13 +44,14 @@
         <div class="slideshow">
         <ul>
         <?php
-            $temp_files = glob(__dir__.'/etc/screenshots/*'); 
-            foreach($temp_files as $file) 
+            $temp_files = glob('./etc/screenshots/*');
+            foreach($temp_files as $file)
             {
-                echo '<li><img src="'+$file+'alt="" width="350" height="200" /></li>';
+                echo '        <li><img src="'.$file.'" alt="" width="350" height="200" /></li>';
+                echo PHP_EOL;
             }
         ?>
-		<li><img src="./etc/screenshots/OverallView.png" alt="" width="350" height="200" /></li>
+		    <li><img src="./etc/screenshots/OverallView.png" alt="" width="350" height="200" /></li>
         </ul>
         </div>
         </div>
