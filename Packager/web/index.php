@@ -30,7 +30,7 @@
 
     <div class="cols12 section2">
         <div class="cols2"></div>
-        <div class="cols7 mg-top2 right">
+        <div class="cols5 mg-top2 right">
             <h1>Proceed</h1>
             <p class="txt-justify cols10 left"> 
              Proceed is a computer software package written and maintained by Brigitte Bigi 
@@ -39,11 +39,27 @@
              to allow the almost automatic generation of proceedings and book of abstracts. 
             </p>        
         </div>
+
+        <div class="cols4 left mg-top3">
+        <div class="slideshow">
+        <ul>
+        <?php
+            $temp_files = glob(__dir__.'/etc/screenshots/*'); 
+            foreach($temp_files as $file) 
+            {
+                echo '<li><img src="'+$file+'alt="" width="350" height="200" /></li>';
+            }
+        ?>
+		<li><img src="./etc/screenshots/OverallView.png" alt="" width="350" height="200" /></li>
+        </ul>
+        </div>
+        </div>
+
     </div>    
     
     <div class="cols12 section3">
         <div class="cols2"></div>
-        <div class="cols5 mg-top2 right">
+        <div class="cols9 mg-top2 right">
             <h1>Download and install Proceed</h1>
             <p class="txt-justify cols10 left"> 
             Proceed is ready to run, so it does not need elaborate installation, except for 
@@ -57,16 +73,8 @@
             and unpack it once you've got it.
             </p>        
         </div>
-        
-        <div class="cols4 left mg-top3">
-            <img id="js-diapo" src="" alt="diapo-exemple">           
-        </div>
     </div>
-    
-    <script type="text/javascript">
-        var TabFiles = ["./etc/screenshots/Export1.png","./etc/screenshots/LatexGen.png"]; 
-    </script>
-      
+
     <div id="footer">
         <img src="image-general/gnu.png">       
 
@@ -79,7 +87,8 @@
     <script type="text/javascript" src="./etc/scripts/jquery.min.js"></script>
     <script type="text/javascript" src="./etc/scripts/fn.scrollT.js"></script>
     <script type="text/javascript" src="./etc/scripts/fn.center.js"></script>
-    <script type="text/javascript" src="./etc/scripts/diapo.js"></script>    
     <script type="text/javascript" src="./etc/scripts/main.js"></script>
+    <script type="text/javascript" src="./etc/scripts/slideshow.js"></script>
+
 </body>
 </html>
