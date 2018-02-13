@@ -224,17 +224,15 @@ class pdf_writer( Thread ):
     # End check
     # -----------------------------------------------------------------------
 
-
     def run_tag_pdf(self):
-        """
-        Tag all PDF files with an header and a footer.
-        """
+        """ Tag all PDF files with an header and a footer.
 
+        """
         if not len(self.sorteddocs):
             return
 
         self.tasktext = 'Add header/footer to PDF files.'
-        self.tasknum  = 0
+        self.tasknum = 0
 
         count = 0
         while count < len(self.sorteddocs):
@@ -243,34 +241,34 @@ class pdf_writer( Thread ):
             self.tasktext = 'Add header/footer to docid '+docid
             wx.PostEvent(self._notify_window, ResultEvent(text=self.tasktext, num=self.tasknum))
 
-            # Create and custumize the PDF tagger
+            # Create and customize the PDF tagger
             tagpdf = self._create_tagpdf()
-            self.__set_session_in_tag( tagpdf, docid)
-            self.__set_page_in_tag( tagpdf )
-            self.__set_conference_in_tag( tagpdf )
+            self.__set_session_in_tag(tagpdf, docid)
+            self.__set_page_in_tag(tagpdf)
+            self.__set_conference_in_tag(tagpdf)
 
-            inputname  = os.path.join(self.path, docid + ".pdf")
+            inputname = os.path.join(self.path, docid + ".pdf")
             outputname = os.path.join(self.path, docid + "-tag.pdf")
             s = self.__get_sessionid_and_rank(docid)
             s = "Paper_" + s[1:-1] + ".pdf"
             outputname2 = os.path.join(self.path,s)
 
-            logging.info('     ... tag: %s --> %s'%(docid,s))
+            logging.info('     ... tag: %s --> %s' % (docid, s))
             try:
-                N = int( tagpdf.tagFile( inputname,outputname ) )
-                N = int( tagpdf.tagFile( inputname,outputname2 ) )
+                N = int(tagpdf.tagFile(inputname, outputname))
+                tagpdf.tagFile(inputname, outputname2)
                 self.documents[docid].set_pdf_diagnosis(0)
             except Exception as e:
                 self._initialize()
-                logging.info('     ... ... ERROR for doc %s: %s'%(docid,str(e)))
+                logging.info('     ... ... ERROR for doc %s: %s' % (docid, str(e)))
                 wx.PostEvent(self._notify_window, ResultEvent(text='PDF export failed for doc '+docid+'. Error: '+str(e), num=-1))
                 self.documents[docid].set_pdf_diagnosis(1)
                 #return
 
-            oldN = int( tagpdf.get_page_number() )
-            self.nbpages = N+oldN
-            tagpdf.set_page_number( str(self.nbpages) )
-            self.documents[docid].set_page( oldN )
+            oldN = int(tagpdf.get_page_number())
+            self.nbpages = N + oldN
+            tagpdf.set_page_number(str(self.nbpages))
+            self.documents[docid].set_page(oldN)
             count = count + 1
 
             if self._want_abort:
@@ -285,7 +283,6 @@ class pdf_writer( Thread ):
     # End run_tag_pdf
     # -----------------------------------------------------------------------
 
-
     def run_merge_pdf(self):
         """
         Merge submission files with: pdftk src1.pdf src2.pdf output res.pdf.
@@ -294,7 +291,6 @@ class pdf_writer( Thread ):
         original PDF file.
 
         """
-
         if not len(self.sortedsessions):
             return
 

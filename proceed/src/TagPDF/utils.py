@@ -15,7 +15,7 @@
 #
 #       Laboratoire Parole et Langage
 #
-#       Copyright (C) 2013-2014  Brigitte Bigi
+#       Copyright (C) 2013-2018  Brigitte Bigi
 #
 #       Use of this software is governed by the GPL, v3
 #       This banner notice must not be removed
@@ -42,11 +42,11 @@ __docformat__ = "epytext"
 
 from subprocess import Popen, PIPE, STDOUT
 import re
-import codecs
 from name import GenName
 import os
 
 # ---------------------------------------------------------------------------
+
 
 def run_command(command):
     """
@@ -60,9 +60,7 @@ def run_command(command):
     line = p.communicate()
     return line[0]
 
-# End run_command
 # ------------------------------------------------------------------------
-
 
 
 def countPages(filename):
@@ -72,34 +70,31 @@ def countPages(filename):
     @param filename (string) File to be counted.
     @return (int)
 
-    This function requires pdftk to be installed.
+    This function requires pdftk to be installed:
+    https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/
 
     """
-    try:
-        data = file(filename,"rb").read()
-    except Exception,e:
-        raise e
+    data = file(filename, "rb").read()
 
-    rxcountpages = re.compile(r"/Type\s*/Page([^s]|$)", re.MULTILINE|re.DOTALL)
-    nbpages = len(rxcountpages.findall(data))
-    if nbpages == 0:
-        outputname = GenName().get_name()
-        # call pdftk!
-        command  = 'pdftk '
+    rx_count_pages = re.compile(r"/Type\s*/Page([^s]|$)", re.MULTILINE|re.DOTALL)
+    nb_pages = len(rx_count_pages.findall(data))
+    if nb_pages == 0:
+        output_name = GenName().get_name()
+        command = 'pdftk '
         command += filename + ' dump_data output '
-        command += outputname
-        ret = run_command( command )
-        if not os.path.exists(outputname):
-            raise IOError
-        fp = open(outputname, 'r')
+        command += output_name
+        ret = run_command(command)
+        if os.path.exists(output_name) is False:
+            raise IOError('The file %s was not created by pdftk'.format(output_name))
+        fp = open(output_name, 'r')
         for line in fp:
             if "NumberOfPages:" in line:
-                nbpages = int(line.split()[1])
-        os.remove(outputname)
+                nb_pages = int(line.split()[1])
+        fp.close()
+        os.remove(output_name)
 
-    return nbpages
+    return nb_pages
 
-# End countPages
 # ------------------------------------------------------------------------
 
 
@@ -112,11 +107,7 @@ def formatPages(filename):
     """
     mediabox = {"0 0 595 842":"a4paper", "0 0 595.276 841.89":"a4paper", "0 0 612 792":"letterpaper", "0 0 498.898 708.661":"b5paper", "0 0 419.528 595.276":"a5paper"}
 
-    #try:
     fp = open(filename, 'r')
-    #except Exception, e:
-    #    raise IOError
-
     fsize = None
     for line in fp:
         line = line.strip()
@@ -134,16 +125,13 @@ def formatPages(filename):
 
     # Nice: the format is exactly good!
     if fsize in mediabox:
-        return mediabox[ fsize ]
+        return mediabox[fsize]
 
-    # Use a ratio, and fix... the nereast format as possible...
-    l=float(fsize.split()[2])
-    L=float(fsize.split()[3])
+    # Use a ratio, and fix... the nearest format as possible...
+    l = float(fsize.split()[2])
+    L = float(fsize.split()[3])
     ratio = L/l
     if ratio < 1.31:
         return "letterpaper"
 
     return "a4paper"
-
-# End formatPages
-# ------------------------------------------------------------------------

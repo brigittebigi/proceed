@@ -33,21 +33,22 @@
         <div class="cols7 mg-top2 right">
             
             <h1>Installation</h1>
-<p>Proceed installation only consists to unpack the package.
 
-    <p>
-        In order to work, external programs must be installed <b>before</b>
-        installing Proceed.
-        <i>Administrator rights are required to perform these installations.</i>
-        Follow <b>carefully</b> instructions of this page to download and install all of them:
-    </p>
-    
-    <ul>
-        <li> Python 2.7</li>
-        <li> wxPython </li>
-        <li> pdftk </li>
-        <li> LaTeX </li>
-    </ul>
+                <p>Proceed installation only consists to unpack the package.
+
+                <p>
+                    In order to work, external programs must be installed <b>before</b>
+                    installing Proceed.
+                    <i>Administrator rights are required to perform these installations.</i>
+                    Follow <b>carefully</b> instructions of this page to download and install all of them:
+                </p>
+
+                <ul>
+                    <li> Python 2.7</li>
+                    <li> wxPython </li>
+                    <li> pdftk </li>
+                    <li> LaTeX (pdflatex) </li>
+                </ul>
 
     </div> 
     </div> 
@@ -58,79 +59,55 @@
         
     <h1>Installing dependencies on Windows</h1>
 
-        <h4>How to know if my computer is a 32-bits or 64-bits architecture?</h4>
+        <ol>
+                <li>Click the link to download Python 2.7
+                <a href="https://www.python.org/downloads/release/python-2713/">"Windows x86 MSI installer"</a>,
+                then execute it.
+                    Notice that even if your system is 64 bits, <i>you have to install the 32 bits version</i> of python.
+                </li>
 
-        <h5>Method 1: automatically </h5>
-        <p>
-        <a href="http://support.microsoft.com/kb/827218">Just follow this link...</a> and
-        it will be printed in blue color in the page.
-        </p>
+                <li>Click the link to download wxPython with version name:
+                <a href="https://sourceforge.net/projects/wxpython/files/wxPython/3.0.2.0/"> "-win32 -py27"</a>
+                (i.e. for windows 32-bits, and python 2.7); then execute it.
+                </li>
 
-        <h5>Method 2: manually </h5>
-        <p>
-        <i>Windows >= 8:</i>
-        Go to start and search for this pc and go to properties.
-        Then you can find the architecture in section "System", line "System type:".
-        </p>
-        <p>
-        <i>Windows Vista or Windows 7: </i>
-        Click on Start, type system in the Start Search box, and then click system in the Programs list.
-        For a 64-bits version operating system: 64-bits Operating System appears for the System type under System.
-        For a 32-bits version operating system: 32-bits Operating System appears for the System type under System.
-        </p>
-        <p>
-        <i>Windows XP: </i>
-        Click on Start and then click on Run.
-        Type sysdm.cpl, and then click on OK.
-        Click on the General tab.
-        For a 64-bits version operating system: Windows XP Professional x64 Edition Version appears under System.
-        For a 32-bits version operating system: Windows XP Professional Version appears under System.
-        </p>
 
-        <h2>Python</h2>
-        <p>
-            <a href="https://www.python.org/downloads/release/python-2710/">Click here to download <b> Python </b></a>
-        </p>
-        <ul>
-            <li> If you have a 32-bits computer, download and execute Python 2.7.9 "Windows x86 MSI Installer".</li>
-            <li> Else if you have a 64-bits computer, download and execute Python 2.7.9 "Windows x86-64 MSI Installer". </li>
-        </ul>
-        <p>
-        During  the installation, click three times on the "Next" button and then on "Finish".
-        </p>
+                <li><a href="https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/">pdftk</a></li>
 
-        <h2>WxPython</h2>
-        <p>
-            <a href="http://www.wxpython.org/download.php#msw">Click here to download <b> wxPython </b></a>
-        </p>
-        <ul>
-            <li>If you have a 32-bits computer, download and execute wxPython with version name: "-win32-py27". </li>
-            <li>Else if you have a 64-bits computer, download and execute wxPython with version name: "-win64-py27". </li>
-        </ul>
-        <p>
-            During  the installation, click on the "Next" button and then on "Finish".
-        </p>
-
-        <h2>pdftk</h2>
-
-        <h2>LaTeX</h2>
-
+                <li>LaTeX: download and install a TeX distribution for Windows - I personally use TeX Live, but various other distributions are available, such as MikTeX or W32TeX.
+                The command "pdflatex" is required by Proceed.</li>
+        </ol>
 
     <h1>Dependencies installation on MacOS</h1>
 
-        <h2>Python</h2>
-            <p> <a href="https://www.python.org/downloads/release/python-2710/">Click here to download <b> Python </b></a> </p>
-            <p>Click on the package and follow instructions.</p>
+            <ol>
+                <li>Click the link to download Python 2.7
+                <a href="https://www.python.org/downloads/release/python-2711/">
+                "Mac OS X 64-bit/32-bit installer"</a>, then execute it.
+                </li>
+                <li>
+                    <ul>
+                        <li>Try this: download and install the following snapshot package:
+                            <a href="https://wxpython.org/snapshots/">wxPython 3.0.3 cocoa</a>
+                        </li>
+                        <li>Or try this:
+                  Click the link to download wxPython 3.0.x stable package with version name:
+                  <a href="https://sourceforge.net/projects/wxpython/files/wxPython/3.0.2.0/">
+                  -cocoa and -py2.7.</a>. Click on the package and follow instructions.
+                        </li>
+                    </ul>
+                  Notice that <b>wxPython installer is not signed by Apple</b>, so by default
+                  your Mac will tell you it is corrupted and will not install it. You can get
+                  around this by temporarily relaxing the security settings in
+                  System Preferences. In the Security &amp; Privacy section set
+                  "Allow applications downloaded from" to "Anywhere."
+                </li>
 
-        <h2>WxPython</h2>
-            <p><a href="http://downloads.sourceforge.net/wxpython/wxPython3.0-osx-3.0.2.0-cocoa-py2.7.dmg">
-            Click here to download <b> wxPython </b></a></p>
-            <p> Click on the package and follow instructions. </p>
+                <li><a href="https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/">pdftk</a></li>
 
-        <h2>pdftk</h2>
-
-        <h2>LaTeX</h2>
-
+                <li>LaTeX: download and install a TeX distribution for MacOs - I personally use TeX Live, but various other distributions are available, such as MikTeX or W32TeX.
+                The command "pdflatex" is required by Proceed.</li>
+            </ol>
 
     <h1 class="title0 left cols10">Dependencies installation on Linux</h1>
 
@@ -145,7 +122,7 @@
         <img src="image-general/gnu.png">       
 
         <p class="copyright">
-            Brigitte Bigi © 2013-2015 
+            Brigitte Bigi © 2013-2018
         </p>
     </div>   
      

@@ -1,310 +1,0 @@
-<?xml version="1.0" encoding="ascii"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <title>src.wxgui.frames.about</title>
-  <link rel="stylesheet" href="epydoc.css" type="text/css" />
-  <script type="text/javascript" src="epydoc.js"></script>
-</head>
-
-<body bgcolor="white" text="black" link="blue" vlink="#204080"
-      alink="#204080">
-<!-- ==================== NAVIGATION BAR ==================== -->
-<table class="navbar" border="0" width="100%" cellpadding="0"
-       bgcolor="#a0c0ff" cellspacing="0">
-  <tr valign="middle">
-
-  <!-- Tree link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
-
-  <!-- Index link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
-
-  <!-- Help link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
-
-  <!-- Project homepage -->
-      <th class="navbar" align="right" width="100%">
-        <table border="0" cellpadding="0" cellspacing="0">
-          <tr><th class="navbar" align="center"
-            ><a href="http://www.lpl-aix.fr/~bigi/proceed/">Proceed</a></th>
-          </tr></table></th>
-  </tr>
-</table>
-<table width="100%" cellpadding="0" cellspacing="0">
-  <tr valign="top">
-    <td width="100%">
-      <span class="breadcrumbs">
-        <a href="src-module.html">Package&nbsp;src</a> ::
-        <a href="src.wxgui-module.html">Package&nbsp;wxgui</a> ::
-        <a href="src.wxgui.frames-module.html">Package&nbsp;frames</a> ::
-        Module&nbsp;about
-      </span>
-    </td>
-    <td>
-      <table cellpadding="0" cellspacing="0">
-        <!-- hide/show private -->
-      </table>
-    </td>
-  </tr>
-</table>
-<h1 class="epydoc">Source Code for <a href="src.wxgui.frames.about-module.html">Module src.wxgui.frames.about</a></h1>
-<pre class="py-src">
-<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
-<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: UTF-8 -*-</tt> </tt>
-<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment">#         ___    __    ___    ___  ____  ____   __</tt> </tt>
-<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment">#         |  \  |  \  |   |  /     |     |     |  \   Automatic</tt> </tt>
-<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment">#         |__/  |__/  |   |  |     |__   |__   |   |    Conference</tt> </tt>
-<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment">#         |     |\_   |   |  |     |     |     |   |    Proceedings</tt> </tt>
-<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment">#         |     |  \  |___|  \___  |___  |___  |__/   Generator</tt> </tt>
-<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment">#        ==========================================================</tt> </tt>
-<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment">#           http://www.lpl-aix.fr/~bigi/</tt> </tt>
-<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment"># developed at:</tt> </tt>
-<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment">#       Laboratoire Parole et Langage</tt> </tt>
-<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-comment">#       Copyright (C) 2011-2015  Brigitte Bigi</tt> </tt>
-<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-comment">#       Use of this software is governed by the GPL, v3</tt> </tt>
-<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-comment">#       This banner notice must not be removed</tt> </tt>
-<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is free software: you can redistribute it and/or modify</tt> </tt>
-<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-comment"># it under the terms of the GNU General Public License as published by</tt> </tt>
-<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-comment"># the Free Software Foundation, either version 3 of the License, or</tt> </tt>
-<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt class="py-comment"># (at your option) any later version.</tt> </tt>
-<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-comment"># SPPAS is distributed in the hope that it will be useful,</tt> </tt>
-<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-comment"># but WITHOUT ANY WARRANTY; without even the implied warranty of</tt> </tt>
-<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</tt> </tt>
-<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-comment"># GNU General Public License for more details.</tt> </tt>
-<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-comment"># You should have received a copy of the GNU General Public License</tt> </tt>
-<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-comment"># along with SPPAS. If not, see &lt;http://www.gnu.org/licenses/&gt;.</tt> </tt>
-<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
-<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-comment"># File: about.py</tt> </tt>
-<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
-<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
-<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-docstring">"""epytext"""</tt> </tt>
-<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"><tt class="py-name">__authors__</tt>   <tt class="py-op">=</tt> <tt class="py-string">"""Brigitte Bigi"""</tt> </tt>
-<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-name">__copyright__</tt> <tt class="py-op">=</tt> <tt class="py-string">"""Copyright (C) 2011-2015  Brigitte Bigi"""</tt> </tt>
-<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"> </tt>
-<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt>
-<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"><tt class="py-comment"># -------------------------------------------------------------------------</tt> </tt>
-<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
-<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt class="py-comment"># -------------------------------------------------------------------------</tt> </tt>
-<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
-<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">wx</tt> </tt>
-<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
-<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module src.sp_glob=src.sp_glob-module.html"><a title="src.sp_glob" class="py-name" href="#" onclick="return doclink('link-0', 'sp_glob', 'link-0');">sp_glob</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Variable src.sp_glob.program=src.sp_glob-module.html#program"><a title="src.sp_glob.program" class="py-name" href="#" onclick="return doclink('link-1', 'program', 'link-1');">program</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Variable src.dependencies.markdown.__version__.version=src.dependencies.markdown.__version__-module.html#version,Variable src.sp_glob.version=src.sp_glob-module.html#version"><a title="src.dependencies.markdown.__version__.version
-src.sp_glob.version" class="py-name" href="#" onclick="return doclink('link-2', 'version', 'link-2');">version</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Class src.DataIO.Documents.documents.author=src.DataIO.Documents.documents.author-class.html,Variable src.sp_glob.author=src.sp_glob-module.html#author"><a title="src.DataIO.Documents.documents.author
-src.sp_glob.author" class="py-name" href="#" onclick="return doclink('link-3', 'author', 'link-3');">author</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Variable src.sp_glob.copyright=src.sp_glob-module.html#copyright"><a title="src.sp_glob.copyright" class="py-name" href="#" onclick="return doclink('link-4', 'copyright', 'link-4');">copyright</a></tt><tt class="py-op">,</tt> <tt id="link-5" class="py-name" targets="Variable src.sp_glob.brief=src.sp_glob-module.html#brief"><a title="src.sp_glob.brief" class="py-name" href="#" onclick="return doclink('link-5', 'brief', 'link-5');">brief</a></tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name" targets="Variable src.sp_glob.url=src.sp_glob-module.html#url"><a title="src.sp_glob.url" class="py-name" href="#" onclick="return doclink('link-6', 'url', 'link-6');">url</a></tt><tt class="py-op">,</tt> <tt id="link-7" class="py-name" targets="Variable src.sp_glob.license_text=src.sp_glob-module.html#license_text"><a title="src.sp_glob.license_text" class="py-name" href="#" onclick="return doclink('link-7', 'license_text', 'link-7');">license_text</a></tt> </tt>
-<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-8" class="py-name" targets="Package src.wxgui=src.wxgui-module.html"><a title="src.wxgui" class="py-name" href="#" onclick="return doclink('link-8', 'wxgui', 'link-8');">wxgui</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Module src.wxgui.sp_icons=src.wxgui.sp_icons-module.html"><a title="src.wxgui.sp_icons" class="py-name" href="#" onclick="return doclink('link-9', 'sp_icons', 'link-9');">sp_icons</a></tt> <tt class="py-keyword">import</tt> <tt id="link-10" class="py-name" targets="Variable src.wxgui.sp_icons.APP_ICON=src.wxgui.sp_icons-module.html#APP_ICON"><a title="src.wxgui.sp_icons.APP_ICON" class="py-name" href="#" onclick="return doclink('link-10', 'APP_ICON', 'link-10');">APP_ICON</a></tt> </tt>
-<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-11" class="py-name"><a title="src.wxgui" class="py-name" href="#" onclick="return doclink('link-11', 'wxgui', 'link-8');">wxgui</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Package src.wxgui.cutils=src.wxgui.cutils-module.html"><a title="src.wxgui.cutils" class="py-name" href="#" onclick="return doclink('link-12', 'cutils', 'link-12');">cutils</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Module src.wxgui.cutils.imageutils=src.wxgui.cutils.imageutils-module.html"><a title="src.wxgui.cutils.imageutils" class="py-name" href="#" onclick="return doclink('link-13', 'imageutils', 'link-13');">imageutils</a></tt> <tt class="py-keyword">import</tt> <tt id="link-14" class="py-name" targets="Function src.wxgui.cutils.imageutils.spBitmap()=src.wxgui.cutils.imageutils-module.html#spBitmap"><a title="src.wxgui.cutils.imageutils.spBitmap" class="py-name" href="#" onclick="return doclink('link-14', 'spBitmap', 'link-14');">spBitmap</a></tt> </tt>
-<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"> </tt>
-<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"> </tt>
-<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
-<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
-<a name="AboutBox"></a><div id="AboutBox-def"><a name="L60"></a><tt class="py-lineno">60</tt> <a class="py-toggle" href="#" id="AboutBox-toggle" onclick="return toggle('AboutBox');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.wxgui.frames.about.AboutBox-class.html">AboutBox</a><tt class="py-op">(</tt> <tt class="py-base-class">wx</tt><tt class="py-op">.</tt><tt class="py-base-class">AboutDialogInfo</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="AboutBox-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="AboutBox-expanded"><a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
-<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"><tt class="py-docstring">    @author:  Brigitte Bigi</tt> </tt>
-<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"><tt class="py-docstring">    @contact: brigitte.bigi@gmail.com</tt> </tt>
-<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"><tt class="py-docstring">    @license: GPL, v3</tt> </tt>
-<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: This class is used to display an about frame.</tt> </tt>
-<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
-<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"> </tt>
-<a name="AboutBox.__init__"></a><div id="AboutBox.__init__-def"><a name="L69"></a><tt class="py-lineno">69</tt> <a class="py-toggle" href="#" id="AboutBox.__init__-toggle" onclick="return toggle('AboutBox.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.wxgui.frames.about.AboutBox-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="AboutBox.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="AboutBox.__init__-expanded"><a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">        <tt class="py-docstring">""" Constructor. """</tt> </tt>
-<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line"> </tt>
-<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">        <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">AboutDialogInfo</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method src.DataIO.Documents.documents.author.__init__()=src.DataIO.Documents.documents.author-class.html#__init__,Method src.DataIO.Documents.documents.document.__init__()=src.DataIO.Documents.documents.document-class.html#__init__,Method src.DataIO.Documents.documents.laboratory.__init__()=src.DataIO.Documents.documents.laboratory-class.html#__init__,Method src.DataIO.Read.readEasyChair.readEasyChair.__init__()=src.DataIO.Read.readEasyChair.readEasyChair-class.html#__init__,Method src.DataIO.Read.readXML.readXML.__init__()=src.DataIO.Read.readXML.readXML-class.html#__init__,Method src.DataIO.Read.reader.Reader.__init__()=src.DataIO.Read.reader.Reader-class.html#__init__,Method src.DataIO.Write.csvwriter.CSVWriter.__init__()=src.DataIO.Write.csvwriter.CSVWriter-class.html#__init__,Method src.DataIO.Write.htmlwriter.HTMLWriter.__init__()=src.DataIO.Write.htmlwriter.HTMLWriter-class.html#__init__,Method src.DataIO.Write.indexwriter.IndexWriter.__init__()=src.DataIO.Write.indexwriter.IndexWriter-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXDiagnosis.__init__()=src.DataIO.Write.latexwriter.LaTeXDiagnosis-class.html#__init__,Method src.DataIO.Write.latexwriter.LaTeXWriter.__init__()=src.DataIO.Write.latexwriter.LaTeXWriter-class.html#__init__,Method src.DataIO.Write.writer.Writer.__init__()=src.DataIO.Write.writer.Writer-class.html#__init__,Method src.TagPDF.genLaTeX.GenLaTeXFile.__init__()=src.TagPDF.genLaTeX.GenLaTeXFile-class.html#__init__,Method src.TagPDF.genPDF.GenPdfFile.__init__()=src.TagPDF.genPDF.GenPdfFile-class.html#__init__,Method src.TagPDF.name.GenName.__init__()=src.TagPDF.name.GenName-class.html#__init__,Method src.TagPDF.tagPDF.tagPdfFile.__init__()=src.TagPDF.tagPDF.tagPdfFile-class.html#__init__,Method src.dependencies.markdown.Markdown.__init__()=src.dependencies.markdown.Markdown-class.html#__init__,Method src.dependencies.markdown.blockparser.BlockParser.__init__()=src.dependencies.markdown.blockparser.BlockParser-class.html#__init__,Method src.dependencies.markdown.blockprocessors.BlockProcessor.__init__()=src.dependencies.markdown.blockprocessors.BlockProcessor-class.html#__init__,Method src.dependencies.markdown.blockprocessors.ListIndentProcessor.__init__()=src.dependencies.markdown.blockprocessors.ListIndentProcessor-class.html#__init__,Method src.dependencies.markdown.extensions.Extension.__init__()=src.dependencies.markdown.extensions.Extension-class.html#__init__,Method src.dependencies.markdown.extensions.abbr.AbbrPattern.__init__()=src.dependencies.markdown.extensions.abbr.AbbrPattern-class.html#__init__,Method src.dependencies.markdown.extensions.codehilite.CodeHilite.__init__()=src.dependencies.markdown.extensions.codehilite.CodeHilite-class.html#__init__,Method src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension.__init__()=src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension-class.html#__init__,Method src.dependencies.markdown.extensions.extra.ExtraExtension.__init__()=src.dependencies.markdown.extensions.extra.ExtraExtension-class.html#__init__,Method src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.__init__()=src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnoteExtension.__init__()=src.dependencies.markdown.extensions.footnotes.FootnoteExtension-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePattern.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePattern-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.__init__()=src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor-class.html#__init__,Method src.dependencies.markdown.extensions.headerid.HeaderIdExtension.__init__()=src.dependencies.markdown.extensions.headerid.HeaderIdExtension-class.html#__init__,Method src.dependencies.markdown.extensions.smarty.SmartyExtension.__init__()=src.dependencies.markdown.extensions.smarty.SmartyExtension-class.html#__init__,Method src.dependencies.markdown.extensions.smarty.SubstituteTextPattern.__init__()=src.dependencies.markdown.extensions.smarty.SubstituteTextPattern-class.html#__init__,Method src.dependencies.markdown.extensions.toc.TocExtension.__init__()=src.dependencies.markdown.extensions.toc.TocExtension-class.html#__init__,Method src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension.__init__()=src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension-class.html#__init__,Method src.dependencies.markdown.extensions.wikilinks.WikiLinks.__init__()=src.dependencies.markdown.extensions.wikilinks.WikiLinks-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.BacktickPattern.__init__()=src.dependencies.markdown.inlinepatterns.BacktickPattern-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.Pattern.__init__()=src.dependencies.markdown.inlinepatterns.Pattern-class.html#__init__,Method src.dependencies.markdown.inlinepatterns.SimpleTagPattern.__init__()=src.dependencies.markdown.inlinepatterns.SimpleTagPattern-class.html#__init__,Method src.dependencies.markdown.odict.OrderedDict.__init__()=src.dependencies.markdown.odict.OrderedDict-class.html#__init__,Method src.dependencies.markdown.treeprocessors.InlineProcessor.__init__()=src.dependencies.markdown.treeprocessors.InlineProcessor-class.html#__init__,Method src.dependencies.markdown.util.HtmlStash.__init__()=src.dependencies.markdown.util.HtmlStash-class.html#__init__,Method src.dependencies.markdown.util.Processor.__init__()=src.dependencies.markdown.util.Processor-class.html#__init__,Method src.structs.abstracts_themes.ThemeBasic.__init__()=src.structs.abstracts_themes.ThemeBasic-class.html#__init__,Method src.structs.abstracts_themes.ThemeNalte.__init__()=src.structs.abstracts_themes.ThemeNalte-class.html#__init__,Method src.structs.abstracts_themes.ThemePalme.__init__()=src.structs.abstracts_themes.ThemePalme-class.html#__init__,Method src.structs.option.Option.__init__()=src.structs.option.Option-class.html#__init__,Method src.structs.prefs.Preferences.__init__()=src.structs.prefs.Preferences-class.html#__init__,Method src.structs.prefs.Preferences_IO.__init__()=src.structs.prefs.Preferences_IO-class.html#__init__,Method src.structs.themes.BaseTheme.__init__()=src.structs.themes.BaseTheme-class.html#__init__,Method src.structs.themes.Themes.__init__()=src.structs.themes.Themes-class.html#__init__,Method src.term.terminalcontroller.TerminalController.__init__()=src.term.terminalcontroller.TerminalController-class.html#__init__,Method src.term.textprogress.TextProgress.__init__()=src.term.textprogress.TextProgress-class.html#__init__,Method src.utils.abstracts.HTMLCleaner.__init__()=src.utils.abstracts.HTMLCleaner-class.html#__init__,Method src.utils.name.genName.__init__()=src.utils.name.genName-class.html#__init__,Method src.wxgui.cutils.textutils.TextAsNumericValidator.__init__()=src.wxgui.cutils.textutils.TextAsNumericValidator-class.html#__init__,Method src.wxgui.cutils.textutils.TextAsPercentageValidator.__init__()=src.wxgui.cutils.textutils.TextAsPercentageValidator-class.html#__init__,Method src.wxgui.cutils.textutils.TextValidator.__init__()=src.wxgui.cutils.textutils.TextValidator-class.html#__init__,Method src.wxgui.cutils.viewsutils.spFrame.__init__()=src.wxgui.cutils.viewsutils.spFrame-class.html#__init__,Method src.wxgui.cutils.viewsutils.spHeaderPanel.__init__()=src.wxgui.cutils.viewsutils.spHeaderPanel-class.html#__init__,Method src.wxgui.frames.about.AboutBox.__init__()=src.wxgui.frames.about.AboutBox-class.html#__init__,Method src.wxgui.frames.checkframe.CheckFrame.__init__()=src.wxgui.frames.checkframe.CheckFrame-class.html#__init__,Method src.wxgui.frames.createframe.CreateAuthor.__init__()=src.wxgui.frames.createframe.CreateAuthor-class.html#__init__,Method src.wxgui.frames.createframe.CreateConference.__init__()=src.wxgui.frames.createframe.CreateConference-class.html#__init__,Method src.wxgui.frames.createframe.CreateDocument.__init__()=src.wxgui.frames.createframe.CreateDocument-class.html#__init__,Method src.wxgui.frames.createframe.CreateSession.__init__()=src.wxgui.frames.createframe.CreateSession-class.html#__init__,Method src.wxgui.frames.createframe.SessionValidator.__init__()=src.wxgui.frames.createframe.SessionValidator-class.html#__init__,Method src.wxgui.frames.export_settings.ExportSettings.__init__()=src.wxgui.frames.export_settings.ExportSettings-class.html#__init__,Method src.wxgui.frames.export_settings.FooterSettings.__init__()=src.wxgui.frames.export_settings.FooterSettings-class.html#__init__,Method src.wxgui.frames.export_settings.GenerateSettings.__init__()=src.wxgui.frames.export_settings.GenerateSettings-class.html#__init__,Method src.wxgui.frames.export_settings.HeaderSettings.__init__()=src.wxgui.frames.export_settings.HeaderSettings-class.html#__init__,Method src.wxgui.frames.export_settings.OtherSettings.__init__()=src.wxgui.frames.export_settings.OtherSettings-class.html#__init__,Method src.wxgui.frames.export_settings.PageSettings.__init__()=src.wxgui.frames.export_settings.PageSettings-class.html#__init__,Method src.wxgui.frames.export_settings.TitlesSettings.__init__()=src.wxgui.frames.export_settings.TitlesSettings-class.html#__init__,Method src.wxgui.frames.feedback.FeedbackDialog.__init__()=src.wxgui.frames.feedback.FeedbackDialog-class.html#__init__,Method src.wxgui.frames.feedback.FeedbackForm.__init__()=src.wxgui.frames.feedback.FeedbackForm-class.html#__init__,Method src.wxgui.frames.generateframe.GenerateFrame.__init__()=src.wxgui.frames.generateframe.GenerateFrame-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpBrowser.__init__()=src.wxgui.frames.helpbrowser.HelpBrowser-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpPage.__init__()=src.wxgui.frames.helpbrowser.HelpPage-class.html#__init__,Method src.wxgui.frames.helpbrowser.HelpSystem.__init__()=src.wxgui.frames.helpbrowser.HelpSystem-class.html#__init__,Method src.wxgui.frames.import_wizard.ImportWizard.__init__()=src.wxgui.frames.import_wizard.ImportWizard-class.html#__init__,Method src.wxgui.frames.import_wizard.InputPage.__init__()=src.wxgui.frames.import_wizard.InputPage-class.html#__init__,Method src.wxgui.frames.import_wizard.LatexPage.__init__()=src.wxgui.frames.import_wizard.LatexPage-class.html#__init__,Method src.wxgui.frames.import_wizard.OutputPage.__init__()=src.wxgui.frames.import_wizard.OutputPage-class.html#__init__,Method src.wxgui.frames.modifframe.AddAuthor.__init__()=src.wxgui.frames.modifframe.AddAuthor-class.html#__init__,Method src.wxgui.frames.modifframe.ModifFrame.__init__()=src.wxgui.frames.modifframe.ModifFrame-class.html#__init__,Method src.wxgui.frames.processprogress.ProcessProgressDialog.__init__()=src.wxgui.frames.processprogress.ProcessProgressDialog-class.html#__init__,Method src.wxgui.manager.MainFrame.__init__()=src.wxgui.manager.MainFrame-class.html#__init__,Method src.wxgui.models.dataauthor.Author.__init__()=src.wxgui.models.dataauthor.Author-class.html#__init__,Method src.wxgui.models.dataconference.Conference.__init__()=src.wxgui.models.dataconference.Conference-class.html#__init__,Method src.wxgui.models.datadocument.Document.__init__()=src.wxgui.models.datadocument.Document-class.html#__init__,Method src.wxgui.models.datasession.Session.__init__()=src.wxgui.models.datasession.Session-class.html#__init__,Method src.wxgui.models.readers.authors_csv_reader.__init__()=src.wxgui.models.readers.authors_csv_reader-class.html#__init__,Method src.wxgui.models.readers.conference_csv_reader.__init__()=src.wxgui.models.readers.conference_csv_reader-class.html#__init__,Method src.wxgui.models.readers.documents_csv_reader.__init__()=src.wxgui.models.readers.documents_csv_reader-class.html#__init__,Method src.wxgui.models.readers.sessions_csv_reader.__init__()=src.wxgui.models.readers.sessions_csv_reader-class.html#__init__,Method src.wxgui.models.validate.Validate.__init__()=src.wxgui.models.validate.Validate-class.html#__init__,Method src.wxgui.models.writers.ResultEvent.__init__()=src.wxgui.models.writers.ResultEvent-class.html#__init__,Method src.wxgui.models.writers.pdf_writer.__init__()=src.wxgui.models.writers.pdf_writer-class.html#__init__,Method src.wxgui.panels.checklistpanel.CheckListPanel.__init__()=src.wxgui.panels.checklistpanel.CheckListPanel-class.html#__init__,Method src.wxgui.panels.datalist.NotebookPanel.__init__()=src.wxgui.panels.datalist.NotebookPanel-class.html#__init__,Method src.wxgui.panels.infopanel.InformationPanel.__init__()=src.wxgui.panels.infopanel.InformationPanel-class.html#__init__,Method src.wxgui.ui.CustomCheckBox.CustomCheckBox.__init__()=src.wxgui.ui.CustomCheckBox.CustomCheckBox-class.html#__init__"><a title="src.DataIO.Documents.documents.author.__init__
-src.DataIO.Documents.documents.document.__init__
-src.DataIO.Documents.documents.laboratory.__init__
-src.DataIO.Read.readEasyChair.readEasyChair.__init__
-src.DataIO.Read.readXML.readXML.__init__
-src.DataIO.Read.reader.Reader.__init__
-src.DataIO.Write.csvwriter.CSVWriter.__init__
-src.DataIO.Write.htmlwriter.HTMLWriter.__init__
-src.DataIO.Write.indexwriter.IndexWriter.__init__
-src.DataIO.Write.latexwriter.LaTeXDiagnosis.__init__
-src.DataIO.Write.latexwriter.LaTeXWriter.__init__
-src.DataIO.Write.writer.Writer.__init__
-src.TagPDF.genLaTeX.GenLaTeXFile.__init__
-src.TagPDF.genPDF.GenPdfFile.__init__
-src.TagPDF.name.GenName.__init__
-src.TagPDF.tagPDF.tagPdfFile.__init__
-src.dependencies.markdown.Markdown.__init__
-src.dependencies.markdown.blockparser.BlockParser.__init__
-src.dependencies.markdown.blockprocessors.BlockProcessor.__init__
-src.dependencies.markdown.blockprocessors.ListIndentProcessor.__init__
-src.dependencies.markdown.extensions.Extension.__init__
-src.dependencies.markdown.extensions.abbr.AbbrPattern.__init__
-src.dependencies.markdown.extensions.codehilite.CodeHilite.__init__
-src.dependencies.markdown.extensions.codehilite.CodeHiliteExtension.__init__
-src.dependencies.markdown.extensions.extra.ExtraExtension.__init__
-src.dependencies.markdown.extensions.fenced_code.FencedBlockPreprocessor.__init__
-src.dependencies.markdown.extensions.footnotes.FootnoteExtension.__init__
-src.dependencies.markdown.extensions.footnotes.FootnotePattern.__init__
-src.dependencies.markdown.extensions.footnotes.FootnotePostprocessor.__init__
-src.dependencies.markdown.extensions.footnotes.FootnotePreprocessor.__init__
-src.dependencies.markdown.extensions.footnotes.FootnoteTreeprocessor.__init__
-src.dependencies.markdown.extensions.headerid.HeaderIdExtension.__init__
-src.dependencies.markdown.extensions.smarty.SmartyExtension.__init__
-src.dependencies.markdown.extensions.smarty.SubstituteTextPattern.__init__
-src.dependencies.markdown.extensions.toc.TocExtension.__init__
-src.dependencies.markdown.extensions.wikilinks.WikiLinkExtension.__init__
-src.dependencies.markdown.extensions.wikilinks.WikiLinks.__init__
-src.dependencies.markdown.inlinepatterns.BacktickPattern.__init__
-src.dependencies.markdown.inlinepatterns.Pattern.__init__
-src.dependencies.markdown.inlinepatterns.SimpleTagPattern.__init__
-src.dependencies.markdown.odict.OrderedDict.__init__
-src.dependencies.markdown.treeprocessors.InlineProcessor.__init__
-src.dependencies.markdown.util.HtmlStash.__init__
-src.dependencies.markdown.util.Processor.__init__
-src.structs.abstracts_themes.ThemeBasic.__init__
-src.structs.abstracts_themes.ThemeNalte.__init__
-src.structs.abstracts_themes.ThemePalme.__init__
-src.structs.option.Option.__init__
-src.structs.prefs.Preferences.__init__
-src.structs.prefs.Preferences_IO.__init__
-src.structs.themes.BaseTheme.__init__
-src.structs.themes.Themes.__init__
-src.term.terminalcontroller.TerminalController.__init__
-src.term.textprogress.TextProgress.__init__
-src.utils.abstracts.HTMLCleaner.__init__
-src.utils.name.genName.__init__
-src.wxgui.cutils.textutils.TextAsNumericValidator.__init__
-src.wxgui.cutils.textutils.TextAsPercentageValidator.__init__
-src.wxgui.cutils.textutils.TextValidator.__init__
-src.wxgui.cutils.viewsutils.spFrame.__init__
-src.wxgui.cutils.viewsutils.spHeaderPanel.__init__
-src.wxgui.frames.about.AboutBox.__init__
-src.wxgui.frames.checkframe.CheckFrame.__init__
-src.wxgui.frames.createframe.CreateAuthor.__init__
-src.wxgui.frames.createframe.CreateConference.__init__
-src.wxgui.frames.createframe.CreateDocument.__init__
-src.wxgui.frames.createframe.CreateSession.__init__
-src.wxgui.frames.createframe.SessionValidator.__init__
-src.wxgui.frames.export_settings.ExportSettings.__init__
-src.wxgui.frames.export_settings.FooterSettings.__init__
-src.wxgui.frames.export_settings.GenerateSettings.__init__
-src.wxgui.frames.export_settings.HeaderSettings.__init__
-src.wxgui.frames.export_settings.OtherSettings.__init__
-src.wxgui.frames.export_settings.PageSettings.__init__
-src.wxgui.frames.export_settings.TitlesSettings.__init__
-src.wxgui.frames.feedback.FeedbackDialog.__init__
-src.wxgui.frames.feedback.FeedbackForm.__init__
-src.wxgui.frames.generateframe.GenerateFrame.__init__
-src.wxgui.frames.helpbrowser.HelpBrowser.__init__
-src.wxgui.frames.helpbrowser.HelpPage.__init__
-src.wxgui.frames.helpbrowser.HelpSystem.__init__
-src.wxgui.frames.import_wizard.ImportWizard.__init__
-src.wxgui.frames.import_wizard.InputPage.__init__
-src.wxgui.frames.import_wizard.LatexPage.__init__
-src.wxgui.frames.import_wizard.OutputPage.__init__
-src.wxgui.frames.modifframe.AddAuthor.__init__
-src.wxgui.frames.modifframe.ModifFrame.__init__
-src.wxgui.frames.processprogress.ProcessProgressDialog.__init__
-src.wxgui.manager.MainFrame.__init__
-src.wxgui.models.dataauthor.Author.__init__
-src.wxgui.models.dataconference.Conference.__init__
-src.wxgui.models.datadocument.Document.__init__
-src.wxgui.models.datasession.Session.__init__
-src.wxgui.models.readers.authors_csv_reader.__init__
-src.wxgui.models.readers.conference_csv_reader.__init__
-src.wxgui.models.readers.documents_csv_reader.__init__
-src.wxgui.models.readers.sessions_csv_reader.__init__
-src.wxgui.models.validate.Validate.__init__
-src.wxgui.models.writers.ResultEvent.__init__
-src.wxgui.models.writers.pdf_writer.__init__
-src.wxgui.panels.checklistpanel.CheckListPanel.__init__
-src.wxgui.panels.datalist.NotebookPanel.__init__
-src.wxgui.panels.infopanel.InformationPanel.__init__
-src.wxgui.ui.CustomCheckBox.CustomCheckBox.__init__" class="py-name" href="#" onclick="return doclink('link-15', '__init__', 'link-15');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
-<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">        <tt class="py-name">BMP_APP_ICON</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name"><a title="src.wxgui.cutils.imageutils.spBitmap" class="py-name" href="#" onclick="return doclink('link-16', 'spBitmap', 'link-14');">spBitmap</a></tt><tt class="py-op">(</tt> <tt id="link-17" class="py-name"><a title="src.wxgui.sp_icons.APP_ICON" class="py-name" href="#" onclick="return doclink('link-17', 'APP_ICON', 'link-10');">APP_ICON</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"> </tt>
-<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">        <tt class="py-name">_icon</tt> <tt class="py-op">=</tt> <tt class="py-name">wx</tt><tt class="py-op">.</tt><tt class="py-name">EmptyIcon</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">        <tt class="py-name">_icon</tt><tt class="py-op">.</tt><tt class="py-name">CopyFromBitmap</tt><tt class="py-op">(</tt> <tt class="py-name">BMP_APP_ICON</tt> <tt class="py-op">)</tt> </tt>
-<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetIcon</tt><tt class="py-op">(</tt><tt class="py-name">_icon</tt><tt class="py-op">)</tt> </tt>
-<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line"> </tt>
-<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetName</tt><tt class="py-op">(</tt> <tt id="link-18" class="py-name"><a title="src.sp_glob.program" class="py-name" href="#" onclick="return doclink('link-18', 'program', 'link-1');">program</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetVersion</tt><tt class="py-op">(</tt> <tt id="link-19" class="py-name"><a title="src.dependencies.markdown.__version__.version
-src.sp_glob.version" class="py-name" href="#" onclick="return doclink('link-19', 'version', 'link-2');">version</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetDescription</tt><tt class="py-op">(</tt> <tt id="link-20" class="py-name"><a title="src.sp_glob.brief" class="py-name" href="#" onclick="return doclink('link-20', 'brief', 'link-5');">brief</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetCopyright</tt><tt class="py-op">(</tt> <tt id="link-21" class="py-name"><a title="src.sp_glob.copyright" class="py-name" href="#" onclick="return doclink('link-21', 'copyright', 'link-4');">copyright</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetWebSite</tt><tt class="py-op">(</tt> <tt id="link-22" class="py-name"><a title="src.sp_glob.url" class="py-name" href="#" onclick="return doclink('link-22', 'url', 'link-6');">url</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">SetLicence</tt><tt class="py-op">(</tt> <tt id="link-23" class="py-name"><a title="src.sp_glob.license_text" class="py-name" href="#" onclick="return doclink('link-23', 'license_text', 'link-7');">license_text</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">AddDeveloper</tt><tt class="py-op">(</tt> <tt id="link-24" class="py-name"><a title="src.DataIO.Documents.documents.author
-src.sp_glob.author" class="py-name" href="#" onclick="return doclink('link-24', 'author', 'link-3');">author</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">AddDocWriter</tt><tt class="py-op">(</tt> <tt id="link-25" class="py-name"><a title="src.DataIO.Documents.documents.author
-src.sp_glob.author" class="py-name" href="#" onclick="return doclink('link-25', 'author', 'link-3');">author</a></tt> <tt class="py-op">)</tt> </tt>
-<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">AddArtist</tt><tt class="py-op">(</tt><tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
-</div></div><a name="L88"></a><tt class="py-lineno">88</tt>  <tt class="py-line"> </tt>
-<a name="L89"></a><tt class="py-lineno">89</tt>  <tt class="py-line">    <tt class="py-comment">#---------------------------------------------------------------------</tt> </tt>
-<a name="L90"></a><tt class="py-lineno">90</tt>  <tt class="py-line"> </tt>
-<a name="L91"></a><tt class="py-lineno">91</tt>  <tt class="py-line"><tt class="py-comment"># ----------------------------------------------------------------------------</tt> </tt>
-<a name="L92"></a><tt class="py-lineno">92</tt>  <tt class="py-line"> </tt><script type="text/javascript">
-<!--
-expandto(location.href);
-// -->
-</script>
-</pre>
-<br />
-<!-- ==================== NAVIGATION BAR ==================== -->
-<table class="navbar" border="0" width="100%" cellpadding="0"
-       bgcolor="#a0c0ff" cellspacing="0">
-  <tr valign="middle">
-
-  <!-- Tree link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
-
-  <!-- Index link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
-
-  <!-- Help link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
-
-  <!-- Project homepage -->
-      <th class="navbar" align="right" width="100%">
-        <table border="0" cellpadding="0" cellspacing="0">
-          <tr><th class="navbar" align="center"
-            ><a href="http://www.lpl-aix.fr/~bigi/proceed/">Proceed</a></th>
-          </tr></table></th>
-  </tr>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="100%%">
-  <tr>
-    <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jul 17 18:24:07 2015
-    </td>
-    <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
-    </td>
-  </tr>
-</table>
-
-<script type="text/javascript">
-  <!--
-  // Private objects are initially displayed (because if
-  // javascript is turned off then we want them to be
-  // visible); but by default, we want to hide them.  So hide
-  // them unless we have a cookie that says to show them.
-  checkCookie();
-  // -->
-</script>
-</body>
-</html>

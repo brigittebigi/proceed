@@ -15,7 +15,7 @@
 #
 #       Laboratoire Parole et Langage
 #
-#       Copyright (C) 2013-2015  Brigitte Bigi
+#       Copyright (C) 2013-2018  Brigitte Bigi
 #
 #       Use of this software is governed by the GPL, v3
 #       This banner notice must not be removed
@@ -45,23 +45,23 @@ import os.path
 # Define the base path of SPPAS sources
 # ---------------------------------------------------------------------------
 
-BASE_PATH = os.path.dirname( os.path.dirname( os.path.abspath(__file__) ) )
+BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # ---------------------------------------------------------------------------
 # Define all paths (relatively to BASE_SPPAS)
 # ---------------------------------------------------------------------------
 
-ICONS_PATH     = os.path.join( BASE_PATH , "etc", "icons" )
-SAMPLES_PATH   = os.path.join( os.path.dirname(BASE_PATH), "samples" )
-SETTINGS_FILE  = os.path.join(BASE_PATH, "etc", "settings.dump")
+ICONS_PATH = os.path.join( BASE_PATH , "etc", "icons" )
+SAMPLES_PATH = os.path.join( os.path.dirname(BASE_PATH), "samples" )
+SETTINGS_FILE = os.path.join(BASE_PATH, "etc", "settings.dump")
 
 # ----------------------------------------------------------------------------
 # Data
 # ----------------------------------------------------------------------------
 
-PAGESLIST  = ['Conference','Documents','Authors','Sessions']
-fieldnames = {}
+PAGESLIST = ['Conference','Documents','Authors','Sessions']
+fieldnames = dict()
 fieldnames[PAGESLIST[0]] = ["ACRONYM", "CONFERENCE_NAME", "PLACE", "DATE_FROM", "DATE_TO"]
 fieldnames[PAGESLIST[1]] = ["DOCID", "TITLE", "LASTNAME", "FIRSTNAME", "SESSION_ID", "RANK", "PAGE_NUMBER", "PDF_DIAGNOSIS"]
 fieldnames[PAGESLIST[2]] = ["LASTNAME", "FIRSTNAME", "EMAIL", "AFFILIATION"]
@@ -71,15 +71,15 @@ fieldnames[PAGESLIST[3]] = ["SESSION_ID", "SESSION_NAME", "RANK", "DATE", "H-DEB
 # Constants: Proceed Information
 # ---------------------------------------------------------------------------
 
-author     = "Brigitte Bigi"
-contact    = "brigite.bigi@gmail.com"
-program    = "Proceed"
-version    = "0.5"
-copyright  = "Copyright (C) 2013-2015 Brigitte Bigi"
-url        = "http://www.lpl-aix.fr/~bigi/proceed/"
-brief      = "Proceed generates automatically book of abstracts or proceedings of a conference."
-docformat  = "epytext"
-license    = "GNU Public License, version 3"
+author = "Brigitte Bigi"
+contact = "brigite.bigi@gmail.com"
+program = "Proceed"
+version = "0.6"
+copyright = "Copyright (C) 2013-2018 Brigitte Bigi"
+url = "http://www.lpl-aix.fr/~bigi/proceed/"
+brief = "Proceed generates automatically book of abstracts or proceedings of a conference."
+docformat = "epytext"
+license = "GNU Public License, version 3"
 license_text = """
 ------------------------------------------------------------
 

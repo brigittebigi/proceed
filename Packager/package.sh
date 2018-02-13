@@ -426,10 +426,9 @@ function fct_package {
     mv $TEMP $PROGRAM_DIR/README.txt
 
     # Create the package
-
     local packagename=`pwd`/${PROGRAM_NAME}-${PROGRAM_VERSION}-${TODAY}.zip
     pushd $PROGRAM_DIR
-    zip -q -r $packagename proceed.bat proceed.command bin etc documentation proceed *.txt
+    zip -q -r $packagename proceed.bat proceed.command bin etc documentation proceed samples *.txt
     if [ "$?" != 0 ]; then
         echo -e "${RED}No package created!${NC}"
         popd
