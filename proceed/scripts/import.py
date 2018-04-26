@@ -54,7 +54,7 @@ import os.path
 import getopt
 sys.path.append( os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "src") )
 
-from DataIO.Read.reader  import Reader
+from DataIO.Read.proceedreader import proceedReader
 from DataIO.Write.writer import Writer
 from structs.prefs       import Preferences
 from structs.abstracts_themes import all_themes
@@ -218,13 +218,13 @@ if __name__=="__main__":
     # Load input data
     # ----------------------------------------------------------------------
 
-    arguments = {}
+    arguments = dict()
     arguments['readername'] = readername
-    arguments['filename']   = fileinput
+    arguments['filename'] = fileinput
     arguments['authorsfilename'] = authorsinput
     arguments['progress'] = p
 
-    reader = Reader( arguments )
+    reader = proceedReader(arguments)
 
     # ----------------------------------------------------------------------
     # Write output data (with default parameters)
@@ -233,25 +233,25 @@ if __name__=="__main__":
     # Create preferences
     prefs = Preferences()
     theme = all_themes.get_theme(themename.lower())
-    prefs.SetTheme( theme )
+    prefs.SetTheme(theme)
     prefs.SetValue('COMPILER', 'str', compiler.strip())
 
     # Create the Writer
-    writer = Writer( reader.docs )
-    writer.set_status( status )
-    writer.set_progress( p )
+    writer = Writer(reader.docs)
+    writer.set_status(status)
+    writer.set_progress(p)
 
     # Write abstracts as LaTeX
     if exporttex:
-        writer.writeLaTeX_as_Dir( output, prefs, tocompile=True )
+        writer.writeLaTeX_as_Dir(output, prefs, tocompile=True)
 
     # Write proceed native CSV files
     if exportcsv:
-        writer.writeCSV( output )
+        writer.writeCSV(output)
 
     # Write html file
     if exporthtml:
-        writer.writeHTML( output+".html" )
+        writer.writeHTML(output+".html")
 
     # Done
     try:
@@ -261,8 +261,6 @@ if __name__=="__main__":
         print term.render('${GREEN}Thank you for using '+program+".")
         print term.render('${GREEN}-----------------------------------------------------------------------${NORMAL}\n')
     except:
-        print ('-----------------------------------------------------------------------\n')
-        print "Result is in "+output+".\nThank you for using "+program+"."
-        print ('-----------------------------------------------------------------------\n')
-
-    # ----------------------------------------------------------------------
+        print('-----------------------------------------------------------------------\n')
+        print("Result is in "+output+".\nThank you for using "+program+".")
+        print('-----------------------------------------------------------------------\n')

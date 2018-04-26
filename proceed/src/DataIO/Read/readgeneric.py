@@ -15,7 +15,7 @@
 #
 #       Laboratoire Parole et Langage
 #
-#       Copyright (C) 2013-2014  Brigitte Bigi
+#       Copyright (C) 2013-2018  Brigitte Bigi
 #
 #       Use of this software is governed by the GPL, v3
 #       This banner notice must not be removed
@@ -36,23 +36,50 @@
 #
 # ---------------------------------------------------------------------------
 #
-"""
-Defines the interface for a generic document reader that provides common
-utilities required for generating formatted abstract submissions.
-"""
+import csv
 
-#-----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
 
 class readGeneric(object):
     """
     Base class for an "abstract reader".
     This means that all sub-reader classes must implement these methods.
-    """
 
+    Defines the interface for a generic document reader that provides common
+    utilities required for generating formatted abstract submissions.
+
+    """
     def GetDocs(self, filename, authorsfilename=None):
-        """
-        Return a list of document instances.
+        """ Return a list of document instances.
+
+        :param filename: (str)
+        :param authorsfilename: (list or None)
+
         """
         pass
 
-#-----------------------------------------------------------------------------
+    # -----------------------------------------------------------------------
+
+    @staticmethod
+    def unicode_csv_reader(unicode_csv_data, **kwargs):
+        # csv.py doesn't do Unicode; encode temporarily as UTF-8:
+        csv_reader = csv.reader(readGeneric.utf_8_encoder(unicode_csv_data),
+                                delimiter=";", **kwargs)
+        for row in csv_reader:
+            # decode UTF-8 back to Unicode, cell by cell:
+            yield [unicode(cell, 'utf-8') for cell in row]
+
+    # -----------------------------------------------------------------------
+
+    @staticmethod
+    def utf_8_encoder(unicode_csv_data):
+        for line in unicode_csv_data:
+            yield line.encode('utf-8')
+
+    # -----------------------------------------------------------------------
+
+    @staticmethod
+    def utf8_csv_reader(utf8_csv_data, **kwargs):
+        return csv.reader(readGeneric.utf_8_encoder(utf8_csv_data),
+                          delimiter=";", **kwargs)

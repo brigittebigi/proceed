@@ -47,7 +47,7 @@ import getopt
 
 import sys
 import os.path
-sys.path.append( os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "src") )
+sys.path.append(os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "src"))
 
 from TagPDF.tagPDF import tagPdfFile
 
@@ -97,7 +97,6 @@ def Quit(message=None, status=0, usageoutput=None):
     if usageoutput: usage(usageoutput)
     sys.exit(status)
 
-# End Quit
 # ----------------------------------------------------------------------
 
 
@@ -112,19 +111,18 @@ if __name__ == "__main__":
 
     # Get options (if any...)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "l:c:r:L:C:R:p:n:s:S:g:G:o:i:", ["help","hrule","frule"])
-    except getopt.GetoptError, err:
+        opts, args = getopt.getopt(sys.argv[1:], "l:c:r:L:C:R:p:n:s:S:g:G:o:i:", ["help", "hrule", "frule"])
+    except getopt.GetoptError as err:
         # Print help information and exit:
         Quit(message="Error: "+str(err)+".\nUse option -h for any help.\n", status=1)
 
     # Create object
     try:
         tagpdf = tagPdfFile()
-    except Exception, e:
+    except Exception as e:
         Quit(message='Error when creating the LaTeX object: \n'+str(e)+'\n', status=1)
 
-
-    inputname  = None
+    inputname = None
     outputname = None
 
     # Extract options
@@ -162,9 +160,9 @@ if __name__ == "__main__":
                 inputname = a
             elif o == "-o":
                 outputname = a
-            elif o == "--help": # need help
+            elif o == "--help":  # need help
                 Quit(message='Help', status=0, usageoutput=sys.stdout)
-        except Exception,e:
+        except Exception as e:
             sys.stderr.write('List of accepted paper formats: \n')
             for i in tagpdf.get_list_paper_format():
                 sys.stderr.write("        "+i+"\n")
@@ -178,19 +176,17 @@ if __name__ == "__main__":
     if inputname is None or outputname is None:
         Quit(status=1, usageoutput=sys.stderr)
 
-
     # Now... start to work!
 
-    if os.path.isdir(inputname) == True and (os.path.isdir(outputname) == True or os.path.exists(outputname) == False):
-        tagpdf.tagDir( inputname,outputname )
+    if os.path.isdir(inputname) is True and \
+            (os.path.isdir(outputname) is True or os.path.exists(outputname) is False):
+        tagpdf.tagDir(inputname, outputname)
 
-    elif os.path.isdir(inputname) == False and (os.path.isdir(outputname) == False or os.path.exists(outputname) == False):
-        tagpdf.tagFile( inputname,outputname )
+    elif os.path.isdir(inputname) is False and \
+            (os.path.isdir(outputname) is False or os.path.exists(outputname) is False):
+        tagpdf.tagFile(inputname, outputname)
 
     else:
         sys.stderr.write("Error. Both input and output must be of the same type (ie: file or dir)\n\n")
         usage(sys.stderr)
         sys.exit(1)
-
-# ######################################################################### #
-

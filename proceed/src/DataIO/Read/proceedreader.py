@@ -8,14 +8,14 @@
 #         |     |  \  |___|  \___  |___  |___  |__/   Generator
 #        ==========================================================
 #
-#           http://www.lpl-aix.fr/~bigi/
+#        http://www.lpl-aix.fr/~bigi/
 #
 # ---------------------------------------------------------------------------
 # developed at:
 #
 #       Laboratoire Parole et Langage
 #
-#       Copyright (C) 2013-2014  Brigitte Bigi
+#       Copyright (C) 2013-2018  Brigitte Bigi
 #
 #       Use of this software is governed by the GPL, v3
 #       This banner notice must not be removed
@@ -36,72 +36,71 @@
 #
 # ---------------------------------------------------------------------------
 
-# ---------------------------------------------------------------------------
-# Imports
-# ---------------------------------------------------------------------------
-
-import sys
-import os.path
-from readgeneric import readGeneric
+from readSciencesConf_XML import readSciencesConfXML
+from readSciencesConf_CSV import readSciencesConfCSV
+from readEasyChair import readEasyChair
 
 # ---------------------------------------------------------------------------
-# Class
-# ---------------------------------------------------------------------------
 
-class Reader():
+
+class proceedReader(object):
     """
-    @authors: Brigitte Bigi
-    @contact: brigitte.bigi@gmail.com
-    @license: GPL
-    @summary: Fix the appropriate reader then load documents.
+    :authors: Brigitte Bigi
+    :contact: brigitte.bigi@gmail.com
+    :license: GPL
+
+    Fix the appropriate reader then load documents.
 
     """
-
     def __init__(self, arguments={}):
-        self._reader = self.__get_reader(arguments)
-        self._docs   = None
+        """ Create a proceedReader depending on the raguments. """
+        
+        self._reader = proceedReader.__get_reader(arguments)
+        self._docs = None
+        
         if "filename" in arguments.keys():
             file1 = arguments['filename']
             file2 = None
             if 'authorsfilename' in arguments.keys():
                 file2 = arguments['authorsfilename']
-            self._docs = self._reader.GetDocs( file1,file2 )
+            self._docs = self._reader.GetDocs(file1,file2)
 
-    # End __init__
-    #-------------------------------------------------------------------------
-
-
-    def __get_reader(self, arguments):
-        """
-        Return the reader depending on the reader name in arguments.
-        """
-        if arguments['readername'] == "sciencesconf":
-            from readXML import readXML
-            if 'progress' in arguments.keys():
-                return readXML( arguments['progress'] )
-            return readXML()
-
-        if arguments['readername'] == "easychair":
-            from readEasyChair import readEasyChair
-            return readEasyChair()
-
-        raise ValueError('Unknown reader')
-
-    # End __get_reader
-    #-------------------------------------------------------------------------
-
+    # -------------------------------------------------------------------------
 
     def LoadDocs(self, filename):
-        self._docs = self._reader.GetDocs( filename )
+        self._docs = self._reader.GetDocs(filename)
         return self._docs
 
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
 
     def __docs__(self):
         return self._docs
 
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
 
     docs = property(__docs__)
 
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Private
+    # -------------------------------------------------------------------------
+
+    @staticmethod
+    def __get_reader(arguments):
+        """
+        Return the reader depending on the reader name in arguments.
+        """
+        if 'readername' not in arguments:
+            raise KeyError('A reader name must be defined.')
+
+        if arguments['readername'] == "sciencesconfxml":
+            if 'progress' in arguments.keys():
+                return readSciencesConfXML(arguments['progress'])
+            return readSciencesConfXML()
+
+        if arguments['readername'].startswith("sciencesconf"):
+            return readSciencesConfCSV()
+
+        if arguments['readername'] == "easychair":
+            return readEasyChair()
+
+        raise ValueError('Unknown reader: {:s}'.format(arguments['readername']))
