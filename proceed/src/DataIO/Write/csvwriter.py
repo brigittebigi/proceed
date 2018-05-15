@@ -40,13 +40,16 @@
 
 import os.path
 import csv
+import logging
+
 from sp_glob import fieldnames
 
 # ---------------------------------------------------------------------------
 # Class
 # ---------------------------------------------------------------------------
 
-class CSVWriter:
+
+class CSVWriter(object):
     """
     @authors: Brigitte Bigi
     @contact: brigitte.bigi@gmail.com
@@ -55,7 +58,7 @@ class CSVWriter:
 
     """
 
-    def __init__( self, status=1 ):
+    def __init__(self, status=1):
         self._status = status
 
     def __fields_to_dict(self, fields):
@@ -64,40 +67,44 @@ class CSVWriter:
             d[f] = f
         return d
 
-    def write( self, docs, pathname ):
+    def write(self, docs, pathname):
+
+        logging.info(" ... Write: {:d} documents".format(len(docs)))
         try:
-            if os.path.exists(os.path.join(pathname,"Documents.csv")) is True:
-                os.remove(os.path.join(pathname,"Documents.csv"))
-            if os.path.exists(os.path.join(pathname,"Sessions.csv")) is True:
-                os.remove(os.path.join(pathname,"Sessions.csv"))
-            if os.path.exists(os.path.join(pathname,"Authors.csv")) is True:
-                os.remove(os.path.join(pathname,"Authors.csv"))
-            if os.path.exists(os.path.join(pathname,"Conference.csv")) is True:
-                os.remove(os.path.join(pathname,"Conference.csv"))
+            if os.path.exists(os.path.join(pathname, "Documents.csv")) is True:
+                os.remove(os.path.join(pathname, "Documents.csv"))
+            if os.path.exists(os.path.join(pathname, "Sessions.csv")) is True:
+                os.remove(os.path.join(pathname, "Sessions.csv"))
+            if os.path.exists(os.path.join(pathname, "Authors.csv")) is True:
+                os.remove(os.path.join(pathname, "Authors.csv"))
+            if os.path.exists(os.path.join(pathname, "Conference.csv")) is True:
+                os.remove(os.path.join(pathname, "Conference.csv"))
 
-            out_documents = csv.DictWriter(open(os.path.join(pathname,"Documents.csv"), 'wb'), fieldnames=fieldnames['Documents'])
-            out_documents.writerow( self.__fields_to_dict(fieldnames['Documents']) )
+            out_documents = csv.DictWriter(open(os.path.join(pathname, "Documents.csv"), 'wb'), fieldnames=fieldnames['Documents'])
+            out_documents.writerow(self.__fields_to_dict(fieldnames['Documents']))
 
-            out_sessions = csv.DictWriter(open(os.path.join(pathname,"Sessions.csv"), 'wb'), fieldnames=fieldnames['Sessions'])
-            out_sessions.writerow( self.__fields_to_dict(fieldnames['Sessions']) )
+            out_sessions = csv.DictWriter(open(os.path.join(pathname, "Sessions.csv"), 'wb'), fieldnames=fieldnames['Sessions'])
+            out_sessions.writerow(self.__fields_to_dict(fieldnames['Sessions']))
 
-            out_authors = csv.DictWriter(open(os.path.join(pathname,"Authors.csv"), 'wb'), fieldnames=fieldnames['Authors'])
-            out_authors.writerow( self.__fields_to_dict(fieldnames['Authors']) )
+            out_authors = csv.DictWriter(open(os.path.join(pathname, "Authors.csv"), 'wb'), fieldnames=fieldnames['Authors'])
+            out_authors.writerow(self.__fields_to_dict(fieldnames['Authors']))
 
-            out_conf = csv.DictWriter(open(os.path.join(pathname,"Conference.csv"), 'wb'), fieldnames=fieldnames['Conference'])
-            out_conf.writerow( self.__fields_to_dict(fieldnames['Conference']) )
+            out_conf = csv.DictWriter(open(os.path.join(pathname, "Conference.csv"), 'wb'), fieldnames=fieldnames['Conference'])
+            out_conf.writerow(self.__fields_to_dict(fieldnames['Conference']))
 
         except IOError:
             raise
 
         for doc in docs:
-            if doc.get_status()==self._status:
+            Docid = str(doc.get_docid())
+
+            if doc.get_status() == self._status:
+                logging.info(' ... write doc {:s}.'.format(Docid))
                 for auth in doc.get_authors():
-                    Docid = str(doc.get_docid())
-                    Title = doc.get_title().encode('utf-8')
-                    LastName = self.__format(auth.get_lastname()).encode('utf-8')
-                    FirstName = self.__format(auth.get_firstname()).encode('utf-8')
-                    Email = self.__format(auth.get_email()).encode('utf-8')
+                    Title = doc.get_title()  # .encode('utf-8')
+                    LastName = self.__format(auth.get_lastname())  # .encode('utf-8')
+                    FirstName = self.__format(auth.get_firstname())  # .encode('utf-8')
+                    Email = self.__format(auth.get_email())  # .encode('utf-8')
                     PDFDiag = str(doc.get_pdfdiagnosis())
 
                     affiliationList = list()
@@ -106,17 +113,28 @@ class CSVWriter:
                         labo = doc.get_laboratory()[int(numlabo)]
                         affiliationList.append(self.__format(', '.join(labo.get_affiliations())))
 
-                    if ( len(affiliationList) != 0):
+                    if len(affiliationList) != 0:
                         affiliations = ' '.join(affiliationList).encode('utf-8')
                     else:
                         affiliations = ' '
 
-                    out_documents.writerow({"DOCID":Docid, "TITLE":Title, "LASTNAME":LastName, "FIRSTNAME":FirstName, "SESSION_ID":"", "RANK":"", "PAGE_NUMBER":"", "PDF_DIAGNOSIS":PDFDiag})
-                    out_authors.writerow({"LASTNAME":LastName, "FIRSTNAME":FirstName, "EMAIL":Email, "AFFILIATION":affiliations})
+                    logging.info("... ... {:s} {:s}".format(Title, Email))
+                    out_documents.writerow({"DOCID": Docid,
+                                            "TITLE": Title,
+                                            "LASTNAME": LastName,
+                                            "FIRSTNAME": FirstName,
+                                            "SESSION_ID": "",
+                                            "RANK": "",
+                                            "PAGE_NUMBER": "",
+                                            "PDF_DIAGNOSIS": PDFDiag})
+                    out_authors.writerow({"LASTNAME": LastName,
+                                          "FIRSTNAME": FirstName,
+                                          "EMAIL": Email,
+                                          "AFFILIATION": affiliations})
 
-    def __format(self,s):
+            else:
+                logging.info(' ... ignore doc {:s} (status mismatch).'.format(Docid))
+
+    def __format(self, s):
         a = s.replace("\s", " ")
         return a
-
-
-#-----------------------------------------------------------------------------

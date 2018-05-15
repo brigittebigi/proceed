@@ -86,7 +86,7 @@ class readSciencesConfCSV(readGeneric):
             author_nb = 1
             for row_num, line in enumerate(reader):
 
-                logging.info("parse line {:d}".format(row_num))
+                logging.debug("parse line {:d}".format(row_num))
 
                 # Save header row.
                 if row_num == 0:
@@ -108,7 +108,7 @@ class readSciencesConfCSV(readGeneric):
 
                     # Data about the document
                     title = line[self.col_doc_title].strip()
-                    logging.info(" ... title: {:s}".format(title))
+                    logging.info(" ... ... title: {:s}".format(title))
 
                     keywords = line[self.col_doc_keywords].strip()
                     decision = line[self.col_doc_statut].strip()
@@ -119,19 +119,19 @@ class readSciencesConfCSV(readGeneric):
                     new_doc.set_keywords(self._parse_keywords(keywords))
                     new_doc.set_status(self._parse_decision(decision))
                     new_doc.set_abstract(self._parse_abstract(abstract))
-                    logging.info(" ... status: {:d}".format(self._parse_decision(decision)))
+                    logging.info(" ... ... status: {:d}".format(self._parse_decision(decision)))
 
                     # Authors of the document
-                    # author_nb = new_doc.set_authors(
-                    #    readSciencesConfCSV._parse_authors(new_doc,
-                    #                                       line[self.col_doc_authors],
-                    #                                       author_nb))
+                    author_nb = readSciencesConfCSV._parse_authors(
+                                    new_doc,
+                                    line[self.col_doc_authors],
+                                    author_nb)
 
                     # append the new document in the list
                     self.DocTab.append(new_doc)
 
                 except Exception as e:
-                    print(" ... ERROR with line {:d}: {:s}".format(row_num, str(e)))
+                    logging.info(" ... ERROR with line {:d}: {:s}".format(row_num, str(e)))
             f.close()
 
         logging.info(" ===>>> {:d} documents.".format(len(self.DocTab)))
@@ -142,48 +142,35 @@ class readSciencesConfCSV(readGeneric):
     # -----------------------------------------------------------------------
 
     @staticmethod
-    def _parse_labs(document, entry):
-        """ -- NOT WORKING -- """
-
-        for i, labo in enumerate(entry.split(",")):
-            lab_data = labo.split("-")
-            lab = laboratory(lab_data[0].strip())
-            all_data = lab_data.split()
-            name = list()
-            for data in all_data:
-                if data.startswith('('):
-                    country = data.replace('(', '')
-                    country = country.replace(')', '')
-                    lab.set_country(country)
-
-            lab.set_nom(" ".join(name))
-            document.append_laboratory(lab)
-
-    # -----------------------------------------------------------------------
-
-    @staticmethod
     def _parse_authors(document, entry, nb):
-        """ return authors. """
+        """ Add authors in document and return number of authors. """
 
-        for i, author in enumerate(entry.split(",")):
+        for i, a in enumerate(entry.split(",")):
             new_author = author(nb)
             nb += 1
-
-            all_data = author.split()
+            all_data = a.split()
             name = list()
             for data in all_data:
                 data = data.strip()
+
                 if data.startswith("<"):
                     email = data.replace('<', '')
                     email = email.replace('>', '')
                     new_author.set_email(email)
-                if data.startswith('('):
-                    labo_nb = data.replace('(', '')
-                    labo_nb = labo_nb.replace(')', '')
+                elif data.startswith('('):
+                    # labo_nb = data.replace('(', '')
+                    # labo_nb = labo_nb.replace(')', '')
                     # we ignore ...
+                    pass
                 else:
                     name.append(data)
+            if len(name) == 0:
+                name.append('UNKNOWN')
+                name.append('UNKNOWN')
+            if len(name) == 1:
+                name.append('UNKNOWN')
 
+            logging.info(' ... ... author: {:s} {:s}'.format(name[0], name[-1]))
             new_author.set_firstname(name[0])
             new_author.set_lastname(name[-1])
             if len(name) > 2:

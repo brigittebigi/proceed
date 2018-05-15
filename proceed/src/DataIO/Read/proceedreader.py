@@ -63,7 +63,7 @@ class proceedReader(object):
             file2 = None
             if 'authorsfilename' in arguments.keys():
                 file2 = arguments['authorsfilename']
-            self._docs = self._reader.GetDocs(file1,file2)
+            self._docs = self._reader.GetDocs(file1, file2)
 
     # -------------------------------------------------------------------------
 

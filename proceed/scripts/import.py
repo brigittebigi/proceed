@@ -52,7 +52,7 @@ No options for the output style: use default.
 import sys
 import os.path
 import getopt
-sys.path.append( os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "src") )
+sys.path.append(os.path.join(os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "src"))
 
 from DataIO.Read.proceedreader import proceedReader
 from DataIO.Write.writer import Writer
@@ -62,6 +62,7 @@ from structs.abstracts_themes import all_themes
 from term.textprogress import TextProgress
 from term.terminalcontroller import TerminalController
 from sp_glob import program, author, version, copyright, url
+from utils.commons import setup_logging
 
 wxop = True
 try:
@@ -73,6 +74,7 @@ except Exception:
 # ----------------------------------------------------------------------
 # USEFUL FUNCTIONS
 # ----------------------------------------------------------------------
+
 
 def usage(output):
     """
@@ -94,7 +96,6 @@ def usage(output):
     output.write('      --nohtml            Do not generate HTML file\n')
     output.write('      --help              Print this help\n\n')
 
-# End usage
 # ----------------------------------------------------------------------
 
 
@@ -111,15 +112,12 @@ def Quit(message=None, status=0, usageoutput=None):
     if usageoutput: usage(usageoutput)
     sys.exit(status)
 
-# End Quit
-# ----------------------------------------------------------------------
-
 
 # --------------------------------------------------------------------------
 # MAIN PROGRAM
 # --------------------------------------------------------------------------
 
-if __name__=="__main__":
+if __name__ == "__main__":
 
     # ----------------------------------------------------------------------
     # Get all arguments, verify inputs.
@@ -195,7 +193,6 @@ if __name__=="__main__":
     if readername == "easychair" and not authorsinput:
         Quit(message="With easychair, an input file with authors is required.", status=1, usageoutput=sys.stderr)
 
-
     try:
         term = TerminalController()
         print term.render('${GREEN}-----------------------------------------------------------------------${NORMAL}')
@@ -209,6 +206,11 @@ if __name__=="__main__":
         print copyright
         print url+'\n'
         print '-----------------------------------------------------------------------\n'
+
+    # Log
+    log_level = 0
+    log_file = None
+    setup_logging(log_level, log_file)
 
     # ----------------------------------------------------------------------
 
@@ -240,6 +242,9 @@ if __name__=="__main__":
     writer = Writer(reader.docs)
     writer.set_status(status)
     writer.set_progress(p)
+
+    if os.path.exists(output) is False:
+        os.mkdir(output)
 
     # Write abstracts as LaTeX
     if exporttex:
