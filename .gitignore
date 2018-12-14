@@ -1,3 +1,8 @@
 *.pyc
 *.dump
-
+.idea
+.idea/*
+.DS_Store
+.settings
+.project
+.pydevproject
